@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import catMascot from "@/assets/cat-mascot.png";
 
 const Index = () => {
   const featuredGames = [
@@ -30,8 +31,15 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative py-20 px-4 text-center bg-gradient-to-br from-primary/5 to-accent/10">
+      <section className="relative py-20 px-4 text-center bg-gradient-to-br from-party-pink/20 via-party-orange/10 to-party-blue/20">
         <div className="max-w-4xl mx-auto">
+          <div className="flex justify-center mb-6">
+            <img 
+              src={catMascot} 
+              alt="Aperololo mascot - cute black cat with party hat"
+              className="w-24 h-24 object-contain"
+            />
+          </div>
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-primary">
             Aperololo
           </h1>
@@ -40,10 +48,10 @@ const Index = () => {
             Turn any gathering into an epic adventure!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="text-lg px-8 py-3">
+            <Button size="lg" className="text-lg px-8 py-3 bg-gradient-to-r from-party-orange to-party-pink hover:from-party-pink hover:to-party-orange">
               Shop Party Games
             </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8 py-3">
+            <Button variant="outline" size="lg" className="text-lg px-8 py-3 border-party-blue text-party-blue hover:bg-party-blue hover:text-white">
               Browse Collection
             </Button>
           </div>
@@ -62,7 +70,7 @@ const Index = () => {
                 <CardHeader>
                   <div className="flex justify-between items-start mb-2">
                     <CardTitle className="text-xl">{game.title}</CardTitle>
-                    <Badge variant="secondary">{game.category}</Badge>
+                    <Badge variant="secondary" className="bg-party-green text-white">{game.category}</Badge>
                   </div>
                   <CardDescription className="text-sm text-muted-foreground">
                     {game.players} • {game.time}
@@ -70,7 +78,7 @@ const Index = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-foreground mb-4">{game.description}</p>
-                  <Button className="w-full">Add to Cart</Button>
+                  <Button className="w-full bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary">Add to Cart</Button>
                 </CardContent>
               </Card>
             ))}
@@ -79,7 +87,7 @@ const Index = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-16 px-4 bg-muted/30">
+      <section className="py-16 px-4 bg-gradient-to-r from-party-blue/10 via-party-green/10 to-party-orange/10">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-8 text-primary">
             Why Party Hosts Love Aperololo
@@ -116,7 +124,7 @@ const Index = () => {
           <p className="text-xl text-muted-foreground mb-8">
             Join thousands of party hosts who trust Aperololo for their board game needs
           </p>
-          <Button size="lg" className="text-lg px-12 py-4">
+          <Button size="lg" className="text-lg px-12 py-4 bg-gradient-to-r from-party-pink to-party-orange hover:from-party-orange hover:to-party-pink">
             Start Shopping Now
           </Button>
         </div>
