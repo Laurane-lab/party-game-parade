@@ -42,9 +42,9 @@ const Index = () => {
             <span className="text-lg">Get 3 games free, unlock dozens more!</span>
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="text-lg px-8 py-3 bg-gradient-to-r from-party-orange to-party-pink hover:from-party-pink hover:to-party-orange">
-              Start Playing Free
-            </Button>
+          <Button asChild size="lg" className="text-lg px-8 py-3 bg-gradient-to-r from-party-orange to-party-pink hover:from-party-pink hover:to-party-orange">
+            <a href="/connexion">Start Playing Free</a>
+          </Button>
             <Button variant="outline" size="lg" className="text-lg px-8 py-3 border-party-blue text-party-blue hover:bg-party-blue hover:text-white">
               See All Games
             </Button>
@@ -121,8 +121,8 @@ const Index = () => {
           <p className="text-xl text-muted-foreground mb-8">
             Start with 3 free games and see why thousands choose Aperololo for their parties
           </p>
-          <Button size="lg" className="text-lg px-12 py-4 bg-gradient-to-r from-party-pink to-party-orange hover:from-party-orange hover:to-party-pink">
-            Get Started Free
+          <Button asChild size="lg" className="text-lg px-12 py-4 bg-gradient-to-r from-party-pink to-party-orange hover:from-party-orange hover:to-party-pink">
+            <a href="/connexion">Get Started Free</a>
           </Button>
         </div>
       </section>
