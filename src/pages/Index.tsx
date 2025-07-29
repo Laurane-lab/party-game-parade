@@ -11,7 +11,7 @@ const Index = () => {
       category: "Icebreaker"
     },
     {
-      title: "Most Likely To",
+      title: "Most Likely To diiiie",
       description: "Who's most likely to do the craziest things?",
       category: "Group Fun"
     },
