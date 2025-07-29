@@ -2,8 +2,8 @@ import { useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 
 // Replace with your Supabase project credentials
-const supabaseUrl = "https://your-project.supabase.co";
-const supabaseKey = "public-anon-key";
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function Connexion() {
