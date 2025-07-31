@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import catMascot from "@/assets/cat-mascot.png";
+import catMascot from "@/assets/New mascot.png";
 
 const games = [
 	{
@@ -124,14 +124,11 @@ const GameExplanation = () => {
 							<CardTitle className="text-2xl">Game Details</CardTitle>
 						</CardHeader>
 						<CardContent>
-							<ul className="text-lg mb-2">
-								<li>
-									<strong>Players:</strong> {game.players}
-								</li>
-								<li>
-									<strong>Duration:</strong> {game.duration}
-								</li>
-							</ul>
+			  <ul className="text-lg mb-2">
+				<li>
+				  <strong>Players:</strong> {game.players}
+				</li>
+			  </ul>
 							<div className="mb-2">
 								<strong>Rules:</strong>
 								<ol className="list-decimal ml-6 mt-2 text-base">
@@ -148,20 +145,17 @@ const GameExplanation = () => {
 									))}
 								</ul>
 							</div>
-							{/* Founder Story Box - inside CardContent */}
-							<div className="mt-8 bg-party-pink/10 rounded-lg p-4 flex gap-4 shadow-md border border-party-pink/40">
-								<img
-									src={catMascot}
-									alt="Aperololo mascot"
-									className="w-16 h-16 object-contain"
-								/>
-								<div>
-									<h3 className="text-lg font-semibold mb-1 text-party-pink">
-										Aperololo's Story
-									</h3>
-									<p className="text-muted-foreground">{game.story}</p>
-								</div>
-							</div>
+			  {/* Aperololo's story as a quote with cat on the left, centered */}
+			  <div className="mt-8 bg-party-pink/10 rounded-lg p-4 flex items-center gap-4 shadow-md border border-party-pink/40">
+				<img
+				  src={catMascot}
+				  alt="Aperololo mascot"
+				  className="w-16 h-16 object-contain self-center"
+				/>
+				<blockquote className="text-base text-party-purple italic flex-1 px-2">
+				  <span className="block">{game.story}</span>
+				</blockquote>
+			  </div>
 						</CardContent>
 					</Card>
 					<Button
