@@ -2,40 +2,175 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import catMascot from "@/assets/New mascot.png";
+import visuel10 from "@/assets/10-visuel.png";
+import suiteDeStarsVisuel from "@/assets/suite-de-stars-visuel.jpg";
 
 const games = [
 	{
-		name: "Never Have I Ever - Adult Edition",
-		players: "3-12",
+		name: "Le mur du son",
+		players: "3-10",
 		duration: "15-30 minutes",
 		rules: [
-			'Each player takes turns saying "Never have I ever..." followed by something they\'ve never done.',
-			"Anyone who has done it must take a sip (or raise a hand, etc.).",
-			"Play continues until everyone has had a turn or time runs out.",
+			"Le but du jeu est de trouver une chanson qui contient l\’un des mots affichés sur l\’écran.",
+			"Le maître du jeu à le dernier mot sur quelle personne / équipe peut répondre en premier.",
+			"Les mots ne peuvent pas être répétés.",
+			"Le jeu s'arrête quand tous les mots ont été utilisés ou que les équipes ne trouvent plus."
 		],
-		examples: [
-			"Never have I ever gone skinny dipping.",
-			"Never have I ever lied to get out of a date.",
-			"Never have I ever sent a risky text.",
+		conseil: [
+			"Déterminez une règle pour savoir à qui donner la priorité de réponse, par exemple se lever, s'assoir, attraper une balle lancée par le maître du jeu, etc.",
 		],
-		images: [catMascot, catMascot], // Replace with actual game images
-		story: `The first time I played this game, I learned things about my friends I never expected! It broke the ice at a birthday party and started hilarious conversations. Try it and see what surprises come out!`,
+		nuages: [
+			{ theme: "Français", url: "https://www.canva.com/design/DAGun3oVMXc/J0Fu8KnYwCcKvaboj25QhA/edit?utm_content=DAGun3oVMXc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" },
+			{ theme: "Anglais", url: "https://www.canva.com/design/DAGuoMzArNc/pT44bheGxbCkpkfOvviBqw/edit?utm_content=DAGuoMzArNc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" },
+			{ theme: "Spécial Disney", url: "https://www.canva.com/design/DAGuoKfV-NE/TqP--GPRsJlDObIqnJXK4g/edit?utm_content=DAGuoKfV-NE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" },
+			{ theme: "Spécial Rap", url: "https://www.canva.com/design/DAGuoAyKL6s/Mp3dq5gokfs24vS-L4h0Ow/edit?utm_content=DAGuoAyKL6s&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" }
+		],
+		examples: [],
+		images: [catMascot, catMascot],
+		story: `"N'hésite pas à faire chanter ton pote pour vérifier qu\’il n\’a pas inventé une chanson !
+		Si la chanson n'existe pas mais que tu kiffes les paroles, tu peux donner un point, après tout c'est toi le maître du jeu !"`,
 	},
 	{
-		name: "Most Likely To diiiie",
+		name: "Jusqu'à 10",
+		players: "3-5",
+		duration: "20 minutes",
+		rules: [
+			"Le premier joueur dit 1, le suivant 2, etc jusqu\’à 10.",
+			"Celui qui dit 10, choisit ensuite une contrainte pour remplacer l\’un des chiffres.",
+			"Le joueur ayant choisit la contrainte commence par dire 1, le suivant 2, etc jusqu\’à 10 en remplaçant le dit chiffre par la contrainte choisie.",
+			"Le jeu s'arrête quand tous les chiffres ont été remplacés.",
+		],
+		contraintes: [
+			"Dire le chiffre en chantant",
+			"Dire le chiffre dans une autre langue",
+			"Faire une grimace en disant le chiffre",
+			"Remplacer le chiffre par un autre mot",
+		],
+		images: [catMascot, catMascot],
+		story: `"À vous de décidez ce qu\’il se passe pour celui qui se trompe. Il peut avoir un gage ou finir son verre d\’eau cul sec par exemple !" `,
+	},
+	// 8 nouveaux jeux
+   {
+		   name: "Suite de stars",
+		   players: "3-12",
+		   duration: "15-30 minutes",
+		   rules: [
+				   "Option 1 : Chacun doit citer une célébrité dont le prénom commence par la dernière lettre du nom de la célébrité précédente.",
+				   "Option 2 : Chacun doit citer une célébrité ayant un mot commun ou un adjectif dans son prénom/nom",
+				   "Règles communes : Pas de répétition, pas d'hésitation trop longue.",
+		   ],
+		   examples: [
+				   "Option 1 : Pablo Picasso - Orelsan - Natoo - Oliver Minne - Einstein Albert...",
+				   "Option 2 : Angelina Jolie - Loïs Boisson - Vin Diesel...",
+		   ],
+		   images: [suiteDeStarsVisuel, suiteDeStarsVisuel],
+		   story: `Deux variantes pour tester ta culture people et ta rapidité !`,
+   },
+	{
+		name: "Mime Express",
 		players: "4-10",
 		duration: "20 minutes",
 		rules: [
-			"One player reads a prompt: 'Who's most likely to...?'",
-			"Everyone points to the person they think fits best.",
-			"The person with the most votes shares a story.",
+			"Un joueur pioche un mot et doit le faire deviner en mimant, sans parler.",
+			"Le temps est limité à 30 secondes par mime.",
 		],
 		examples: [
-			"Who's most likely to go skydiving?",
-			"Who's most likely to get lost on vacation?",
+			"Mimer un kangourou.",
+			"Mimer une chanson célèbre.",
 		],
 		images: [catMascot, catMascot],
-		story: `This game always gets everyone laughing and reveals the wildest stories. I once got voted 'most likely to crash a wedding'... and I had to admit, it was true!`,
+		story: `Fous rires garantis quand les mimes deviennent improbables !`,
+	},
+	{
+		name: "Devine le Mensonge",
+		players: "3-8",
+		duration: "15 minutes",
+		rules: [
+			"Chaque joueur raconte trois anecdotes, dont une est un mensonge.",
+			"Les autres doivent deviner laquelle est fausse.",
+		],
+		examples: [
+			"J'ai déjà rencontré une célébrité.",
+			"J'ai mangé des insectes.",
+			"Je parle couramment japonais.",
+		],
+		images: [catMascot, catMascot],
+		story: `Parfait pour découvrir des secrets et des talents cachés !`,
+	},
+	{
+		name: "Quiz Party",
+		players: "3-20",
+		duration: "30 minutes",
+		rules: [
+			"Le maître du jeu pose des questions de culture générale ou sur les invités.",
+			"Chaque bonne réponse rapporte un point à l'équipe ou au joueur.",
+		],
+		examples: [
+			"Quel est le plus grand océan du monde ?",
+			"Qui a chanté 'Shape of You' ?",
+		],
+		images: [catMascot, catMascot],
+		story: `Un jeu pour les cerveaux et les curieux !`,
+	},
+	{
+		name: "Blind Test Remix",
+		players: "4-15",
+		duration: "25 minutes",
+		rules: [
+			"Le maître du jeu lance des extraits musicaux, les joueurs doivent deviner le titre ou l'artiste.",
+			"Bonus si tu chantes le refrain !",
+		],
+		examples: [
+			"Devine une chanson Disney.",
+			"Devine un tube des années 90.",
+		],
+		images: [catMascot, catMascot],
+		story: `Ambiance musicale et souvenirs garantis !`,
+	},
+	{
+		name: "Le Mot Interdit",
+		players: "3-10",
+		duration: "20 minutes",
+		rules: [
+			"Un mot est interdit pour la manche, chaque joueur qui le prononce reçoit un gage.",
+			"Le mot change à chaque tour.",
+		],
+		examples: [
+			"Mot interdit : 'oui' ou 'non'.",
+			"Mot interdit : un prénom commun.",
+		],
+		images: [catMascot, catMascot],
+		story: `Attention aux pièges, les gages sont parfois surprenants !`,
+	},
+	{
+		name: "Speed Dating Amical",
+		players: "6-20",
+		duration: "30 minutes",
+		rules: [
+			"Les joueurs se mettent par deux et ont 2 minutes pour discuter avant de changer de partenaire.",
+			"Le maître du jeu propose des thèmes ou des questions pour lancer la discussion.",
+		],
+		examples: [
+			"Thème : Tes vacances de rêve.",
+			"Question : Si tu pouvais dîner avec une célébrité, qui choisirais-tu ?",
+		],
+		images: [catMascot, catMascot],
+		story: `Idéal pour briser la glace et créer des liens !`,
+	},
+	{
+		name: "Challenge TikTok",
+		players: "3-12",
+		duration: "20 minutes",
+		rules: [
+			"Chaque joueur doit réaliser un challenge TikTok tiré au sort.",
+			"Les autres votent pour le plus drôle ou le plus réussi.",
+		],
+		examples: [
+			"Danse sur un son viral.",
+			"Reproduis un sketch célèbre.",
+		],
+		images: [catMascot, catMascot],
+		story: `Parfait pour les soirées connectées et créatives !`,
 	},
 	// ...add 8 more games...
 ];
@@ -45,10 +180,10 @@ const GameExplanation = () => {
 	const game = games[selected];
 
 	return (
-		<div className="min-h-screen bg-background flex flex-row py-10 px-0">
-			{/* Left: Game List */}
-			<aside className="w-80 bg-muted/50 px-8 py-10 flex flex-col gap-4 border-r">
-				<h2 className="text-xl font-bold mb-6">Games</h2>
+	<div className="min-h-screen bg-background flex flex-row py-10 px-0">
+		{/* Liste des jeux */}
+		<aside className="w-80 bg-muted/50 px-8 py-10 flex flex-col gap-4 border-r">
+			<h2 className="text-xl font-bold mb-6">Jeux</h2>
 				{games.map((g, i) => (
 					<Button
 						key={g.name}
@@ -105,51 +240,95 @@ const GameExplanation = () => {
 				))}
 			</aside>
 
-			{/* Right: Game Details */}
+			{/* Droite : Détails du jeu */}
 			<main className="flex-1 px-12 py-10 flex flex-col relative">
 				<div className="max-w-2xl">
-					<div className="flex items-center mb-4">
-						<h1 className="text-3xl font-bold text-primary">
-							{game.name}
-						</h1>
-						{/* Game image to the right of the title, with spacing */}
-						<img
-							src={game.images[0]}
-							alt="Game example"
-							className="w-24 h-24 object-cover rounded-lg ml-8"
-						/>
-					</div>
+			   {/* Image et titre centrés en haut pour tous les jeux */}
+			   <>
+   <div className="flex justify-center mb-6">
+		   <img
+				   src={
+						   game.name === "Jusqu'à 10"
+								   ? visuel10
+								   : game.name === "Suite de stars"
+										   ? suiteDeStarsVisuel
+										   : game.images[0]
+				   }
+				   alt={game.name === "Jusqu'à 10" ? "Visuel du jeu Jusqu'à 10" : game.name === "Suite de stars" ? "Visuel du jeu Suite de stars" : `Visuel du jeu ${game.name}`}
+				   className="w-[420px] h-auto object-contain rounded-xl shadow-md border border-party-purple/30"
+		   />
+   </div>
+					   <div className="flex justify-center mb-4">
+							   <h1 className="text-3xl font-bold text-primary text-center">
+									   {game.name}
+							   </h1>
+					   </div>
+			   </>
 					<Card className="mb-8">
 						<CardHeader>
-							<CardTitle className="text-2xl">Game Details</CardTitle>
+							<CardTitle className="text-2xl">Détails du jeu</CardTitle>
 						</CardHeader>
 						<CardContent>
 			  <ul className="text-lg mb-2">
 				<li>
-				  <strong>Players:</strong> {game.players}
+				  <strong>Joueurs :</strong> {game.players}
 				</li>
 			  </ul>
 							<div className="mb-2">
-								<strong>Rules:</strong>
+								<strong>Règles :</strong>
 								<ol className="list-decimal ml-6 mt-2 text-base">
 									{game.rules.map((rule, idx) => (
 										<li key={idx}>{rule}</li>
 									))}
 								</ol>
 							</div>
-							<div>
-								<strong>Examples:</strong>
-								<ul className="list-disc ml-6 mt-2 text-base">
-									{game.examples.map((ex, idx) => (
-										<li key={idx}>{ex}</li>
+							{game.name === "Le mur du son" ? (
+							  <>
+								<div>
+								  <strong>Conseil :</strong>
+								  <ul className="list-disc ml-6 mt-2 text-base">
+									{game.conseil.map((c, idx) => (
+									  <li key={idx}>{c}</li>
 									))}
+								  </ul>
+								</div>
+								<div className="mt-4">
+								  <strong>Accès aux nuages de mots :</strong>
+								  <ul className="list-disc ml-6 mt-2 text-base">
+									{game.nuages.map((nuage, idx) => (
+									  <li key={idx}>
+										<a href={nuage.url} target="_blank" rel="noopener noreferrer" className="text-party-blue underline hover:text-party-green">
+										  {nuage.theme}
+										</a>
+									  </li>
+									))}
+								  </ul>
+								</div>
+							  </>
+							) : game.name === "Jusqu'à 10" ? (
+							  <div>
+								<strong>Idées de contraintes :</strong>
+								<ul className="list-disc ml-6 mt-2 text-base">
+								  {game.contraintes && game.contraintes.map((contrainte, idx) => (
+									<li key={idx}>{contrainte}</li>
+								  ))}
 								</ul>
-							</div>
-			  {/* Aperololo's story as a quote with cat on the left, centered */}
+							  </div>
+							) : (
+							  <div>
+								<strong>Exemples :</strong>
+								<ul className="list-disc ml-6 mt-2 text-base">
+								  {game.examples && game.examples.map((ex, idx) => (
+									<li key={idx}>{ex}</li>
+								  ))}
+								</ul>
+							  </div>
+							)}
+			  {/* Histoire d'Aperololo comme citation avec le chat à gauche, centré */}
 			  <div className="mt-8 bg-party-pink/10 rounded-lg p-4 flex items-center gap-4 shadow-md border border-party-pink/40">
 				<img
 				  src={catMascot}
-				  alt="Aperololo mascot"
+				  alt="Mascotte Aperololo"
 				  className="w-16 h-16 object-contain self-center"
 				/>
 				<blockquote className="text-base text-party-purple italic flex-1 px-2">
@@ -163,10 +342,10 @@ const GameExplanation = () => {
 						size="lg"
 						className="text-lg px-8 py-3 bg-gradient-to-r from-party-blue to-party-green hover:from-party-green hover:to-party-blue"
 					>
-						<a href="/games">Discover Other Games</a>
+						<a href="/games">Découvrir d'autres jeux</a>
 					</Button>
 				</div>
-				{/* Removed founder story from outside the Card */}
+				{/* Histoire retirée en dehors de la Card */}
 			</main>
 		</div>
 	);
