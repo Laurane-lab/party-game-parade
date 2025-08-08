@@ -2,15 +2,7 @@ import faireRireSansRireVisuel from "@/assets/aperololo-faireriresansrire.png";
 import aperololoMissionSecrete from "@/assets/aperololo-missionsecrete.jpg";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-	Dialog,
-	DialogTrigger,
-	DialogContent,
-	DialogHeader,
-	DialogTitle,
-	DialogDescription,
-	DialogFooter,
-} from "@/components/ui/dialog";
+import PaywallDialog from "@/components/PaywallDialog";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import catMascot from "@/assets/New mascot.png";
 import aperololoMurduson from "@/assets/aperololo-murduson.png";
@@ -414,22 +406,8 @@ const GameExplanation = () => {
 					</Button>
 				</div>
 				{/* Histoire retirée en dehors de la Card */}
-				{/* Paywall Dialog */}
-				<Dialog open={paywallOpen} onOpenChange={setPaywallOpen}>
-					<DialogContent>
-						<DialogHeader>
-							<DialogTitle>{paywallGame?.name}</DialogTitle>
-							<DialogDescription>
-								<span className="block mb-2">Ce jeu est réservé aux membres premium.</span>
-								<span className="block mb-2">{paywallGame?.story}</span>
-								<span className="block mb-2">Pour accéder à toutes les règles et détails, veuillez effectuer le paiement.</span>
-							</DialogDescription>
-						</DialogHeader>
-						<DialogFooter>
-							<Button className="w-full" onClick={() => {/* payment logic here */}}>Payer pour débloquer</Button>
-						</DialogFooter>
-					</DialogContent>
-				</Dialog>
+				   {/* Paywall Dialog extracted to its own component */}
+				   <PaywallDialog open={paywallOpen} onOpenChange={setPaywallOpen} game={paywallGame} />
 			</main>
 		</div>
 	);
