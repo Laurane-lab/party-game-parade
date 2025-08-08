@@ -44,8 +44,8 @@ const games = [
 			],
 			examples: [],
 			images: [aperololoMurduson, catMascot],
-			story: `"N'hésite pas à faire chanter ton pote pour vérifier qu\’il n\’a pas inventé une chanson !
-			Si la chanson n'existe pas mais que tu kiffes les paroles, tu peux donner un point, après tout c'est toi le maître du jeu !"`,
+			story: `N'hésite pas à faire chanter ton pote pour vérifier qu\’il n\’a pas inventé une chanson !
+			Si la chanson n'existe pas mais que tu kiffes les paroles, tu peux donner un point, après tout c'est toi le maître du jeu !`,
 			is_premium: false,
 		},
 		{
@@ -67,7 +67,7 @@ const games = [
 				"Remplacer le chiffre par un autre mot",
 			],
 			images: [visuel10, catMascot],
-			story: `"À vous de décidez ce qu\’il se passe pour celui qui se trompe. Il peut avoir un gage ou finir son verre d\’eau cul sec par exemple !" `,
+			story: `À vous de décidez ce qu\’il se passe pour celui qui se trompe. Il peut avoir un gage ou finir son verre d\’eau cul sec par exemple ! `,
 			is_premium: false,
 		},
 	// 8 nouveaux jeux
@@ -234,7 +234,16 @@ const games = [
 ];
 
 
+import { useEffect } from "react";
 const GameExplanation = () => {
+	useEffect(() => {
+		const handler = (e) => {
+			setSelected(0);
+			setPaywallOpen(false);
+		};
+		window.addEventListener("navigateToFirstFreeGame", handler);
+		return () => window.removeEventListener("navigateToFirstFreeGame", handler);
+	}, []);
 	const gameIcons = [
 		cauldronIcon,
 		cloakIcon,
@@ -323,9 +332,7 @@ const GameExplanation = () => {
 								<li>
 									<strong>Joueurs :</strong> {game.players}
 								</li>
-								<li>
-									<strong>Description courte :</strong> {game.shortDescription}
-								</li>
+								{/* Description courte supprimée de l'affichage */}
 							</ul>
 							<div className="mb-2">
 								<strong>Règles :</strong>
@@ -358,6 +365,24 @@ const GameExplanation = () => {
 										</ul>
 									</div>
 								</>
+							) : game.name === "Dos à dos" ? (
+								<div>
+									<strong>Idées de questions :</strong>
+									<ul className="list-disc ml-6 mt-2 text-base">
+										{game.examples && game.examples.map((ex, idx) => (
+											<li key={idx}>{ex}</li>
+										))}
+									</ul>
+								</div>
+							) : game.name === "Suite de stars" ? (
+								<div>
+									<strong>Exemples :</strong>
+									<ul className="list-disc ml-6 mt-2 text-base">
+										{game.examples && game.examples.map((ex, idx) => (
+											<li key={idx}>{ex}</li>
+										))}
+									</ul>
+								</div>
 							) : game.name === "Jusqu'à 10" ? (
 								<div>
 									<strong>Idées de contraintes :</strong>
@@ -410,13 +435,7 @@ const GameExplanation = () => {
 							</div>
 						</CardContent>
 					</Card>
-					<Button
-						asChild
-						size="lg"
-						className="text-lg px-8 py-3 bg-gradient-to-r from-party-blue to-party-green hover:from-party-green hover:to-party-blue"
-					>
-						<a href="/games">Découvrir d'autres jeux</a>
-					</Button>
+					{/* Bouton 'Découvrir d'autres jeux' retiré */}
 				</div>
 				{/* Histoire retirée en dehors de la Card */}
 						{/* Paywall Dialog extracted to its own component */}
@@ -427,14 +446,7 @@ const GameExplanation = () => {
 							message="Ce jeu fait partie du pack premium. Payez une seule fois pour débloquer tous les jeux premium !"
 						/>
 				   {/* Boutons de test pour simuler la connexion et le paiement */}
-        <div className="mt-8 flex gap-4">
-          <Button onClick={() => setIsAuthenticated(!isAuthenticated)}>
-            {isAuthenticated ? "Se déconnecter" : "Se connecter"}
-          </Button>
-          <Button onClick={() => setHasPaid(!hasPaid)} disabled={!isAuthenticated}>
-            {hasPaid ? "Annuler le paiement" : "Payer"}
-          </Button>
-        </div>
+	{/* Boutons de test retirés */}
 			</main>
 		</div>
 	);
