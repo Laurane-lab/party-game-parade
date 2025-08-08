@@ -43,7 +43,7 @@ const games = [
 				{ theme: "Spécial Rap", url: "https://www.canva.com/design/DAGuoAyKL6s/Mp3dq5gokfs24vS-L4h0Ow/edit?utm_content=DAGuoAyKL6s&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" }
 			],
 			examples: [],
-			images: [catMascot, catMascot],
+			images: [aperololoMurduson, catMascot],
 			story: `"N'hésite pas à faire chanter ton pote pour vérifier qu\’il n\’a pas inventé une chanson !
 			Si la chanson n'existe pas mais que tu kiffes les paroles, tu peux donner un point, après tout c'est toi le maître du jeu !"`,
 			is_premium: false,
@@ -66,7 +66,7 @@ const games = [
 				"Faire une grimace en disant le chiffre",
 				"Remplacer le chiffre par un autre mot",
 			],
-			images: [catMascot, catMascot],
+			images: [visuel10, catMascot],
 			story: `"À vous de décidez ce qu\’il se passe pour celui qui se trompe. Il peut avoir un gage ou finir son verre d\’eau cul sec par exemple !" `,
 			is_premium: false,
 		},
@@ -112,7 +112,7 @@ const games = [
 				"Qui fait les meilleures imitations ? (Démo demandée !)",
 				"Qui finirait par rejoindre les méchants dans un film juste par flemme de fuir ?",
 			],
-			images: [catMascot, catMascot],
+			images: [aperololoDosados, catMascot],
 			story: `Nous déclinons toutes responsabilités en cas d\’embrouilles entre vous...`,
 			is_premium: true,
 		},
@@ -133,7 +133,7 @@ const games = [
 				"À la fin du week-end, le joueur avec le plus de points l’emporte !",
 			],
 			examples: [],
-			images: [catMascot, catMascot],
+			images: [aperololoMissionSecrete, catMascot],
 			story: `Pour faciliter le compte des points et l'attribution des missions, Apérololo t'a concocté un petit Excel. <a href="https://docs.google.com/spreadsheets/d/1N_WMsFVpcNyd0H1gWy5fbPeLK94FwINfwFNuOxQgwhg/edit?usp=sharing" target="_blank" rel="noopener noreferrer" style="color:#a259ff;font-weight:bold;">Clique ici</a> pour y accéder !`,
 			is_premium: true,
 		},
@@ -154,7 +154,7 @@ const games = [
 				"Quel est le plus grand océan du monde ?",
 				"Qui a chanté 'Shape of You' ?",
 			],
-			images: [catMascot, catMascot],
+			images: [faireRireSansRireVisuel, catMascot],
 			story: `Un jeu pour les cerveaux et les curieux !`,
 			is_premium: true,
 		},
@@ -302,11 +302,18 @@ const GameExplanation = () => {
 			{/* Droite : Détails du jeu */}
 			<main className="flex-1 px-12 py-10">
 				<div className={paywallOpen ? "pointer-events-none blur-md" : ""}>
-					<div className="flex justify-center mb-4">
-						<h1 className="text-3xl font-bold text-primary text-center">
-							{game.name}
-						</h1>
-					</div>
+					<div className="flex flex-col items-center mb-4 max-w-md mx-auto w-full">
+						   {/* Ajout de l'image d'illustration du jeu au-dessus du titre */}
+						   <img
+							   src={game.images[0]}
+							   alt={`Illustration jeu ${game.name}`}
+							   className="mb-4 shadow-lg rounded-xl"
+							   style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
+						   />
+						   <h1 className="text-3xl font-bold text-primary text-center">
+							   {game.name}
+						   </h1>
+					   </div>
 					<Card className="mb-8">
 						<CardHeader>
 							<CardTitle className="text-2xl">Détails du jeu</CardTitle>
