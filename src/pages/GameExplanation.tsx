@@ -2,7 +2,6 @@ import faireRireSansRireVisuel from "@/assets/aperololo-faireriresansrire.png";
 import aperololoMissionSecrete from "@/assets/aperololo-missionsecrete.jpg";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import PaywallDialog from "@/components/PaywallDialog";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import catMascot from "@/assets/New mascot.png";
 import aperololoMurduson from "@/assets/aperololo-murduson.png";
@@ -239,7 +238,6 @@ const GameExplanation = () => {
 	useEffect(() => {
 		const handler = (e) => {
 			setSelected(0);
-			setPaywallOpen(false);
 		};
 		window.addEventListener("navigateToFirstFreeGame", handler);
 		return () => window.removeEventListener("navigateToFirstFreeGame", handler);
@@ -260,20 +258,12 @@ const GameExplanation = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false); // à remplacer par la vraie logique de connexion
 	const [hasPaid, setHasPaid] = useState(false); // à remplacer par la vraie logique de paiement
 	const [selected, setSelected] = useState(0);
-	const [paywallOpen, setPaywallOpen] = useState(false);
-	const [paywallGame, setPaywallGame] = useState(null);
 	const game = games[selected];
 
 	const handleGameClick = (i) => {
 			const game = games[i];
 			setSelected(i);
-			// Si le jeu est premium et que l'utilisateur n'a pas payé, afficher la popup
-			if (game.is_premium && (!isAuthenticated || !hasPaid)) {
-				setPaywallGame(game);
-				setPaywallOpen(true);
-			} else {
-				setPaywallOpen(false);
-			}
+			// ...aucune logique de paywall...
 	};
 
 	return (
@@ -310,7 +300,7 @@ const GameExplanation = () => {
 
 			{/* Droite : Détails du jeu */}
 			<main className="flex-1 px-12 py-10">
-				<div className={paywallOpen ? "pointer-events-none blur-md" : ""}>
+				   <div>
 					<div className="flex flex-col items-center mb-4 max-w-md mx-auto w-full">
 						   {/* Ajout de l'image d'illustration du jeu au-dessus du titre */}
 						   <img
@@ -438,13 +428,7 @@ const GameExplanation = () => {
 					{/* Bouton 'Découvrir d'autres jeux' retiré */}
 				</div>
 				{/* Histoire retirée en dehors de la Card */}
-						{/* Paywall Dialog extracted to its own component */}
-						<PaywallDialog 
-							open={paywallOpen} 
-							onOpenChange={setPaywallOpen} 
-							game={paywallGame} 
-							message="Ce jeu fait partie du pack premium. Payez une seule fois pour débloquer tous les jeux premium !"
-						/>
+						   {/* PaywallDialog retiré (brouillon) */}
 				   {/* Boutons de test pour simuler la connexion et le paiement */}
 	{/* Boutons de test retirés */}
 			</main>
