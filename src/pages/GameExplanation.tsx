@@ -24,7 +24,8 @@ const games = [
 			id: 1,
 			name: "Le mur du son",
 			shortDescription: "Trouve une chanson avec le mot affiché. Rapidité et créativité sont de mise !",
-			players: "3-10",
+					   players: "3-10",
+					   modeDeJeu: "seul(e) contre tous",
 			duration: "15-30 minutes",
 			rules: [
 				"Le but du jeu est de trouver une chanson qui contient l\’un des mots affichés sur l\’écran.",
@@ -51,7 +52,8 @@ const games = [
 			id: 2,
 			name: "Jusqu'à 10",
 			shortDescription: "Remplace les chiffres par des contraintes amusantes à chaque tour.",
-			players: "3-5",
+					   players: "3-5",
+					   modeDeJeu: "seul(e) contre tous",
 			duration: "20 minutes",
 			rules: [
 				"Le premier joueur dit 1, le suivant 2, etc jusqu\’à 10.",
@@ -74,7 +76,8 @@ const games = [
 	  id: 3,
 	  name: "Suite de stars",
 	  shortDescription: "Enchaîne les noms de célébrités selon des règles originales.",
-	  players: "3-12",
+					   players: "3-12",
+					   modeDeJeu: "seul(e) contre tous",
 	  duration: "15-30 minutes",
 	  rules: [
 		  "Option 1 : Chacun doit citer une célébrité dont le prénom commence par la dernière lettre du nom de la célébrité précédente.",
@@ -93,7 +96,8 @@ const games = [
 			id: 4,
 			name: "Dos à dos",
 			shortDescription: "Deux joueurs répondent à des questions en pointant du doigt, attention aux embrouilles !",
-			players: "4-10",
+					   players: "4-10",
+					   modeDeJeu: "en équipe",
 			duration: "20 minutes",
 			rules: [
 				"Deux personnes se mettent dos à dos.",
@@ -119,7 +123,8 @@ const games = [
 			id: 5,
 			name: "Mission secrète",
 			shortDescription: "Accomplis des missions secrètes sans te faire repérer, et démasque les autres !",
-			players: "6-20",
+					   players: "6-20",
+					   modeDeJeu: "en équipe",
 			duration: "15 minutes",
 			rules: [
 				"Chaque joueur reçoit une ou plusieurs missions secrètes à accomplir pendant le week-end.",
@@ -136,15 +141,17 @@ const games = [
 			story: `Pour faciliter le compte des points et l'attribution des missions, Apérololo t'a concocté un petit Excel. <a href="https://docs.google.com/spreadsheets/d/1N_WMsFVpcNyd0H1gWy5fbPeLK94FwINfwFNuOxQgwhg/edit?usp=sharing" target="_blank" rel="noopener noreferrer" style="color:#a259ff;font-weight:bold;">Clique ici</a> pour y accéder !`,
 			is_premium: true,
 		},
-		{
-			id: 6,
-			name: "Faire rire, sans rire",
-			shortDescription: "Fais rire les autres sans craquer toi-même. Celui qui rit perd des points !",
-			players: "4-8",
+	       {
+		       id: 6,
+		       name: "Sans rire",
+		       shortDescription: "Fais rire les autres sans craquer toi-même. Celui qui rit perd des points !",
+		       showTours: true,
+					   players: "4-8",
+					   modeDeJeu: "seul(e) contre tous",
 			duration: "30 minutes",
 			rules: [
 				"Le but est d’essayer de faire rire les autres sans rire.", 
-				"Dès que quelqu’un rit, il prend 1 point.",
+				"Dès que quelqu’un rit, il prend +1 point.",
 				"A la fin des 3 tours (voir plus bas), celui qui a le plus de points a perdu.",
 				"Pour jouer tous les participants doivent être en cercle.",
 				"Le joueur avec les plus petits pieds commence le tour 1, puis le joueur à sa gauche le tour 2, etc.",
@@ -157,29 +164,34 @@ const games = [
 			story: `Un jeu pour les cerveaux et les curieux !`,
 			is_premium: true,
 		},
-		{
-			id: 7,
-			name: "Blind Test Remix",
-			shortDescription: "Devine les extraits musicaux, bonus si tu chantes le refrain !",
-			players: "4-15",
+	       {
+		       id: 7,
+		       name: "Pas dans le rythme",
+		       shortDescription: "C'est comme un blindtest mais version lecture. Révélez votre talent de lecteur sans casser les oreilles de vos amis !",
+		       hideExamples: true,
+					   players: "4-15",
+					   modeDeJeu: "en équipe",
 			duration: "25 minutes",
 			rules: [
-				"Le maître du jeu lance des extraits musicaux, les joueurs doivent deviner le titre ou l'artiste.",
-				"Bonus si tu chantes le refrain !",
+				"Le maître du jeu choisit une musique et montre les paroles à un joueur",
+				"Ce joueur doit lire les paroles à haute voix sans chanter.",
+				"Les autres joueurs doivent deviner de quelle chanson il s'agit en moins de 30 secondes.",
+				"S'ils trouvent, l'équipe gagne un point.",
 			],
 			examples: [
 				"Devine une chanson Disney.",
 				"Devine un tube des années 90.",
 			],
 			images: [catMascot, catMascot],
-			story: `Ambiance musicale et souvenirs garantis !`,
+			story: `Apérololo t'a préparé une petite playlist si tu n'as pas d'idées de chansons`,
 			is_premium: true,
 		},
 		{
 			id: 8,
 			name: "Le Mot Interdit",
 			shortDescription: "Un mot est interdit à chaque tour, attention aux gages !",
-			players: "3-10",
+					   players: "3-10",
+					   modeDeJeu: "seul(e) contre tous",
 			duration: "20 minutes",
 			rules: [
 				"Un mot est interdit pour la manche, chaque joueur qui le prononce reçoit un gage.",
@@ -197,7 +209,8 @@ const games = [
 			id: 9,
 			name: "Speed Dating Amical",
 			shortDescription: "Discute avec tous les joueurs en changeant de partenaire à chaque tour.",
-			players: "6-20",
+					   players: "6-20",
+					   modeDeJeu: "en équipe",
 			duration: "30 minutes",
 			rules: [
 				"Les joueurs se mettent par deux et ont 2 minutes pour discuter avant de changer de partenaire.",
@@ -215,7 +228,8 @@ const games = [
 			id: 10,
 			name: "Challenge TikTok",
 			shortDescription: "Réalise des challenges TikTok et vote pour le plus drôle ou le plus réussi.",
-			players: "3-12",
+					   players: "3-12",
+					   modeDeJeu: "en équipe",
 			duration: "20 minutes",
 			rules: [
 				"Chaque joueur doit réaliser un challenge TikTok tiré au sort.",
@@ -318,9 +332,12 @@ const GameExplanation = () => {
 							<CardTitle className="text-2xl">Détails du jeu</CardTitle>
 						</CardHeader>
 						<CardContent>
-							<ul className="text-lg mb-2">
+							<ul className="text-lg mb-2 flex flex-col gap-1">
 								<li>
 									<strong>Joueurs :</strong> {game.players}
+								</li>
+								<li>
+									<strong>Mode de jeu :</strong> {game.modeDeJeu}
 								</li>
 								{/* Description courte supprimée de l'affichage */}
 							</ul>
@@ -365,14 +382,16 @@ const GameExplanation = () => {
 									</ul>
 								</div>
 							) : game.name === "Suite de stars" ? (
-								<div>
-									<strong>Exemples :</strong>
-									<ul className="list-disc ml-6 mt-2 text-base">
-										{game.examples && game.examples.map((ex, idx) => (
-											<li key={idx}>{ex}</li>
-										))}
-									</ul>
-								</div>
+								!game.hideExamples && (
+									<div>
+										<strong>Exemples :</strong>
+										<ul className="list-disc ml-6 mt-2 text-base">
+											{game.examples && game.examples.map((ex, idx) => (
+												<li key={idx}>{ex}</li>
+											))}
+										</ul>
+									</div>
+								)
 							) : game.name === "Jusqu'à 10" ? (
 								<div>
 									<strong>Idées de contraintes :</strong>
@@ -382,7 +401,7 @@ const GameExplanation = () => {
 										))}
 									</ul>
 								</div>
-							) : game.name === "Faire rire, sans rire" ? (
+							) : game.showTours ? (
 								<div>
 									<strong>Tours :</strong>
 									<ul className="list-disc ml-6 mt-2 text-base">
@@ -399,7 +418,7 @@ const GameExplanation = () => {
 											<span className="font-semibold" style={{color:'#2ec4b6'}}>Tour 2 :</span> 
 											<br />1. En faisant un tour de table, chaque joueur dit un mot qui n’existe pas.
 											<br />2. À tout moment, l’un des participants peut demander la définition du mot et le joueur doit la donner.
-											<br />3. Donner un mot qui existe donne +1. 
+											<br />3. Dire un mot qui existe donne +1. 
 											<br /><em>Exemple : "Loubrirute" est une insulte utilisé par les adolescents Lituaniens.</em>
 										</li>
 										<li>
