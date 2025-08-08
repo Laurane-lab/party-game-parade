@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import catMascot from "@/assets/New mascot.png";
+import aperololoMurduson from "@/assets/aperololo-murduson.png";
 import visuel10 from "@/assets/10-visuel.png";
-import suiteDeStarsVisuel from "@/assets/suite-de-stars-visuel.jpg";
+import suiteDeStarsVisuel from "@/assets/aperololo-suitedestarsV2.jpg";
+import aperololoDosados from "@/assets/aperololo-dosados.jpg";
 
 const games = [
 	{
@@ -51,35 +53,43 @@ const games = [
 	},
 	// 8 nouveaux jeux
    {
-		   name: "Suite de stars",
-		   players: "3-12",
-		   duration: "15-30 minutes",
-		   rules: [
-				   "Option 1 : Chacun doit citer une célébrité dont le prénom commence par la dernière lettre du nom de la célébrité précédente.",
-				   "Option 2 : Chacun doit citer une célébrité ayant un mot commun ou un adjectif dans son prénom/nom",
-				   "Règles communes : Pas de répétition, pas d'hésitation trop longue.",
-		   ],
-		   examples: [
-				   "Option 1 : Pablo Picasso - Orelsan - Natoo - Oliver Minne - Einstein Albert...",
-				   "Option 2 : Angelina Jolie - Loïs Boisson - Vin Diesel...",
-		   ],
-		   images: [suiteDeStarsVisuel, suiteDeStarsVisuel],
-		   story: `Deux variantes pour tester ta culture people et ta rapidité !`,
+	   name: "Suite de stars",
+	   players: "3-12",
+	   duration: "15-30 minutes",
+	   rules: [
+		   "Option 1 : Chacun doit citer une célébrité dont le prénom commence par la dernière lettre du nom de la célébrité précédente.",
+		   "Option 2 : Chacun doit citer une célébrité ayant un mot commun ou un adjectif dans son prénom/nom",
+		   "Règles communes : Pas de répétition, pas d'hésitation trop longue.",
+	   ],
+	   examples: [
+		   "Option 1 : Pablo Picasso - Orelsan - Natoo - Oliver Minne - Einstein Albert...",
+		   "Option 2 : Angelina Jolie - Loïs Boisson - Vin Diesel...",
+	   ],
+	   images: [suiteDeStarsVisuel, suiteDeStarsVisuel],
+	   story: `Deux variantes pour tester ta culture people et ta rapidité !`,
    },
 	{
-		name: "Mime Express",
+		name: "Dos à dos",
 		players: "4-10",
 		duration: "20 minutes",
 		rules: [
-			"Un joueur pioche un mot et doit le faire deviner en mimant, sans parler.",
-			"Le temps est limité à 30 secondes par mime.",
+			"Deux personnes se mettent dos à dos.",
+			"Les autres joueurs posent une question et comptent jusqu'à trois.",
+			"À 3, les deux joueurs doivent pointer : eux-mêmes s\’ils pensent être la réponse, vers l\’extérieur s\’ils pensent que c\’est l\’autre.",
+			"Si les joueurs sont d\’accords (Manu s\’est montré du doigt et Isabelle a pointé vers l\’extérieur) ils gagnent. Sinon c\’est l\’assemblée !",
 		],
 		examples: [
-			"Mimer un kangourou.",
-			"Mimer une chanson célèbre.",
+			"Qui passe le plus de temps sur son téléphone ?",
+			"Qui est le plus bordélique ?",
+			"Qui raconte les pires blagues ?",
+			"Qui fait le plus de bruit en mangeant ?",
+			"Qui finirait en prison en premier ?",
+			"Qui risque de se perdre même avec un GPS ?",
+			"Qui fait les meilleures imitations ? (Démo demandée !)",
+			"Qui finirait par rejoindre les méchants dans un film juste par flemme de fuir ?",
 		],
 		images: [catMascot, catMascot],
-		story: `Fous rires garantis quand les mimes deviennent improbables !`,
+		story: `Nous déclinons toutes responsabilités en cas d\’embrouilles entre vous...`,
 	},
 	{
 		name: "Devine le Mensonge",
@@ -247,15 +257,27 @@ const GameExplanation = () => {
 			   <>
    <div className="flex justify-center mb-6">
 		   <img
-				   src={
-						   game.name === "Jusqu'à 10"
-								   ? visuel10
-								   : game.name === "Suite de stars"
-										   ? suiteDeStarsVisuel
-										   : game.images[0]
-				   }
-				   alt={game.name === "Jusqu'à 10" ? "Visuel du jeu Jusqu'à 10" : game.name === "Suite de stars" ? "Visuel du jeu Suite de stars" : `Visuel du jeu ${game.name}`}
-				   className="w-[420px] h-auto object-contain rounded-xl shadow-md border border-party-purple/30"
+			   src={
+				   game.name === "Le mur du son"
+					   ? aperololoMurduson
+					   : game.name === "Jusqu'à 10"
+						   ? visuel10
+						   : game.name === "Suite de stars"
+							   ? suiteDeStarsVisuel
+							   : game.name === "Dos à dos"
+								   ? aperololoDosados
+								   : game.images[0]
+			   }
+			   alt={game.name === "Le mur du son"
+				   ? "Visuel du jeu Le mur du son"
+				   : game.name === "Jusqu'à 10"
+					   ? "Visuel du jeu Jusqu'à 10"
+					   : game.name === "Suite de stars"
+						   ? "Visuel du jeu Suite de stars"
+						   : game.name === "Dos à dos"
+							   ? "Visuel du jeu Dos à dos"
+							   : `Visuel du jeu ${game.name}`}
+			   className="w-[420px] h-auto object-contain rounded-xl shadow-md border border-party-purple/30"
 		   />
    </div>
 					   <div className="flex justify-center mb-4">
