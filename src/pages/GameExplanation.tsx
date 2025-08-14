@@ -1,12 +1,17 @@
+import dessineALaChaine from "@/assets/dessine a la chaine.png";
 import faireRireSansRireVisuel from "@/assets/aperololo-faireriresansrire.png";
+import aperololoLesEncheres from "@/assets/aperololo-lesencheres.jpg";
+import aperololoPasDansLeRythme from "@/assets/aperololo-pasdanslerythme.jpg";
 import aperololoMissionSecrete from "@/assets/aperololo-missionsecrete.jpg";
-import { useState } from "react";
+// import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import catMascot from "@/assets/New mascot.png";
 import aperololoMurduson from "@/assets/aperololo-murduson.png";
 import visuel10 from "@/assets/10-visuel.png";
 import suiteDeStarsVisuel from "@/assets/aperololo-suitedestarsV2.jpg";
+import suiteDeStarV3 from "@/assets/suite de star v3.png";
+import jusqua10V3 from "@/assets/jusqua10 v3.png";
 import aperololoDosados from "@/assets/aperololo-dosados.jpg";
 import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
 import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
@@ -161,7 +166,7 @@ const games = [
 				"Qui a chanté 'Shape of You' ?",
 			],
 			images: [faireRireSansRireVisuel, catMascot],
-			story: `Un jeu pour les cerveaux et les curieux !`,
+			story: `Vous pouvez ajouter autant de tours que vous voulez. Le tour 4 peut être un concours de blagues de darons par exemple.`,
 			is_premium: true,
 		},
 	       {
@@ -173,8 +178,8 @@ const games = [
 					   modeDeJeu: "en équipe",
 			duration: "25 minutes",
 			rules: [
-				"Le maître du jeu choisit une musique et montre les paroles à un joueur",
-				"Ce joueur doit lire les paroles à haute voix sans chanter.",
+				   "Le maître du jeu choisit une musique et montre les paroles à un joueur.",
+					   `Ce joueur doit <span style=\"font-weight:bold;color:#a259ff\">lire</span> les paroles à haute voix <span style=\"font-weight:bold;color:#a259ff\">sans chanter</span>.`,
 				"Les autres joueurs doivent deviner de quelle chanson il s'agit en moins de 30 secondes.",
 				"S'ils trouvent, l'équipe gagne un point.",
 			],
@@ -183,45 +188,53 @@ const games = [
 				"Devine un tube des années 90.",
 			],
 			images: [catMascot, catMascot],
-			story: `Apérololo t'a préparé une petite playlist si tu n'as pas d'idées de chansons`,
+			   story: `Apérololo t'a préparé une petite playlist si tu es en manques d'idées.`,
 			is_premium: true,
 		},
 		{
 			id: 8,
-			name: "Le Mot Interdit",
-			shortDescription: "Un mot est interdit à chaque tour, attention aux gages !",
+			name: "Les enchères",
+			shortDescription: "Le but est de donner un maximum de réponses sur un thème donné.",
 					   players: "3-10",
-					   modeDeJeu: "seul(e) contre tous",
+					   modeDeJeu: "En équipe",
 			duration: "20 minutes",
 			rules: [
-				"Un mot est interdit pour la manche, chaque joueur qui le prononce reçoit un gage.",
-				"Le mot change à chaque tour.",
+				"Le maître du jeu propose un thème et le but est de trouver le plus de réponse possible au thème en 1 minute.",
+				"Les équipes désignent un champion (qui change à chaque manche.)",
+				"Les champions font un Shifumi ou un défi pour savoir qui commence (c'est le perdant qui débute l'enchère).",
+				"Ils ont 2 minutes pour faire monter les enchères.",
+				"Quand les 2 minutes sont écoulées ou qu'un champion déclare ne pas sur-enchérir alors le champion qui a gagné l'enchère débute son énumération.",
+				"Attention, le champion ne peut pas être aidé par son équipe.",
+				"Si le champion réussi son enchère l'équipe gagne 10 points, sinon les points vont à l'autre équipe.",
 			],
 			examples: [
 				"Mot interdit : 'oui' ou 'non'.",
 				"Mot interdit : un prénom commun.",
 			],
 			images: [catMascot, catMascot],
-			story: `Attention aux pièges, les gages sont parfois surprenants !`,
+			story: `Choisissez bien votre champion !`,
 			is_premium: true,
 		},
 		{
 			id: 9,
-			name: "Speed Dating Amical",
-			shortDescription: "Discute avec tous les joueurs en changeant de partenaire à chaque tour.",
-					   players: "6-20",
+			name: "Dessine à la chaîne",
+			shortDescription: "C'est comme un téléphone arabe mais en dessin !",
+					   players: "4-10",
 					   modeDeJeu: "en équipe",
 			duration: "30 minutes",
 			rules: [
-				"Les joueurs se mettent par deux et ont 2 minutes pour discuter avant de changer de partenaire.",
-				"Le maître du jeu propose des thèmes ou des questions pour lancer la discussion.",
+				"Chaque équipe se met en file indienne, tous les joueurs regardent dans la même direction.",
+				"Le maître du jeu montre secrètement l'objet à dessiner au dernier joueur de chaque file",
+				"Ce joueur dessine l'objet sur une feuille collée sur le dos de la personne devant lui.",
+				"Le joueur suivant, en se basant sur les sensations de ce qu'il a senti, doit dessiner à son tour sur le dos de la personne devant lui, et ainsi de suite.",
+				"Le dernier joueur de la file doit dire à haute voix ce qu'il pense qu'on lui a dessiné dans le dos."
 			],
 			examples: [
 				"Thème : Tes vacances de rêve.",
 				"Question : Si tu pouvais dîner avec une célébrité, qui choisirais-tu ?",
 			],
 			images: [catMascot, catMascot],
-			story: `Idéal pour briser la glace et créer des liens !`,
+			story: `Après ça je crois que vous ne pourrez plus vous moquez des dessins de votre petit cousin !`,
 			is_premium: true,
 		},
 		{
@@ -247,15 +260,24 @@ const games = [
 ];
 
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 const GameExplanation = () => {
+	const [selected, setSelected] = useState(0);
+	const game = games[selected];
+
 	useEffect(() => {
-		const handler = (e) => {
+		const handler = () => {
 			setSelected(0);
 		};
 		window.addEventListener("navigateToFirstFreeGame", handler);
 		return () => window.removeEventListener("navigateToFirstFreeGame", handler);
 	}, []);
+
+	const handleGameClick = (i) => {
+		setSelected(i);
+	};
+
+	// Optionally, declare gameIcons if needed
 	const gameIcons = [
 		cauldronIcon,
 		cloakIcon,
@@ -268,17 +290,6 @@ const GameExplanation = () => {
 		smokeIcon,
 		wandIcon,
 	];
-
-	const [isAuthenticated, setIsAuthenticated] = useState(false); // à remplacer par la vraie logique de connexion
-	const [hasPaid, setHasPaid] = useState(false); // à remplacer par la vraie logique de paiement
-	const [selected, setSelected] = useState(0);
-	const game = games[selected];
-
-	const handleGameClick = (i) => {
-			const game = games[i];
-			setSelected(i);
-			// ...aucune logique de paywall...
-	};
 
 	return (
 		<div className="min-h-screen bg-background flex flex-row py-10 px-0">
@@ -318,7 +329,17 @@ const GameExplanation = () => {
 					<div className="flex flex-col items-center mb-4 max-w-md mx-auto w-full">
 						   {/* Ajout de l'image d'illustration du jeu au-dessus du titre */}
 						   <img
-							   src={game.images[0]}
+							   src={game.name === "Pas dans le rythme"
+								   ? aperololoPasDansLeRythme
+								   : game.name === "Les enchères"
+								   ? aperololoLesEncheres
+								   : game.name === "Suite de stars"
+								   ? suiteDeStarV3
+								   : game.name === "Jusqu'à 10"
+								   ? jusqua10V3
+								   : game.name === "Dessine à la chaîne"
+								   ? dessineALaChaine
+								   : game.images[0]}
 							   alt={`Illustration jeu ${game.name}`}
 							   className="mb-4 shadow-lg rounded-xl"
 							   style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
@@ -332,7 +353,7 @@ const GameExplanation = () => {
 							<CardTitle className="text-2xl">Détails du jeu</CardTitle>
 						</CardHeader>
 						<CardContent>
-							<ul className="text-lg mb-2 flex flex-col gap-1">
+							<ul className="mb-2 flex flex-col gap-1 text-base font-sans">
 								<li>
 									<strong>Joueurs :</strong> {game.players}
 								</li>
@@ -341,27 +362,82 @@ const GameExplanation = () => {
 								</li>
 								{/* Description courte supprimée de l'affichage */}
 							</ul>
-							<div className="mb-2">
+							<div className="mb-2 text-base font-sans">
 								<strong>Règles :</strong>
-								<ol className="list-decimal ml-6 mt-2 text-base">
-									{game.rules.map((rule, idx) => (
-										<li key={idx}>{rule}</li>
-									))}
+								<ol className="list-decimal ml-6 mt-2">
+									{game.rules.map((rule, idx) => {
+										if (game.name === "Pas dans le rythme" && idx === 1) {
+											return <li key={idx} dangerouslySetInnerHTML={{ __html: rule }} />;
+										}
+										return <li key={idx}>{rule}</li>;
+									})}
 								</ol>
+								{/* Section Idées de chansons pour 'Pas dans le rythme' */}
+								{game.name === "Pas dans le rythme" && (
+									<div className="mt-6">
+										<strong>Idées de chansons :</strong>
+										<div className="mt-2">
+											<iframe
+												data-testid="embed-iframe"
+												style={{ borderRadius: '12px' }}
+												src="https://open.spotify.com/embed/playlist/2yHhJNvzDaVi9rhjbHfZLx?utm_source=generator"
+												width="100%"
+												height="80"
+												frameBorder="0"
+												allowFullScreen
+												allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+												loading="lazy"
+											></iframe>
+										</div>
+									</div>
+								)}
+								{/* Section Options de jeu pour 'Dessine à la chaîne' */}
+								{game.name === "Dessine à la chaîne" && (
+									<>
+										<div className="mt-6 text-base font-sans">
+											<strong>Matériel :</strong>
+											<ul className="list-disc ml-6 mt-2">
+												<li>Feuilles A4</li>
+												<li>Gros feutres ou marqueurs</li>
+												<li>Ruban adhésif</li>
+											</ul>
+										</div>
+										<div className="mt-6 text-base font-sans">
+											<strong>Options de jeu :</strong>
+											<ul className="list-disc ml-6 mt-2">
+												<li>Chacun son tour : les équipes passent une à une.</li>
+												<li>Course contre la montre : les équipes dessinent en même temps. Le gagnant reste celui qui devine correctement et non le plus rapide !</li>
+											</ul>
+										</div>
+									</>
+								)}
+								{/* Section Idées d'enchères pour 'Les enchères' */}
+								{game.name === "Les enchères" && (
+									<div className="mt-6 text-base font-sans">
+										<strong>Idées d'enchères :</strong>
+										<ul className="list-disc ml-6 mt-2">
+											<li>Ecrivains Français</li>
+											<li>Dire <em>Tchin-Tchin</em> dans d'autres langues</li>
+											<li>Marques de bières</li>
+											<li>Instruments de musique</li>
+											<li>Objets dans un sac à main</li>
+										</ul>
+									</div>
+								)}
 							</div>
 							{game.name === "Le mur du son" ? (
 								<>
-									<div>
+									<div className="text-base font-sans">
 										<strong>Conseil :</strong>
-										<ul className="list-disc ml-6 mt-2 text-base">
+										<ul className="list-disc ml-6 mt-2">
 											{game.conseil.map((c, idx) => (
 												<li key={idx}>{c}</li>
 											))}
 										</ul>
 									</div>
-									<div className="mt-4">
+									<div className="mt-4 text-base font-sans">
 										<strong>Accès aux nuages de mots :</strong>
-										<ul className="list-disc ml-6 mt-2 text-base">
+										<ul className="list-disc ml-6 mt-2">
 											{game.nuages.map((nuage, idx) => (
 												<li key={idx}>
 													<a href={nuage.url} target="_blank" rel="noopener noreferrer" className="text-party-blue underline hover:text-party-green">
@@ -373,9 +449,9 @@ const GameExplanation = () => {
 									</div>
 								</>
 							) : game.name === "Dos à dos" ? (
-								<div>
+								<div className="text-base font-sans">
 									<strong>Idées de questions :</strong>
-									<ul className="list-disc ml-6 mt-2 text-base">
+									<ul className="list-disc ml-6 mt-2">
 										{game.examples && game.examples.map((ex, idx) => (
 											<li key={idx}>{ex}</li>
 										))}
@@ -383,9 +459,9 @@ const GameExplanation = () => {
 								</div>
 							) : game.name === "Suite de stars" ? (
 								!game.hideExamples && (
-									<div>
+									<div className="text-base font-sans">
 										<strong>Exemples :</strong>
-										<ul className="list-disc ml-6 mt-2 text-base">
+										<ul className="list-disc ml-6 mt-2">
 											{game.examples && game.examples.map((ex, idx) => (
 												<li key={idx}>{ex}</li>
 											))}
@@ -393,43 +469,51 @@ const GameExplanation = () => {
 									</div>
 								)
 							) : game.name === "Jusqu'à 10" ? (
-								<div>
+								<div className="text-base font-sans">
 									<strong>Idées de contraintes :</strong>
-									<ul className="list-disc ml-6 mt-2 text-base">
+									<ul className="list-disc ml-6 mt-2">
 										{game.contraintes && game.contraintes.map((contrainte, idx) => (
 											<li key={idx}>{contrainte}</li>
 										))}
 									</ul>
 								</div>
 							) : game.showTours ? (
-								<div>
+								<div className="text-base font-sans mt-6">
 									<strong>Tours :</strong>
-									<ul className="list-disc ml-6 mt-2 text-base">
+									<ul className="list-disc ml-6 mt-2">
 										<li>
-											<span className="font-semibold" style={{color:'#a259ff'}}>Tour 1 :</span> 
-											<br />1. Chaque joueur va chercher 1 ou 2 objets et les mets sur la table. 
-											<br />2. À  tour de role un joueur choisit un objet et donne : 
-											<br /> - Le nom de l’objet,
-											<br /> - Son origne/époque,
-											<br /> - À quoi il sert.
-											<br /><em>Exemple : Ceci n’est pas une tasse, c’est un téléphone de la Rome antique, qui servait à appeler Cléopâtre uniquement.</em>
+											<div>
+												<span className="font-semibold" style={{color:'#a259ff'}}>Tour 1 :</span>
+												<div>1. Chaque joueur va chercher 1 ou 2 objets et les mets sur la table.</div>
+												<div>2. À tour de rôle un joueur choisit un objet et donne :</div>
+												<ul className="ml-4 list-disc">
+													<li>Le nom de l’objet</li>
+													<li>Son origine/époque</li>
+													<li>À quoi il sert</li>
+												</ul>
+												<em>Exemple : Ceci n’est pas une tasse, c’est un téléphone de la Rome antique, qui servait à appeler Cléopâtre uniquement.</em>
+											</div>
 										</li>
 										<li>
-											<span className="font-semibold" style={{color:'#2ec4b6'}}>Tour 2 :</span> 
-											<br />1. En faisant un tour de table, chaque joueur dit un mot qui n’existe pas.
-											<br />2. À tout moment, l’un des participants peut demander la définition du mot et le joueur doit la donner.
-											<br />3. Dire un mot qui existe donne +1. 
-											<br /><em>Exemple : "Loubrirute" est une insulte utilisé par les adolescents Lituaniens.</em>
+											<div>
+												<span className="font-semibold" style={{color:'#2ec4b6'}}>Tour 2 :</span>
+												<div>1. En faisant un tour de table, chaque joueur dit un mot qui n’existe pas.</div>
+												<div>2. À tout moment, l’un des participants peut demander la définition du mot et le joueur doit la donner.</div>
+												<div>3. Dire un mot qui existe donne +1.</div>
+												<em>Exemple : "Loubrirute" est une insulte utilisée par les adolescents Lituaniens.</em>
+											</div>
 										</li>
 										<li>
-											<span className="font-semibold" style={{color:'#ffbe0b'}}>Tour 3 :</span> 
-											<br />1. Chaque joueur doit imiter un animal dans une situation et les autres doivent deviner l’animal et si possible la situation.
-											<br /><em>Exemple : Un chat qui discute avec un autre chat. Miaou-Miaouuu-Miaou-Miaou.</em>
+											<div>
+												<span className="font-semibold" style={{color:'#ffbe0b'}}>Tour 3 :</span>
+												<div>1. Chaque joueur doit imiter un animal dans une situation et les autres doivent deviner l’animal et si possible la situation.</div>
+												<em>Exemple : Un chat qui discute avec un autre chat. Miaou-Miaouuu-Miaou-Miaou.</em>
+											</div>
 										</li>
 									</ul>
 								</div>
 							) : (
-								<div></div>
+								<div className="text-base font-sans"></div>
 							)}
 							{/* Histoire d'Aperololo comme citation avec le chat à gauche, centré */}
 							<div className="mt-8 bg-party-pink/10 rounded-lg p-4 flex items-center gap-4 shadow-md border border-party-pink/40">
