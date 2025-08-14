@@ -1,3 +1,4 @@
+import motCommunImg from "@/assets/motcommun.png";
 import dessineALaChaine from "@/assets/dessine a la chaine.png";
 import faireRireSansRireVisuel from "@/assets/aperololo-faireriresansrire.png";
 import aperololoLesEncheres from "@/assets/aperololo-lesencheres.jpg";
@@ -239,21 +240,29 @@ const games = [
 		},
 		{
 			id: 10,
-			name: "Challenge TikTok",
-			shortDescription: "Réalise des challenges TikTok et vote pour le plus drôle ou le plus réussi.",
-					   players: "3-12",
-					   modeDeJeu: "en équipe",
+			name: "Le mot commun",
+			shortDescription: "Plus rapide et plus fun qu'une énigme !",
+					   players: "3-10",
+					   modeDeJeu: "seul(e) contre tous",
 			duration: "20 minutes",
 			rules: [
-				"Chaque joueur doit réaliser un challenge TikTok tiré au sort.",
-				"Les autres votent pour le plus drôle ou le plus réussi.",
+				"Le maître du jeu énonce les trois mots à voix haute.",
+				"Les joueurs doivent trouver le mot en commun entre ces mots.",
+				"Quand ils pensent avoir trouvé, ils doivent aller chercher un objet qui correspond ou est en lien avec le mot qu'ils ont trouvé.",
+				"Le premier revenu aura la priorité pour donner sa réponse, si elle est bonne il gagne sinon c'est au second de tenter sa chance etc.",
 			],
 			examples: [
-				"Danse sur un son viral.",
-				"Reproduis un sketch célèbre.",
+				"Soleil-Coeur-Lion : Roi",
+				"Secret-Muet-Outre : Tombe",
+				"Ski-Branches-Soleil : Lunettes",
+				"Moral-Boule-Absolu : Zéro",
+				"Lampe-Argent-Livre : Poche",
+				"Billet-Courant-journal : Coupure",
+				"Pomme-Rose-Sang : Rouge", 
+
 			],
 			images: [catMascot, catMascot],
-			story: `Parfait pour les soirées connectées et créatives !`,
+			story: `Si le maître du jeu ne voit pas le lien entre l'objet et la réponse il peut demander des explications. Vos amis n'auront jamais été aussi créatifs que lorsqu'il faut gagner !`,
 			is_premium: true,
 		},
 	// ...add 8 more games...
@@ -339,6 +348,8 @@ const GameExplanation = () => {
 								   ? jusqua10V3
 								   : game.name === "Dessine à la chaîne"
 								   ? dessineALaChaine
+								   : game.name === "Le mot commun"
+								   ? motCommunImg
 								   : game.images[0]}
 							   alt={`Illustration jeu ${game.name}`}
 							   className="mb-4 shadow-lg rounded-xl"
@@ -476,6 +487,25 @@ const GameExplanation = () => {
 											<li key={idx}>{contrainte}</li>
 										))}
 									</ul>
+								</div>
+							) : game.name === "Le mot commun" ? (
+								<div className="text-base font-sans">
+									<strong>Exemples :</strong>
+									{game.examples && game.examples.map((ex, idx) => (
+										<div key={idx} className="mb-1">
+											<ul className="list-disc ml-6 mt-2">
+												<li>{ex}</li>
+											</ul>
+											<div className="ml-6 mt-1 text-sm text-muted-foreground">
+												{/* Ligne d'explication personnalisée pour chaque exemple */}
+												{idx === 0 && "Objets qui fonctionnent : une carte d'un roi, une lumière pour illustrer Versailles, une couronnen etc."}
+												{idx === 1 && "Objets qui fonctionnent : une urne, une tête de mort, une pierre, etc."}
+												{idx === 2 && "Objets qui fonctionnent : des lunettes, une loupe, une peluche de taupe, etc."}
+												{idx === 3 && "Objets qui fonctionnent : un oeuf, tout objet rond,  etc."}
+
+											</div>
+										</div>
+									))}
 								</div>
 							) : game.showTours ? (
 								<div className="text-base font-sans mt-6">
