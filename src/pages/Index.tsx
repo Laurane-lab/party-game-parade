@@ -45,9 +45,9 @@ const Index = () => {
             <span className="text-lg">3 jeux gratuits, débloquez des dizaines d'autres !</span>
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button asChild size="lg" className="text-lg px-8 py-3 bg-gradient-to-r from-party-orange to-party-pink hover:from-party-pink hover:to-party-orange">
-            <a href="/connexion">Commencer gratuitement</a>
-          </Button>
+            <Button asChild size="lg" className="text-lg px-8 py-3 bg-gradient-to-r from-party-orange to-party-pink hover:from-party-pink hover:to-party-orange">
+              <a href="/connexion">Commencer gratuitement</a>
+            </Button>
           </div>
         </div>
       </section>
@@ -78,8 +78,8 @@ const Index = () => {
             ))}
           </div>
           <div className="flex justify-center mt-10">
-            <Button variant="outline" size="lg" className="text-lg px-8 py-3 border-party-blue text-party-blue hover:bg-party-blue hover:text-white">
-              Voir tous les jeux
+            <Button asChild variant="outline" size="lg" className="text-lg px-8 py-3 border-party-blue text-party-blue hover:bg-party-blue hover:text-white">
+              <a href="/game-explanation">Voir tous les jeux</a>
             </Button>
           </div>
         </div>
