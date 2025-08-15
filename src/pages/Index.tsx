@@ -46,7 +46,7 @@ const Index = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8 py-3 bg-gradient-to-r from-party-orange to-party-pink hover:from-party-pink hover:to-party-orange">
-              <a href="/connexion">Commencer gratuitement</a>
+              <a href="/game-explanation">Commencer gratuitement</a>
             </Button>
           </div>
         </div>
@@ -102,10 +102,15 @@ const Index = () => {
             <div>
               <div className="text-4xl mb-4">🎪</div>
               <h3 className="text-xl font-semibold mb-3 text-foreground">Débloquez plus de jeux</h3>
-              <p className="text-muted-foreground">
-                Vous aimez les jeux ? Débloquez notre collection complète de dizaines de jeux de soirée
-              </p>
-            </div>
+                <p className="text-muted-foreground">
+                  Vous aimez les jeux ? Débloquez notre collection complète de dizaines de jeux de soirée
+                </p>
+                <div className="mt-4">
+                  <Button asChild size="sm" className="text-md px-4 py-2 bg-party-blue text-white">
+                    <a href="/game-explanation">Commencer gratuitement</a>
+                  </Button>
+                </div>
+              </div>
             <div>
               <div className="text-4xl mb-4">🎉</div>
               <h3 className="text-xl font-semibold mb-3 text-foreground">Faites la fête</h3>
@@ -127,7 +132,7 @@ const Index = () => {
             Commencez avec 3 jeux gratuits et découvrez pourquoi des milliers de personnes choisissent Aperololo pour leurs fêtes
           </p>
           <Button asChild size="lg" className="text-lg px-12 py-4 bg-gradient-to-r from-party-pink to-party-orange hover:from-party-orange hover:to-party-pink">
-            <a href="/connexion">Commencer gratuitement</a>
+            <a href="/game-explanation">Commencer gratuitement</a>
           </Button>
         </div>
       </section>

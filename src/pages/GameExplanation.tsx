@@ -7,6 +7,7 @@ import aperololoMissionSecrete from "@/assets/aperololo-missionsecrete.jpg";
 // import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import PaywallDialog from "@/components/PaywallDialog";
 import catMascot from "@/assets/New mascot.png";
 import aperololoMurduson from "@/assets/aperololo-murduson.png";
 import visuel10 from "@/assets/10-visuel.png";
@@ -40,7 +41,7 @@ const games = [
 				"Le jeu s'arrête quand tous les mots ont été utilisés ou que les équipes ne trouvent plus."
 			],
 			conseil: [
-				"Déterminez une règle pour savoir à qui donner la priorité de réponse, par exemple se lever, s'assoir, attraper une balle lancée par le maître du jeu, etc.",
+				"Déterminez une règle pour savoir à qui donner la priorité de réponse, par exemple se lever, s'asseoir, attraper une balle lancée par le maître du jeu, etc.",
 			],
 			nuages: [
 				{ theme: "Français", url: "https://www.canva.com/design/DAGun3oVMXc/J0Fu8KnYwCcKvaboj25QhA/edit?utm_content=DAGun3oVMXc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" },
@@ -64,7 +65,8 @@ const games = [
 			rules: [
 				"Le premier joueur dit 1, le suivant 2, etc jusqu\’à 10.",
 				"Celui qui dit 10, choisit ensuite une contrainte pour remplacer l\’un des chiffres.",
-				"Le joueur ayant choisit la contrainte commence par dire 1, le suivant 2, etc jusqu\’à 10 en remplaçant le dit chiffre par la contrainte choisie.",
+				"Le joueur ayant choisi la contrainte commence par dire 1, le suivant 2, etc jusqu\’à 10 en remplaçant le dit chiffre par la contrainte choisie.",
+				"S'il y a une erreur, on recommence !",
 				"Le jeu s'arrête quand tous les chiffres ont été remplacés.",
 			],
 			contraintes: [
@@ -74,7 +76,7 @@ const games = [
 				"Remplacer le chiffre par un autre mot",
 			],
 			images: [visuel10, catMascot],
-			story: `À vous de décidez ce qu\’il se passe pour celui qui se trompe. Il peut avoir un gage ou finir son verre d\’eau cul sec par exemple ! `,
+			story: `À vous de décidez ce qui se passe pour celui qui se trompe. Il peut avoir un gage ou finir son verre d\’eau cul sec par exemple ! `,
 			is_premium: false,
 		},
 	// 8 nouveaux jeux
@@ -103,7 +105,7 @@ const games = [
 			name: "Dos à dos",
 			shortDescription: "Deux joueurs répondent à des questions en pointant du doigt, attention aux embrouilles !",
 					   players: "4-10",
-					   modeDeJeu: "en équipe",
+					   modeDeJeu: "en binôme",
 			duration: "20 minutes",
 			rules: [
 				"Deux personnes se mettent dos à dos.",
@@ -122,7 +124,7 @@ const games = [
 				"Qui finirait par rejoindre les méchants dans un film juste par flemme de fuir ?",
 			],
 			images: [aperololoDosados, catMascot],
-			story: `Nous déclinons toutes responsabilités en cas d\’embrouilles entre vous...`,
+			story: `Nous déclinons toute responsabilité en cas d\’embrouilles entre vous...`,
 			is_premium: true,
 		},
 		{
@@ -136,8 +138,8 @@ const games = [
 				"Chaque joueur reçoit une ou plusieurs missions secrètes à accomplir pendant le week-end.",
 				"Le but est de réaliser ses missions sans se faire repérer et de découvrir les missions des autres.",
 				"Une fois la mission accomplie, le joueur va voir le Maître du Jeu pour la faire valider.",
-				"Tu penses qu’un joueur est en train de réaliser sa mission, tu peux tenter de lui faire perdre ses points : Demande au maître du jeu un entretien privé avec lui. Le Maître du Jeu déclenche l’alarme (cloche, téléphone... à vous de choisir) pour prévenir les autres joueurs.",
-				"Vous expliquez ce que vous pensez être l’intitulé de la mission et le joueur accusé a 3 minutes pour se défendre.",
+				"Tu penses qu’un joueur est en train de réaliser sa mission, tu peux tenter de lui faire perdre ses points : demande au maître du jeu un entretien privé avec lui. Le Maître du Jeu déclenche l’alarme (cloche, téléphone... à vous de choisir) pour prévenir les autres joueurs.",
+				"L'accusateur explique ce qu'il pense être l’intitulé de la mission et le joueur accusé a 3 minutes pour se défendre.",
 				"Puis, l’accusateur décide s’il confirme son accusation ou pas : si l’accusation est correcte, le joueur accusé perd les points de sa mission et l’accusateur gagne 5 points. Si l’accusation est incorrecte : l’accusateur perd 5 points.",
 				"Le maître du jeu révèle à l'assemblée les accusations et le dénouement.",
 				"À la fin du week-end, le joueur avec le plus de points l’emporte !",
@@ -158,7 +160,7 @@ const games = [
 			rules: [
 				"Le but est d’essayer de faire rire les autres sans rire.", 
 				"Dès que quelqu’un rit, il prend +1 point.",
-				"A la fin des 3 tours (voir plus bas), celui qui a le plus de points a perdu.",
+				"À la fin des 3 tours (voir plus bas), celui qui a le plus de points a perdu.",
 				"Pour jouer tous les participants doivent être en cercle.",
 				"Le joueur avec les plus petits pieds commence le tour 1, puis le joueur à sa gauche le tour 2, etc.",
 			],
@@ -197,16 +199,16 @@ const games = [
 			name: "Les enchères",
 			shortDescription: "Le but est de donner un maximum de réponses sur un thème donné.",
 					   players: "3-10",
-					   modeDeJeu: "En équipe",
+					   modeDeJeu: "en équipe",
 			duration: "20 minutes",
 			rules: [
-				"Le maître du jeu propose un thème et le but est de trouver le plus de réponse possible au thème en 1 minute.",
+				"Le maître du jeu propose un thème et le but est de trouver le plus de réponses possibles au thème en 1 minute.",
 				"Les équipes désignent un champion (qui change à chaque manche.)",
-				"Les champions font un Shifumi ou un défi pour savoir qui commence (c'est le perdant qui débute l'enchère).",
+				"Les champions font un Shifumi ou un défi : le gagnant décide s'il prend ou donne la main.",
 				"Ils ont 2 minutes pour faire monter les enchères.",
 				"Quand les 2 minutes sont écoulées ou qu'un champion déclare ne pas sur-enchérir alors le champion qui a gagné l'enchère débute son énumération.",
 				"Attention, le champion ne peut pas être aidé par son équipe.",
-				"Si le champion réussi son enchère l'équipe gagne 10 points, sinon les points vont à l'autre équipe.",
+				"Si le champion réussit son enchère l'équipe gagne 10 points, sinon les points vont à l'autre équipe.",
 			],
 			examples: [
 				"Mot interdit : 'oui' ou 'non'.",
@@ -225,9 +227,9 @@ const games = [
 			duration: "30 minutes",
 			rules: [
 				"Chaque équipe se met en file indienne, tous les joueurs regardent dans la même direction.",
-				"Le maître du jeu montre secrètement l'objet à dessiner au dernier joueur de chaque file",
+				"Le maître du jeu montre secrètement l'objet à dessiner au dernier joueur de chaque file.",
 				"Ce joueur dessine l'objet sur une feuille collée sur le dos de la personne devant lui.",
-				"Le joueur suivant, en se basant sur les sensations de ce qu'il a senti, doit dessiner à son tour sur le dos de la personne devant lui, et ainsi de suite.",
+				"Le joueur suivant, en se basant sur ce qu'il a senti, doit dessiner à son tour sur le dos de la personne devant lui, et ainsi de suite.",
 				"Le dernier joueur de la file doit dire à haute voix ce qu'il pense qu'on lui a dessiné dans le dos."
 			],
 			examples: [
@@ -235,7 +237,7 @@ const games = [
 				"Question : Si tu pouvais dîner avec une célébrité, qui choisirais-tu ?",
 			],
 			images: [catMascot, catMascot],
-			story: `Après ça je crois que vous ne pourrez plus vous moquez des dessins de votre petit cousin !`,
+			story: `Après ça, je crois que vous ne pourrez plus vous moquez des dessins de votre petit cousin !`,
 			is_premium: true,
 		},
 		{
@@ -246,7 +248,7 @@ const games = [
 					   modeDeJeu: "seul(e) contre tous",
 			duration: "20 minutes",
 			rules: [
-				"Le maître du jeu énonce les trois mots à voix haute.",
+				"Le maître du jeu énonce trois mots à voix haute.",
 				"Les joueurs doivent trouver le mot en commun entre ces mots.",
 				"Quand ils pensent avoir trouvé, ils doivent aller chercher un objet qui correspond ou est en lien avec le mot qu'ils ont trouvé.",
 				"Le premier revenu aura la priorité pour donner sa réponse, si elle est bonne il gagne sinon c'est au second de tenter sa chance etc.",
@@ -262,7 +264,7 @@ const games = [
 
 			],
 			images: [catMascot, catMascot],
-			story: `Si le maître du jeu ne voit pas le lien entre l'objet et la réponse il peut demander des explications. Vos amis n'auront jamais été aussi créatifs que lorsqu'il faut gagner !`,
+			story: `Si le maître du jeu ne voit pas le lien entre l'objet et la réponse, il peut demander des explications. Vos amis n'auront jamais été aussi créatifs que lorsqu'il faut gagner !`,
 			is_premium: true,
 		},
 	// ...add 8 more games...
@@ -271,76 +273,88 @@ const games = [
 
 import { useEffect, useState } from "react";
 const GameExplanation = () => {
-	const [selected, setSelected] = useState(0);
-	const game = games[selected];
+  const [selected, setSelected] = useState(0);
+  const game = games[selected];
+  // TODO: Replace with real user premium status
+  const isUserPremium = false;
+  const [showPaywall, setShowPaywall] = useState(false);
 
-	useEffect(() => {
-		const handler = () => {
-			setSelected(0);
-		};
-		window.addEventListener("navigateToFirstFreeGame", handler);
-		return () => window.removeEventListener("navigateToFirstFreeGame", handler);
-	}, []);
+  useEffect(() => {
+    const handler = () => {
+      setSelected(0);
+    };
+    window.addEventListener("navigateToFirstFreeGame", handler);
+    return () => window.removeEventListener("navigateToFirstFreeGame", handler);
+  }, []);
 
-	const handleGameClick = (i) => {
-		setSelected(i);
-	};
+  const handleGameClick = (i) => {
+    setSelected(i);
+  };
 
-	// Optionally, declare gameIcons if needed
-	const gameIcons = [
-		cauldronIcon,
-		cloakIcon,
-		crystalsIcon,
-		hatIcon,
-		homeIcon,
-		mortarIcon,
-		quillIcon,
-		scrollIcon,
-		smokeIcon,
-		wandIcon,
-	];
+  // Optionally, declare gameIcons if needed
+  const gameIcons = [
+    cauldronIcon,
+    cloakIcon,
+    crystalsIcon,
+    hatIcon,
+    homeIcon,
+    mortarIcon,
+    quillIcon,
+    scrollIcon,
+    smokeIcon,
+    wandIcon,
+  ];
 
-	return (
-		<div className="min-h-screen bg-background flex flex-col">
-			<div className="flex flex-row py-10 px-0">
-			{/* Liste des jeux */}
-			<aside className="w-80 bg-muted/50 px-8 py-8 flex flex-col gap-2 border-r">
-				<div className="mb-2 flex items-center gap-2 cursor-pointer hover:underline" onClick={() => window.location.href = '/'}>
-					<img src={catMascot} alt="Mascotte Aperololo" className="w-6 h-6 object-contain" />
-					<span className="text-base font-semibold text-party-purple">Accueil</span>
-				</div>
-				<h2 className="text-xl font-bold mb-1">Jeux</h2>
-				<div className="flex flex-col gap-2 mt-2">
-				{games.map((g, i) => (
-					<Button
-						key={g.name}
-						variant="ghost"
-						className={`flex items-center w-full text-lg py-3 px-3 rounded-lg mb-0 border-2 shadow-sm transition
-							${selected === i
-								? "bg-party-purple border-party-purple"
-								: "bg-white border-party-purple/40 hover:border-party-purple hover:shadow-md"}
-						`}
-						onClick={() => handleGameClick(i)}
-					>
-						{/* Game icon image */}
-						<span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
-							<img src={gameIcons[i]} alt={`Icone jeu ${g.name}`} className="w-7 h-7 object-contain" />
-						</span>
-						<span
-							className={`w-full text-left font-semibold block overflow-hidden text-ellipsis whitespace-nowrap
-								${selected === i ? "text-party-yellow" : "text-party-purple"}
-							`}
-							title={g.name}
-						>
-							{g.name}
-						</span>
-					</Button>
-				))}
-				</div>
-			</aside>
+  return (
+    <div className="min-h-screen bg-background flex flex-col">
+      {showPaywall && <PaywallDialog onClose={() => setShowPaywall(false)} />}
+      <div className="flex flex-row py-10 px-0">
+        {/* Liste des jeux */}
+        <aside className="w-80 bg-muted/50 px-8 py-8 flex flex-col gap-2 border-r">
+          <div className="mb-2 flex items-center gap-2 cursor-pointer hover:underline" onClick={() => window.location.href = '/'}>
+            <img src={catMascot} alt="Mascotte Aperololo" className="w-6 h-6 object-contain" />
+            <span className="text-base font-semibold text-party-purple">Accueil</span>
+          </div>
+          <h2 className="text-xl font-bold mb-1">Jeux</h2>
+          <div className="flex flex-col gap-2 mt-2">
+            {games.map((g, i) => (
+              <Button
+                key={g.name}
+                variant="ghost"
+                className={`flex items-center w-full text-lg py-3 px-3 rounded-lg mb-0 border-2 shadow-sm transition
+                  ${g.is_premium && !isUserPremium
+                    ? "bg-gray-200 border-gray-300 text-gray-400"
+                    : selected === i
+                      ? "bg-party-purple border-party-purple"
+                      : "bg-white border-party-purple/40 hover:border-party-purple hover:shadow-md"}
+                `}
+                onClick={() => {
+                  if (g.is_premium && !isUserPremium) {
+                    setShowPaywall(true);
+                  } else {
+                    handleGameClick(i);
+                  }
+                }}
+              >
+                {/* Game icon image */}
+                <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
+                  <img src={gameIcons[i]} alt={`Icone jeu ${g.name}`} className="w-7 h-7 object-contain" />
+                </span>
+                <span
+                  className={`w-full text-left font-semibold block overflow-hidden text-ellipsis whitespace-nowrap
+                    ${selected === i ? "text-party-yellow" : "text-party-purple"}
+                  `}
+                  title={g.name}
+                >
+                  {g.name}
+                </span>
+              </Button>
+            ))}
+          </div>
+        </aside>
 
-			{/* Droite : Détails du jeu */}
-			<main className="flex-1 px-12 py-10">
+        {/* Droite : Détails du jeu */}
+        <main className="flex-1 px-12 py-10">
 				   <div>
 					<div className="flex flex-col items-center mb-4 max-w-md mx-auto w-full">
 						   {/* Ajout de l'image d'illustration du jeu au-dessus du titre */}
@@ -367,11 +381,8 @@ const GameExplanation = () => {
 						   </h1>
 					   </div>
 					<Card className="mb-8">
-						<CardHeader>
-							<CardTitle className="text-2xl">Détails du jeu</CardTitle>
-						</CardHeader>
 						<CardContent>
-							<ul className="mb-2 flex flex-col gap-1 text-base font-sans">
+							<ul className="mb-2 flex flex-col gap-1 text-base font-sans mt-4">
 								<li>
 									<strong>Joueurs :</strong> {game.players}
 								</li>
@@ -505,7 +516,7 @@ const GameExplanation = () => {
 											</ul>
 											<div className="ml-6 mt-1 text-sm text-muted-foreground">
 												{/* Ligne d'explication personnalisée pour chaque exemple */}
-												{idx === 0 && "Objets qui fonctionnent : une carte d'un roi, une lumière pour illustrer Versailles, une couronnen etc."}
+												{idx === 0 && "Objets qui fonctionnent : une carte d'un roi, une lumière pour illustrer Versailles, une couronne etc."}
 												{idx === 1 && "Objets qui fonctionnent : une urne, une tête de mort, une pierre, etc."}
 												{idx === 2 && "Objets qui fonctionnent : des lunettes, une loupe, une peluche de taupe, etc."}
 												{idx === 3 && "Objets qui fonctionnent : un oeuf, tout objet rond,  etc."}
@@ -521,8 +532,8 @@ const GameExplanation = () => {
 										<li>
 											<div>
 												<span className="font-semibold" style={{color:'#a259ff'}}>Tour 1 :</span>
-												<div>1. Chaque joueur va chercher 1 ou 2 objets et les mets sur la table.</div>
-												<div>2. À tour de rôle un joueur choisit un objet et donne :</div>
+												<div>1. Chaque joueur va chercher 1 ou 2 objets et les met sur la table.</div>
+												<div>2. À tour de rôle un joueur choisit l'un des objets et donne :</div>
 												<ul className="ml-4 list-disc">
 													<li>Le nom de l’objet</li>
 													<li>Son origine/époque</li>
@@ -552,17 +563,24 @@ const GameExplanation = () => {
 							) : (
 								<div className="text-base font-sans"></div>
 							)}
-							{/* Histoire d'Aperololo comme citation avec le chat à gauche, centré */}
-							<div className="mt-8 bg-party-pink/10 rounded-lg p-4 flex items-center gap-4 shadow-md border border-party-pink/40">
-								<img
-									src={catMascot}
-									alt="Mascotte Aperololo"
-									className="w-16 h-16 object-contain self-center"
-								/>
-								<blockquote className="text-base text-party-purple italic flex-1 px-2">
-									<span className="block" dangerouslySetInnerHTML={{ __html: game.story }} />
-								</blockquote>
-							</div>
+											{/* Si le jeu est premium, afficher uniquement la popup PaywallDialog */}
+											{game.is_premium ? (
+												<PaywallDialog />
+											) : (
+												<>
+													{/* Histoire d'Aperololo comme citation avec le chat à gauche, centré */}
+													<div className="mt-8 bg-party-pink/10 rounded-lg p-4 flex items-center gap-4 shadow-md border border-party-pink/40">
+														<img
+															src={catMascot}
+															alt="Mascotte Aperololo"
+															className="w-16 h-16 object-contain self-center"
+														/>
+														<blockquote className="text-base text-party-purple italic flex-1 px-2">
+															<span className="block" dangerouslySetInnerHTML={{ __html: game.story }} />
+														</blockquote>
+													</div>
+												</>
+											)}
 						</CardContent>
 					</Card>
 					{/* Bouton 'Découvrir d'autres jeux' retiré */}
