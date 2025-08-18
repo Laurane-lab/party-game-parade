@@ -83,7 +83,7 @@ const games = [
    {
 	  id: 3,
 	  name: "Suite de stars",
-	  shortDescription: "Enchaîne les noms de célébrités selon des règles originales.",
+	  shortDescription: "Enchaînes les noms de célébrités selon des règles originales.",
 					   players: "3-12",
 					   modeDeJeu: "seul(e) contre tous",
 	  duration: "15-30 minutes",
@@ -159,8 +159,8 @@ const games = [
 			duration: "30 minutes",
 			rules: [
 				"Le but est d’essayer de faire rire les autres sans rire.", 
-				"Dès que quelqu’un rit, il prend +1 point.",
-				"À la fin des 3 tours (voir plus bas), celui qui a le plus de points a perdu.",
+				"Dès que quelqu’un rit, il prend -1 point.",
+				"À la fin des 3 tours (voir plus bas), celui qui a le moins de points a perdu.",
 				"Pour jouer tous les participants doivent être en cercle.",
 				"Le joueur avec les plus petits pieds commence le tour 1, puis le joueur à sa gauche le tour 2, etc.",
 			],
@@ -175,7 +175,7 @@ const games = [
 	       {
 		       id: 7,
 		       name: "Pas dans le rythme",
-		       shortDescription: "C'est comme un blindtest mais version lecture. Révélez votre talent de lecteur sans casser les oreilles de vos amis !",
+		       shortDescription: "C'est comme un blindtest mais sans musique. Idéal pour ne pas casser les oreilles de tes voisins !",
 		       hideExamples: true,
 					   players: "4-15",
 					   modeDeJeu: "en équipe",
@@ -221,7 +221,7 @@ const games = [
 		{
 			id: 9,
 			name: "Dessine à la chaîne",
-			shortDescription: "C'est comme un téléphone arabe mais en dessin !",
+			shortDescription: "Découvre la fusion d'un Pictionary et d'un téléphone arabe !",
 					   players: "4-10",
 					   modeDeJeu: "en équipe",
 			duration: "30 minutes",
@@ -272,38 +272,58 @@ const games = [
 
 
 import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 const GameExplanation = () => {
-  const [selected, setSelected] = useState(0);
-  const game = games[selected];
-  // TODO: Replace with real user premium status
-  const isUserPremium = false;
-  const [showPaywall, setShowPaywall] = useState(false);
+	const navigate = useNavigate();
+	const location = useLocation();
+	// Get jeu param from URL
+	const params = new URLSearchParams(location.search);
+	const jeuParam = params.get("jeu");
+	// Find index from jeuParam
+	const initialIndex = jeuParam ? games.findIndex(g => g.name.toLowerCase().replace(/[^a-z0-9]/gi, "-") === jeuParam) : 0;
+	const [selected, setSelected] = useState(initialIndex >= 0 ? initialIndex : 0);
+	const game = games[selected];
+	// TODO: Replace with real user premium status
+	const isUserPremium = false;
+	const [showPaywall, setShowPaywall] = useState(false);
 
-  useEffect(() => {
-    const handler = () => {
-      setSelected(0);
-    };
-    window.addEventListener("navigateToFirstFreeGame", handler);
-    return () => window.removeEventListener("navigateToFirstFreeGame", handler);
-  }, []);
+	useEffect(() => {
+		const handler = () => {
+			setSelected(0);
+			navigate("/game-explanation?jeu=" + games[0].name.toLowerCase().replace(/[^a-z0-9]/gi, "-"));
+		};
+		window.addEventListener("navigateToFirstFreeGame", handler);
+		return () => window.removeEventListener("navigateToFirstFreeGame", handler);
+	}, [navigate]);
 
-  const handleGameClick = (i) => {
-    setSelected(i);
-  };
+	// Synchronise l'index sélectionné avec l'URL
+	useEffect(() => {
+		if (jeuParam) {
+			const idx = games.findIndex(g => g.name.toLowerCase().replace(/[^a-z0-9]/gi, "-") === jeuParam);
+			if (idx >= 0 && idx !== selected) {
+				setSelected(idx);
+			}
+		}
+	}, [jeuParam]);
 
-  // Optionally, declare gameIcons if needed
-  const gameIcons = [
-    cauldronIcon,
-    cloakIcon,
-    crystalsIcon,
-    hatIcon,
-    homeIcon,
-    mortarIcon,
-    quillIcon,
-    scrollIcon,
-    smokeIcon,
-    wandIcon,
-  ];
+	const handleGameClick = (i) => {
+		setSelected(i);
+		navigate("/game-explanation?jeu=" + games[i].name.toLowerCase().replace(/[^a-z0-9]/gi, "-"));
+	};
+
+	// Optionally, declare gameIcons if needed
+	const gameIcons = [
+		cauldronIcon,
+		cloakIcon,
+		crystalsIcon,
+		hatIcon,
+		homeIcon,
+		mortarIcon,
+		quillIcon,
+		scrollIcon,
+		smokeIcon,
+		wandIcon,
+	];
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -547,7 +567,7 @@ const GameExplanation = () => {
 												<span className="font-semibold" style={{color:'#2ec4b6'}}>Tour 2 :</span>
 												<div>1. En faisant un tour de table, chaque joueur dit un mot qui n’existe pas.</div>
 												<div>2. À tout moment, l’un des participants peut demander la définition du mot et le joueur doit la donner.</div>
-												<div>3. Dire un mot qui existe donne +1.</div>
+												<div>3. Dire un mot qui existe donne -1.</div>
 												<em>Exemple : "Loubrirute" est une insulte utilisée par les adolescents Lituaniens.</em>
 											</div>
 										</li>
