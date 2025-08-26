@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Connexion from "./pages/Connexion";
 import GameExplanation from "./pages/GameExplanation";
+import ToGoPremium from "./pages/ToGoPremium";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/connexion" element={<Connexion />} />
           <Route path="/game-explanation" element={<GameExplanation />} />
+          <Route path="/to-go-premium" element={<ToGoPremium />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

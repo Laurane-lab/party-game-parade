@@ -1,35 +1,21 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from "@/components/ui/dialog";
+import React from "react";
 import { Button } from "@/components/ui/button";
 
-interface PaywallDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  game?: { name: string; story?: string };
-}
-
-const PaywallDialog = ({ open, onOpenChange, game }: PaywallDialogProps) => (
-  <Dialog open={open} onOpenChange={onOpenChange}>
-    <DialogContent>
-      <DialogHeader>
-        <DialogTitle>{game?.name}</DialogTitle>
-        <DialogDescription>
-          <span className="block mb-2">Ce jeu est réservé aux membres premium.</span>
-          <span className="block mb-2">{game?.story}</span>
-          <span className="block mb-2">Pour accéder à toutes les règles et détails, veuillez effectuer le paiement.</span>
-        </DialogDescription>
-      </DialogHeader>
-      <DialogFooter>
-        <Button className="w-full" onClick={() => {/* payment logic here */}}>Payer pour débloquer</Button>
-      </DialogFooter>
-    </DialogContent>
-  </Dialog>
-);
+const PaywallDialog = ({ onClose }: { onClose?: () => void }) => {
+	// Fonction pour revenir au jeu gratuit "Le mur du son"
+	const goToFreeGame = () => {
+		window.location.href = '/game-explanation?jeu=le-mur-du-son';
+	};
+	return (
+		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+			<div className="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center border border-party-pink">
+				<h2 className="text-xl font-bold text-party-pink mb-2">Accès réservé aux membres premium</h2>
+			<p className="mb-4 text-party-purple">Ce jeu est exclusif. Débloque tous les jeux pour profiter de l'expérience complète !</p>
+		<Button className="w-full mb-2" variant="secondary" onClick={() => window.location.href = '/to-go-premium'}>Découvrir tous les jeux premium</Button>
+			<Button className="w-full" variant="default" onClick={goToFreeGame}>Retour aux jeux gratuits</Button>
+			</div>
+		</div>
+	);
+};
 
 export default PaywallDialog;
