@@ -32,7 +32,7 @@ party-game-parade/
 │   │   ├── ...              # Game images, mascots, icons
 │   │   └── icon/            # Icon assets
 │   ├── components/          # React components
-│   │   ├── PaywallDialog.tsx
+│   │   ├── PaywallDialog.tsx # Popup paywall, affiche la description courte du jeu premium sélectionné, redirige vers les jeux gratuits si clic extérieur
 │   │   └── ui/              # UI primitives (buttons, dialogs, etc.)
 │   │       ├── accordion.tsx
 │   │       ├── ...
@@ -87,31 +87,30 @@ party-game-parade/
 - **utils.ts**: Utility functions shared across the app.
 
 #### `src/pages/`
-- **Connexion.tsx**: Login or connection page.
-- **GameExplanation.tsx**: Game rules/instructions page.
-- **Index.tsx**: Home/landing page.
+- **Connexion.tsx**: Login/connection page, affiche la mascotte au-dessus du titre.
+- **GameExplanation.tsx**: Page d'explication des jeux, gère l'affichage des jeux premium, la popup paywall, et la description courte du jeu sélectionné.
+- **Index.tsx**: Page d'accueil, boutons "Commencer gratuitement" redirigent vers la connexion.
 - **NotFound.tsx**: 404 error page.
 
 ## State Management & Services
 
 ### State Location
-- **Local State**: Most state is managed locally within React components using `useState`, `useReducer`, or custom hooks (e.g., `use-toast`, `use-mobile`).
-- **Global State**: If needed, global state may be managed via React Context or external libraries (not shown explicitly in the structure).
-- **Page State**: Each page component (`src/pages/`) manages its own state relevant to its view.
+- **Local State**: La plupart des états sont gérés localement dans les composants React avec `useState`, `useReducer`, ou des hooks personnalisés (ex : `use-toast`, `use-mobile`).
+- **Paywall State**: L'état d'affichage de la popup paywall est géré localement dans les pages concernées (`GameExplanation.tsx`, `Index.tsx`).
+- **Page State**: Chaque composant de page (`src/pages/`) gère son propre état, y compris la sélection de jeu et la gestion des popups.
 
 ### Services & Data Flow
-- **Data**: Static data is likely stored in `src/data/`. Dynamic data (API calls, etc.) would be handled in components or hooks.
-- **Utilities**: Shared logic lives in `src/lib/utils.ts`.
-- **UI Services**: Toasts, dialogs, and other UI feedback are managed via hooks and UI components in `src/components/ui/`.
-- **Routing**: Managed in `App.tsx` (using React Router or similar, inferred from structure).
-- **Assets**: Images and icons are imported from `src/assets/` and used in components/pages.
+- **Data**: Les données des jeux (nom, description courte, premium, etc.) sont stockées dans les pages (ex : tableau dans `GameExplanation.tsx`).
+- **Paywall Logic**: La logique d'affichage de la popup paywall et de la description courte du jeu premium sélectionné est centralisée dans le composant `PaywallDialog.tsx` et pilotée par les pages.
+- **UI Services**: Toasts, dialogs, et feedback UI sont gérés via hooks et composants dans `src/components/ui/`.
+- **Routing**: Géré dans `App.tsx` (React Router).
+- **Assets**: Images, mascottes et icônes importés depuis `src/assets/` et affichés dans les pages et composants.
 
 ## Summary
-- **Modular Structure**: Clear separation of concerns—assets, components, hooks, pages, and utilities.
-- **State**: Primarily local/component state, with hooks for shared logic.
-- **Services**: UI services (toasts, dialogs) via hooks/components; data services inferred from `data/` and `lib/`.
-- **UI**: Built with reusable primitives in `components/ui/`, styled via Tailwind CSS.
-- **Routing**: Page-level components in `pages/` for navigation.
+- **Modular Structure**: Séparation claire des assets, composants, hooks, pages et utilitaires.
+- **Paywall & Premium**: Gestion centralisée de la popup paywall, affichage dynamique de la description courte du jeu premium sélectionné, redirection automatique vers les jeux gratuits si clic extérieur.
+- **UI**: UI moderne avec primitives réutilisables dans `components/ui/`, stylée avec Tailwind CSS.
+- **Routing**: Navigation entre pages via React Router.
 
 ---
 This document provides a high-level overview of the architecture for the Party Game Parade project. For more details, refer to the README or explore individual files and folders.

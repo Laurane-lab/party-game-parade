@@ -43,6 +43,7 @@ export default function Connexion() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-80 flex flex-col items-center">
+        <img src="/src/assets/New mascot.png" alt="Mascotte" className="w-20 h-20 mb-4" />
         <h2 className="text-2xl font-bold mb-6 text-center">Connexion</h2>
         {error && <div className="text-red-500 mb-4">{error}</div>}
         {loading ? (
