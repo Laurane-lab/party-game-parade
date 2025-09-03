@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import catMascot from "@/assets/New mascot.png";
 import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
@@ -43,7 +44,7 @@ const ToGoPremium = () => {
       name: "Dos à dos",
       modeDeJeu: "En binôme",
       players: "4-10",
-      shortDescription: "Connaîs-tu vraiment ton binôme ou les invités seront-ils plus forts que vous ?",
+      shortDescription: "Connais-tu vraiment ton binôme ou les invités seront-ils plus forts que vous ?",
       icon: cloakIcon
     },
     {
@@ -91,45 +92,48 @@ const ToGoPremium = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-background">
-      <div className="bg-white rounded-lg shadow-lg p-8 max-w-xl w-full text-center border border-party-pink">
-        <img src={catMascot} alt="Mascotte Aperololo" className="w-20 h-20 mx-auto mb-4" />
-  <h1 className="text-2xl font-bold text-party-pink mb-6 leading-tight">Débloque tous les jeux pour 4,99€ !</h1>
-        {/* Grille des jeux premium */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-          {/* Jeux gratuits en premier */}
-          {freeGames.map((game) => (
-            <div key={game.name} className="rounded-xl border border-green-300 bg-green-50 shadow-sm p-6 flex flex-col items-start text-left" style={{ minHeight: '180px' }}>
-              <div className="flex items-center w-full mb-2 gap-2">
-                <img src={game.icon} alt={game.name + ' icon'} className="w-7 h-7 object-contain" style={{marginRight: '6px'}} />
-                <h2 className="text-lg font-semibold text-party-green m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{maxWidth: '140px'}}>{game.name}</h2>
+    <div className="min-h-screen flex flex-col bg-background">
+      <div className="flex flex-col items-center justify-center flex-1">
+        <div className="bg-white rounded-lg shadow-lg p-8 max-w-xl w-full text-center border border-party-pink">
+          <img src={catMascot} alt="Mascotte Aperololo" className="w-20 h-20 mx-auto mb-4" />
+          <h1 className="text-2xl font-bold text-party-pink mb-6 leading-tight">Débloque tous les jeux pour 4,99€ !</h1>
+          {/* Grille des jeux premium */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+            {/* Jeux gratuits en premier */}
+            {freeGames.map((game) => (
+              <div key={game.name} className="rounded-xl border border-green-300 bg-green-50 shadow-sm p-6 flex flex-col items-start text-left" style={{ minHeight: '180px' }}>
+                <div className="flex items-center w-full mb-2 gap-2">
+                  <img src={game.icon} alt={game.name + ' icon'} className="w-7 h-7 object-contain" style={{marginRight: '6px'}} />
+                  <h2 className="text-lg font-semibold text-party-green m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{maxWidth: '140px'}}>{game.name}</h2>
+                </div>
+                  <div className="flex flex-row gap-2 text-xs mb-2 w-full">
+                    <span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
+                    <span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold">{game.players} joueurs</span>
+                </div>
+                <div className="text-sm text-muted-foreground mb-0 w-full">{game.shortDescription}</div>
               </div>
+            ))}
+            {/* Jeux premium ensuite */}
+            {premiumGames.map((game) => (
+              <div key={game.name} className="rounded-xl border border-gray-200 bg-gray-50 shadow-sm p-6 flex flex-col items-start text-left" style={{ minHeight: '180px' }}>
+                <div className="flex items-center w-full mb-2 gap-2">
+                  <img src={game.icon} alt={game.name + ' icon'} className="w-7 h-7 object-contain" style={{marginRight: '6px'}} />
+                  <h2 className="text-lg font-semibold text-party-purple m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{maxWidth: '140px'}}>{game.name}</h2>
+                </div>
                 <div className="flex flex-row gap-2 text-xs mb-2 w-full">
                   <span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
                   <span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold">{game.players} joueurs</span>
+                </div>
+                <div className="text-sm text-muted-foreground mb-0 w-full">{game.shortDescription}</div>
               </div>
-              <div className="text-sm text-muted-foreground mb-0 w-full">{game.shortDescription}</div>
-            </div>
-          ))}
-          {/* Jeux premium ensuite */}
-          {premiumGames.map((game) => (
-            <div key={game.name} className="rounded-xl border border-gray-200 bg-gray-50 shadow-sm p-6 flex flex-col items-start text-left" style={{ minHeight: '180px' }}>
-              <div className="flex items-center w-full mb-2 gap-2">
-                <img src={game.icon} alt={game.name + ' icon'} className="w-7 h-7 object-contain" style={{marginRight: '6px'}} />
-                <h2 className="text-lg font-semibold text-party-purple m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{maxWidth: '140px'}}>{game.name}</h2>
-              </div>
-              <div className="flex flex-row gap-2 text-xs mb-2 w-full">
-                <span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
-                <span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold">{game.players} joueurs</span>
-              </div>
-              <div className="text-sm text-muted-foreground mb-0 w-full">{game.shortDescription}</div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <p className="mb-6 text-party-purple text-lg">Accède à l'intégralité des jeux pour seulement 4,99€.</p>
+          <Button className="w-full mb-2" variant="secondary">Payer 4,99€ et devenir premium</Button>
+          <Button className="w-full" variant="ghost" onClick={() => window.location.href = '/'} id="main-home-btn-ref">Retour à l'accueil</Button>
         </div>
-  <p className="mb-6 text-party-purple text-lg">Accède à l'intégralité des jeux pour seulement 4,99€.</p>
-        <Button className="w-full mb-2" variant="secondary">Payer 4,99€ et devenir premium</Button>
-        <Button className="w-full" variant="ghost" onClick={() => window.location.href = '/'} id="main-home-btn-ref">Retour à l'accueil</Button>
       </div>
+      <Footer />
     </div>
   );
 };

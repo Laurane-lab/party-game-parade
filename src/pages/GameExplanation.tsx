@@ -1,4 +1,5 @@
 import motCommunImg from "@/assets/motcommun.png";
+import Footer from "@/components/Footer";
 import dessineALaChaine from "@/assets/dessine a la chaine.png";
 import faireRireSansRireVisuel from "@/assets/aperololo-faireriresansrire.png";
 import aperololoLesEncheres from "@/assets/aperololo-lesencheres.jpg";
@@ -325,16 +326,17 @@ const GameExplanation = () => {
 		wandIcon,
 	];
 
-  return (
-    <div className="min-h-screen bg-background flex flex-col">
+	return (
+		<div className="min-h-screen bg-background flex flex-col">
 	{showPaywall && <PaywallDialog onClose={() => setShowPaywall(false)} shortDescription={game.shortDescription} />}
-      <div className="flex flex-row py-10 px-0">
+	<div className="flex flex-row py-10 px-0 flex-1">
         {/* Liste des jeux */}
         <aside className="w-80 bg-muted/50 px-8 py-8 flex flex-col gap-2 border-r">
           <div className="mb-2 flex items-center gap-2 cursor-pointer hover:underline" onClick={() => window.location.href = '/'}>
             <img src={catMascot} alt="Mascotte Aperololo" className="w-6 h-6 object-contain" />
             <span className="text-base font-semibold text-party-purple">Accueil</span>
-          </div>
+				<Footer />
+			</div>
           <h2 className="text-xl font-bold mb-1">Jeux</h2>
           <div className="flex flex-col gap-2 mt-2">
             {games.map((g, i) => (

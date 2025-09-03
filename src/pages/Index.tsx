@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import PaywallDialog from "@/components/PaywallDialog";
 import catMascot from "@/assets/New mascot.png";
@@ -33,7 +34,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Section Héros */}
       <section className="relative py-20 px-4 text-center bg-gradient-to-br from-party-pink/20 via-party-orange/10 to-party-blue/20">
         <div className="max-w-4xl mx-auto">
@@ -196,7 +197,8 @@ const Index = () => {
         </div>
       </section>
     {showPaywall && <PaywallDialog onClose={() => setShowPaywall(false)} />}
-  </div>
+      <Footer />
+    </div>
   );
 };
 
