@@ -33,7 +33,7 @@ party-game-parade/
 │   │   └── icon/            # Icon assets
 │   ├── components/          # React components
 │   │   ├── Footer.tsx       # Footer component
-│   │   ├── PaywallDialog.tsx # Popup paywall, affiche la description courte du jeu premium sélectionné, redirige vers les jeux gratuits si clic extérieur
+│   │   ├── PaywallDialog.tsx # Ancien composant modal pour le paywall/upsell, n'est plus utilisé dans la page d'explication des jeux.
 │   │   └── ui/              # UI primitives (buttons, dialogs, forms, etc.)
 │   │       ├── accordion.tsx
 │   │       ├── alert-dialog.tsx
@@ -90,7 +90,7 @@ party-game-parade/
 │   └── pages/               # Page-level components (routing targets)
 │       ├── CGVCGU.tsx       # CGU/CGV page
 │       ├── Connexion.tsx    # Login/connection page
-│       ├── GameExplanation.tsx # Explication des jeux, gestion paywall
+│       ├── GameExplanation.tsx # Page d'explication des jeux, affiche la story pour tous les jeux premium et gratuits, la popup paywall a été retirée.
 │       ├── GamePreview.tsx  # Preview d'un jeu
 │       ├── Index.tsx        # Page d'accueil
 │       ├── MentionsLegales.tsx # Mentions légales
@@ -122,7 +122,7 @@ party-game-parade/
 
 #### `src/components/`
 - **Footer.tsx**: Footer component.
-- **PaywallDialog.tsx**: Modal dialog for paywall/upsell, centralise la logique d'affichage du paywall et la description courte du jeu premium sélectionné.
+- **PaywallDialog.tsx**: Ancien composant modal pour le paywall/upsell, n'est plus utilisé dans la page d'explication des jeux.
 - **ui/**: Reusable UI primitives (buttons, dialogs, forms, etc.), utilisés dans toutes les pages et composants pour une UI cohérente et moderne.
 
 #### `src/content/`
@@ -144,7 +144,7 @@ party-game-parade/
 #### `src/pages/`
 - **CGVCGU.tsx**: Page CGU/CGV.
 - **Connexion.tsx**: Page de connexion, affiche la mascotte au-dessus du titre.
-- **GameExplanation.tsx**: Page d'explication des jeux, gère l'affichage des jeux premium, la popup paywall, et la description courte du jeu sélectionné.
+- **GameExplanation.tsx**: Page d'explication des jeux, affiche la story pour tous les jeux premium et gratuits, la popup paywall a été retirée.
 - **GamePreview.tsx**: Preview d'un jeu.
 - **Index.tsx**: Page d'accueil, boutons "Commencer gratuitement" redirigent vers la connexion.
 - **MentionsLegales.tsx**: Mentions légales.
@@ -170,7 +170,7 @@ party-game-parade/
 - **Paywall & Premium**: Gestion centralisée de la popup paywall, affichage dynamique de la description courte du jeu premium sélectionné, redirection automatique vers les jeux gratuits si clic extérieur.
 - **UI**: UI moderne avec primitives réutilisables dans `components/ui/`, stylée avec Tailwind CSS.
 - **Routing**: Navigation entre pages via React Router, toutes les pages sont dans `src/pages/`.
-- **Jeux Premium**: Les jeux premium et gratuits sont listés dans `games.ts` et affichés dans les pages dédiées, avec icônes et descriptions courtes.
+- **Jeux Premium**: Les jeux premium et gratuits sont listés dans `games.ts` et affichés dans les pages dédiées, avec icônes, descriptions courtes et story affichée pour tous.
 - **Pages légales**: CGU/CGV et Mentions légales sont accessibles via des pages dédiées.
 
 ---
