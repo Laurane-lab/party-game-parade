@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import PaywallDialog from "@/components/PaywallDialog";
 import catMascot from "@/assets/New mascot.png";
@@ -33,7 +34,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Section Héros */}
       <section className="relative py-20 px-4 text-center bg-gradient-to-br from-party-pink/20 via-party-orange/10 to-party-blue/20">
         <div className="max-w-4xl mx-auto">
@@ -52,7 +53,7 @@ const Index = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8 py-3 bg-gradient-to-r from-party-orange to-party-pink hover:from-party-pink hover:to-party-orange">
-              <a href="/game-explanation">Commencer gratuitement</a>
+                <a href="/connexion">Commencer gratuitement</a>
             </Button>
           </div>
         </div>
@@ -191,12 +192,13 @@ const Index = () => {
               </div>
             </div>
           <Button asChild size="lg" className="text-lg px-12 py-4 bg-gradient-to-r from-party-pink to-party-orange hover:from-party-orange hover:to-party-pink">
-            <a href="/game-explanation">Commencer gratuitement</a>
+              <a href="/connexion">Commencer gratuitement</a>
           </Button>
         </div>
       </section>
     {showPaywall && <PaywallDialog onClose={() => setShowPaywall(false)} />}
-  </div>
+      <Footer />
+    </div>
   );
 };
 

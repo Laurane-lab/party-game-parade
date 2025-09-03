@@ -8,6 +8,8 @@ import NotFound from "./pages/NotFound";
 import Connexion from "./pages/Connexion";
 import GameExplanation from "./pages/GameExplanation";
 import ToGoPremium from "./pages/ToGoPremium";
+import MentionsLegales from "./pages/MentionsLegales";
+import CGVCGU from "./pages/CGVCGU";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +24,8 @@ const App = () => (
           <Route path="/connexion" element={<Connexion />} />
           <Route path="/game-explanation" element={<GameExplanation />} />
           <Route path="/to-go-premium" element={<ToGoPremium />} />
+          <Route path="/mentions-legales" element={<MentionsLegales />} />
+          <Route path="/cgv-cgu" element={<CGVCGU />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

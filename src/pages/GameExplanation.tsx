@@ -1,4 +1,5 @@
 import motCommunImg from "@/assets/motcommun.png";
+import Footer from "@/components/Footer";
 import dessineALaChaine from "@/assets/dessine a la chaine.png";
 import faireRireSansRireVisuel from "@/assets/aperololo-faireriresansrire.png";
 import aperololoLesEncheres from "@/assets/aperololo-lesencheres.jpg";
@@ -325,16 +326,17 @@ const GameExplanation = () => {
 		wandIcon,
 	];
 
-  return (
-    <div className="min-h-screen bg-background flex flex-col">
-      {showPaywall && <PaywallDialog onClose={() => setShowPaywall(false)} />}
-      <div className="flex flex-row py-10 px-0">
+	return (
+		<div className="min-h-screen bg-background flex flex-col">
+	{showPaywall && <PaywallDialog onClose={() => setShowPaywall(false)} shortDescription={game.shortDescription} />}
+	<div className="flex flex-row py-10 px-0 flex-1">
         {/* Liste des jeux */}
         <aside className="w-80 bg-muted/50 px-8 py-8 flex flex-col gap-2 border-r">
           <div className="mb-2 flex items-center gap-2 cursor-pointer hover:underline" onClick={() => window.location.href = '/'}>
             <img src={catMascot} alt="Mascotte Aperololo" className="w-6 h-6 object-contain" />
             <span className="text-base font-semibold text-party-purple">Accueil</span>
-          </div>
+				<Footer />
+			</div>
           <h2 className="text-xl font-bold mb-1">Jeux</h2>
           <div className="flex flex-col gap-2 mt-2">
             {games.map((g, i) => (
@@ -348,13 +350,14 @@ const GameExplanation = () => {
                       ? "bg-party-purple border-party-purple"
                       : "bg-white border-party-purple/40 hover:border-party-purple hover:shadow-md"}
                 `}
-                onClick={() => {
-                  if (g.is_premium && !isUserPremium) {
-                    setShowPaywall(true);
-                  } else {
-                    handleGameClick(i);
-                  }
-                }}
+								onClick={() => {
+									if (g.is_premium && !isUserPremium) {
+										setSelected(i);
+										setShowPaywall(true);
+									} else {
+										handleGameClick(i);
+									}
+								}}
               >
                 {/* Game icon image */}
                 <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
@@ -583,23 +586,18 @@ const GameExplanation = () => {
 							) : (
 								<div className="text-base font-sans"></div>
 							)}
-											{/* Si le jeu est premium, afficher uniquement la popup PaywallDialog */}
-											{game.is_premium ? (
-												<PaywallDialog />
-											) : (
-												<>
-													{/* Histoire d'Aperololo comme citation avec le chat à gauche, centré */}
-													<div className="mt-8 bg-party-pink/10 rounded-lg p-4 flex items-center gap-4 shadow-md border border-party-pink/40">
-														<img
-															src={catMascot}
-															alt="Mascotte Aperololo"
-															className="w-16 h-16 object-contain self-center"
-														/>
-														<blockquote className="text-base text-party-purple italic flex-1 px-2">
-															<span className="block" dangerouslySetInnerHTML={{ __html: game.story }} />
-														</blockquote>
-													</div>
-												</>
+											{/* Si le jeu est premium, n'affiche pas la popup ici, elle est gérée par showPaywall */}
+											{!game.is_premium && (
+												<div className="mt-8 bg-party-pink/10 rounded-lg p-4 flex items-center gap-4 shadow-md border border-party-pink/40">
+													<img
+														src={catMascot}
+														alt="Mascotte Aperololo"
+														className="w-16 h-16 object-contain self-center"
+													/>
+													<blockquote className="text-base text-party-purple italic flex-1 px-2">
+														<span className="block" dangerouslySetInnerHTML={{ __html: game.story }} />
+													</blockquote>
+												</div>
 											)}
 						</CardContent>
 					</Card>

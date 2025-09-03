@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Footer from "@/components/Footer";
 import { useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 
@@ -41,23 +42,27 @@ export default function Connexion() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-80 flex flex-col items-center">
-        <h2 className="text-2xl font-bold mb-6 text-center">Connexion</h2>
-        {error && <div className="text-red-500 mb-4">{error}</div>}
-        {loading ? (
-          <div className="text-gray-500 mb-4">Chargement...</div>
-        ) : (
-          <button
-            type="button"
-            className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 flex items-center justify-center"
-            onClick={() => handleOAuthLogin('google')}
-            disabled={loading}
-          >
-            Se connecter avec Google
-          </button>
-        )}
+    <div className="min-h-screen flex flex-col bg-gray-100">
+      <div className="flex flex-col items-center justify-center flex-1">
+        <div className="bg-white p-8 rounded shadow-md w-80 flex flex-col items-center">
+          <img src="/src/assets/New mascot.png" alt="Mascotte" className="w-20 h-20 mb-4" />
+          <h2 className="text-2xl font-bold mb-6 text-center">Connexion</h2>
+          {error && <div className="text-red-500 mb-4">{error}</div>}
+          {loading ? (
+            <div className="text-gray-500 mb-4">Chargement...</div>
+          ) : (
+            <button
+              type="button"
+              className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 flex items-center justify-center"
+              onClick={() => handleOAuthLogin('google')}
+              disabled={loading}
+            >
+              Se connecter avec Google
+            </button>
+          )}
+        </div>
       </div>
+      <Footer />
     </div>
   );
 }
