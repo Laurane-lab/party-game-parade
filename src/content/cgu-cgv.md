@@ -1,24 +1,26 @@
+# CGV & CGU
+
 ## Conditions Générales de Vente (CGV)
 
 ### Article 1 - Objet
 
-Les présentes conditions générales de vente (CGV) régissent la vente des produits numériques proposés par **[Votre nom ou dénomination utilisée pour l'activité]**, en tant qu'entrepreneur individuel, immatriculé au Registre National des Entreprises (RNE) sous le numéro SIRET **[Votre numéro SIRET]**. Son adresse est **[Votre adresse]**. Vous pouvez le contacter à l'adresse email **[Votre email de contact]**.
+Les présentes conditions générales de vente (CGV) régissent la vente des produits numériques proposés par **Apérololo**, en tant qu'entrepreneur individuel, immatriculé au Registre National des Entreprises (RNE) sous le numéro SIRET **83520965100024**. Son adresse est **Paris - 75011**. Vous pouvez le contacter à l'adresse email **lauraneboullay@gmail.com**.
 
-Le site web [Nom du site web] propose la vente de **règles de jeux numériques** à imprimer ou à consulter en ligne. Ces règles sont conçues pour être jouées en intérieur, typiquement lors d'un week-end. L'accès à une partie du contenu est gratuit (3 jeux), et l'accès à l'intégralité du contenu payant (7 jeux) est soumis à un paiement unique.
+Le site web aperololo.com propose la vente de **règles de jeux numériques** à consulter en ligne. Ces règles sont conçues pour être jouées en intérieur et en extérieur, typiquement lors d'un week-end. L'accès à une partie du catalogue de jeux est gratuit, et l'accès à un ou plusieurs packs de jeux payants est soumis à un paiement unique par pack.
 
 ### Article 2 - Description des produits
 
-Le site propose des **règles de jeux sous format numérique**. Les utilisateurs ont un accès gratuit à 3 jeux. Un accès illimité aux 7 jeux supplémentaires est proposé à un prix unique de **3,99 €**. Ces produits sont des contenus numériques non dissociables de leur support et sont fournis par un téléchargement ou un accès direct en ligne.
+Le site propose des **règles de jeux sous format numérique**. Les utilisateurs ont un accès gratuit à une sélection de jeux. Les packs de jeux payants sont proposés à un prix unique par pack. Les produits achetés sont des contenus numériques non dissociables de leur support et sont fournis par un accès direct en ligne.
 
 ### Article 3 - Prix et modalités de paiement
 
-Le prix des produits est indiqué en euros (€) et toutes taxes comprises (TTC). Le prix total à payer pour l'accès aux 7 jeux payants est de **3,99 €**.
+Le prix des produits est indiqué en euros (€) et toutes taxes comprises (TTC). Le paiement s'effectue en une seule fois, au moment de la commande du pack.
 
-Le paiement s'effectue en une seule fois, au moment de la commande. Les moyens de paiement acceptés sont **[préciser les moyens de paiement, par exemple, carte bancaire, PayPal, etc.]**. Le paiement est sécurisé et est géré par un prestataire externe [nom du prestataire de paiement, par exemple, Stripe, PayPal].
+Le paiement s'effectue en une seule fois, au moment de la commande. Les paiements se font par **carte bancaire**. Le paiement est sécurisé et est géré par un prestataire externe : Stripe.
 
 ### Article 4 - Accès aux jeux payants et livraison
 
-Dès confirmation du paiement, le client bénéficie d'un **accès immédiat et illimité** aux 7 jeux payants. La livraison du contenu numérique est instantanée et se matérialise par l'activation de l'accès à ces jeux sur le site web. Aucune livraison physique n'est requise. Le client recevra une confirmation de sa commande et de l'accès par e-mail à l'adresse fournie lors du paiement.
+Dès confirmation du paiement, le client bénéficie d'un accès immédiat et illimité aux jeux gratuits ainsi qu'au pack de jeux acheté. La livraison du contenu numérique est instantanée et se matérialise par l'activation de l'accès aux jeux du pack sur le site web. Le client recevra une confirmation de sa commande et de l'accès par e-mail à l'adresse fournie lors du paiement.
 
 ### Article 5 - Droit de rétractation et remboursement
 
@@ -26,7 +28,7 @@ Conformément à l’article L. 221-28 du Code de la consommation français, le 
 
 Le client reconnaît et accepte expressément que la fourniture du contenu numérique commence immédiatement après la validation de son paiement. **En conséquence, il renonce expressément à son droit de rétractation**.
 
-Compte tenu de la nature du service et du produit, aucun remboursement ne sera effectué après l'accès au contenu, sauf en cas de dysfonctionnement technique majeur imputable au Vendeur qui empêcherait définitivement l'accès au contenu après l'achat. Dans un tel cas, le client doit contacter le service client à l'adresse **[adresse e-mail de contact]** pour qu'une solution puisse être trouvée, comme la fourniture d'un accès alternatif ou un remboursement.
+Compte tenu de la nature du service et du produit, aucun remboursement ne sera effectué après l'accès au contenu, sauf en cas de dysfonctionnement technique majeur imputable au Vendeur qui empêcherait définitivement l'accès au contenu après l'achat. Dans un tel cas, le client doit contacter le service client à l'adresse **lauraneboullay@gmail.com** en indiquand la date d'achat et une preuve visuel de non accès au contenu. Une soluation sera trouvée comme la fourniture d'un accès alternatif ou un remboursement.
 
 ### Article 6 - Responsabilités et limitations
 
@@ -47,7 +49,7 @@ Les présentes CGV sont soumises au **droit français**. En cas de litige, les t
 
 ### Article 1 - Objet et description du service
 
-Les présentes Conditions Générales d'Utilisation (CGU) ont pour objet de définir les modalités d'accès et d'utilisation du site web **[Nom du site web]** (ci-après « le Site »), édité par **[Votre nom ou dénomination utilisée pour l'activité]**.
+Les présentes Conditions Générales d'Utilisation (CGU) ont pour objet de définir les modalités d'accès et d'utilisation du site web **aperololo.com** (ci-après « le Site »), édité par **Laurane Boullay**.
 
 Le Site est une plateforme de vente et de mise à disposition de **règles de jeux numériques** destinées à être jouées en intérieur, principalement durant des week-ends. Le service permet un accès gratuit à 3 jeux et la vente d’un accès payant à 7 jeux supplémentaires.
 
@@ -59,9 +61,7 @@ L’utilisateur s’engage à ne pas utiliser le Site de manière illégale ou d
 
 ### Article 3 - Création d'un compte utilisateur
 
-La création d'un compte utilisateur n'est pas requise pour accéder aux jeux gratuits ou pour effectuer un achat. Les modalités d'accès sont basées sur le paiement unique qui donne un accès immédiat au contenu.
-
-Si un système de compte utilisateur était mis en place ultérieurement, des conditions spécifiques s’ajouteraient aux présentes CGU.
+La création d'un compte utilisateur n'est pas requise pour accéder aux jeux gratuits mais elle est requise pour pouvoir acheter le contenu payant.Les modalités d'accès sont basées sur le paiement unique qui donne un accès immédiat au contenu.
 
 ### Article 4 - Propriété intellectuelle
 
