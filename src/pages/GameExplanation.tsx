@@ -1,4 +1,6 @@
 import motCommunImg from "@/assets/motcommun.png";
+import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer";
+import { useIsMobile } from "@/hooks/use-mobile";
 import Footer from "@/components/Footer";
 import dessineALaChaine from "@/assets/dessine a la chaine.png";
 import faireRireSansRireVisuel from "@/assets/aperololo-faireriresansrire.png";
@@ -275,6 +277,8 @@ const games = [
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 const GameExplanation = () => {
+	const isMobile = useIsMobile();
+	const [drawerOpen, setDrawerOpen] = useState(false);
 	const navigate = useNavigate();
 	const location = useLocation();
 	// Get jeu param from URL
@@ -327,58 +331,113 @@ const GameExplanation = () => {
 	];
 
 	return (
-		<div className="min-h-screen bg-background flex flex-col">
-	{showPaywall && <PaywallDialog onClose={() => setShowPaywall(false)} shortDescription={game.shortDescription} />}
-	<div className="flex flex-row py-10 px-0 flex-1">
-        {/* Liste des jeux */}
-        <aside className="w-80 bg-muted/50 px-8 py-8 flex flex-col gap-2 border-r">
-          <div className="mb-2 flex items-center gap-2 cursor-pointer hover:underline" onClick={() => window.location.href = '/'}>
-            <img src={catMascot} alt="Mascotte Aperololo" className="w-6 h-6 object-contain" />
-            <span className="text-base font-semibold text-party-purple">Accueil</span>
-				<Footer />
-			</div>
-          <h2 className="text-xl font-bold mb-1">Jeux</h2>
-          <div className="flex flex-col gap-2 mt-2">
-            {games.map((g, i) => (
-              <Button
-                key={g.name}
-                variant="ghost"
-                className={`flex items-center w-full text-lg py-3 px-3 rounded-lg mb-0 border-2 shadow-sm transition
-                  ${g.is_premium && !isUserPremium
-                    ? "bg-gray-200 border-gray-300 text-gray-400"
-                    : selected === i
-                      ? "bg-party-purple border-party-purple"
-                      : "bg-white border-party-purple/40 hover:border-party-purple hover:shadow-md"}
-                `}
-								onClick={() => {
-									if (g.is_premium && !isUserPremium) {
-										setSelected(i);
-										setShowPaywall(true);
-									} else {
-										handleGameClick(i);
-									}
-								}}
-              >
-                {/* Game icon image */}
-                <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
-                  <img src={gameIcons[i]} alt={`Icone jeu ${g.name}`} className="w-7 h-7 object-contain" />
-                </span>
-                <span
-                  className={`w-full text-left font-semibold block overflow-hidden text-ellipsis whitespace-nowrap
-                    ${selected === i ? "text-party-yellow" : "text-party-purple"}
-                  `}
-                  title={g.name}
-                >
-                  {g.name}
-                </span>
-              </Button>
-            ))}
-          </div>
-        </aside>
+			<div className="min-h-screen bg-background flex flex-col">
+				{showPaywall && <PaywallDialog onClose={() => setShowPaywall(false)} shortDescription={game.shortDescription} />}
+				<div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} py-10 px-0 flex-1`}>
+					{/* Sélecteur de jeux */}
+					{isMobile ? (
+						<>
+							<Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
+								<DrawerTrigger asChild>
+									<Button className="mx-4 mb-4" variant="outline" onClick={() => setDrawerOpen(true)}>
+										Menu
+									</Button>
+								</DrawerTrigger>
+								<DrawerContent>
+									<div className="px-6 py-6 flex flex-col gap-2">
+										<div className="mb-2 flex items-center gap-2 cursor-pointer hover:underline" onClick={() => window.location.href = '/'}>
+											<img src={catMascot} alt="Mascotte Aperololo" className="w-6 h-6 object-contain" />
+											<span className="text-base font-semibold text-party-purple">Accueil</span>
+										</div>
+										<h2 className="text-xl font-bold mb-1">Jeux</h2>
+										<div className="flex flex-col gap-2 mt-2">
+											{games.map((g, i) => (
+												<Button
+													key={g.name}
+													variant="ghost"
+													className={`flex items-center w-full text-lg py-3 px-3 rounded-lg mb-0 border-2 shadow-sm transition
+														${g.is_premium && !isUserPremium
+															? "bg-gray-200 border-gray-300 text-gray-400"
+															: selected === i
+																? "bg-party-purple border-party-purple"
+																: "bg-white border-party-purple/40 hover:border-party-purple hover:shadow-md"}
+													`}
+													onClick={() => {
+														setDrawerOpen(false);
+														if (g.is_premium && !isUserPremium) {
+															setSelected(i);
+															setShowPaywall(true);
+														} else {
+															handleGameClick(i);
+														}
+													}}
+												>
+													<span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
+														<img src={gameIcons[i]} alt={`Icone jeu ${g.name}`} className="w-7 h-7 object-contain" />
+													</span>
+													<span
+														className={`w-full text-left font-semibold block overflow-hidden text-ellipsis whitespace-nowrap
+															${selected === i ? "text-party-yellow" : "text-party-purple"}
+														`}
+														title={g.name}
+													>
+														{g.name}
+													</span>
+												</Button>
+											))}
+										</div>
+									</div>
+								</DrawerContent>
+							</Drawer>
+						</>
+					) : (
+						<aside className="w-80 bg-muted/50 px-8 py-8 flex flex-col gap-2 border-r">
+							<div className="mb-2 flex items-center gap-2 cursor-pointer hover:underline" onClick={() => window.location.href = '/'}>
+								<img src={catMascot} alt="Mascotte Aperololo" className="w-6 h-6 object-contain" />
+								<span className="text-base font-semibold text-party-purple">Accueil</span>
+							</div>
+							<h2 className="text-xl font-bold mb-1">Jeux</h2>
+							<div className="flex flex-col gap-2 mt-2">
+								{games.map((g, i) => (
+									<Button
+										key={g.name}
+										variant="ghost"
+										className={`flex items-center w-full text-lg py-3 px-3 rounded-lg mb-0 border-2 shadow-sm transition
+											${g.is_premium && !isUserPremium
+												? "bg-gray-200 border-gray-300 text-gray-400"
+												: selected === i
+													? "bg-party-purple border-party-purple"
+													: "bg-white border-party-purple/40 hover:border-party-purple hover:shadow-md"}
+										`}
+										onClick={() => {
+											if (g.is_premium && !isUserPremium) {
+												setSelected(i);
+												setShowPaywall(true);
+											} else {
+												handleGameClick(i);
+											}
+										}}
+									>
+										<span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
+											<img src={gameIcons[i]} alt={`Icone jeu ${g.name}`} className="w-7 h-7 object-contain" />
+										</span>
+										<span
+											className={`w-full text-left font-semibold block overflow-hidden text-ellipsis whitespace-nowrap
+												${selected === i ? "text-party-yellow" : "text-party-purple"}
+											`}
+											title={g.name}
+										>
+											{g.name}
+										</span>
+									</Button>
+								))}
+							</div>
+						</aside>
+					)}
 
-        {/* Droite : Détails du jeu */}
-        <main className="flex-1 px-12 py-10">
-				   <div>
+					{/* Droite : Détails du jeu */}
+					<main className={`flex-1 ${isMobile ? 'px-2 py-2' : 'px-12 py-10'}`}>
+						<div>
 					<div className="flex flex-col items-center mb-4 max-w-md mx-auto w-full">
 						   {/* Ajout de l'image d'illustration du jeu au-dessus du titre */}
 						   <img
@@ -608,26 +667,10 @@ const GameExplanation = () => {
 				   {/* Boutons de test pour simuler la connexion et le paiement */}
 	{/* Boutons de test retirés */}
 			</main>
-			</div>
 		</div>
+		<Footer />
+	</div>
 	);
 };
 
-// Icon credit for Flaticon
-// Add at the bottom of the page, after main content
-const IconCredit = () => (
-	<div className="w-full text-center text-xs text-muted-foreground mt-8 mb-2">
-		<a href="https://www.flaticon.com/free-icons/magic" title="magic icons" target="_blank" rel="noopener noreferrer" className="underline hover:text-party-purple">
-			Magic icons created by Icongeek26 - Flaticon
-		</a>
-	</div>
-);
-
-const GameExplanationWithCredit = () => (
-	<>
-		<GameExplanation />
-		<IconCredit />
-	</>
-);
-
-export default GameExplanationWithCredit;
+export default GameExplanation;

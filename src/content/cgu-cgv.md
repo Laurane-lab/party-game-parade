@@ -1,5 +1,3 @@
-# CGV & CGU
-
 ## Conditions Générales de Vente (CGV)
 
 ### Article 1 - Objet
