@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Footer from "@/components/Footer";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 
 const supabaseRedirectUrl = import.meta.env.VITE_SUPABASE_REDIRECT_URL;
@@ -9,14 +9,42 @@ export default function Connexion() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Handle callback: check if user is authenticated
   useEffect(() => {
-    const session = supabase.auth.getSession();
-    if (session) {
-      navigate("/");
-    }
-  }, [navigate]);
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        const params = new URLSearchParams(location.search);
+        const redirectTo = params.get('redirect_to');
+        if (redirectTo === 'payment') {
+          window.location.href = 'https://buy.stripe.com/4gM14p1P98Gja3a6R4bEA00';
+        } else {
+          navigate("/");
+        }
+      }
+    };
+    checkSession();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        if (session) {
+          const params = new URLSearchParams(location.search);
+          const redirectTo = params.get('redirect_to');
+          if (redirectTo === 'payment') {
+            window.location.href = 'https://buy.stripe.com/4gM14p1P98Gja3a6R4bEA00';
+          } else {
+            navigate("/");
+          }
+        }
+      }
+    );
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, [navigate, location.search]);
 
   const handleOAuthLogin = async (provider: 'google' | 'apple') => {
     setLoading(true);

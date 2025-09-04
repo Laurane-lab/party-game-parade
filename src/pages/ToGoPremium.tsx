@@ -130,7 +130,7 @@ const ToGoPremium = () => {
               </div>
             ))}
           </div>
-          <Button className="w-full mb-2" variant="secondary" onClick={() => navigate('/connexion')}>Accède à l'intégralité des jeux pour seulement 4,99€.</Button>
+                    <Button className="w-full mb-2" variant="secondary" onClick={() => navigate('/connexion?redirect_to=payment')}>Accède à l'intégralité des jeux pour seulement 4,99€.</Button>
           <Button className="w-full" variant="ghost" onClick={() => window.location.href = '/'} id="main-home-btn-ref">Retour à l'accueil</Button>
         </div>
       </div>

@@ -236,7 +236,7 @@ const GameExplanation = () => {
 							       <Button
 								       variant="secondary"
 								       className="w-full max-w-md px-6 py-4 rounded-xl text-xl font-extrabold"
-								       onClick={() => navigate('/connexion')}
+								       onClick={() => navigate('/connexion?redirect_to=payment')}
 							       >
 								       Devenir premium
 							       </Button>
