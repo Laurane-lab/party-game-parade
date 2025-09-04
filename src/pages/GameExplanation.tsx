@@ -124,7 +124,7 @@ const games = [
 				"Qui fait le plus de bruit en mangeant ?",
 				"Qui finirait en prison en premier ?",
 				"Qui risque de se perdre même avec un GPS ?",
-				"Qui sauterait sur l’occasion de jouer dans une télé-réalité ?"
+				"Qui sauterait sur l’occasion de jouer dans une télé-réalité ?",
 				"Qui fait les meilleures imitations ? (Démo demandée !)",
 				"Qui finirait par rejoindre les méchants dans un film juste par flemme de fuir ?",
 			],
