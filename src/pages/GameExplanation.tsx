@@ -1,6 +1,4 @@
 import motCommunImg from "@/assets/motcommun.png";
-import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer";
-import { useIsMobile } from "@/hooks/use-mobile";
 import Footer from "@/components/Footer";
 import dessineALaChaine from "@/assets/dessine a la chaine.png";
 import faireRireSansRireVisuel from "@/assets/aperololo-faireriresansrire.png";
@@ -10,7 +8,7 @@ import aperololoMissionSecrete from "@/assets/aperololo-missionsecrete.jpg";
 // import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-// ...existing code...
+import PaywallDialog from "@/components/PaywallDialog";
 import catMascot from "@/assets/New mascot.png";
 import aperololoMurduson from "@/assets/aperololo-murduson.png";
 import visuel10 from "@/assets/10-visuel.png";
@@ -277,8 +275,6 @@ const games = [
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 const GameExplanation = () => {
-	const isMobile = useIsMobile();
-	const [drawerOpen, setDrawerOpen] = useState(false);
 	const navigate = useNavigate();
 	const location = useLocation();
 	// Get jeu param from URL
@@ -330,371 +326,308 @@ const GameExplanation = () => {
 		wandIcon,
 	];
 
-       return (
-	       <div className="min-h-screen bg-background flex flex-col">
-		       {/* PaywallDialog supprimé */}
-		       <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} py-10 px-0 flex-1`}>
-			       {/* Sélecteur de jeux */}
-			       {isMobile ? (
-				       <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
-					       <DrawerTrigger asChild>
-						       <Button className="mx-4 mb-4" variant="outline" onClick={() => setDrawerOpen(true)}>
-							       Menu
-						       </Button>
-					       </DrawerTrigger>
-					       <DrawerContent>
-						       <div className="px-6 py-6 flex flex-col gap-2">
-							       <div className="mb-2 flex items-center gap-2 cursor-pointer hover:underline" onClick={() => window.location.href = '/'}>
-								       <img src={catMascot} alt="Mascotte Aperololo" className="w-6 h-6 object-contain" />
-								       <span className="text-base font-semibold text-party-purple">Accueil</span>
-							       </div>
-							       <h2 className="text-xl font-bold mb-1">Jeux</h2>
-							       <div className="flex flex-col gap-2 mt-2">
-								       {games.map((g, i) => (
-									       <Button
-										       key={g.name}
-										       variant="ghost"
-										       className={`flex items-center w-full text-lg py-3 px-3 rounded-lg mb-0 border-2 shadow-sm transition
-											       ${g.is_premium && !isUserPremium
-												       ? "bg-gray-200 border-gray-300 text-gray-400"
-												       : selected === i
-													       ? "bg-party-purple border-party-purple"
-													       : "bg-white border-party-purple/40 hover:border-party-purple hover:shadow-md"}
-										       `}
-										       onClick={() => {
-											       setDrawerOpen(false);
-											       if (g.is_premium && !isUserPremium) {
-												       setSelected(i);
-												       setShowPaywall(true);
-											       } else {
-												       handleGameClick(i);
-											       }
-										       }}
-									       >
-										       <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
-											       <img src={gameIcons[i]} alt={`Icone jeu ${g.name}`} className="w-7 h-7 object-contain" />
-										       </span>
-										       <span
-											       className={`w-full text-left font-semibold block overflow-hidden text-ellipsis whitespace-nowrap
-												       ${selected === i ? "text-party-yellow" : "text-party-purple"}
-											       `}
-											       title={g.name}
-										       >
-											       {g.name}
-										       </span>
-									       </Button>
-								       ))}
-							       </div>
-						       </div>
-					       </DrawerContent>
-				       </Drawer>
-			       ) : (
-				       <aside className="w-80 bg-muted/50 px-8 py-8 flex flex-col gap-2 border-r">
-					       <div className="mb-2 flex items-center gap-2 cursor-pointer hover:underline" onClick={() => window.location.href = '/'}>
-						       <img src={catMascot} alt="Mascotte Aperololo" className="w-6 h-6 object-contain" />
-						       <span className="text-base font-semibold text-party-purple">Accueil</span>
-					       </div>
-					       <h2 className="text-xl font-bold mb-1">Jeux</h2>
-					       <div className="flex flex-col gap-2 mt-2">
-						       {games.map((g, i) => (
-							       <Button
-								       key={g.name}
-								       variant="ghost"
-								       className={`flex items-center w-full text-lg py-3 px-3 rounded-lg mb-0 border-2 shadow-sm transition
-									       ${g.is_premium && !isUserPremium
-										       ? "bg-gray-200 border-gray-300 text-gray-400"
-										       : selected === i
-											       ? "bg-party-purple border-party-purple"
-											       : "bg-white border-party-purple/40 hover:border-party-purple hover:shadow-md"}
-								       `}
-								       onClick={() => {
-									       if (g.is_premium && !isUserPremium) {
-										       setSelected(i);
-										       setShowPaywall(true);
-									       } else {
-										       handleGameClick(i);
-									       }
-								       }}
-							       >
-								       <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
-									       <img src={gameIcons[i]} alt={`Icone jeu ${g.name}`} className="w-7 h-7 object-contain" />
-								       </span>
-								       <span
-									       className={`w-full text-left font-semibold block overflow-hidden text-ellipsis whitespace-nowrap
-										       ${selected === i ? "text-party-yellow" : "text-party-purple"}
-									       `}
-									       title={g.name}
-								       >
-									       {g.name}
-								       </span>
-							       </Button>
-						       ))}
-					       </div>
-				       </aside>
-			       )}
+	return (
+		<div className="min-h-screen bg-background flex flex-col">
+	{showPaywall && <PaywallDialog onClose={() => setShowPaywall(false)} shortDescription={game.shortDescription} />}
+	<div className="flex flex-row py-10 px-0 flex-1">
+        {/* Liste des jeux */}
+        <aside className="w-80 bg-muted/50 px-8 py-8 flex flex-col gap-2 border-r">
+          <div className="mb-2 flex items-center gap-2 cursor-pointer hover:underline" onClick={() => window.location.href = '/'}>
+            <img src={catMascot} alt="Mascotte Aperololo" className="w-6 h-6 object-contain" />
+            <span className="text-base font-semibold text-party-purple">Accueil</span>
+				<Footer />
+			</div>
+          <h2 className="text-xl font-bold mb-1">Jeux</h2>
+          <div className="flex flex-col gap-2 mt-2">
+            {games.map((g, i) => (
+              <Button
+                key={g.name}
+                variant="ghost"
+                className={`flex items-center w-full text-lg py-3 px-3 rounded-lg mb-0 border-2 shadow-sm transition
+                  ${g.is_premium && !isUserPremium
+                    ? "bg-gray-200 border-gray-300 text-gray-400"
+                    : selected === i
+                      ? "bg-party-purple border-party-purple"
+                      : "bg-white border-party-purple/40 hover:border-party-purple hover:shadow-md"}
+                `}
+								onClick={() => {
+									if (g.is_premium && !isUserPremium) {
+										setSelected(i);
+										setShowPaywall(true);
+									} else {
+										handleGameClick(i);
+									}
+								}}
+              >
+                {/* Game icon image */}
+                <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
+                  <img src={gameIcons[i]} alt={`Icone jeu ${g.name}`} className="w-7 h-7 object-contain" />
+                </span>
+                <span
+                  className={`w-full text-left font-semibold block overflow-hidden text-ellipsis whitespace-nowrap
+                    ${selected === i ? "text-party-yellow" : "text-party-purple"}
+                  `}
+                  title={g.name}
+                >
+                  {g.name}
+                </span>
+              </Button>
+            ))}
+          </div>
+        </aside>
 
-			       {/* Droite : Détails du jeu */}
-			       <main className={`flex-1 ${isMobile ? 'px-2 py-2' : 'px-12 py-10'}`}>
-				       <div>
-					       <div className="flex flex-col items-center mb-4 max-w-md mx-auto w-full">
-						       {/* Image d'illustration du jeu au-dessus du titre */}
-						       <img
+        {/* Droite : Détails du jeu */}
+        <main className="flex-1 px-12 py-10">
+				   <div>
+					<div className="flex flex-col items-center mb-4 max-w-md mx-auto w-full">
+						   {/* Ajout de l'image d'illustration du jeu au-dessus du titre */}
+						   <img
 							   src={game.name === "Pas dans le rythme"
-							       ? aperololoPasDansLeRythme
-							       : game.name === "Les enchères"
-							       ? aperololoLesEncheres
-							       : game.name === "Suite de stars"
-							       ? suiteDeStarV3
-							       : game.name === "Jusqu'à 10"
-							       ? jusqua10V3
-							       : game.name === "Dessine à la chaîne"
-							       ? dessineALaChaine
-							       : game.name === "Le mot commun"
-							       ? motCommunImg
-							       : game.images[0]}
+								   ? aperololoPasDansLeRythme
+								   : game.name === "Les enchères"
+								   ? aperololoLesEncheres
+								   : game.name === "Suite de stars"
+								   ? suiteDeStarV3
+								   : game.name === "Jusqu'à 10"
+								   ? jusqua10V3
+								   : game.name === "Dessine à la chaîne"
+								   ? dessineALaChaine
+								   : game.name === "Le mot commun"
+								   ? motCommunImg
+								   : game.images[0]}
 							   alt={`Illustration jeu ${game.name}`}
 							   className="mb-4 shadow-lg rounded-xl"
 							   style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
-						       />
-						       <h1 className="text-3xl font-bold text-primary text-center">
+						   />
+						   <h1 className="text-3xl font-bold text-primary text-center">
 							   {game.name}
-						       </h1>
-					       </div>
-					       <Card className="mb-8">
-						       <CardContent>
-							       <ul className="mb-2 flex flex-col gap-1 text-base font-sans mt-4">
-								       <li>
-									       <strong>Joueurs :</strong> {game.players}
-								       </li>
-								       <li>
-									       <strong>Mode de jeu :</strong> {game.modeDeJeu}
-								       </li>
-							       </ul>
-							       <div className="mb-2 text-base font-sans">
-								       <strong>Description :</strong> {game.shortDescription}
-							       </div>
-							       {/* Si jeu premium et utilisateur non premium, on affiche uniquement les éléments ci-dessus + story + bouton premium */}
-				       {game.is_premium && !isUserPremium ? (
-					       <>
-						       {/* Affichage restreint pour jeux premium */}
-						       <div className="mt-8 bg-party-pink/10 rounded-lg p-4 flex items-center gap-4 shadow-md border border-party-pink/40">
-							       <img
-								       src={catMascot}
-								       alt="Mascotte Aperololo"
-								       className="w-16 h-16 object-contain self-center"
-							       />
-							       <blockquote className="text-base text-party-purple italic flex-1 px-2">
-								       <span className="block" dangerouslySetInnerHTML={{ __html: game.story }} />
-							       </blockquote>
-						       </div>
-						       <div className="flex justify-center mt-8">
-							       <Button
-								       className="w-full max-w-md px-6 py-4 rounded-xl text-xl font-extrabold shadow-lg border-2 border-party-purple bg-gradient-to-r from-party-yellow via-party-pink to-party-purple text-white transition duration-200 hover:scale-105 hover:from-party-purple hover:to-party-yellow hover:text-party-purple text-center whitespace-normal break-words"
-								       onClick={() => navigate('/to-go-premium')}
-								       style={{
-									       boxShadow: '0 4px 24px 0 rgba(162,89,255,0.15)',
-									       letterSpacing: '0.03em',
-									       wordBreak: 'break-word',
-								       }}
-							       >
-								       🔒 Devenir premium
-							       </Button>
-						       </div>
-					       </>
-				       ) : (
-					       <>
-						       {/* Affichage complet pour jeux gratuits et premium débloqués */}
-						       <div className="mb-2 text-base font-sans">
-							       <strong>Règles :</strong>
-							       <ol className="list-decimal ml-6 mt-2">
-								       {game.rules.map((rule, idx) => {
-									       if (game.name === "Pas dans le rythme" && idx === 1) {
-										       return <li key={idx} dangerouslySetInnerHTML={{ __html: rule }} />;
-									       }
-									       return <li key={idx}>{rule}</li>;
-								       })}
-							       </ol>
-							       {/* Section Idées de chansons pour 'Pas dans le rythme' */}
-							       {game.name === "Pas dans le rythme" && (
-								       <div className="mt-6">
-									       <strong>Idées de chansons :</strong>
-									       <div className="mt-2">
-										       <iframe
-											       data-testid="embed-iframe"
-											       style={{ borderRadius: '12px' }}
-											       src="https://open.spotify.com/embed/playlist/2yHhJNvzDaVi9rhjbHfZLx?utm_source=generator"
-											       width="100%"
-											       height="80"
-											       frameBorder="0"
-											       allowFullScreen
-											       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-											       loading="lazy"
-										       ></iframe>
-									       </div>
-								       </div>
-							       )}
-							       {/* Section Options de jeu pour 'Dessine à la chaîne' */}
-							       {game.name === "Dessine à la chaîne" && (
-								       <>
-									       <div className="mt-6 text-base font-sans">
-										       <strong>Matériel :</strong>
-										       <ul className="list-disc ml-6 mt-2">
-											       <li>Feuilles A4</li>
-											       <li>Gros feutres ou marqueurs</li>
-											       <li>Ruban adhésif</li>
-										       </ul>
-									       </div>
-									       <div className="mt-6 text-base font-sans">
-										       <strong>Options de jeu :</strong>
-										       <ul className="list-disc ml-6 mt-2">
-											       <li>Chacun son tour : les équipes passent une à une.</li>
-											       <li>Course contre la montre : les équipes dessinent en même temps. Le gagnant reste celui qui devine correctement et non le plus rapide !</li>
-										       </ul>
-									       </div>
-								       </>
-							       )}
-							       {/* Section Idées d'enchères pour 'Les enchères' */}
-							       {game.name === "Les enchères" && (
-								       <div className="mt-6 text-base font-sans">
-									       <strong>Idées d'enchères :</strong>
-									       <ul className="list-disc ml-6 mt-2">
-										       <li>Ecrivains Français</li>
-										       <li>Dire <em>Tchin-Tchin</em> dans d'autres langues</li>
-										       <li>Marques de bières</li>
-										       <li>Instruments de musique</li>
-										       <li>Objets dans un sac à main</li>
-									       </ul>
-								       </div>
-							       )}
-						       </div>
-						       {game.name === "Le mur du son" ? (
-							       <>
-								       <div className="text-base font-sans">
-									       <strong>Conseil :</strong>
-									       <ul className="list-disc ml-6 mt-2">
-										       {game.conseil.map((c, idx) => (
-											       <li key={idx}>{c}</li>
-										       ))}
-									       </ul>
-								       </div>
-								       <div className="mt-4 text-base font-sans">
-									       <strong>Accès aux nuages de mots :</strong>
-									       <ul className="list-disc ml-6 mt-2">
-										       {game.nuages.map((nuage, idx) => (
-											       <li key={idx}>
-												       <a href={nuage.url} target="_blank" rel="noopener noreferrer" className="text-party-blue underline hover:text-party-green">
-													       {nuage.theme}
-												       </a>
-											       </li>
-										       ))}
-									       </ul>
-								       </div>
-							       </>
-						       ) : game.name === "Dos à dos" ? (
-							       <div className="text-base font-sans">
-								       <strong>Idées de questions :</strong>
-								       <ul className="list-disc ml-6 mt-2">
-									       {game.examples && game.examples.map((ex, idx) => (
-										       <li key={idx}>{ex}</li>
-									       ))}
-								       </ul>
-							       </div>
-						       ) : game.name === "Suite de stars" ? (
-							       !game.hideExamples && (
-								       <div className="text-base font-sans">
-									       <strong>Exemples :</strong>
-									       <ul className="list-disc ml-6 mt-2">
-										       {game.examples && game.examples.map((ex, idx) => (
-											       <li key={idx}>{ex}</li>
-										       ))}
-									       </ul>
-								       </div>
-							       )
-						       ) : game.name === "Jusqu'à 10" ? (
-							       <div className="text-base font-sans">
-								       <strong>Idées de contraintes :</strong>
-								       <ul className="list-disc ml-6 mt-2">
-									       {game.contraintes && game.contraintes.map((contrainte, idx) => (
-										       <li key={idx}>{contrainte}</li>
-									       ))}
-								       </ul>
-							       </div>
-						       ) : game.name === "Le mot commun" ? (
-							       <div className="text-base font-sans">
-								       <strong>Exemples :</strong>
-								       {game.examples && game.examples.map((ex, idx) => (
-									       <div key={idx} className="mb-1">
-										       <ul className="list-disc ml-6 mt-2">
-											       <li>{ex}</li>
-										       </ul>
-										       <div className="ml-6 mt-1 text-sm text-muted-foreground">
-											       {/* Ligne d'explication personnalisée pour chaque exemple */}
-											       {idx === 0 && "Objets qui fonctionnent : une carte d'un roi, une lumière pour illustrer Versailles, une couronne etc."}
-											       {idx === 1 && "Objets qui fonctionnent : une urne, une tête de mort, une pierre, etc."}
-											       {idx === 2 && "Objets qui fonctionnent : des lunettes, une loupe, une peluche de taupe, etc."}
-											       {idx === 3 && "Objets qui fonctionnent : un oeuf, tout objet rond,  etc."}
-										       </div>
-									       </div>
-								       ))}
-							       </div>
-						       ) : game.showTours ? (
-							       <div className="text-base font-sans mt-6">
-								       <strong>Tours :</strong>
-								       <ul className="list-disc ml-6 mt-2">
-									       <li>
-										       <div>
-											       <span className="font-semibold" style={{color:'#a259ff'}}>Tour 1 :</span>
-											       <div>1. Chaque joueur va chercher 1 ou 2 objets et les met sur la table.</div>
-											       <div>2. À tour de rôle un joueur choisit l'un des objets et donne :</div>
-											       <ul className="ml-4 list-disc">
-												       <li>Le nom de l’objet</li>
-												       <li>Son origine/époque</li>
-												       <li>À quoi il sert</li>
-											       </ul>
-											       <em>Exemple : Ceci n’est pas une tasse, c’est un téléphone de la Rome antique, qui servait à appeler Cléopâtre uniquement.</em>
-										       </div>
-									       </li>
-									       <li>
-										       <div>
-											       <span className="font-semibold" style={{color:'#2ec4b6'}}>Tour 2 :</span>
-											       <div>1. En faisant un tour de table, chaque joueur dit un mot qui n’existe pas.</div>
-											       <div>2. À tout moment, l’un des participants peut demander la définition du mot et le joueur doit la donner.</div>
-											       <div>3. Dire un mot qui existe donne -1.</div>
-											       <em>Exemple : "Loubrirute" est une insulte utilisée par les adolescents Lituaniens.</em>
-										       </div>
-									       </li>
-									       <li>
-										       <div>
-											       <span className="font-semibold" style={{color:'#ffbe0b'}}>Tour 3 :</span>
-											       <div>1. Chaque joueur doit imiter un animal dans une situation et les autres doivent deviner l’animal et si possible la situation.</div>
-											       <em>Exemple : Un chat qui discute avec un autre chat. Miaou-Miaouuu-Miaou-Miaou.</em>
-										       </div>
-									       </li>
-								       </ul>
-							       </div>
-						       ) : (
-							       <div className="text-base font-sans"></div>
-						       )}
-						       <div className="mt-8 bg-party-pink/10 rounded-lg p-4 flex items-center gap-4 shadow-md border border-party-pink/40">
-							       <img
-								       src={catMascot}
-								       alt="Mascotte Aperololo"
-								       className="w-16 h-16 object-contain self-center"
-							       />
-							       <blockquote className="text-base text-party-purple italic flex-1 px-2">
-								       <span className="block" dangerouslySetInnerHTML={{ __html: game.story }} />
-							       </blockquote>
-						       </div>
-					       </>
-				       )}
-						       </CardContent>
-					       </Card>
-				       </div>
-			       </main>
-		       </div>
-		       <Footer />
-	       </div>
-       );
+						   </h1>
+					   </div>
+					<Card className="mb-8">
+						<CardContent>
+							<ul className="mb-2 flex flex-col gap-1 text-base font-sans mt-4">
+								<li>
+									<strong>Joueurs :</strong> {game.players}
+								</li>
+								<li>
+									<strong>Mode de jeu :</strong> {game.modeDeJeu}
+								</li>
+								{/* Description courte supprimée de l'affichage */}
+							</ul>
+							<div className="mb-2 text-base font-sans">
+								<strong>Règles :</strong>
+								<ol className="list-decimal ml-6 mt-2">
+									{game.rules.map((rule, idx) => {
+										if (game.name === "Pas dans le rythme" && idx === 1) {
+											return <li key={idx} dangerouslySetInnerHTML={{ __html: rule }} />;
+										}
+										return <li key={idx}>{rule}</li>;
+									})}
+								</ol>
+								{/* Section Idées de chansons pour 'Pas dans le rythme' */}
+								{game.name === "Pas dans le rythme" && (
+									<div className="mt-6">
+										<strong>Idées de chansons :</strong>
+										<div className="mt-2">
+											<iframe
+												data-testid="embed-iframe"
+												style={{ borderRadius: '12px' }}
+												src="https://open.spotify.com/embed/playlist/2yHhJNvzDaVi9rhjbHfZLx?utm_source=generator"
+												width="100%"
+												height="80"
+												frameBorder="0"
+												allowFullScreen
+												allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+												loading="lazy"
+											></iframe>
+										</div>
+									</div>
+								)}
+								{/* Section Options de jeu pour 'Dessine à la chaîne' */}
+								{game.name === "Dessine à la chaîne" && (
+									<>
+										<div className="mt-6 text-base font-sans">
+											<strong>Matériel :</strong>
+											<ul className="list-disc ml-6 mt-2">
+												<li>Feuilles A4</li>
+												<li>Gros feutres ou marqueurs</li>
+												<li>Ruban adhésif</li>
+											</ul>
+										</div>
+										<div className="mt-6 text-base font-sans">
+											<strong>Options de jeu :</strong>
+											<ul className="list-disc ml-6 mt-2">
+												<li>Chacun son tour : les équipes passent une à une.</li>
+												<li>Course contre la montre : les équipes dessinent en même temps. Le gagnant reste celui qui devine correctement et non le plus rapide !</li>
+											</ul>
+										</div>
+									</>
+								)}
+								{/* Section Idées d'enchères pour 'Les enchères' */}
+								{game.name === "Les enchères" && (
+									<div className="mt-6 text-base font-sans">
+										<strong>Idées d'enchères :</strong>
+										<ul className="list-disc ml-6 mt-2">
+											<li>Ecrivains Français</li>
+											<li>Dire <em>Tchin-Tchin</em> dans d'autres langues</li>
+											<li>Marques de bières</li>
+											<li>Instruments de musique</li>
+											<li>Objets dans un sac à main</li>
+										</ul>
+									</div>
+								)}
+							</div>
+							{game.name === "Le mur du son" ? (
+								<>
+									<div className="text-base font-sans">
+										<strong>Conseil :</strong>
+										<ul className="list-disc ml-6 mt-2">
+											{game.conseil.map((c, idx) => (
+												<li key={idx}>{c}</li>
+											))}
+										</ul>
+									</div>
+									<div className="mt-4 text-base font-sans">
+										<strong>Accès aux nuages de mots :</strong>
+										<ul className="list-disc ml-6 mt-2">
+											{game.nuages.map((nuage, idx) => (
+												<li key={idx}>
+													<a href={nuage.url} target="_blank" rel="noopener noreferrer" className="text-party-blue underline hover:text-party-green">
+														{nuage.theme}
+													</a>
+												</li>
+											))}
+										</ul>
+									</div>
+								</>
+							) : game.name === "Dos à dos" ? (
+								<div className="text-base font-sans">
+									<strong>Idées de questions :</strong>
+									<ul className="list-disc ml-6 mt-2">
+										{game.examples && game.examples.map((ex, idx) => (
+											<li key={idx}>{ex}</li>
+										))}
+									</ul>
+								</div>
+							) : game.name === "Suite de stars" ? (
+								!game.hideExamples && (
+									<div className="text-base font-sans">
+										<strong>Exemples :</strong>
+										<ul className="list-disc ml-6 mt-2">
+											{game.examples && game.examples.map((ex, idx) => (
+												<li key={idx}>{ex}</li>
+											))}
+										</ul>
+									</div>
+								)
+							) : game.name === "Jusqu'à 10" ? (
+								<div className="text-base font-sans">
+									<strong>Idées de contraintes :</strong>
+									<ul className="list-disc ml-6 mt-2">
+										{game.contraintes && game.contraintes.map((contrainte, idx) => (
+											<li key={idx}>{contrainte}</li>
+										))}
+									</ul>
+								</div>
+							) : game.name === "Le mot commun" ? (
+								<div className="text-base font-sans">
+									<strong>Exemples :</strong>
+									{game.examples && game.examples.map((ex, idx) => (
+										<div key={idx} className="mb-1">
+											<ul className="list-disc ml-6 mt-2">
+												<li>{ex}</li>
+											</ul>
+											<div className="ml-6 mt-1 text-sm text-muted-foreground">
+												{/* Ligne d'explication personnalisée pour chaque exemple */}
+												{idx === 0 && "Objets qui fonctionnent : une carte d'un roi, une lumière pour illustrer Versailles, une couronne etc."}
+												{idx === 1 && "Objets qui fonctionnent : une urne, une tête de mort, une pierre, etc."}
+												{idx === 2 && "Objets qui fonctionnent : des lunettes, une loupe, une peluche de taupe, etc."}
+												{idx === 3 && "Objets qui fonctionnent : un oeuf, tout objet rond,  etc."}
+
+											</div>
+										</div>
+									))}
+								</div>
+							) : game.showTours ? (
+								<div className="text-base font-sans mt-6">
+									<strong>Tours :</strong>
+									<ul className="list-disc ml-6 mt-2">
+										<li>
+											<div>
+												<span className="font-semibold" style={{color:'#a259ff'}}>Tour 1 :</span>
+												<div>1. Chaque joueur va chercher 1 ou 2 objets et les met sur la table.</div>
+												<div>2. À tour de rôle un joueur choisit l'un des objets et donne :</div>
+												<ul className="ml-4 list-disc">
+													<li>Le nom de l’objet</li>
+													<li>Son origine/époque</li>
+													<li>À quoi il sert</li>
+												</ul>
+												<em>Exemple : Ceci n’est pas une tasse, c’est un téléphone de la Rome antique, qui servait à appeler Cléopâtre uniquement.</em>
+											</div>
+										</li>
+										<li>
+											<div>
+												<span className="font-semibold" style={{color:'#2ec4b6'}}>Tour 2 :</span>
+												<div>1. En faisant un tour de table, chaque joueur dit un mot qui n’existe pas.</div>
+												<div>2. À tout moment, l’un des participants peut demander la définition du mot et le joueur doit la donner.</div>
+												<div>3. Dire un mot qui existe donne -1.</div>
+												<em>Exemple : "Loubrirute" est une insulte utilisée par les adolescents Lituaniens.</em>
+											</div>
+										</li>
+										<li>
+											<div>
+												<span className="font-semibold" style={{color:'#ffbe0b'}}>Tour 3 :</span>
+												<div>1. Chaque joueur doit imiter un animal dans une situation et les autres doivent deviner l’animal et si possible la situation.</div>
+												<em>Exemple : Un chat qui discute avec un autre chat. Miaou-Miaouuu-Miaou-Miaou.</em>
+											</div>
+										</li>
+									</ul>
+								</div>
+							) : (
+								<div className="text-base font-sans"></div>
+							)}
+											{/* Si le jeu est premium, n'affiche pas la popup ici, elle est gérée par showPaywall */}
+											{!game.is_premium && (
+												<div className="mt-8 bg-party-pink/10 rounded-lg p-4 flex items-center gap-4 shadow-md border border-party-pink/40">
+													<img
+														src={catMascot}
+														alt="Mascotte Aperololo"
+														className="w-16 h-16 object-contain self-center"
+													/>
+													<blockquote className="text-base text-party-purple italic flex-1 px-2">
+														<span className="block" dangerouslySetInnerHTML={{ __html: game.story }} />
+													</blockquote>
+												</div>
+											)}
+						</CardContent>
+					</Card>
+					{/* Bouton 'Découvrir d'autres jeux' retiré */}
+				</div>
+				{/* Histoire retirée en dehors de la Card */}
+						   {/* PaywallDialog retiré (brouillon) */}
+				   {/* Boutons de test pour simuler la connexion et le paiement */}
+	{/* Boutons de test retirés */}
+			</main>
+			</div>
+		</div>
+	);
 };
 
-export default GameExplanation;
+// Icon credit for Flaticon
+// Add at the bottom of the page, after main content
+const IconCredit = () => (
+	<div className="w-full text-center text-xs text-muted-foreground mt-8 mb-2">
+		<a href="https://www.flaticon.com/free-icons/magic" title="magic icons" target="_blank" rel="noopener noreferrer" className="underline hover:text-party-purple">
+			Magic icons created by Icongeek26 - Flaticon
+		</a>
+	</div>
+);
+
+const GameExplanationWithCredit = () => (
+	<>
+		<GameExplanation />
+		<IconCredit />
+	</>
+);
+
+export default GameExplanationWithCredit;

@@ -53,7 +53,7 @@ const Index = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8 py-3 bg-gradient-to-r from-party-orange to-party-pink hover:from-party-pink hover:to-party-orange">
-                <a href="/game-explanation">Commencer gratuitement</a>
+                <a href="/connexion">Commencer gratuitement</a>
             </Button>
           </div>
         </div>
@@ -191,9 +191,9 @@ const Index = () => {
                 <span><span className="font-bold text-party-green">Testés et approuvés :</span> nous avons testé chaque jeu pour nous assurer qu'il fonctionne et qu'il apporte de l'ambiance.</span>
               </div>
             </div>
-      <Button asChild size="lg" className="text-lg px-12 py-4 bg-gradient-to-r from-party-pink to-party-orange hover:from-party-orange hover:to-party-pink">
-        <a href="/game-explanation">Commencer gratuitement</a>
-      </Button>
+          <Button asChild size="lg" className="text-lg px-12 py-4 bg-gradient-to-r from-party-pink to-party-orange hover:from-party-orange hover:to-party-pink">
+              <a href="/connexion">Commencer gratuitement</a>
+          </Button>
         </div>
       </section>
     {showPaywall && <PaywallDialog onClose={() => setShowPaywall(false)} />}
