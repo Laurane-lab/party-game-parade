@@ -13,8 +13,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // ...existing code...
 import catMascot from "@/assets/New mascot.png";
 import aperololoMurduson from "@/assets/aperololo-murduson.png";
-import visuel10 from "@/assets/10-visuel.png";
-import suiteDeStarsVisuel from "@/assets/aperololo-suitedestarsV2.jpg";
+import visuel10 from "@/assets/jusqua10 v3.png";
+import suiteDeStarsVisuel from "@/assets/suite de star v3.png";
 import suiteDeStarV3 from "@/assets/suite de star v3.png";
 import jusqua10V3 from "@/assets/jusqua10 v3.png";
 import aperololoDosados from "@/assets/aperololo-dosados.jpg";
