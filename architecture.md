@@ -72,5 +72,5 @@ The project follows a standard structure for a modern React application built wi
 
 ## Drafts and Work in Progress
 
-*   **Premium Features**: The existence of `PaywallDialog.tsx` and the `ToGoPremium.tsx` page suggests that the implementation of premium features is a work in progress.
+*   **Premium Features**: The existence of `PaywallDialog.tsx` and the `ToGoPremium.tsx` page suggests that the implementation of premium features is a work in progress. The user flow is being implemented, for instance by connecting the premium page to the connexion page.
 *   **CGU/CGV**: The current branch name `Fix-cgv-cgu` indicates that the "Terms and Conditions" and "General Terms of Sale" pages are actively being worked on or revised.

@@ -236,7 +236,7 @@ const GameExplanation = () => {
 							       <Button
 								       variant="secondary"
 								       className="w-full max-w-md px-6 py-4 rounded-xl text-xl font-extrabold"
-								       onClick={() => navigate('/to-go-premium')}
+								       onClick={() => navigate('/connexion')}
 							       >
 								       Devenir premium
 							       </Button>

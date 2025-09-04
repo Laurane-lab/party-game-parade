@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import catMascot from "@/assets/New mascot.png";
@@ -14,6 +15,7 @@ import smokeIcon from "@/assets/icon/smoke-thks-icongeek26.png";
 import wandIcon from "@/assets/icon/wand-thks-icongeek26.png";
 
 const ToGoPremium = () => {
+  const navigate = useNavigate();
   // Importer la liste des jeux premium depuis GameExplanation
   const freeGames = [
     {
@@ -96,7 +98,7 @@ const ToGoPremium = () => {
       <div className="flex flex-col items-center justify-center flex-1">
         <div className="bg-white rounded-lg shadow-lg p-8 max-w-xl w-full text-center border border-party-pink">
           <img src={catMascot} alt="Mascotte Aperololo" className="w-20 h-20 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-party-pink mb-6 leading-tight">Débloque tous les jeux pour 3,99€ !</h1>
+          <h1 className="text-2xl font-bold text-party-pink mb-6 leading-tight">Débloque tous les jeux pour 4,99€ !</h1>
           {/* Grille des jeux premium */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
             {/* Jeux gratuits en premier */}
@@ -128,7 +130,7 @@ const ToGoPremium = () => {
               </div>
             ))}
           </div>
-          <Button className="w-full mb-2" variant="secondary">Accède à l'intégralité des jeux pour seulement 3,99€.</Button>
+          <Button className="w-full mb-2" variant="secondary" onClick={() => navigate('/connexion')}>Accède à l'intégralité des jeux pour seulement 4,99€.</Button>
           <Button className="w-full" variant="ghost" onClick={() => window.location.href = '/'} id="main-home-btn-ref">Retour à l'accueil</Button>
         </div>
       </div>
