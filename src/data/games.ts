@@ -17,7 +17,7 @@ export type Game = {
   examples?: string[];
   idees?: string | string[];
   materiel?: string | string[];
-  tours?: string;
+  tours?: { title: string; color: string; description: string[] }[];
   is_premium: boolean;
   story: string;
   nuages?: { theme: string; url: string }[];
@@ -56,7 +56,7 @@ export const games: Game[] = [
     story: "N'hésite pas à faire chanter ton pote pour vérifier qu’il n’a pas inventé une chanson !\nSi la chanson n'existe pas mais que tu kiffes les paroles, tu peux donner un point, après tout c'est toi le maître du jeu !",
     is_premium: false,
     materiel: "aucun",
-    tours: "aucun",
+    tours: [],
   },
   {
     id: 'jusqua-10',
@@ -85,7 +85,7 @@ export const games: Game[] = [
     conseil: [],
     examples: [],
     materiel: "aucun",
-    tours: "aucun",
+    tours: [],
   },
   {
     id: 'suite-de-stars',
@@ -109,7 +109,7 @@ export const games: Game[] = [
     is_premium: false,
     conseil: [],
     materiel: "aucun",
-    tours: "aucun",
+    tours: [],
   },
   {
     id: 'dos-a-dos',
@@ -142,7 +142,7 @@ export const games: Game[] = [
     is_premium: true,
     conseil: [],
     materiel: "aucun",
-    tours: "aucun",
+    tours: [],
   },
   {
     id: 'mission-secrete',
@@ -164,11 +164,11 @@ export const games: Game[] = [
         "À la fin du week-end, le joueur avec le plus de points l’emporte !",
     ],
     examples: [],
-    story: "Pour faciliter le compte des points et l'attribution des missions, Apérololo t'a concocté un petit Excel. <a href=\"https://docs.google.com/spreadsheets/d/1N_WMsFVpcNyd0H1gWy5fbPeLK94FwINfwFNuOxQgwhg/edit?usp=sharing\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:#a259ff;font-weight:bold;\">Clique ici</a> pour y accéder !",
+    story: "Tu ne t'imagines pas à quel point tes amis sont prêts à faire n'importe quoi pour t'induire en erreur. J'en ai vu des choses étranges en faisant ce jeu !",
     is_premium: true,
     conseil: [],
     materiel: "aucun",
-    tours: "aucun",
+    tours: [],
   },
   {
     id: 'sans-rire',
@@ -195,7 +195,36 @@ export const games: Game[] = [
     is_premium: true,
     conseil: [],
     materiel: "aucun",
-    tours: "aucun",
+    tours: [
+      {
+        title: "Tour 1",
+        color: "#a259ff",
+        description: [
+          "<div>1. Chaque joueur va chercher 1 ou 2 objets et les met sur la table.</div>",
+          "<div>2. À tour de rôle un joueur choisit l'un des objets et donne :</div>",
+          `<ul class="ml-4 list-disc"><li>Le nom de l’objet</li><li>Son origine/époque</li><li>À quoi il sert</li></ul>`,
+          "<em>Exemple : Ceci n’est pas une tasse, c’est un téléphone de la Rome antique, qui servait à appeler Cléopâtre uniquement.</em>"
+        ]
+      },
+      {
+        title: "Tour 2",
+        color: "#2ec4b6",
+        description: [
+          "<div>1. En faisant un tour de table, chaque joueur dit un mot qui n’existe pas.</div>",
+          "<div>2. À tout moment, l’un des participants peut demander la définition du mot et le joueur doit la donner.</div>",
+          "<div>3. Dire un mot qui existe donne -1.</div>",
+          "<em>Exemple : \"Loubrirute\" est une insulte utilisée par les adolescents Lituaniens.</em>"
+        ]
+      },
+      {
+        title: "Tour 3",
+        color: "#ffbe0b",
+        description: [
+          "<div>1. Chaque joueur doit imiter un animal dans une situation et les autres doivent deviner l’animal et si possible la situation.</div>",
+          "<em>Exemple : Un chat qui discute avec un autre chat. Miaou-Miaouuu-Miaou-Miaou.</em>"
+        ]
+      }
+    ],
   },
   {
     id: 'pas-dans-le-rythme',
@@ -221,7 +250,7 @@ export const games: Game[] = [
     is_premium: true,
     conseil: [],
     materiel: "aucun",
-    tours: "aucun",
+    tours: [],
   },
   {
     id: 'les-encheres',
@@ -256,7 +285,7 @@ export const games: Game[] = [
     is_premium: true,
     conseil: [],
     materiel: "aucun",
-    tours: "aucun",
+    tours: [],
   },
   {
     id: 'dessine-a-la-chaine',
@@ -290,7 +319,7 @@ export const games: Game[] = [
     story: "Après ça, je crois que vous ne pourrez plus vous moquez des dessins de votre petit cousin !",
     is_premium: true,
     conseil: [],
-    tours: "aucun",
+    tours: [],
   },
   {
     id: 'mot-commun',
@@ -320,6 +349,6 @@ export const games: Game[] = [
     is_premium: true,
     conseil: [],
     materiel: "aucun",
-    tours: "aucun",
+    tours: [],
   }
 ];

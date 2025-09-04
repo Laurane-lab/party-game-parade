@@ -111,9 +111,7 @@ const GameExplanation = () => {
 										       key={g.titre}
 										       variant="ghost"
 										       className={`flex items-center w-full text-lg py-3 px-3 rounded-lg mb-0 border-2 shadow-sm transition
-											       ${g.is_premium && !isUserPremium
-												       ? "bg-gray-200 border-gray-300 text-gray-400"
-												       : selected === i
+											       ${selected === i
 													       ? "bg-party-purple border-party-purple"
 													       : "bg-white border-party-purple/40 hover:border-party-purple hover:shadow-md"}
 										       `}
@@ -152,9 +150,7 @@ const GameExplanation = () => {
 								       key={g.titre}
 								       variant="ghost"
 								       className={`flex items-center w-full text-lg py-3 px-3 rounded-lg mb-0 border-2 shadow-sm transition
-									       ${g.is_premium && !isUserPremium
-										       ? "bg-gray-200 border-gray-300 text-gray-400"
-										       : selected === i
+									       ${selected === i
 											       ? "bg-party-purple border-party-purple"
 											       : "bg-white border-party-purple/40 hover:border-party-purple hover:shadow-md"}
 								       `}
@@ -364,41 +360,22 @@ const GameExplanation = () => {
 									       </div>
 								       ))}
 							       </div>
-						       ) : game.showTours ? (
-							       <div className="text-base font-sans mt-6">
-								       <strong>Tours :</strong>
-								       <ul className="list-disc ml-6 mt-2">
-									       <li>
-										       <div>
-											       <span className="font-semibold" style={{color:'#a259ff'}}>Tour 1 :</span>
-											       <div>1. Chaque joueur va chercher 1 ou 2 objets et les met sur la table.</div>
-											       <div>2. À tour de rôle un joueur choisit l'un des objets et donne :</div>
-											       <ul className="ml-4 list-disc">
-												       <li>Le nom de l’objet</li>
-												       <li>Son origine/époque</li>
-												       <li>À quoi il sert</li>
-											       </ul>
-											       <em>Exemple : Ceci n’est pas une tasse, c’est un téléphone de la Rome antique, qui servait à appeler Cléopâtre uniquement.</em>
-										       </div>
-									       </li>
-									       <li>
-										       <div>
-											       <span className="font-semibold" style={{color:'#2ec4b6'}}>Tour 2 :</span>
-											       <div>1. En faisant un tour de table, chaque joueur dit un mot qui n’existe pas.</div>
-											       <div>2. À tout moment, l’un des participants peut demander la définition du mot et le joueur doit la donner.</div>
-											       <div>3. Dire un mot qui existe donne -1.</div>
-											       <em>Exemple : "Loubrirute" est une insulte utilisée par les adolescents Lituaniens.</em>
-										       </div>
-									       </li>
-									       <li>
-										       <div>
-											       <span className="font-semibold" style={{color:'#ffbe0b'}}>Tour 3 :</span>
-											       <div>1. Chaque joueur doit imiter un animal dans une situation et les autres doivent deviner l’animal et si possible la situation.</div>
-											       <em>Exemple : Un chat qui discute avec un autre chat. Miaou-Miaouuu-Miaou-Miaou.</em>
-										       </div>
-									       </li>
-								       </ul>
-							       </div>
+						       ) : game.showTours && game.tours && game.tours.length > 0 ? (
+								<div className="text-base font-sans mt-6">
+									<strong>Tours :</strong>
+									<ul className="list-disc ml-6 mt-2">
+										{game.tours.map((tour, idx) => (
+											<li key={idx}>
+												<div>
+													<span className="font-semibold" style={{ color: tour.color }}>{tour.title} :</span>
+													{tour.description.map((desc, descIdx) => (
+														<div key={descIdx} dangerouslySetInnerHTML={{ __html: desc }} />
+													))}
+												</div>
+											</li>
+										))}
+									</ul>
+								</div>
 						       ) : (
 							       <div className="text-base font-sans"></div>
 						       )}
