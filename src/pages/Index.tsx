@@ -146,25 +146,25 @@ const Index = () => {
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div>
-              <div className="text-4xl mb-4">🎯</div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">Connecte-toi & Joue</h3>
+              <div className="text-4xl mb-4">🎪</div>
+              <h3 className="text-xl font-semibold mb-3 text-foreground">Découvre les jeux</h3>
               <p className="text-muted-foreground">
-                Connecte-toi et accède instantanément à 3 jeux gratuits
+                Entre amis, en famille, en soirée ou en week-end, il y en a pour tous les goûts
               </p>
             </div>
             <div>
-              <div className="text-4xl mb-4">🎪</div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">Débloque plus de jeux</h3>
+              <div className="text-4xl mb-4">🎉</div>
+              <h3 className="text-xl font-semibold mb-3 text-foreground">Joue gratuitement</h3>
                 <p className="text-muted-foreground">
-                  Tu en veux plus ? Débloque notre collection complète de jeux
+                  3 jeux offerts sont disponibles immédiatement
                 </p>
                 {/* Bouton retiré */}
               </div>
             <div>
-              <div className="text-4xl mb-4">🎉</div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">Fais la fête</h3>
+              <div className="text-4xl mb-4">⭐</div>
+              <h3 className="text-xl font-semibold mb-3 text-foreground">Passe au niveau supérieur</h3>
               <p className="text-muted-foreground">
-                Choisis le jeu qui s'adapte à ton événement
+                7 jeux supplémentaires disponibles en passant premium
               </p>
             </div>
           </div>
