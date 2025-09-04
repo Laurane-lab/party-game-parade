@@ -1,177 +1,76 @@
-# Party Game Parade Architecture
+# Architecture Document: Party Game Parade
 
-## File & Folder Structure
+This document outlines the architecture of the Party Game Parade web application.
+
+## File and Folder Structure
+
+The project follows a standard structure for a modern React application built with Vite.
 
 ```
-party-game-parade/
-├── bun.lockb                # Bun package manager lock file
-├── components.json          # Component registry/configuration
-├── eslint.config.js         # ESLint configuration
-├── index.html               # Main HTML entry point
-├── package.json             # Project metadata and dependencies
-├── postcss.config.js        # PostCSS configuration for CSS processing
-├── README.md                # Project documentation
-├── tailwind.config.ts       # Tailwind CSS configuration
-├── tsconfig.app.json        # TypeScript config for app
-├── tsconfig.json            # Global TypeScript config
-├── tsconfig.node.json       # TypeScript config for Node
-├── vercel.json              # Vercel deployment config
-├── vite.config.ts           # Vite build tool config
-├── public/                  # Static assets served directly
-│   ├── favicon.ico
-│   ├── placeholder.svg
-│   ├── robots.txt
-│   └── ...
-├── src/                     # Source code
-│   ├── App.css              # Global app styles
-│   ├── App.tsx              # Main React app component
-│   ├── index.css            # Global CSS imports
-│   ├── main.tsx             # App entry point, renders App
-│   ├── vite-env.d.ts        # Vite environment types
-│   ├── assets/              # Images and icons
-│   │   ├── ...              # Game images, mascots, icons
-│   │   └── icon/            # Icon assets
-│   ├── components/          # React components
-│   │   ├── Footer.tsx       # Footer component
-│   │   ├── PaywallDialog.tsx # Ancien composant modal pour le paywall/upsell, n'est plus utilisé dans l'app (logique déplacée dans les pages concernées).
-│   │   └── ui/              # UI primitives (buttons, dialogs, forms, etc.)
-│   │       ├── accordion.tsx
-│   │       ├── alert-dialog.tsx
-│   │       ├── alert.tsx
-│   │       ├── aspect-ratio.tsx
-│   │       ├── avatar.tsx
-│   │       ├── badge.tsx
-│   │       ├── breadcrumb.tsx
-│   │       ├── button.tsx
-│   │       ├── calendar.tsx
-│   │       ├── card.tsx
-│   │       ├── carousel.tsx
-│   │       ├── chart.tsx
-│   │       ├── checkbox.tsx
-│   │       ├── collapsible.tsx
-│   │       ├── command.tsx
-│   │       ├── context-menu.tsx
-│   │       ├── dialog.tsx
-│   │       ├── drawer.tsx
-│   │       ├── dropdown-menu.tsx
-│   │       ├── form.tsx
-│   │       ├── hover-card.tsx
-│   │       ├── input-otp.tsx
-│   │       ├── input.tsx
-│   │       ├── label.tsx
-│   │       ├── menubar.tsx
-│   │       ├── navigation-menu.tsx
-│   │       ├── pagination.tsx
-│   │       ├── popover.tsx
-│   │       ├── progress.tsx
-│   │       ├── radio-group.tsx
-│   │       ├── resizable.tsx
-│   │       ├── scroll-area.tsx
-│   │       ├── select.tsx
-│   │       ├── separator.tsx
-│   │       ├── sheet.tsx
-│   │       ├── sidebar.tsx
-│   │       ├── skeleton.tsx
-│   │       ├── slider.tsx
-│   │       ├── sonner.tsx
-│   │       ├── switch.tsx
-│   │       └── ...
-│   ├── content/             # Legal and informational content
-│   │   └── cgu-cgv.md
-│   ├── css/                 # Custom CSS files
-│   │   └── cgu-cgv.css
-│   ├── data/                # Data sources (game data, config)
-│   │   └── games.ts         # Liste des jeux (free & premium)
-│   ├── hooks/               # Custom React hooks
-│   │   ├── use-mobile.tsx   # Mobile detection hook
-│   │   └── use-toast.ts     # Toast notification hook
-│   ├── lib/                 # Utility functions
-│   │   └── utils.ts
-│   └── pages/               # Page-level components (routing targets)
-│       ├── CGVCGU.tsx       # CGU/CGV page
-│       ├── Connexion.tsx    # Login/connection page
-│       ├── GameExplanation.tsx # Page d'explication des jeux, affiche la story pour tous les jeux premium et gratuits, la popup paywall a été retirée (logique premium intégrée dans la page).
-│       ├── GamePreview.tsx  # Preview d'un jeu
-│       ├── Index.tsx        # Page d'accueil
-│       ├── MentionsLegales.tsx # Mentions légales
-│       ├── NotFound.tsx     # 404 error page
-│       └── ToGoPremium.tsx  # Page d'accès aux jeux premium, affiche la liste complète des jeux premium et gratuits.
+/
+├── public/             # Static assets directly served to the browser
+├── src/                # Application source code
+│   ├── assets/         # Images, icons, and other assets processed by Vite
+│   ├── components/     # Reusable React components
+│   │   ├── ui/         # UI components from shadcn/ui
+│   │   └── ...         # Custom components
+│   ├── content/        # Markdown content
+│   ├── css/            # CSS files
+│   ├── data/           # Static data for the application
+│   ├── hooks/          # Custom React hooks
+│   ├── lib/            # Utility functions
+│   ├── pages/          # Top-level page components
+│   └── main.tsx        # Application entry point
+├── package.json        # Project dependencies and scripts
+├── vite.config.ts      # Vite configuration
+├── tailwind.config.ts  # Tailwind CSS configuration
+└── tsconfig.json       # TypeScript configuration
 ```
 
 ## What Each Part Does
 
-### Root Files
-- **index.html**: Loads the React app, includes root div.
-- **package.json**: Declares dependencies, scripts, and metadata.
-- **vite.config.ts**: Configures Vite for fast development/build.
-- **tailwind.config.ts**: Tailwind CSS setup for utility-first styling.
-- **tsconfig*.json**: TypeScript configuration for type safety.
-- **vercel.json**: Deployment settings for Vercel platform.
+*   **`public/`**: Contains static assets like `favicon.ico` and `robots.txt`. These files are not processed by the build tool and are copied directly to the output directory.
+*   **`src/`**: The heart of the application.
+    *   **`assets/`**: Contains images and icons that are imported into components. These are processed by Vite during the build.
+    *   **`components/`**: This directory holds all the reusable React components.
+        *   **`ui/`**: This sub-directory is dedicated to components provided by the `shadcn/ui` library, which forms the base of the UI.
+        *   Custom components like `Footer.tsx` and `PaywallDialog.tsx` are placed directly inside `components/`.
+    *   **`content/`**: Holds markdown files.
+    *   **`css/`**: Holds CSS files.
+    *   **`data/`**: Contains static data used by the application, such as the list of games in `games.ts`.
+    *   **`hooks/`**: Custom React hooks are defined here, for example, `use-mobile.tsx` to detect mobile devices.
+    *   **`lib/`**: A place for utility functions that can be reused across the application, like the `cn` function in `utils.ts` for merging CSS classes.
+    *   **`pages/`**: Each file in this directory typically represents a page of the application, corresponding to a route.
+    *   **`main.tsx`**: The main entry point of the React application. It renders the `App` component into the DOM.
+    *   **`App.tsx`**: The root component of the application. It sets up routing and global providers.
 
-### `public/`
-- Contains static files (images, icons, robots.txt) served as-is.
+## State Management and Service Connections
 
-### `src/`
-- **App.tsx**: Main React component, sets up app layout and routing (React Router).
-- **main.tsx**: Entry point, renders `App` into the DOM.
-- **App.css/index.css**: Global styles, Tailwind imports.
-- **vite-env.d.ts**: Type definitions for Vite environment variables.
+*   **Client-Side State**: For local component state, the application uses React's built-in hooks like `useState` and `useContext`.
+*   **Server-Side State**: The application uses **TanStack Query (`@tanstack/react-query`)** for managing server state. This includes fetching, caching, and updating data from the backend. The `QueryClientProvider` is set up in `App.tsx`, making it available throughout the application.
+*   **Backend Service**: The application connects to **Supabase** as its backend. The `@supabase/supabase-js` library is used to interact with Supabase for services like authentication and database.
+*   **Routing**: **React Router (`react-router-dom`)** is used for client-side routing. Routes are defined in `App.tsx`, mapping URL paths to specific page components in the `src/pages` directory.
 
-#### `src/assets/`
-- Game images, mascots, icons, and SVGs used throughout the app.
+## Tech Stack & Frameworks
 
-#### `src/components/`
-- **Footer.tsx**: Footer component.
-- **PaywallDialog.tsx**: Ancien composant modal pour le paywall/upsell, n'est plus utilisé dans l'app (logique premium déplacée dans les pages concernées).
-- **ui/**: Primitives UI réutilisables (boutons, dialogs, forms, etc.), utilisées dans toutes les pages et composants pour une UI cohérente et moderne.
+*   **Build Tool**: **Vite** is used for its fast development server and optimized builds.
+*   **Framework**: **React** is the core library for building the user interface.
+*   **Language**: **TypeScript** is used for static typing, improving code quality and maintainability.
+*   **Styling**:
+    *   **Tailwind CSS** is the primary CSS framework for utility-first styling.
+    *   **shadcn/ui** is used as a component library, providing a set of accessible and customizable UI components built on top of Radix UI and Tailwind CSS.
+*   **Routing**: **React Router** handles client-side navigation.
+*   **State Management**: **TanStack Query** is used for managing server state.
+*   **Backend**: **Supabase** provides backend-as-a-service functionalities.
+*   **Forms**: **React Hook Form** and **Zod** are used for building and validating forms.
+*   **Linting**: **ESLint** is used to enforce code quality and consistency.
 
-#### `src/content/`
-- **cgu-cgv.md**: Contenu des CGU/CGV affiché dans la page dédiée.
+## Code Usage
 
-#### `src/css/`
-- **cgu-cgv.css**: Styles spécifiques pour la page CGU/CGV.
+*   **What code is used**: Based on the routing in `App.tsx` and the project structure, most of the code in the `src` directory appears to be in use. The component-based architecture encourages modularity and reuse.
+*   **What code is not used**: The file `architecture.md` is outdated and has been replaced by this document. Without a more detailed analysis, it is difficult to identify other unused code, but the project appears to be lean.
 
-#### `src/data/`
-- **games.ts**: Source de vérité pour la liste des jeux (gratuits et premium), utilisée dans toutes les pages concernées (explication, accès premium, preview, etc.).
+## Drafts and Work in Progress
 
-#### `src/hooks/`
-- **use-mobile.tsx**: Détection de l'usage mobile pour adapter l'UI.
-- **use-toast.ts**: Gestion des notifications toast pour le feedback utilisateur.
-
-#### `src/lib/`
-- **utils.ts**: Fonctions utilitaires partagées dans l'app.
-
-#### `src/pages/`
-- **CGVCGU.tsx**: Page CGU/CGV.
-- **Connexion.tsx**: Page de connexion, affiche la mascotte au-dessus du titre.
-- **GameExplanation.tsx**: Page d'explication des jeux, affiche la story pour tous les jeux premium et gratuits, logique premium intégrée dans la page.
-- **GamePreview.tsx**: Preview d'un jeu.
-- **Index.tsx**: Page d'accueil, boutons "Commencer gratuitement" redirigent vers la connexion.
-- **MentionsLegales.tsx**: Mentions légales.
-- **NotFound.tsx**: 404 error page.
-- **ToGoPremium.tsx**: Page d'accès aux jeux premium, affiche la liste complète des jeux premium et gratuits, utilise les icônes et descriptions courtes depuis `games.ts`.
-
-## State Management & Services
-
-### State Location
-- **Local State**: La plupart des états sont gérés localement dans les composants React avec `useState`, `useReducer`, ou des hooks personnalisés (`use-toast`, `use-mobile`).
-- **Paywall State**: La logique paywall (affichage, accès premium) est maintenant gérée directement dans les pages concernées (`GameExplanation.tsx`, `ToGoPremium.tsx`, `Index.tsx`).
-- **Page State**: Chaque composant de page (`src/pages/`) gère son propre état, y compris la sélection de jeu, la gestion des popups, et l'accès premium.
-
-### Services & Data Flow
-- **Data**: Les données des jeux (nom, description courte, premium, etc.) sont centralisées dans `src/data/games.ts` et utilisées dans toutes les pages concernées.
-- **Paywall Logic**: La logique premium (accès, description courte, redirection) est intégrée dans les pages concernées, la popup paywall a été retirée.
-- **UI Services**: Toasts, dialogs, et feedback UI sont gérés via hooks et composants dans `src/components/ui/`.
-- **Routing**: Géré dans `App.tsx` (React Router), navigation entre toutes les pages du dossier `src/pages/`.
-- **Assets**: Images, mascottes et icônes importés depuis `src/assets/` et affichés dans les pages et composants.
-
-## Summary
-- **Modular Structure**: Séparation claire des assets, composants, hooks, pages, utilitaires, et données.
-- **Paywall & Premium**: La logique premium (affichage, accès, description courte, redirection) est intégrée dans les pages concernées, la popup paywall a été retirée.
-- **UI**: UI moderne avec primitives réutilisables dans `components/ui/`, stylée avec Tailwind CSS.
-- **Routing**: Navigation entre pages via React Router, toutes les pages sont dans `src/pages/`.
-- **Jeux Premium**: Les jeux premium et gratuits sont listés dans `games.ts` et affichés dans les pages dédiées, avec icônes, descriptions courtes et story affichée pour tous.
-- **Pages légales**: CGU/CGV et Mentions légales sont accessibles via des pages dédiées.
-
----
-Ce document donne une vue d'ensemble à jour de l'architecture du projet Party Game Parade. Pour plus de détails, consultez le README ou explorez les fichiers et dossiers individuels.
+*   **Premium Features**: The existence of `PaywallDialog.tsx` and the `ToGoPremium.tsx` page suggests that the implementation of premium features is a work in progress. The user flow is being implemented, for instance by connecting the premium page to the connexion page.
+*   **CGU/CGV**: The current branch name `Fix-cgv-cgu` indicates that the "Terms and Conditions" and "General Terms of Sale" pages are actively being worked on or revised.

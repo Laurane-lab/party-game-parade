@@ -1,32 +1,50 @@
 import { useState, useEffect } from "react";
 import Footer from "@/components/Footer";
-import { useNavigate } from "react-router-dom";
-import { createClient } from "@supabase/supabase-js";
+import { useNavigate, useLocation } from "react-router-dom";
+import { supabase } from "@/lib/supabase";
 
-// Replace with your Supabase project credentials
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabaseRedirectUrl = import.meta.env.VITE_SUPABASE_REDIRECT_URL;
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function Connexion() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Handle callback: check if user is authenticated
   useEffect(() => {
-    setLoading(true);
-    supabase.auth.getUser().then(({ data, error }) => {
-      if (data?.user) {
-        // Redirect to home or dashboard
-        navigate("/");
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        const params = new URLSearchParams(location.search);
+        const redirectTo = params.get('redirect_to');
+        if (redirectTo === 'payment') {
+          window.location.href = 'https://buy.stripe.com/4gM14p1P98Gja3a6R4bEA00';
+        } else {
+          navigate("/");
+        }
       }
-      if (error) setError(error.message);
-      setLoading(false);
-    });
-    // eslint-disable-next-line
-  }, []);
+    };
+    checkSession();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        if (session) {
+          const params = new URLSearchParams(location.search);
+          const redirectTo = params.get('redirect_to');
+          if (redirectTo === 'payment') {
+            window.location.href = 'https://buy.stripe.com/4gM14p1P98Gja3a6R4bEA00';
+          } else {
+            navigate("/");
+          }
+        }
+      }
+    );
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, [navigate, location.search]);
 
   const handleOAuthLogin = async (provider: 'google' | 'apple') => {
     setLoading(true);
@@ -37,8 +55,10 @@ export default function Connexion() {
         redirectTo: supabaseRedirectUrl,
       },
     });
-    if (error) setError(error.message);
-    setLoading(false);
+    if (error) {
+        setError(error.message);
+        setLoading(false);
+    }
   };
 
   return (
