@@ -6,8 +6,10 @@ import catMascot from "@/assets/New mascot.png";
 import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
 import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
 import hatIcon from "@/assets/icon/hat-thks-icongeek26.png";
+import { useAuth } from "@/hooks/useAuth";
 
 const Index = () => {
+  const { session } = useAuth();
   const [showPaywall, setShowPaywall] = useState(false);
   const gameExamples = [
     {
@@ -37,6 +39,17 @@ const Index = () => {
     <div className="min-h-screen bg-background flex flex-col">
       {/* Section Héros */}
       <section className="relative py-20 px-4 text-center bg-gradient-to-br from-party-pink/20 via-party-orange/10 to-party-blue/20">
+        <div className="absolute top-4 right-4">
+            {session ? (
+                <Button variant="outline" size="lg" disabled>
+                    Connecté
+                </Button>
+            ) : (
+                <Button asChild variant="outline" size="lg">
+                    <a href="/connexion">Connexion</a>
+                </Button>
+            )}
+        </div>
         <div className="max-w-4xl mx-auto">
           <div className="flex justify-center mb-6">
             <img 
@@ -78,10 +91,10 @@ const Index = () => {
                   cardProps = {
                     role: "button",
                     tabIndex: 0,
-                    onClick: () => window.location.href = "/game-explanation?jeu=le-mur-du-son",
+                    onClick: () => window.location.href = "/game-explanation?id=le-mur-du-son",
                     onKeyPress: (e) => {
                       if (e.key === "Enter" || e.key === " ") {
-                        window.location.href = "/game-explanation?jeu=le-mur-du-son";
+                        window.location.href = "/game-explanation?id=le-mur-du-son";
                       }
                     },
                     className: "rounded-xl border border-gray-200 bg-gray-50 shadow-sm p-6 flex flex-col items-start text-left hover:shadow-lg transition-shadow cursor-pointer outline-none focus:ring-2 focus:ring-party-pink",
@@ -90,10 +103,10 @@ const Index = () => {
                   cardProps = {
                     role: "button",
                     tabIndex: 0,
-                    onClick: () => window.location.href = "/game-explanation?jeu=jusqu-a-10",
+                    onClick: () => window.location.href = "/game-explanation?id=jusqua-10",
                     onKeyPress: (e) => {
                       if (e.key === "Enter" || e.key === " ") {
-                        window.location.href = "/game-explanation?jeu=jusqu-a-10";
+                        window.location.href = "/game-explanation?id=jusqua-10";
                       }
                     },
                     className: "rounded-xl border border-gray-200 bg-gray-50 shadow-sm p-6 flex flex-col items-start text-left hover:shadow-lg transition-shadow cursor-pointer outline-none focus:ring-2 focus:ring-party-pink",

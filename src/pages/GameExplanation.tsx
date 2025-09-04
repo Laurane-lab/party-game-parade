@@ -25,6 +25,7 @@ import quillIcon from "@/assets/icon/quill-thks-icongeek26.png";
 import scrollIcon from "@/assets/icon/scroll-thks-icongeek26.png";
 import smokeIcon from "@/assets/icon/smoke-thks-icongeek26.png";
 import wandIcon from "@/assets/icon/wand-thks-icongeek26.png";
+import BrevoForm from "@/components/BrevoForm";
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -123,14 +124,21 @@ const GameExplanation = () => {
 										       <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
 											       <img src={gameIcons[i]} alt={`Icone jeu ${g.titre}`} className="w-7 h-7 object-contain" />
 										       </span>
-										       <span
-											       className={`w-full text-left font-semibold block overflow-hidden text-ellipsis whitespace-nowrap
-												       ${selected === i ? "text-party-yellow" : "text-party-purple"}
-											       `}
-											       title={g.titre}
-										       >
-											       {g.titre}
-										       </span>
+                                                                                       <div className="flex items-center justify-between flex-grow overflow-hidden">
+                                                                                         <span
+                                                                                           className={`text-left font-semibold block overflow-hidden text-ellipsis whitespace-nowrap
+                                                                                             ${selected === i ? "text-party-yellow" : "text-party-purple"}
+                                                                                           `}
+                                                                                           title={g.titre}
+                                                                                         >
+                                                                                           {g.titre}
+                                                                                         </span>
+                                                                                         {!g.is_premium && (
+                                                                                           <span className="ml-4 px-1 bg-green-200 text-green-800 rounded-sm text-[10px] font-bold">
+                                                                                             GRATUIT
+                                                                                           </span>
+                                                                                         )}
+                                                                                       </div>
 									       </Button>
 								       ))}
 							       </div>
@@ -161,14 +169,21 @@ const GameExplanation = () => {
 								       <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
 									       <img src={gameIcons[i]} alt={`Icone jeu ${g.titre}`} className="w-7 h-7 object-contain" />
 								       </span>
-								       <span
-									       className={`w-full text-left font-semibold block overflow-hidden text-ellipsis whitespace-nowrap
-										       ${selected === i ? "text-party-yellow" : "text-party-purple"}
-									       `}
-									       title={g.titre}
-								       >
-									       {g.titre}
-								       </span>
+                                                                                       <div className="flex items-center justify-between flex-grow overflow-hidden">
+                                                                                         <span
+                                                                                           className={`text-left font-semibold block overflow-hidden text-ellipsis whitespace-nowrap
+                                                                                             ${selected === i ? "text-party-yellow" : "text-party-purple"}
+                                                                                           `}
+                                                                                           title={g.titre}
+                                                                                         >
+                                                                                           {g.titre}
+                                                                                         </span>
+                                                                                         {!g.is_premium && (
+                                                                                           <span className="ml-4 px-1 bg-green-200 text-green-800 rounded-sm text-[10px] font-bold">
+                                                                                             GRATUIT
+                                                                                           </span>
+                                                                                         )}
+                                                                                       </div>
 							       </Button>
 						       ))}
 					       </div>
@@ -219,15 +234,11 @@ const GameExplanation = () => {
 						       </div>
 						       <div className="flex justify-center mt-8">
 							       <Button
-								       className="w-full max-w-md px-6 py-4 rounded-xl text-xl font-extrabold shadow-lg border-2 border-party-purple bg-gradient-to-r from-party-yellow via-party-pink to-party-purple text-white transition duration-200 hover:scale-105 hover:from-party-purple hover:to-party-yellow hover:text-party-purple text-center whitespace-normal break-words"
+								       variant="secondary"
+								       className="w-full max-w-md px-6 py-4 rounded-xl text-xl font-extrabold"
 								       onClick={() => navigate('/to-go-premium')}
-								       style={{
-									       boxShadow: '0 4px 24px 0 rgba(162,89,255,0.15)',
-									       letterSpacing: '0.03em',
-									       wordBreak: 'break-word',
-								       }}
 							       >
-								       🔒 Devenir premium
+								       Devenir premium
 							       </Button>
 						       </div>
 					       </>
@@ -389,6 +400,11 @@ const GameExplanation = () => {
 								       <span className="block" dangerouslySetInnerHTML={{ __html: game.story }} />
 							       </blockquote>
 						       </div>
+						       {!game.is_premium && (
+							       <div className="flex justify-center mt-8">
+								       <BrevoForm />
+							       </div>
+						       )}
 					       </>
 				       )}
 						       </CardContent>

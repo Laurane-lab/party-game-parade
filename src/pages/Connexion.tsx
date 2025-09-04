@@ -1,13 +1,9 @@
 import { useState, useEffect } from "react";
 import Footer from "@/components/Footer";
 import { useNavigate } from "react-router-dom";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "@/lib/supabase";
 
-// Replace with your Supabase project credentials
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabaseRedirectUrl = import.meta.env.VITE_SUPABASE_REDIRECT_URL;
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function Connexion() {
   const [error, setError] = useState<string | null>(null);
@@ -16,17 +12,11 @@ export default function Connexion() {
 
   // Handle callback: check if user is authenticated
   useEffect(() => {
-    setLoading(true);
-    supabase.auth.getUser().then(({ data, error }) => {
-      if (data?.user) {
-        // Redirect to home or dashboard
-        navigate("/");
-      }
-      if (error) setError(error.message);
-      setLoading(false);
-    });
-    // eslint-disable-next-line
-  }, []);
+    const session = supabase.auth.getSession();
+    if (session) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handleOAuthLogin = async (provider: 'google' | 'apple') => {
     setLoading(true);
@@ -37,8 +27,10 @@ export default function Connexion() {
         redirectTo: supabaseRedirectUrl,
       },
     });
-    if (error) setError(error.message);
-    setLoading(false);
+    if (error) {
+        setError(error.message);
+        setLoading(false);
+    }
   };
 
   return (
