@@ -8,7 +8,7 @@ import "../css/cgu-cgv.css";
 const CGVCGU: React.FC = () => {
   const [markdown, setMarkdown] = useState("");
   useEffect(() => {
-    fetch("/src/content/cgu-cgv.md")
+    fetch("/cgu-cgv.md")
       .then((res) => res.text())
       .then(setMarkdown);
   }, []);

@@ -96,7 +96,7 @@ const ToGoPremium = () => {
       <div className="flex flex-col items-center justify-center flex-1">
         <div className="bg-white rounded-lg shadow-lg p-8 max-w-xl w-full text-center border border-party-pink">
           <img src={catMascot} alt="Mascotte Aperololo" className="w-20 h-20 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-party-pink mb-6 leading-tight">Débloque tous les jeux pour 4,99€ !</h1>
+          <h1 className="text-2xl font-bold text-party-pink mb-6 leading-tight">Débloque tous les jeux pour 3,99€ !</h1>
           {/* Grille des jeux premium */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
             {/* Jeux gratuits en premier */}
@@ -128,8 +128,7 @@ const ToGoPremium = () => {
               </div>
             ))}
           </div>
-          <p className="mb-6 text-party-purple text-lg">Accède à l'intégralité des jeux pour seulement 4,99€.</p>
-          <Button className="w-full mb-2" variant="secondary">Payer 4,99€ et devenir premium</Button>
+          <Button className="w-full mb-2" variant="secondary">Accède à l'intégralité des jeux pour seulement 3,99€.</Button>
           <Button className="w-full" variant="ghost" onClick={() => window.location.href = '/'} id="main-home-btn-ref">Retour à l'accueil</Button>
         </div>
       </div>
