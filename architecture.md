@@ -33,7 +33,7 @@ party-game-parade/
 │   │   └── icon/            # Icon assets
 │   ├── components/          # React components
 │   │   ├── Footer.tsx       # Footer component
-│   │   ├── PaywallDialog.tsx # Ancien composant modal pour le paywall/upsell, n'est plus utilisé dans la page d'explication des jeux.
+│   │   ├── PaywallDialog.tsx # Ancien composant modal pour le paywall/upsell, n'est plus utilisé dans l'app (logique déplacée dans les pages concernées).
 │   │   └── ui/              # UI primitives (buttons, dialogs, forms, etc.)
 │   │       ├── accordion.tsx
 │   │       ├── alert-dialog.tsx
@@ -90,12 +90,12 @@ party-game-parade/
 │   └── pages/               # Page-level components (routing targets)
 │       ├── CGVCGU.tsx       # CGU/CGV page
 │       ├── Connexion.tsx    # Login/connection page
-│       ├── GameExplanation.tsx # Page d'explication des jeux, affiche la story pour tous les jeux premium et gratuits, la popup paywall a été retirée.
+│       ├── GameExplanation.tsx # Page d'explication des jeux, affiche la story pour tous les jeux premium et gratuits, la popup paywall a été retirée (logique premium intégrée dans la page).
 │       ├── GamePreview.tsx  # Preview d'un jeu
 │       ├── Index.tsx        # Page d'accueil
 │       ├── MentionsLegales.tsx # Mentions légales
 │       ├── NotFound.tsx     # 404 error page
-│       └── ToGoPremium.tsx  # Page d'accès aux jeux premium
+│       └── ToGoPremium.tsx  # Page d'accès aux jeux premium, affiche la liste complète des jeux premium et gratuits.
 ```
 
 ## What Each Part Does
@@ -122,8 +122,8 @@ party-game-parade/
 
 #### `src/components/`
 - **Footer.tsx**: Footer component.
-- **PaywallDialog.tsx**: Ancien composant modal pour le paywall/upsell, n'est plus utilisé dans la page d'explication des jeux.
-- **ui/**: Reusable UI primitives (buttons, dialogs, forms, etc.), utilisés dans toutes les pages et composants pour une UI cohérente et moderne.
+- **PaywallDialog.tsx**: Ancien composant modal pour le paywall/upsell, n'est plus utilisé dans l'app (logique premium déplacée dans les pages concernées).
+- **ui/**: Primitives UI réutilisables (boutons, dialogs, forms, etc.), utilisées dans toutes les pages et composants pour une UI cohérente et moderne.
 
 #### `src/content/`
 - **cgu-cgv.md**: Contenu des CGU/CGV affiché dans la page dédiée.
@@ -132,7 +132,7 @@ party-game-parade/
 - **cgu-cgv.css**: Styles spécifiques pour la page CGU/CGV.
 
 #### `src/data/`
-- **games.ts**: Source de vérité pour la liste des jeux (gratuits et premium), utilisée dans les pages d'explication et d'accès premium.
+- **games.ts**: Source de vérité pour la liste des jeux (gratuits et premium), utilisée dans toutes les pages concernées (explication, accès premium, preview, etc.).
 
 #### `src/hooks/`
 - **use-mobile.tsx**: Détection de l'usage mobile pour adapter l'UI.
@@ -144,30 +144,30 @@ party-game-parade/
 #### `src/pages/`
 - **CGVCGU.tsx**: Page CGU/CGV.
 - **Connexion.tsx**: Page de connexion, affiche la mascotte au-dessus du titre.
-- **GameExplanation.tsx**: Page d'explication des jeux, affiche la story pour tous les jeux premium et gratuits, la popup paywall a été retirée.
+- **GameExplanation.tsx**: Page d'explication des jeux, affiche la story pour tous les jeux premium et gratuits, logique premium intégrée dans la page.
 - **GamePreview.tsx**: Preview d'un jeu.
 - **Index.tsx**: Page d'accueil, boutons "Commencer gratuitement" redirigent vers la connexion.
 - **MentionsLegales.tsx**: Mentions légales.
 - **NotFound.tsx**: 404 error page.
-- **ToGoPremium.tsx**: Page d'accès aux jeux premium, affiche la liste des jeux premium et gratuits, utilise les icônes et descriptions courtes depuis `games.ts`.
+- **ToGoPremium.tsx**: Page d'accès aux jeux premium, affiche la liste complète des jeux premium et gratuits, utilise les icônes et descriptions courtes depuis `games.ts`.
 
 ## State Management & Services
 
 ### State Location
 - **Local State**: La plupart des états sont gérés localement dans les composants React avec `useState`, `useReducer`, ou des hooks personnalisés (`use-toast`, `use-mobile`).
-- **Paywall State**: L'état d'affichage de la popup paywall est géré localement dans les pages concernées (`GameExplanation.tsx`, `ToGoPremium.tsx`, `Index.tsx`).
+- **Paywall State**: La logique paywall (affichage, accès premium) est maintenant gérée directement dans les pages concernées (`GameExplanation.tsx`, `ToGoPremium.tsx`, `Index.tsx`).
 - **Page State**: Chaque composant de page (`src/pages/`) gère son propre état, y compris la sélection de jeu, la gestion des popups, et l'accès premium.
 
 ### Services & Data Flow
-- **Data**: Les données des jeux (nom, description courte, premium, etc.) sont centralisées dans `src/data/games.ts` et utilisées dans les pages concernées (`GameExplanation.tsx`, `ToGoPremium.tsx`).
-- **Paywall Logic**: La logique d'affichage de la popup paywall et de la description courte du jeu premium sélectionné est centralisée dans le composant `PaywallDialog.tsx` et pilotée par les pages.
+- **Data**: Les données des jeux (nom, description courte, premium, etc.) sont centralisées dans `src/data/games.ts` et utilisées dans toutes les pages concernées.
+- **Paywall Logic**: La logique premium (accès, description courte, redirection) est intégrée dans les pages concernées, la popup paywall a été retirée.
 - **UI Services**: Toasts, dialogs, et feedback UI sont gérés via hooks et composants dans `src/components/ui/`.
 - **Routing**: Géré dans `App.tsx` (React Router), navigation entre toutes les pages du dossier `src/pages/`.
 - **Assets**: Images, mascottes et icônes importés depuis `src/assets/` et affichés dans les pages et composants.
 
 ## Summary
 - **Modular Structure**: Séparation claire des assets, composants, hooks, pages, utilitaires, et données.
-- **Paywall & Premium**: Gestion centralisée de la popup paywall, affichage dynamique de la description courte du jeu premium sélectionné, redirection automatique vers les jeux gratuits si clic extérieur.
+- **Paywall & Premium**: La logique premium (affichage, accès, description courte, redirection) est intégrée dans les pages concernées, la popup paywall a été retirée.
 - **UI**: UI moderne avec primitives réutilisables dans `components/ui/`, stylée avec Tailwind CSS.
 - **Routing**: Navigation entre pages via React Router, toutes les pages sont dans `src/pages/`.
 - **Jeux Premium**: Les jeux premium et gratuits sont listés dans `games.ts` et affichés dans les pages dédiées, avec icônes, descriptions courtes et story affichée pour tous.
