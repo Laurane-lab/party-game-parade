@@ -106,7 +106,7 @@ const games = [
 		{
 			id: 4,
 			name: "Dos à dos",
-			shortDescription: "Deux joueurs répondent à des questions en pointant du doigt, attention aux embrouilles !",
+			shortDescription: "Connais-tu vraiment ton binôme ou les invités seront-ils plus forts que vous ? Apérololo vous donne 10 idées de questions pour réaliser ce jeu. ",
 					   players: "4-10",
 					   modeDeJeu: "en binôme",
 			duration: "20 minutes",
@@ -135,7 +135,7 @@ const games = [
 		{
 			id: 5,
 			name: "Mission secrète",
-			shortDescription: "Accomplis des missions secrètes sans te faire repérer, et démasque les autres !",
+			shortDescription: "Accomplis des missions secrètes sans te faire repérer, et démasque les autres ! Apérololo te fournit un tableau de bord pour attribuer les missions et compter les scores. Nous te proposons également 40 idées de missions.",
 					   players: "6-20",
 					   modeDeJeu: "en équipe",
 			duration: "15 minutes",
@@ -151,7 +151,7 @@ const games = [
 			],
 			examples: [],
 			images: [aperololoMissionSecrete, catMascot],
-			story: `Pour faciliter le compte des points et l'attribution des missions, Apérololo t'a concocté un petit Excel. <a href="https://docs.google.com/spreadsheets/d/1N_WMsFVpcNyd0H1gWy5fbPeLK94FwINfwFNuOxQgwhg/edit?usp=sharing" target="_blank" rel="noopener noreferrer" style="color:#a259ff;font-weight:bold;">Clique ici</a> pour y accéder !`,
+			story: `Tu ne soupsonnes pas à quel point tes amis sont prêts à tout pour gagner !`,
 			is_premium: true,
 		},
 	       {
@@ -292,16 +292,8 @@ const GameExplanation = () => {
 	const game = games[selected];
 	// TODO: Replace with real user premium status
 	const isUserPremium = false;
-	const [showPaywall, setShowPaywall] = useState(false);
 
-	useEffect(() => {
-		const handler = () => {
-			setSelected(0);
-			navigate("/game-explanation?jeu=" + games[0].name.toLowerCase().replace(/[^a-z0-9]/gi, "-"));
-		};
-		window.addEventListener("navigateToFirstFreeGame", handler);
-		return () => window.removeEventListener("navigateToFirstFreeGame", handler);
-	}, [navigate]);
+	// useEffect supprimé : plus de redirection automatique vers le premier jeu gratuit
 
 	// Synchronise l'index sélectionné avec l'URL
 	useEffect(() => {
@@ -365,12 +357,7 @@ const GameExplanation = () => {
 										       `}
 										       onClick={() => {
 											       setDrawerOpen(false);
-											       if (g.is_premium && !isUserPremium) {
-												       setSelected(i);
-												       setShowPaywall(true);
-											       } else {
-												       handleGameClick(i);
-											       }
+											       handleGameClick(i);
 										       }}
 									       >
 										       <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
@@ -410,12 +397,7 @@ const GameExplanation = () => {
 											       : "bg-white border-party-purple/40 hover:border-party-purple hover:shadow-md"}
 								       `}
 								       onClick={() => {
-									       if (g.is_premium && !isUserPremium) {
-										       setSelected(i);
-										       setShowPaywall(true);
-									       } else {
-										       handleGameClick(i);
-									       }
+									       handleGameClick(i);
 								       }}
 							       >
 								       <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
