@@ -1,8 +1,8 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
-import catMascot from "@/assets/New mascot.png";
 import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
 import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
 import crystalsIcon from "@/assets/icon/crystals-thks-icongeek26.png";
@@ -16,6 +16,17 @@ import wandIcon from "@/assets/icon/wand-thks-icongeek26.png";
 
 const ToGoPremium = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [paymentCanceled, setPaymentCanceled] = useState(false);
+
+  // Vérifier si le paiement a été annulé
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get('canceled') === 'true') {
+      setPaymentCanceled(true);
+    }
+  }, [location]);
+  
   // Importer la liste des jeux premium depuis GameExplanation
   const freeGames = [
     {
@@ -95,29 +106,44 @@ const ToGoPremium = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <div className="flex flex-col items-center justify-center flex-1">
-        <div className="bg-white rounded-lg shadow-lg p-8 max-w-xl w-full text-center border border-party-pink">
-          <img src={catMascot} alt="Mascotte Aperololo" className="w-20 h-20 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-party-pink mb-6 leading-tight">Débloque tous les jeux pour 4,99€ !</h1>
-          {/* Grille des jeux premium */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+      <Header />
+      <div className="flex flex-col items-center justify-center flex-1 py-10 px-4">
+        {paymentCanceled && (
+          <div className="bg-amber-50 border-l-4 border-amber-500 text-amber-700 p-4 mb-8 w-full max-w-3xl mx-auto">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <svg className="h-5 w-5 text-amber-500" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zm-1 9a1 1 0 01-1-1v-4a1 1 0 112 0v4a1 1 0 01-1 1z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm">Votre paiement a été annulé. Vous pouvez réessayer quand vous le souhaitez.</p>
+              </div>
+            </div>
+          </div>
+        )}
+        <h1 className="text-3xl md:text-4xl font-bold text-party-pink mb-8 text-center leading-tight">Débloque tous les jeux pour 4,99€ !</h1>
+        
+        {/* Grille des jeux premium */}
+        <div className="max-w-5xl w-full mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
             {/* Jeux gratuits en premier */}
             {freeGames.map((game) => (
-              <div key={game.name} className="rounded-xl border border-green-300 bg-green-50 shadow-sm p-6 flex flex-col items-start text-left" style={{ minHeight: '180px' }}>
+              <div key={game.name} className="rounded-xl border border-green-300 bg-green-50 shadow-md hover:shadow-lg transition-shadow p-6 flex flex-col items-start text-left" style={{ minHeight: '180px' }}>
                 <div className="flex items-center w-full mb-2 gap-2">
                   <img src={game.icon} alt={game.name + ' icon'} className="w-7 h-7 object-contain" style={{marginRight: '6px'}} />
                   <h2 className="text-lg font-semibold text-party-green m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{maxWidth: '140px'}}>{game.name}</h2>
                 </div>
-                  <div className="flex flex-row gap-2 text-xs mb-2 w-full">
-                    <span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
-                    <span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold">{game.players} joueurs</span>
+                <div className="flex flex-row gap-2 text-xs mb-2 w-full">
+                  <span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
+                  <span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold">{game.players} joueurs</span>
                 </div>
                 <div className="text-sm text-muted-foreground mb-0 w-full">{game.shortDescription}</div>
               </div>
             ))}
             {/* Jeux premium ensuite */}
             {premiumGames.map((game) => (
-              <div key={game.name} className="rounded-xl border border-gray-200 bg-gray-50 shadow-sm p-6 flex flex-col items-start text-left" style={{ minHeight: '180px' }}>
+              <div key={game.name} className="rounded-xl border border-gray-200 bg-gray-50 shadow-md hover:shadow-lg transition-shadow p-6 flex flex-col items-start text-left" style={{ minHeight: '180px' }}>
                 <div className="flex items-center w-full mb-2 gap-2">
                   <img src={game.icon} alt={game.name + ' icon'} className="w-7 h-7 object-contain" style={{marginRight: '6px'}} />
                   <h2 className="text-lg font-semibold text-party-purple m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{maxWidth: '140px'}}>{game.name}</h2>
@@ -130,8 +156,23 @@ const ToGoPremium = () => {
               </div>
             ))}
           </div>
-                    <Button className="w-full mb-2" variant="secondary" onClick={() => navigate('/connexion?redirect_to=payment')}>Accède à l'intégralité des jeux pour seulement 4,99€.</Button>
-          <Button className="w-full" variant="ghost" onClick={() => window.location.href = '/'} id="main-home-btn-ref">Retour à l'accueil</Button>
+          
+          <div className="max-w-md mx-auto flex flex-col gap-4">
+            <Button 
+              className="w-full py-3 text-lg" 
+              variant="secondary" 
+              onClick={() => navigate('/connexion?redirect_to=payment')}
+            >
+              Accède à l'intégralité des jeux pour seulement 4,99€
+            </Button>
+            <Button 
+              className="w-full" 
+              variant="ghost" 
+              onClick={() => navigate('/')}
+            >
+              Retour à l'accueil
+            </Button>
+          </div>
         </div>
       </div>
       <Footer />
@@ -139,62 +180,4 @@ const ToGoPremium = () => {
   );
 };
 
-// ...existing code...
-
-// Bouton flottant pour retour à l'accueil
-import { useEffect, useRef, useState } from "react";
-
-const FloatingHomeButton = () => {
-  const mainButtonRef = useRef(null);
-  const [hideFloating, setHideFloating] = useState(false);
-
-  useEffect(() => {
-    const checkVisibility = () => {
-      let hide = false;
-      if (mainButtonRef.current) {
-        const rect = mainButtonRef.current.getBoundingClientRect();
-        // Visible si le bouton principal est dans la fenêtre
-        hide = rect.top < window.innerHeight && rect.bottom > 0;
-      }
-      // Disparaît si on est en bas de la page
-      const scrolledToBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 2;
-      setHideFloating(hide || scrolledToBottom);
-    };
-    window.addEventListener('scroll', checkVisibility);
-    window.addEventListener('resize', checkVisibility);
-    checkVisibility();
-    return () => {
-      window.removeEventListener('scroll', checkVisibility);
-      window.removeEventListener('resize', checkVisibility);
-    };
-  }, []);
-
-  return (
-    <>
-      <button
-        ref={mainButtonRef}
-        style={{ display: 'none' }}
-        id="main-home-btn-ref"
-      />
-      {!hideFloating && (
-        <button
-          onClick={() => window.location.href = '/'}
-          className="fixed bottom-3 right-3 z-50 bg-party-pink text-white rounded-full shadow-lg px-2 py-1 text-xs font-bold hover:bg-party-purple transition"
-          aria-label="Retour à l'accueil"
-          style={{ boxShadow: '0 4px 16px rgba(0,0,0,0.15)' }}
-        >
-          Accueil
-        </button>
-      )}
-    </>
-  );
-};
-
-const ToGoPremiumWithFloatingButton = () => (
-  <>
-    <FloatingHomeButton />
-    <ToGoPremium />
-  </>
-);
-
-export default ToGoPremiumWithFloatingButton;
+export default ToGoPremium;
