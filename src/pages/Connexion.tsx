@@ -18,10 +18,16 @@ export default function Connexion() {
       if (session) {
         const params = new URLSearchParams(location.search);
         const redirectTo = params.get('redirect_to');
+        
         if (redirectTo === 'payment') {
-          window.location.href = 'https://buy.stripe.com/4gM14p1P98Gja3a6R4bEA00';
+          // Construire l'URL avec le paramètre de redirection pour le retour après paiement
+          const successUrl = `${window.location.origin}/payment-success?success=true`;
+          const cancelUrl = `${window.location.origin}/to-go-premium?canceled=true`;
+          
+          // Utilisation de l'URL Stripe checkout.session.url avec des paramètres de retour
+          window.location.href = `https://buy.stripe.com/4gM14p1P98Gja3a6R4bEA00?success_url=${encodeURIComponent(successUrl)}&cancel_url=${encodeURIComponent(cancelUrl)}`;
         } else {
-          navigate("/");
+          navigate("/game-explanation");
         }
       }
     };
@@ -32,10 +38,16 @@ export default function Connexion() {
         if (session) {
           const params = new URLSearchParams(location.search);
           const redirectTo = params.get('redirect_to');
+          
           if (redirectTo === 'payment') {
-            window.location.href = 'https://buy.stripe.com/4gM14p1P98Gja3a6R4bEA00';
+            // Construire l'URL avec le paramètre de redirection pour le retour après paiement
+            const successUrl = `${window.location.origin}/payment-success?success=true`;
+            const cancelUrl = `${window.location.origin}/to-go-premium?canceled=true`;
+            
+            // Utilisation de l'URL Stripe checkout.session.url avec des paramètres de retour
+            window.location.href = `https://buy.stripe.com/4gM14p1P98Gja3a6R4bEA00?success_url=${encodeURIComponent(successUrl)}&cancel_url=${encodeURIComponent(cancelUrl)}`;
           } else {
-            navigate("/");
+            navigate("/game-explanation");
           }
         }
       }

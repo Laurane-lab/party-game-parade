@@ -44,7 +44,7 @@ export const games: Game[] = [
         "Le jeu s'arrête quand tous les mots ont été utilisés ou que les équipes ne trouvent plus."
     ],
     conseil: [
-        "Déterminez une règle pour savoir à qui donner la priorité de réponse, par exemple se lever, s'asseoir, attraper une balle lancée par le maître du jeu, etc.",
+        "Détermine une règle pour savoir à qui donner la priorité de réponse, par exemple se lever, s'asseoir, attraper une balle lancée par le maître du jeu, etc.",
     ],
     nuages: [
         { theme: "Français", url: "https://www.canva.com/design/DAGun3oVMXc/J0Fu8KnYwCcKvaboj25QhA/edit?utm_content=DAGun3oVMXc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" },
@@ -105,7 +105,7 @@ export const games: Game[] = [
       "Option 1 : Pablo Picasso - Orelsan - Natoo - Oliver Minne - Einstein Albert...",
       "Option 2 : Angelina Jolie - Loïs Boisson - Vin Diesel...",
     ],
-    story: "Si la phonétique est la même, pour nous ça compte ! ex : Ramzy = i",
+    story: "Ce jeu nous a peut-être été inspiré du légendaire Johnny Depp de Orel & Gringe.",
     is_premium: false,
     conseil: [],
     materiel: "aucun",

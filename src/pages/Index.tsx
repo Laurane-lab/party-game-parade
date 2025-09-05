@@ -7,9 +7,11 @@ import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
 import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
 import hatIcon from "@/assets/icon/hat-thks-icongeek26.png";
 import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const { session } = useAuth();
+  const navigate = useNavigate();
   const [showPaywall, setShowPaywall] = useState(false);
   const gameExamples = [
     {
@@ -41,8 +43,8 @@ const Index = () => {
       <section className="relative py-20 px-4 text-center bg-gradient-to-br from-party-pink/20 via-party-orange/10 to-party-blue/20">
         <div className="absolute top-4 right-4">
             {session ? (
-                <Button variant="outline" size="lg" disabled>
-                    Connecté
+                <Button variant="outline" size="lg" onClick={() => navigate('/game-explanation')}>
+                    Voir les jeux
                 </Button>
             ) : (
                 <Button asChild variant="outline" size="lg">
@@ -66,7 +68,7 @@ const Index = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8 py-3 bg-gradient-to-r from-party-orange to-party-pink hover:from-party-pink hover:to-party-orange">
-                <a href="/game-explanation">Commencer gratuitement</a>
+                <a href="/game-explanation">Jouer gratuitement</a>
             </Button>
           </div>
         </div>
@@ -205,7 +207,7 @@ const Index = () => {
               </div>
             </div>
       <Button asChild size="lg" className="text-lg px-12 py-4 bg-gradient-to-r from-party-pink to-party-orange hover:from-party-orange hover:to-party-pink">
-        <a href="/game-explanation">Commencer gratuitement</a>
+        <a href="/game-explanation">Jouer gratuitement</a>
       </Button>
         </div>
       </section>
