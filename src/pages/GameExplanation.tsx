@@ -70,8 +70,8 @@ const GameExplanation = () => {
 	const initialIndex = idParam ? games.findIndex(g => g.id === idParam) : 0;
 	const [selected, setSelected] = useState(initialIndex >= 0 ? initialIndex : 0);
 	const game = games[selected];
-	// Utilisation du hook useAuth pour récupérer le statut premium de l'utilisateur
-	const { isPremium: isUserPremium } = useAuth();
+	// Utilisation du hook useAuth pour récupérer le statut premium et la session de l'utilisateur
+	const { isPremium: isUserPremium, session } = useAuth();
 
 	// Synchronise l'index sélectionné avec l'URL
 	useEffect(() => {
@@ -233,8 +233,8 @@ const GameExplanation = () => {
 						       </div>
 						       
 						       <div className="mb-8 max-w-2xl mx-auto">
-							   {/* Si jeu premium et utilisateur non premium, on affiche uniquement les éléments ci-dessus + story + bouton premium */}
-							   {game.is_premium && !isUserPremium ? (
+							   {/* Si jeu premium et (utilisateur non premium OU non connecté), on affiche uniquement les éléments ci-dessus + story + bouton premium */}
+							   {game.is_premium && (!isUserPremium || !session) ? (
 								   <>
 									   {/* Affichage restreint pour jeux premium */}
 									   <div className="mt-8 bg-party-pink/10 rounded-lg p-4 flex items-center gap-4 shadow-md border border-party-pink/40">
@@ -253,7 +253,7 @@ const GameExplanation = () => {
 											   className="w-full max-w-md px-6 py-4 rounded-xl text-xl font-extrabold"
 											   onClick={() => navigate('/connexion?redirect_to=payment')}
 										   >
-											   Devenir premium
+											   {isUserPremium && !session ? 'Se connecter pour accéder' : 'Devenir premium'}
 										   </Button>
 									   </div>
 								   </>
