@@ -2,6 +2,7 @@ import { useState } from "react";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import PaywallDialog from "@/components/PaywallDialog";
+import BrevoForm from "@/components/BrevoForm";
 import catMascot from "@/assets/New mascot.png";
 import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
 import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
@@ -211,6 +212,16 @@ const Index = () => {
       </Button>
         </div>
       </section>
+
+      {/* Section formulaire Brevo */}
+      <section className="py-16 px-4 bg-gradient-to-br from-party-pink/10 via-party-blue/10 to-party-orange/10">
+        <div className="max-w-3xl mx-auto">
+          <div className="mx-auto max-w-md">
+            <BrevoForm />
+          </div>
+        </div>
+      </section>
+
     {showPaywall && <PaywallDialog onClose={() => setShowPaywall(false)} />}
       <Footer />
     </div>

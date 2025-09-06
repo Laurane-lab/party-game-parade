@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
+import BrevoForm from "@/components/BrevoForm";
 import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
 import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
 import crystalsIcon from "@/assets/icon/crystals-thks-icongeek26.png";
@@ -166,15 +167,21 @@ const ToGoPremium = () => {
               Accède à l'intégralité des jeux pour seulement 4,99€
             </Button>
             <Button 
-              className="w-full" 
+              className="w-full mb-2" 
               variant="ghost" 
               onClick={() => navigate('/')}
             >
               Retour à l'accueil
             </Button>
+            
+            {/* Formulaire Brevo intégré directement */}
+            <div className="mt-4">
+              <BrevoForm />
+            </div>
           </div>
         </div>
       </div>
+
       <Footer />
     </div>
   );
