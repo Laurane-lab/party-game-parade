@@ -19,12 +19,30 @@ const ToGoPremium = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [paymentCanceled, setPaymentCanceled] = useState(false);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
 
-  // Vérifier si le paiement a été annulé
+  // Vérifier si le paiement a été annulé ou s'il y a eu une erreur
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     if (params.get('canceled') === 'true') {
       setPaymentCanceled(true);
+    }
+    
+    const error = params.get('error');
+    if (error) {
+      switch (error) {
+        case 'payment':
+          setPaymentError("Erreur lors de la création de la session de paiement");
+          break;
+        case 'email':
+          setPaymentError("Email non disponible. Veuillez vous reconnecter");
+          break;
+        case 'stripe':
+          setPaymentError("Erreur du service de paiement. Veuillez réessayer plus tard");
+          break;
+        default:
+          setPaymentError("Une erreur s'est produite. Veuillez réessayer");
+      }
     }
   }, [location]);
   
@@ -119,6 +137,21 @@ const ToGoPremium = () => {
               </div>
               <div className="ml-3">
                 <p className="text-sm">Votre paiement a été annulé. Vous pouvez réessayer quand vous le souhaitez.</p>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {paymentError && (
+          <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-8 w-full max-w-3xl mx-auto">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <svg className="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zm-1 9a1 1 0 01-1-1v-4a1 1 0 112 0v4a1 1 0 01-1 1z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm">{paymentError}</p>
               </div>
             </div>
           </div>
