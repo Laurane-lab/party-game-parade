@@ -1,76 +1,124 @@
 # Architecture Document: Party Game Parade
 
-This document outlines the architecture of the Party Game Parade web application.
+Ce document présente l'architecture de l'application web Party Game Parade.
 
-## File and Folder Structure
+## Structure des fichiers et dossiers
 
-The project follows a standard structure for a modern React application built with Vite.
+Le projet suit une structure standard pour une application React moderne construite avec Vite.
 
 ```
 /
-├── public/             # Static assets directly served to the browser
-├── src/                # Application source code
-│   ├── assets/         # Images, icons, and other assets processed by Vite
-│   ├── components/     # Reusable React components
-│   │   ├── ui/         # UI components from shadcn/ui
-│   │   └── ...         # Custom components
-│   ├── content/        # Markdown content
-│   ├── css/            # CSS files
-│   ├── data/           # Static data for the application
-│   ├── hooks/          # Custom React hooks
-│   ├── lib/            # Utility functions
-│   ├── pages/          # Top-level page components
-│   └── main.tsx        # Application entry point
-├── package.json        # Project dependencies and scripts
-├── vite.config.ts      # Vite configuration
-├── tailwind.config.ts  # Tailwind CSS configuration
-└── tsconfig.json       # TypeScript configuration
+├── api/                # Fonctions serverless pour Vercel
+├── public/             # Ressources statiques directement servies au navigateur
+├── src/                # Code source de l'application
+│   ├── assets/         # Images, icônes et autres ressources traitées par Vite
+│   │   └── icon/       # Icônes utilisées dans l'application
+│   ├── components/     # Composants React réutilisables
+│   │   ├── ui/         # Composants UI de shadcn/ui
+│   │   └── ...         # Composants personnalisés
+│   ├── content/        # Contenu Markdown
+│   ├── css/            # Fichiers CSS
+│   ├── data/           # Données statiques pour l'application
+│   ├── hooks/          # Hooks React personnalisés
+│   ├── lib/            # Fonctions utilitaires et connexions aux services
+│   ├── pages/          # Composants des pages principales
+│   └── main.tsx        # Point d'entrée de l'application
+├── package.json        # Dépendances et scripts du projet
+├── vite.config.ts      # Configuration de Vite
+├── tailwind.config.ts  # Configuration de Tailwind CSS
+├── vercel.json         # Configuration de déploiement Vercel
+└── tsconfig.json       # Configuration TypeScript
 ```
 
-## What Each Part Does
+## Rôle de chaque partie
 
-*   **`public/`**: Contains static assets like `favicon.ico` and `robots.txt`. These files are not processed by the build tool and are copied directly to the output directory.
-*   **`src/`**: The heart of the application.
-    *   **`assets/`**: Contains images and icons that are imported into components. These are processed by Vite during the build.
-    *   **`components/`**: This directory holds all the reusable React components.
-        *   **`ui/`**: This sub-directory is dedicated to components provided by the `shadcn/ui` library, which forms the base of the UI.
-        *   Custom components like `Footer.tsx` and `PaywallDialog.tsx` are placed directly inside `components/`.
-    *   **`content/`**: Holds markdown files.
-    *   **`css/`**: Holds CSS files.
-    *   **`data/`**: Contains static data used by the application, such as the list of games in `games.ts`.
-    *   **`hooks/`**: Custom React hooks are defined here, for example, `use-mobile.tsx` to detect mobile devices.
-    *   **`lib/`**: A place for utility functions that can be reused across the application, like the `cn` function in `utils.ts` for merging CSS classes.
-    *   **`pages/`**: Each file in this directory typically represents a page of the application, corresponding to a route.
-    *   **`main.tsx`**: The main entry point of the React application. It renders the `App` component into the DOM.
-    *   **`App.tsx`**: The root component of the application. It sets up routing and global providers.
+*   **`api/`**: Contient les fonctions serverless utilisées pour le déploiement sur Vercel, comme le webhook pour Stripe.
+*   **`public/`**: Contient des ressources statiques comme `favicon.ico`, `robots.txt` et des documents juridiques. Ces fichiers ne sont pas traités par l'outil de construction et sont copiés directement dans le répertoire de sortie.
+*   **`src/`**: Le cœur de l'application.
+    *   **`assets/`**: Contient les images et icônes importées dans les composants. Ces ressources sont traitées par Vite pendant la construction.
+    *   **`components/`**: Ce répertoire contient tous les composants React réutilisables.
+        *   **`ui/`**: Ce sous-répertoire est dédié aux composants fournis par la bibliothèque `shadcn/ui`, qui forme la base de l'interface utilisateur.
+        *   Les composants personnalisés comme `Footer.tsx`, `Header.tsx`, `BrevoForm.tsx` (pour l'intégration du formulaire de collecte d'emails) et `PaywallDialog.tsx` sont placés directement dans `components/`.
+    *   **`content/`**: Contient des fichiers Markdown pour les pages de contenu statique.
+    *   **`css/`**: Contient des fichiers CSS personnalisés comme `brevo.css` (styles spécifiques pour le formulaire Brevo) et `cgu-cgv.css`.
+    *   **`data/`**: Contient les données statiques utilisées par l'application, comme la liste des jeux dans `games.ts`.
+    *   **`hooks/`**: Les hooks React personnalisés sont définis ici, par exemple :
+        *   `use-mobile.tsx` pour détecter les appareils mobiles
+        *   `useAuth.ts` pour gérer l'authentification et vérifier le statut premium
+        *   `use-toast.ts` pour les notifications
+    *   **`lib/`**: Un emplacement pour les fonctions utilitaires et les connexions aux services :
+        *   `supabase.ts` pour la connexion à Supabase
+        *   `stripe.ts` pour l'intégration avec Stripe, incluant les clés API de test et les fonctions d'intégration
+        *   `utils.ts` pour les fonctions utilitaires diverses
+    *   **`pages/`**: Chaque fichier dans ce répertoire représente généralement une page de l'application, correspondant à une route.
+    *   **`main.tsx`**: Le point d'entrée principal de l'application React. Il rend le composant `App` dans le DOM.
+    *   **`App.tsx`**: Le composant racine de l'application. Il configure le routage et les fournisseurs globaux.
 
-## State Management and Service Connections
+## Gestion d'état et connexions aux services
 
-*   **Client-Side State**: For local component state, the application uses React's built-in hooks like `useState` and `useContext`.
-*   **Server-Side State**: The application uses **TanStack Query (`@tanstack/react-query`)** for managing server state. This includes fetching, caching, and updating data from the backend. The `QueryClientProvider` is set up in `App.tsx`, making it available throughout the application.
-*   **Backend Service**: The application connects to **Supabase** as its backend. The `@supabase/supabase-js` library is used to interact with Supabase for services like authentication and database.
-*   **Routing**: **React Router (`react-router-dom`)** is used for client-side routing. Routes are defined in `App.tsx`, mapping URL paths to specific page components in the `src/pages` directory.
+*   **État côté client**: Pour l'état local des composants, l'application utilise les hooks intégrés de React comme `useState` et `useContext`.
+*   **État côté serveur**: L'application utilise **TanStack Query (`@tanstack/react-query`)** pour gérer l'état du serveur. Cela comprend la récupération, la mise en cache et la mise à jour des données depuis le backend. Le `QueryClientProvider` est configuré dans `App.tsx`, le rendant disponible dans toute l'application.
+*   **Service backend**: L'application se connecte à **Supabase** comme backend. La bibliothèque `@supabase/supabase-js` est utilisée pour interagir avec Supabase pour des services tels que l'authentification et la base de données.
+*   **Routage**: **React Router (`react-router-dom`)** est utilisé pour le routage côté client. Les routes sont définies dans `App.tsx`, mappant les chemins d'URL aux composants de page spécifiques dans le répertoire `src/pages`.
+*   **Paiement**: L'intégration avec **Stripe** est utilisée pour gérer les paiements des fonctionnalités premium. L'application utilise à la fois un lien de paiement direct Stripe et dispose des clés API de test pour des intégrations plus avancées.
+*   **Marketing par email**: L'intégration avec **Brevo** permet de collecter les adresses email des utilisateurs via le composant `BrevoForm` présent sur la page d'accueil et la page premium.
 
-## Tech Stack & Frameworks
+## Stack technologique et frameworks
 
-*   **Build Tool**: **Vite** is used for its fast development server and optimized builds.
-*   **Framework**: **React** is the core library for building the user interface.
-*   **Language**: **TypeScript** is used for static typing, improving code quality and maintainability.
+*   **Outil de build**: **Vite** est utilisé pour son serveur de développement rapide et ses builds optimisés.
+*   **Framework**: **React** est la bibliothèque principale pour construire l'interface utilisateur.
+*   **Langage**: **TypeScript** est utilisé pour le typage statique, améliorant la qualité et la maintenabilité du code.
 *   **Styling**:
-    *   **Tailwind CSS** is the primary CSS framework for utility-first styling.
-    *   **shadcn/ui** is used as a component library, providing a set of accessible and customizable UI components built on top of Radix UI and Tailwind CSS.
-*   **Routing**: **React Router** handles client-side navigation.
-*   **State Management**: **TanStack Query** is used for managing server state.
-*   **Backend**: **Supabase** provides backend-as-a-service functionalities.
-*   **Forms**: **React Hook Form** and **Zod** are used for building and validating forms.
-*   **Linting**: **ESLint** is used to enforce code quality and consistency.
+    *   **Tailwind CSS** est le framework CSS principal pour le styling utilitaire.
+    *   **shadcn/ui** est utilisé comme bibliothèque de composants, fournissant un ensemble de composants UI accessibles et personnalisables construits sur Radix UI et Tailwind CSS.
+*   **Routage**: **React Router** gère la navigation côté client.
+*   **Gestion d'état**: **TanStack Query** est utilisé pour gérer l'état du serveur.
+*   **Backend**: **Supabase** fournit des fonctionnalités de backend-as-a-service, y compris l'authentification et la base de données.
+*   **Authentification**: **Supabase Auth** avec OAuth pour Google est utilisé pour l'authentification des utilisateurs.
+*   **Paiement**: **Stripe** est utilisé pour gérer les paiements des fonctionnalités premium. Une configuration en mode test est disponible avec des clés API dédiées, tandis que le processus de paiement principal repose sur un lien de paiement direct Stripe.
+*   **Marketing par email**: **Brevo** (anciennement Sendinblue) est intégré pour la collecte d'emails et l'envoi de newsletters.
+*   **Formulaires**: **React Hook Form** et **Zod** sont utilisés pour construire et valider les formulaires.
+*   **Linting**: **ESLint** est utilisé pour garantir la qualité et la cohérence du code.
+*   **Déploiement**: **Vercel** est utilisé pour le déploiement continu de l'application.
 
-## Code Usage
+## Modèle de données
 
-*   **What code is used**: Based on the routing in `App.tsx` and the project structure, most of the code in the `src` directory appears to be in use. The component-based architecture encourages modularity and reuse.
-*   **What code is not used**: The file `architecture.md` is outdated and has been replaced by this document. Without a more detailed analysis, it is difficult to identify other unused code, but the project appears to be lean.
+L'application utilise Supabase comme base de données. Voici les principales tables :
 
-## Drafts and Work in Progress
+*   **`auth.users`**: Table gérée par Supabase Auth contenant les informations d'authentification des utilisateurs.
+*   **`profiles`**: Table personnalisée liée à `auth.users` via une clé étrangère. Elle stocke :
+    *   `id` : L'identifiant unique de l'utilisateur (correspondant à l'ID dans auth.users)
+    *   `email` : L'adresse e-mail de l'utilisateur
+    *   `is_premium` : Un booléen indiquant si l'utilisateur a souscrit aux fonctionnalités premium
+    *   `payment_date` : La date du paiement pour les fonctionnalités premium
+    *   `created_at` et `updated_at` : Horodatages pour la création et la mise à jour des enregistrements
 
-*   **Premium Features**: The existence of `PaywallDialog.tsx` and the `ToGoPremium.tsx` page suggests that the implementation of premium features is a work in progress. The user flow is being implemented, for instance by connecting the premium page to the connexion page.
-*   **CGU/CGV**: The current branch name `Fix-cgv-cgu` indicates that the "Terms and Conditions" and "General Terms of Sale" pages are actively being worked on or revised.
+## Fonctionnalités principales
+
+*   **Authentification**: Connexion via Google OAuth gérée par Supabase Auth.
+*   **Jeux de société**: Présentation et explication des différents jeux de société proposés.
+*   **Fonctionnalités premium**: Accès à des fonctionnalités additionnelles via un abonnement payant géré par Stripe.
+*   **Profil utilisateur**: Gestion du profil utilisateur et de son statut premium.
+*   **Collecte d'emails**: Formulaire Brevo intégré sur la page d'accueil et la page premium pour collecter les adresses email des visiteurs intéressés par les nouveaux jeux.
+
+## Flux d'authentification et de paiement
+
+1. L'utilisateur accède à la page `/connexion`
+2. Il se connecte via Google OAuth
+3. S'il souhaite accéder aux fonctionnalités premium, il est redirigé vers `/to-go-premium`
+4. Pour effectuer le paiement, l'utilisateur est redirigé vers un lien de paiement direct Stripe (https://buy.stripe.com/4gM14p1P98Gja3a6R4bEA00) avec des paramètres URL pour les redirections après paiement
+5. Après un paiement réussi, il est redirigé vers `/payment-success?success=true` et son statut premium est mis à jour dans la base de données
+6. En cas d'annulation, il est redirigé vers `/to-go-premium?canceled=true`
+
+## Code utilisé
+
+*   **Code actif**: D'après le routage dans `App.tsx` et la structure du projet, la plupart du code dans le répertoire `src` semble être utilisé. L'architecture basée sur les composants encourage la modularité et la réutilisation.
+*   **Branche actuelle**: La branche actuelle `fix-connexion` suggère que des correctifs sont en cours sur le système d'authentification.
+
+## Travaux en cours et améliorations futures
+
+*   **Fonctionnalités premium**: La présence de `PaywallDialog.tsx` et de la page `ToGoPremium.tsx` indique que l'implémentation des fonctionnalités premium est en cours. Le flux utilisateur est en train d'être implémenté, notamment en connectant la page premium à la page de connexion.
+*   **Intégration Stripe avancée**: Le système est prêt pour une intégration plus avancée avec Stripe. Les clés API de test sont configurées dans `stripe.ts` et le webhook est préparé dans `api/webhook.js`. Actuellement, l'application utilise un lien de paiement direct, mais elle peut évoluer vers une utilisation complète de l'API Stripe pour des fonctionnalités plus sophistiquées comme les abonnements récurrents, les remboursements automatisés ou les rapports détaillés.
+*   **Mode test de paiement**: L'application est configurée pour utiliser les clés API de test Stripe dans l'environnement de développement, ce qui permet de tester le flux de paiement sans effectuer de transactions réelles. Les clés API de production devront être ajoutées lorsque l'application sera prête pour la production.
+*   **Améliorations de l'authentification**: La branche actuelle `fix-connexion` indique que des améliorations sont en cours sur le système d'authentification.
+*   **Optimisation de la collecte d'emails**: L'intégration du formulaire Brevo a été effectuée sur les pages principales, mais des analyses et optimisations futures sont envisagées pour augmenter le taux de conversion.

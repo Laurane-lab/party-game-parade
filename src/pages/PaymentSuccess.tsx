@@ -35,12 +35,10 @@ export default function PaymentSuccess() {
 
         // Récupérer les paramètres d'URL de Stripe (si disponibles)
         const params = new URLSearchParams(location.search);
-        const sessionId = params.get('session_id');
         const success = params.get('success');
         
-        // Si le paiement est réussi (vous pouvez vérifier avec l'API Stripe)
-        // Pour ce cas, nous supposons que si nous recevons success=true, le paiement a été effectué
-        if (success === "true" || sessionId) {
+        // Pour l'URL de paiement direct Stripe, nous nous fions au paramètre success=true
+        if (success === "true") {
           // Mettre à jour le profil utilisateur avec le statut premium
           const { error: updateError } = await supabase
             .from('profiles')

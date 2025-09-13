@@ -2,6 +2,7 @@ import { useState } from "react";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import PaywallDialog from "@/components/PaywallDialog";
+import BrevoForm from "@/components/BrevoForm";
 import catMascot from "@/assets/New mascot.png";
 import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
 import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
@@ -32,7 +33,7 @@ const Index = () => {
       name: "Dos à dos",
       modeDeJeu: "En binôme",
       players: "4 à 10",
-      shortDescription: "Connaissez-vous vraiment votre binôme ou les invités seront-ils plus forts que vous ?",
+      shortDescription: "Connaissais-tu vraiment ton binôme ou les invités seront-ils plus forts que vous ?",
       icon: cloakIcon
     }
   ];
@@ -64,7 +65,7 @@ const Index = () => {
             Apérololo
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
-            Des jeux pour animer vos soirées et week-end entre amis ou en famille<br />
+            Des jeux pour animer tes soirées et week-end entre amis ou en famille<br />
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8 py-3 bg-gradient-to-r from-party-orange to-party-pink hover:from-party-pink hover:to-party-orange">
@@ -211,6 +212,16 @@ const Index = () => {
       </Button>
         </div>
       </section>
+
+      {/* Section formulaire Brevo */}
+      <section className="py-16 px-4 bg-gradient-to-br from-party-pink/10 via-party-blue/10 to-party-orange/10">
+        <div className="max-w-3xl mx-auto">
+          <div className="mx-auto max-w-md">
+            <BrevoForm />
+          </div>
+        </div>
+      </section>
+
     {showPaywall && <PaywallDialog onClose={() => setShowPaywall(false)} />}
       <Footer />
     </div>
