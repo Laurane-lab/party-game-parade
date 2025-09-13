@@ -83,7 +83,7 @@ export const games: Game[] = [
     story: "À toi de décider ce qui se passe pour celui qui se trompe. Il peut avoir un gage ou finir son verre d’eau cul sec par exemple ! ",
     is_premium: false,
     conseil: [],
-    examples: "Un, deux, Oie, Quatre, Cinq, Six, Siete, Huiiiiiit, Neuf, Dix.",
+    examples: ["Un, deux, Oie, Quatre, Cinq, Six, Siete, Huiiiiiit, Neuf, Dix."],
     materiel: "aucun",
     tours: [],
   },
