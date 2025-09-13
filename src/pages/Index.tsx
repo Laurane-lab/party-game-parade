@@ -33,7 +33,7 @@ const Index = () => {
       name: "Dos à dos",
       modeDeJeu: "En binôme",
       players: "4 à 10",
-      shortDescription: "Connaissez-vous vraiment votre binôme ou les invités seront-ils plus forts que vous ?",
+      shortDescription: "Connaissais-tu vraiment ton binôme ou les invités seront-ils plus forts que vous ?",
       icon: cloakIcon
     }
   ];
@@ -65,7 +65,7 @@ const Index = () => {
             Apérololo
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
-            Des jeux pour animer vos soirées et week-end entre amis ou en famille<br />
+            Des jeux pour animer tes soirées et week-end entre amis ou en famille<br />
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8 py-3 bg-gradient-to-r from-party-orange to-party-pink hover:from-party-pink hover:to-party-orange">

@@ -15,6 +15,15 @@ import scrollIcon from "@/assets/icon/scroll-thks-icongeek26.png";
 import smokeIcon from "@/assets/icon/smoke-thks-icongeek26.png";
 import wandIcon from "@/assets/icon/wand-thks-icongeek26.png";
 
+interface GameInfo {
+  name: string;
+  modeDeJeu: string;
+  players: string;
+  shortDescription: string;
+  icon: string;
+  material?: string; // Optional property for material included with the game
+}
+
 const ToGoPremium = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -47,7 +56,7 @@ const ToGoPremium = () => {
   }, [location]);
   
   // Importer la liste des jeux premium depuis GameExplanation
-  const freeGames = [
+  const freeGames: GameInfo[] = [
     {
       name: "Le mur du son",
       modeDeJeu: "Toi contre tous",
@@ -71,56 +80,63 @@ const ToGoPremium = () => {
     }
   ];
 
-  const premiumGames = [
+  const premiumGames: GameInfo[] = [
     {
       name: "Dos à dos",
       modeDeJeu: "En binôme",
       players: "4-10",
       shortDescription: "Connais-tu vraiment ton binôme ou les invités seront-ils plus forts que vous ?",
-      icon: cloakIcon
+      icon: cloakIcon,
+      material: "10 idées de questions"
     },
     {
       name: "Mission secrète",
       modeDeJeu: "En équipe",
       players: "6-20",
       shortDescription: "Accomplis des missions secrètes sans te faire repérer, et démasque les autres !",
-      icon: cloakIcon
+      icon: cloakIcon,
+      material: "Tableau des scores et 40 idées de missions"
     },
     {
       name: "Sans rire",
       modeDeJeu: "Toi contre tous",
       players: "4-8",
       shortDescription: "Fais rire les autres sans craquer toi-même. Celui qui rit perd des points !",
-      icon: crystalsIcon
+      icon: crystalsIcon,
+      material: "3 minis jeux"
     },
     {
       name: "Pas dans le rythme",
       modeDeJeu: "En équipe",
       players: "4-15",
-      shortDescription: "C'est comme un blindtest mais sans musique. Idéal pour ne pas casser les oreilles de tes voisins !",
-      icon: hatIcon
+      shortDescription: "Un blind test... sans musique. Idéal pour ne pas casser les oreilles de tes voisins !",
+      icon: hatIcon,
+      material: "Une playlist réalisée par nos soins"
     },
     {
       name: "Les enchères",
       modeDeJeu: "En équipe",
       players: "3-10",
       shortDescription: "Le but est de donner un maximum de réponses sur un thème donné.",
-      icon: mortarIcon
+      icon: mortarIcon,
+      material: "5 idées d'enchères"
+    },
+    {
+      name: "Le mot commun",
+      modeDeJeu: "Toi contre tous",
+      players: "3-10",
+      shortDescription: "Trouve le lien entre trois mots et lance-toi dans une course pour réclamer ta victoire !",
+      icon: scrollIcon,
+      material: "7 propositions d'énigmes"
     },
     {
       name: "Dessine à la chaîne",
       modeDeJeu: "En équipe",
       players: "4-10",
       shortDescription: "Découvre la fusion d'un Pictionary et d'un téléphone arabe !",
-      icon: quillIcon
+      icon: quillIcon,
+      material: "Aucun"
     },
-    {
-      name: "Le mot commun",
-      modeDeJeu: "Toi contre tous",
-      players: "3-10",
-      shortDescription: "Plus rapide et plus fun qu'une énigme !",
-      icon: scrollIcon
-    }
   ];
 
   return (
@@ -177,7 +193,7 @@ const ToGoPremium = () => {
             ))}
             {/* Jeux premium ensuite */}
             {premiumGames.map((game) => (
-              <div key={game.name} className="rounded-xl border border-gray-200 bg-gray-50 shadow-md hover:shadow-lg transition-shadow p-6 flex flex-col items-start text-left" style={{ minHeight: '180px' }}>
+              <div key={game.name} className="rounded-xl border border-gray-200 bg-gray-50 shadow-md hover:shadow-lg transition-shadow p-6 flex flex-col items-start text-left" style={{ minHeight: '220px' }}>
                 <div className="flex items-center w-full mb-2 gap-2">
                   <img src={game.icon} alt={game.name + ' icon'} className="w-7 h-7 object-contain" style={{marginRight: '6px'}} />
                   <h2 className="text-lg font-semibold text-party-purple m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{maxWidth: '140px'}}>{game.name}</h2>
@@ -186,7 +202,15 @@ const ToGoPremium = () => {
                   <span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
                   <span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold">{game.players} joueurs</span>
                 </div>
-                <div className="text-sm text-muted-foreground mb-0 w-full">{game.shortDescription}</div>
+                <div className="text-sm text-muted-foreground mb-2 w-full">{game.shortDescription}</div>
+                {game.material && (
+                  <div className="mt-auto w-full">
+                    <div className="p-2 rounded-md">
+                      <h4 className="font-bold text-xs mb-1 text-gray-600">Matériel inclus :</h4>
+                      <p className="text-xs text-gray-500">{game.material}</p>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>

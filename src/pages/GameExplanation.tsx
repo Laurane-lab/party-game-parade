@@ -147,7 +147,7 @@ const GameExplanation = () => {
                                                                                        <div className="flex items-center justify-between flex-grow overflow-hidden">
                                                                                          <span
                                                                                            className={`text-left font-semibold block overflow-hidden text-ellipsis whitespace-nowrap
-                                                                                             ${selected === i ? "text-party-yellow" : "text-party-purple"}
+                                                                                             ${selected === i ? "text-grey" : "text-party-purple"}
                                                                                            `}
                                                                                            title={g.titre}
                                                                                          >
@@ -188,7 +188,7 @@ const GameExplanation = () => {
                                                                                        <div className="flex items-center justify-between flex-grow overflow-hidden">
                                                                                          <span
                                                                                            className={`text-left font-semibold block overflow-hidden text-ellipsis whitespace-nowrap
-                                                                                             ${selected === i ? "text-party-yellow" : "text-party-purple"}
+                                                                                             ${selected === i ? "text-grey" : "text-party-purple"}
                                                                                            `}
                                                                                            title={g.titre}
                                                                                          >
@@ -360,14 +360,22 @@ const GameExplanation = () => {
 													   </div>
 												   )
 											   ) : game.titre === "Jusqu'à 10" && game.contraintes ? (
-												   <div className="text-base font-sans">
-													   <strong>Idées de contraintes :</strong>
-													   <ul className="list-disc ml-6 mt-2">
-														   {game.contraintes.map((contrainte, idx) => (
-															   <li key={idx}>{contrainte}</li>
-														   ))}
-													   </ul>
-												   </div>
+												   <>
+													   <div className="text-base font-sans">
+														   <strong>Idées de contraintes :</strong>
+														   <ul className="list-disc ml-6 mt-2">
+															   {game.contraintes.map((contrainte, idx) => (
+																   <li key={idx}>{contrainte}</li>
+															   ))}
+														   </ul>
+													   </div>
+													   {game.examples && (
+														   <div className="text-base font-sans mt-4">
+															   <strong>Exemple :</strong>
+															   <p className="ml-6 mt-2">{game.examples}</p>
+														   </div>
+													   )}
+												   </>
 											   ) : game.titre === "Le mot commun" && game.examples ? (
 												   <div className="text-base font-sans">
 													   <strong>Exemples :</strong>

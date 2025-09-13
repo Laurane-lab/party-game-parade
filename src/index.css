@@ -42,6 +42,7 @@ All colors MUST be HSL.
     --party-pink: 320 85% 70%;
     --party-green: 145 70% 55%;
     --party-blue: 210 90% 65%;
+    --party-yellow: 45 100% 55%;
 
     --gradient-party: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
     --gradient-fun: linear-gradient(45deg, hsl(var(--party-orange)), hsl(var(--party-pink)));
@@ -96,6 +97,7 @@ All colors MUST be HSL.
     --party-pink: 320 85% 80%;
     --party-green: 145 70% 65%;
     --party-blue: 210 90% 75%;
+    --party-yellow: 45 100% 65%;
 
     --gradient-party: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
     --gradient-fun: linear-gradient(45deg, hsl(var(--party-orange)), hsl(var(--party-pink)));
