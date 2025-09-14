@@ -8,10 +8,12 @@ import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
 import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
 import hatIcon from "@/assets/icon/hat-thks-icongeek26.png";
 import { useAuth } from "@/hooks/use-auth";
+import { usePremium } from "@/hooks/use-premium";
 import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const { user } = useAuth();
+  const { isPremium } = usePremium();
   const navigate = useNavigate();
   const [showPaywall, setShowPaywall] = useState(false);
   const gameExamples = [
@@ -148,7 +150,7 @@ const Index = () => {
           </div>
           <div className="flex justify-center mt-10">
             <Button asChild variant="outline" size="lg" className="text-lg px-8 py-3 border-party-blue text-party-blue hover:bg-party-blue hover:text-white">
-              <a href="/premium">Voir tous les jeux</a>
+              <a href={isPremium ? "/game-explanation" : "/premium"}>Voir tous les jeux</a>
             </Button>
           </div>
         </div>
