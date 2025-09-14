@@ -18,15 +18,22 @@ export default function Connexion() {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
         const redirectTo = sessionStorage.getItem('redirect_to');
-        sessionStorage.removeItem('redirect_to'); // Clean up after reading
+        const redirectAfterLogin = sessionStorage.getItem('redirect_after_login');
+
+        // Clean up after reading
+        sessionStorage.removeItem('redirect_to');
+        sessionStorage.removeItem('redirect_after_login');
 
         if (redirectTo === 'payment') {
           // Construire l'URL avec le paramètre de redirection pour le retour après paiement
           const successUrl = `${window.location.origin}/payment-success?success=true`;
-          const cancelUrl = `${window.location.origin}/to-go-premium?canceled=true`;
-          
+          const cancelUrl = `${window.location.origin}/premium?canceled=true`;
+
           // Utilisation de l'URL Stripe checkout.session.url avec des paramètres de retour
           window.location.href = `https://buy.stripe.com/4gM14p1P98Gja3a6R4bEA00?success_url=${encodeURIComponent(successUrl)}&cancel_url=${encodeURIComponent(cancelUrl)}`;
+        } else if (redirectAfterLogin) {
+          // Redirect back to the original protected page
+          navigate(redirectAfterLogin);
         } else {
           navigate("/game-explanation");
         }
@@ -38,15 +45,22 @@ export default function Connexion() {
       (_event, session) => {
         if (session) {
           const redirectTo = sessionStorage.getItem('redirect_to');
-          sessionStorage.removeItem('redirect_to'); // Clean up after reading
-          
+          const redirectAfterLogin = sessionStorage.getItem('redirect_after_login');
+
+          // Clean up after reading
+          sessionStorage.removeItem('redirect_to');
+          sessionStorage.removeItem('redirect_after_login');
+
           if (redirectTo === 'payment') {
             // Construire l'URL avec le paramètre de redirection pour le retour après paiement
             const successUrl = `${window.location.origin}/payment-success?success=true`;
-            const cancelUrl = `${window.location.origin}/to-go-premium?canceled=true`;
-            
+            const cancelUrl = `${window.location.origin}/premium?canceled=true`;
+
             // Utilisation de l'URL Stripe checkout.session.url avec des paramètres de retour
             window.location.href = `https://buy.stripe.com/4gM14p1P98Gja3a6R4bEA00?success_url=${encodeURIComponent(successUrl)}&cancel_url=${encodeURIComponent(cancelUrl)}`;
+          } else if (redirectAfterLogin) {
+            // Redirect back to the original protected page
+            navigate(redirectAfterLogin);
           } else {
             navigate("/game-explanation");
           }
@@ -76,8 +90,8 @@ export default function Connexion() {
       },
     });
     if (error) {
-        setError(error.message);
-        setLoading(false);
+      setError(error.message);
+      setLoading(false);
     }
   };
 

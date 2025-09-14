@@ -1,11 +1,17 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import catMascot from "@/assets/New mascot.png";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 
 const Header = () => {
     const navigate = useNavigate();
-    const { session } = useAuth();
+    const location = useLocation();
+    const { session, logout } = useAuth();
+
+    const handleLogout = async () => {
+        await logout();
+        navigate('/');
+    };
 
     return (
         <header className="hidden md:flex sticky top-0 z-50 bg-gradient-to-br from-party-pink/20 via-party-orange/10 to-party-blue/20 shadow-md backdrop-blur-sm">
@@ -15,9 +21,15 @@ const Header = () => {
                     <span className="text-2xl font-bold text-party-purple">Apérololo</span>
                 </div>
                 {session ? (
-                    <Button variant="outline" size="lg" onClick={() => navigate('/game-explanation')}>
-                        Voir les jeux
-                    </Button>
+                    location.pathname === '/game-explanation' ? (
+                        <Button variant="outline" size="lg" onClick={handleLogout}>
+                            Déconnexion
+                        </Button>
+                    ) : (
+                        <Button variant="outline" size="lg" onClick={() => navigate('/game-explanation')}>
+                            Voir les jeux
+                        </Button>
+                    )
                 ) : (
                     <Button variant="outline" size="lg" onClick={() => navigate('/connexion')}>
                         Connexion
