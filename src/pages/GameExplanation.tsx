@@ -6,7 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import { useAuth } from "@/hooks/use-auth";
 import { usePremium } from "@/hooks/use-premium";
-import { redirectToPayment } from "@/lib/payment";
+import { redirectToPayment, saveGameIdForPayment } from "@/lib/payment";
 import GameSelector from "@/components/game/GameSelector";
 import GameHero from "@/components/game/GameHero";
 import GameContent from "@/components/game/GameContent";
@@ -44,10 +44,13 @@ const GameExplanation = () => {
 	};
 
 	const handleRedirectToPayment = () => {
-		redirectToPayment();
+		// Rediriger vers le paiement en sauvegardant l'ID du jeu actuel
+		redirectToPayment(game.id);
 	};
 
 	const handleNavigateToConnexion = () => {
+		// Sauvegarder l'ID du jeu actuel pour redirection après connexion et paiement
+		saveGameIdForPayment(game.id);
 		navigate('/connexion?redirect_to=payment');
 	};
 

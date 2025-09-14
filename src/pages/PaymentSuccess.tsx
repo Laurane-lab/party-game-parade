@@ -36,18 +36,51 @@ export default function PaymentSuccess() {
         // Récupérer les paramètres d'URL de Stripe (si disponibles)
         const params = new URLSearchParams(location.search);
         const success = params.get('success');
+        const gameId = params.get('game_id');
         
         // Pour l'URL de paiement direct Stripe, nous nous fions au paramètre success=true
         if (success === "true") {
           // Mettre à jour le profil utilisateur avec le statut premium
-          const { error: updateError } = await supabase
+          const { data: existingProfile, error: selectError } = await supabase
             .from('profiles')
-            .upsert({
-              id: userId,
-              is_premium: true,
-              email: userEmail, // Stocker l'email pour pouvoir vérifier ultérieurement
-              payment_date: new Date().toISOString()
-            });
+            .select('*')
+            .eq('id', userId)
+            .single();
+
+          if (selectError && selectError.code !== 'PGRST116') {
+            // Erreur autre que "profil non trouvé"
+            console.error("Erreur lors de la récupération du profil:", selectError);
+            setStatus("error");
+            setMessage("Une erreur s'est produite lors de la vérification de votre compte. Veuillez réessayer ou contacter le support.");
+            return;
+          }
+
+          let updateError = null;
+
+          if (!existingProfile) {
+            // Créer un nouveau profil
+            const { error } = await supabase
+              .from('profiles')
+              .insert({
+                id: userId,
+                email: userEmail,
+                is_premium: true,
+                payment_date: new Date().toISOString()
+              });
+            updateError = error;
+          } else {
+            // Mettre à jour le profil existant
+            const { error } = await supabase
+              .from('profiles')
+              .update({
+                is_premium: true,
+                email: userEmail, // Mettre à jour l'email au cas où il aurait changé
+                payment_date: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+              })
+              .eq('id', userId);
+            updateError = error;
+          }
 
           if (updateError) {
             console.error("Erreur lors de la mise à jour du profil:", updateError);
@@ -59,6 +92,9 @@ export default function PaymentSuccess() {
           // Tout s'est bien passé
           setStatus("success");
           setMessage("Votre paiement a été confirmé avec succès ! Vous avez maintenant accès à tous les jeux premium.");
+          
+          // Nettoyer le sessionStorage après récupération de l'ID du jeu
+          sessionStorage.removeItem('game_id_after_payment');
         } else {
           // Si nous n'avons pas de confirmation de succès
           setStatus("error");
@@ -95,7 +131,19 @@ export default function PaymentSuccess() {
           {status !== "loading" && (
             <Button 
               className="w-full bg-party-pink hover:bg-party-pink/80 text-white" 
-              onClick={() => navigate("/game-explanation")}
+              onClick={() => {
+                // Récupérer l'ID du jeu depuis les paramètres URL
+                const params = new URLSearchParams(location.search);
+                const gameId = params.get('game_id');
+                
+                if (gameId) {
+                  // Rediriger vers le jeu spécifique
+                  navigate(`/game-explanation?id=${gameId}`);
+                } else {
+                  // Redirection par défaut vers la page générale des jeux
+                  navigate("/game-explanation");
+                }
+              }}
             >
               {status === "success" ? "Voir tous les jeux" : "Retour aux jeux"}
             </Button>

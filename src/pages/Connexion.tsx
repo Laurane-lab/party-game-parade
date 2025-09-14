@@ -4,8 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import mascot from "@/assets/New mascot.png";
 import { redirectToPayment } from "@/lib/payment";
-
-const supabaseRedirectUrl = import.meta.env.VITE_SUPABASE_REDIRECT_URL;
+import { getOAuthRedirectUrl, getEnvironmentType } from "@/lib/config";
 
 export default function Connexion() {
   const [error, setError] = useState<string | null>(null);
@@ -76,10 +75,14 @@ export default function Connexion() {
       sessionStorage.setItem('redirect_to', redirectTo);
     }
 
+    // Log environment info for debugging
+    console.log(`OAuth login in ${getEnvironmentType()} environment`);
+    console.log(`Redirect URL: ${getOAuthRedirectUrl()}`);
+
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${window.location.origin}/connexion`,
+        redirectTo: getOAuthRedirectUrl(),
       },
     });
     if (error) {

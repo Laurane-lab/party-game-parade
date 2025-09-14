@@ -24,11 +24,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/connexion" element={<Connexion />} />
-          <Route path="/game-explanation" element={
-            <ProtectedRoute>
-              <GameExplanation />
-            </ProtectedRoute>
-          } />
+          <Route path="/game-explanation" element={<GameExplanation />} />
           <Route path="/payment-success" element={
             <ProtectedRoute>
               <PaymentSuccess />
