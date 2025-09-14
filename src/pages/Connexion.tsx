@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Footer from "@/components/Footer";
 import { useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
+import mascot from "@/assets/New mascot.png";
 
 const supabaseRedirectUrl = import.meta.env.VITE_SUPABASE_REDIRECT_URL;
 
@@ -16,9 +17,9 @@ export default function Connexion() {
     const checkSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
-        const params = new URLSearchParams(location.search);
-        const redirectTo = params.get('redirect_to');
-        
+        const redirectTo = sessionStorage.getItem('redirect_to');
+        sessionStorage.removeItem('redirect_to'); // Clean up after reading
+
         if (redirectTo === 'payment') {
           // Construire l'URL avec le paramètre de redirection pour le retour après paiement
           const successUrl = `${window.location.origin}/payment-success?success=true`;
@@ -36,8 +37,8 @@ export default function Connexion() {
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
         if (session) {
-          const params = new URLSearchParams(location.search);
-          const redirectTo = params.get('redirect_to');
+          const redirectTo = sessionStorage.getItem('redirect_to');
+          sessionStorage.removeItem('redirect_to'); // Clean up after reading
           
           if (redirectTo === 'payment') {
             // Construire l'URL avec le paramètre de redirection pour le retour après paiement
@@ -61,10 +62,17 @@ export default function Connexion() {
   const handleOAuthLogin = async (provider: 'google' | 'apple') => {
     setLoading(true);
     setError(null);
+
+    const params = new URLSearchParams(location.search);
+    const redirectTo = params.get('redirect_to');
+    if (redirectTo) {
+      sessionStorage.setItem('redirect_to', redirectTo);
+    }
+
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: supabaseRedirectUrl,
+        redirectTo: `${window.location.origin}/connexion`,
       },
     });
     if (error) {
@@ -77,7 +85,7 @@ export default function Connexion() {
     <div className="min-h-screen flex flex-col bg-gray-100">
       <div className="flex flex-col items-center justify-center flex-1">
         <div className="bg-white p-8 rounded shadow-md w-80 flex flex-col items-center">
-          <img src="/src/assets/New mascot.png" alt="Mascotte" className="w-20 h-20 mb-4" />
+          <img src={mascot} alt="Mascotte" className="w-20 h-20 mb-4" />
           <h2 className="text-2xl font-bold mb-6 text-center">Connexion</h2>
           {error && <div className="text-red-500 mb-4">{error}</div>}
           {loading ? (
