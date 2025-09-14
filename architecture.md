@@ -15,6 +15,7 @@ Le projet suit une structure standard pour une application React moderne constru
 │   │   └── icon/       # Icônes utilisées dans l'application
 │   ├── components/     # Composants React réutilisables
 │   │   ├── ui/         # Composants UI de shadcn/ui
+│   │   ├── game/       # Composants spécifiques aux jeux
 │   │   └── ...         # Composants personnalisés
 │   ├── content/        # Contenu Markdown
 │   ├── css/            # Fichiers CSS
@@ -38,6 +39,7 @@ Le projet suit une structure standard pour une application React moderne constru
     *   **`assets/`**: Contient les images et icônes importées dans les composants. Ces ressources sont traitées par Vite pendant la construction.
     *   **`components/`**: Ce répertoire contient tous les composants React réutilisables.
         *   **`ui/`**: Ce sous-répertoire est dédié aux composants fournis par la bibliothèque `shadcn/ui`, qui forme la base de l'interface utilisateur.
+        *   **`game/`**: Composants modulaires pour l'affichage des jeux, organisés par responsabilité
         *   Les composants personnalisés comme `Footer.tsx`, `Header.tsx`, `BrevoForm.tsx` (pour l'intégration du formulaire de collecte d'emails) et `PaywallDialog.tsx` sont placés directement dans `components/`.
     *   **`content/`**: Contient des fichiers Markdown pour les pages de contenu statique.
     *   **`css/`**: Contient des fichiers CSS personnalisés comme `brevo.css` (styles spécifiques pour le formulaire Brevo) et `cgu-cgv.css`.
@@ -110,15 +112,4 @@ L'application utilise Supabase comme base de données. Voici les principales tab
 5. Après un paiement réussi, il est redirigé vers `/payment-success?success=true` et son statut premium est mis à jour dans la base de données
 6. En cas d'annulation, il est redirigé vers `/premium?canceled=true`
 
-## Code utilisé
 
-*   **Code actif**: D'après le routage dans `App.tsx` et la structure du projet, la plupart du code dans le répertoire `src` semble être utilisé. L'architecture basée sur les composants encourage la modularité et la réutilisation.
-*   **Branche actuelle**: La branche actuelle `fix-connexion` suggère que des correctifs sont en cours sur le système d'authentification.
-
-## Travaux en cours et améliorations futures
-
-*   **Fonctionnalités premium**: La présence de `PaywallDialog.tsx` et de la page `ToGoPremium.tsx` indique que l'implémentation des fonctionnalités premium est en cours. Le flux utilisateur est en train d'être implémenté, notamment en connectant la page premium à la page de connexion.
-*   **Intégration Stripe avancée**: Le système est prêt pour une intégration plus avancée avec Stripe. Les clés API de test sont configurées dans `stripe.ts` et le webhook est préparé dans `api/webhook.js`. Actuellement, l'application utilise un lien de paiement direct, mais elle peut évoluer vers une utilisation complète de l'API Stripe pour des fonctionnalités plus sophistiquées comme les abonnements récurrents, les remboursements automatisés ou les rapports détaillés.
-*   **Mode test de paiement**: L'application est configurée pour utiliser les clés API de test Stripe dans l'environnement de développement, ce qui permet de tester le flux de paiement sans effectuer de transactions réelles. Les clés API de production devront être ajoutées lorsque l'application sera prête pour la production.
-*   **Améliorations de l'authentification**: La branche actuelle `fix-connexion` indique que des améliorations sont en cours sur le système d'authentification.
-*   **Optimisation de la collecte d'emails**: L'intégration du formulaire Brevo a été effectuée sur les pages principales, mais des analyses et optimisations futures sont envisagées pour augmenter le taux de conversion.
