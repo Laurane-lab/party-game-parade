@@ -8,20 +8,20 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute = ({ children, redirectTo = '/connexion' }: ProtectedRouteProps) => {
-  const { user, isAuthLoading } = useAuth();
+  const { user, isLoading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     // Only redirect if we're done loading auth and user is not authenticated
-    if (!isAuthLoading && !user) {
+    if (!isLoading && !user) {
       // Store the current path to redirect back after login
       sessionStorage.setItem('redirect_after_login', window.location.pathname + window.location.search);
       navigate(redirectTo);
     }
-  }, [user, isAuthLoading, navigate, redirectTo]);
+  }, [user, isLoading, navigate, redirectTo]);
 
   // Show minimal loading state only while checking authentication
-  if (isAuthLoading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">

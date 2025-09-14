@@ -31,6 +31,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import { useAuth } from "@/hooks/use-auth";
+import { usePremium } from "@/hooks/use-premium";
 
 const gameImageMapping: { [key: string]: string } = {
 	'/src/assets/aperololo-murduson.png': aperololoMurduson,
@@ -70,8 +71,9 @@ const GameExplanation = () => {
 	const initialIndex = idParam ? games.findIndex(g => g.id === idParam) : 0;
 	const [selected, setSelected] = useState(initialIndex >= 0 ? initialIndex : 0);
 	const game = games[selected];
-	// Utilisation du hook useAuth pour récupérer le statut premium et l'utilisateur
-	const { isPremium: isUserPremium, user } = useAuth();
+	// Utilisation des hooks useAuth et usePremium pour récupérer l'utilisateur et le statut premium
+	const { user } = useAuth();
+	const { isPremium: isUserPremium } = usePremium();
 
 	// Synchronise l'index sélectionné avec l'URL
 	useEffect(() => {
