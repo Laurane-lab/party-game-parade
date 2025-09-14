@@ -32,6 +32,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import { useAuth } from "@/hooks/use-auth";
 import { usePremium } from "@/hooks/use-premium";
+import { redirectToPayment } from "@/lib/payment";
 
 const gameImageMapping: { [key: string]: string } = {
 	'/src/assets/aperololo-murduson.png': aperololoMurduson,
@@ -72,7 +73,7 @@ const GameExplanation = () => {
 	const [selected, setSelected] = useState(initialIndex >= 0 ? initialIndex : 0);
 	const game = games[selected];
 	// Utilisation des hooks useAuth et usePremium pour récupérer l'utilisateur et le statut premium
-	const { user } = useAuth();
+	const { user, isAuthenticated } = useAuth();
 	const { isPremium: isUserPremium } = usePremium();
 
 	// Synchronise l'index sélectionné avec l'URL
@@ -253,7 +254,13 @@ const GameExplanation = () => {
 											<Button
 												variant="secondary"
 												className="w-full max-w-md px-6 py-4 rounded-xl text-xl font-extrabold"
-												onClick={() => navigate('/connexion?redirect_to=payment')}
+												onClick={() => {
+													if (isAuthenticated) {
+														redirectToPayment();
+													} else {
+														navigate('/connexion?redirect_to=payment');
+													}
+												}}
 											>
 												{isUserPremium && !user ? 'Se connecter pour accéder' : 'Devenir premium'}
 											</Button>
