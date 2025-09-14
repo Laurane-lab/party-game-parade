@@ -41,14 +41,46 @@ export default function PaymentSuccess() {
         // Pour l'URL de paiement direct Stripe, nous nous fions au paramètre success=true
         if (success === "true") {
           // Mettre à jour le profil utilisateur avec le statut premium
-          const { error: updateError } = await supabase
+          const { data: existingProfile, error: selectError } = await supabase
             .from('profiles')
-            .upsert({
-              id: userId,
-              is_premium: true,
-              email: userEmail, // Stocker l'email pour pouvoir vérifier ultérieurement
-              payment_date: new Date().toISOString()
-            });
+            .select('*')
+            .eq('id', userId)
+            .single();
+
+          if (selectError && selectError.code !== 'PGRST116') {
+            // Erreur autre que "profil non trouvé"
+            console.error("Erreur lors de la récupération du profil:", selectError);
+            setStatus("error");
+            setMessage("Une erreur s'est produite lors de la vérification de votre compte. Veuillez réessayer ou contacter le support.");
+            return;
+          }
+
+          let updateError = null;
+
+          if (!existingProfile) {
+            // Créer un nouveau profil
+            const { error } = await supabase
+              .from('profiles')
+              .insert({
+                id: userId,
+                email: userEmail,
+                is_premium: true,
+                payment_date: new Date().toISOString()
+              });
+            updateError = error;
+          } else {
+            // Mettre à jour le profil existant
+            const { error } = await supabase
+              .from('profiles')
+              .update({
+                is_premium: true,
+                email: userEmail, // Mettre à jour l'email au cas où il aurait changé
+                payment_date: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+              })
+              .eq('id', userId);
+            updateError = error;
+          }
 
           if (updateError) {
             console.error("Erreur lors de la mise à jour du profil:", updateError);
