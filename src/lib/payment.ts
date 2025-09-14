@@ -2,10 +2,19 @@ import { STRIPE_PAYMENT_LINK } from "@/constants";
 
 /**
  * Builds the success URL for Stripe payment completion
- * @returns The complete success URL with success parameter
+ * @returns The complete success URL with success parameter and optional game ID
  */
 export function buildPaymentSuccessUrl(): string {
-  return `${window.location.origin}/payment-success?success=true`;
+  const baseUrl = `${window.location.origin}/payment-success?success=true`;
+  
+  // Récupérer l'ID du jeu sauvegardé pour redirection après paiement
+  const gameId = sessionStorage.getItem('game_id_after_payment');
+  
+  if (gameId) {
+    return `${baseUrl}&game_id=${encodeURIComponent(gameId)}`;
+  }
+  
+  return baseUrl;
 }
 
 /**

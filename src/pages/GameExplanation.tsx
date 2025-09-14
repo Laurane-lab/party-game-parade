@@ -44,10 +44,14 @@ const GameExplanation = () => {
 	};
 
 	const handleRedirectToPayment = () => {
+		// Sauvegarder l'ID du jeu actuel pour redirection après paiement
+		sessionStorage.setItem('game_id_after_payment', game.id);
 		redirectToPayment();
 	};
 
 	const handleNavigateToConnexion = () => {
+		// Sauvegarder l'ID du jeu actuel pour redirection après connexion et paiement
+		sessionStorage.setItem('game_id_after_payment', game.id);
 		navigate('/connexion?redirect_to=payment');
 	};
 

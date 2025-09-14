@@ -36,6 +36,7 @@ export default function PaymentSuccess() {
         // Récupérer les paramètres d'URL de Stripe (si disponibles)
         const params = new URLSearchParams(location.search);
         const success = params.get('success');
+        const gameId = params.get('game_id');
         
         // Pour l'URL de paiement direct Stripe, nous nous fions au paramètre success=true
         if (success === "true") {
@@ -59,6 +60,9 @@ export default function PaymentSuccess() {
           // Tout s'est bien passé
           setStatus("success");
           setMessage("Votre paiement a été confirmé avec succès ! Vous avez maintenant accès à tous les jeux premium.");
+          
+          // Nettoyer le sessionStorage après récupération de l'ID du jeu
+          sessionStorage.removeItem('game_id_after_payment');
         } else {
           // Si nous n'avons pas de confirmation de succès
           setStatus("error");
@@ -95,7 +99,19 @@ export default function PaymentSuccess() {
           {status !== "loading" && (
             <Button 
               className="w-full bg-party-pink hover:bg-party-pink/80 text-white" 
-              onClick={() => navigate("/game-explanation")}
+              onClick={() => {
+                // Récupérer l'ID du jeu depuis les paramètres URL
+                const params = new URLSearchParams(location.search);
+                const gameId = params.get('game_id');
+                
+                if (gameId) {
+                  // Rediriger vers le jeu spécifique
+                  navigate(`/game-explanation?id=${gameId}`);
+                } else {
+                  // Redirection par défaut vers la page générale des jeux
+                  navigate("/game-explanation");
+                }
+              }}
             >
               {status === "success" ? "Voir tous les jeux" : "Retour aux jeux"}
             </Button>
