@@ -11,7 +11,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 const Index = () => {
-  const { session } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [showPaywall, setShowPaywall] = useState(false);
   const gameExamples = [
@@ -43,7 +43,7 @@ const Index = () => {
       {/* Section Héros */}
       <section className="relative py-20 px-4 text-center bg-gradient-to-br from-party-pink/20 via-party-orange/10 to-party-blue/20">
         <div className="absolute top-4 right-4">
-          {session ? (
+          {user ? (
             <Button variant="outline" size="lg" onClick={() => navigate('/game-explanation')}>
               Voir les jeux
             </Button>

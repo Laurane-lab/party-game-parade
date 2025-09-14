@@ -1,26 +1,28 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
-import { Session } from '@supabase/supabase-js';
+import { User } from '@supabase/supabase-js';
 
 export const useAuth = () => {
-  const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
   const [isPremium, setIsPremium] = useState(false);
+  const [isPremiumLoading, setIsPremiumLoading] = useState(false);
 
   useEffect(() => {
-    const getSession = async () => {
+    // Get initial session - this is fast and synchronous from local storage
+    const getInitialSession = async () => {
       const { data } = await supabase.auth.getSession();
-      setSession(data.session);
+      setUser(data.session?.user || null);
+      setIsAuthLoading(false);
 
-      // Si l'utilisateur est connecté, vérifier son statut premium
+      // Start premium check in background if user is authenticated
       if (data.session?.user.id) {
-        await checkPremiumStatus(data.session.user.id);
+        checkPremiumStatus(data.session.user.id);
       }
-
-      setLoading(false);
     };
 
     const checkPremiumStatus = async (userId: string) => {
+      setIsPremiumLoading(true);
       try {
         // Récupérer les informations de l'utilisateur depuis Supabase
         const { data: userData } = await supabase.auth.getUser();
@@ -32,7 +34,7 @@ export const useAuth = () => {
         }
 
         // Vérifier si l'utilisateur est premium dans sa propre entrée
-        const { data: profileData, error: profileError } = await supabase
+        const { data: profileData } = await supabase
           .from('profiles')
           .select('is_premium')
           .eq('id', userId)
@@ -45,7 +47,7 @@ export const useAuth = () => {
 
         // Si l'utilisateur n'est pas premium selon son ID, vérifier par email
         // Cela permet de détecter si l'utilisateur a payé avec un autre appareil/navigateur
-        const { data: emailProfiles, error: emailError } = await supabase
+        const { data: emailProfiles } = await supabase
           .from('profiles')
           .select('is_premium, payment_date')
           .eq('email', userEmail)
@@ -73,20 +75,27 @@ export const useAuth = () => {
       } catch (error) {
         console.error('Erreur lors de la vérification du statut premium:', error);
         setIsPremium(false);
+      } finally {
+        setIsPremiumLoading(false);
       }
     };
 
-    getSession();
+    getInitialSession();
 
+    // Listen for auth state changes
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (_event, session) => {
-        setSession(session);
+        setUser(session?.user || null);
 
-        // Mettre à jour le statut premium lorsque l'état d'authentification change
+        // Authentication state is immediately available
+        setIsAuthLoading(false);
+
+        // Handle premium status separately
         if (session?.user.id) {
-          await checkPremiumStatus(session.user.id);
+          checkPremiumStatus(session.user.id);
         } else {
           setIsPremium(false);
+          setIsPremiumLoading(false);
         }
       }
     );
@@ -100,5 +109,12 @@ export const useAuth = () => {
     await supabase.auth.signOut();
   };
 
-  return { session, loading, isPremium, logout };
+  return {
+    user,
+    loading: isAuthLoading, // Deprecated: use isAuthLoading instead
+    isAuthLoading,
+    isPremium,
+    isPremiumLoading,
+    logout
+  };
 };

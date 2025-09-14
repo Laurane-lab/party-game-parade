@@ -6,7 +6,7 @@ import { useAuth } from "@/hooks/useAuth";
 const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { session, logout } = useAuth();
+    const { user, logout } = useAuth();
 
     const handleLogout = async () => {
         await logout();
@@ -20,7 +20,7 @@ const Header = () => {
                     <img src={catMascot} alt="Mascotte Aperololo" className="w-10 h-10 object-contain" />
                     <span className="text-2xl font-bold text-party-purple">Apérololo</span>
                 </div>
-                {session ? (
+                {user ? (
                     location.pathname === '/game-explanation' ? (
                         <Button variant="outline" size="lg" onClick={handleLogout}>
                             Déconnexion
