@@ -30,7 +30,7 @@ import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Header from "@/components/Header";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/use-auth";
 
 const gameImageMapping: { [key: string]: string } = {
 	'/src/assets/aperololo-murduson.png': aperololoMurduson,

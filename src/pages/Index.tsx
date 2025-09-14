@@ -7,7 +7,7 @@ import catMascot from "@/assets/New mascot.png";
 import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
 import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
 import hatIcon from "@/assets/icon/hat-thks-icongeek26.png";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/use-auth";
 import { useNavigate } from "react-router-dom";
 
 const Index = () => {

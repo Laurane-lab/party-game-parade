@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import catMascot from "@/assets/New mascot.png";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/use-auth";
 
 const Header = () => {
     const navigate = useNavigate();
