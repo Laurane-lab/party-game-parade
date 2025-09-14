@@ -4,7 +4,7 @@ import Stripe from 'stripe';
  * REMARQUE IMPORTANTE:
  * Actuellement, l'application utilise un lien de paiement direct Stripe (https://buy.stripe.com/4gM14p1P98Gja3a6R4bEA00)
  * et non l'API Stripe pour créer des sessions de paiement.
- * 
+ *
  * Ce fichier contient néanmoins les clés API de test et les fonctions qui pourront être utilisées
  * pour une intégration plus poussée avec l'API Stripe dans le futur.
  */
@@ -31,7 +31,7 @@ export const PREMIUM_PRICE_AMOUNT = 499; // 4.99€
 // URL de paiement direct Stripe
 export const STRIPE_PAYMENT_LINK_PROD = 'https://buy.stripe.com/4gM14p1P98Gja3a6R4bEA00';
 // TODO: Remplacez par votre lien de paiement de TEST
-export const STRIPE_PAYMENT_LINK_TEST = 'https://buy.stripe.com/test_4gM14p1P98Gja3a6R4bEA00'; 
+export const STRIPE_PAYMENT_LINK_TEST = 'https://buy.stripe.com/test_4gM14p1P98Gja3a6R4bEA00';
 
 export const STRIPE_PAYMENT_LINK = isProduction ? STRIPE_PAYMENT_LINK_PROD : STRIPE_PAYMENT_LINK_TEST;
 
@@ -44,15 +44,15 @@ const stripe = new Stripe(STRIPE_SECRET_KEY, {
  * Crée une session de paiement Stripe
  * @param customerEmail Email du client
  * @returns URL de redirection vers la page de paiement Stripe
- * 
+ *
  * Note: Cette fonction n'est actuellement pas utilisée car l'application
  * utilise un lien de paiement direct, mais elle est laissée ici pour référence future.
  */
 export const createCheckoutSession = async (customerEmail: string) => {
   try {
     const successUrl = `${window.location.origin}/payment-success?success=true`;
-    const cancelUrl = `${window.location.origin}/to-go-premium?canceled=true`;
-    
+    const cancelUrl = `${window.location.origin}/premium?canceled=true`;
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [

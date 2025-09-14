@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import BrevoForm from "@/components/BrevoForm";
+import { useAuth } from "@/hooks/use-auth";
 import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
 import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
 import crystalsIcon from "@/assets/icon/crystals-thks-icongeek26.png";
@@ -14,6 +15,7 @@ import quillIcon from "@/assets/icon/quill-thks-icongeek26.png";
 import scrollIcon from "@/assets/icon/scroll-thks-icongeek26.png";
 import smokeIcon from "@/assets/icon/smoke-thks-icongeek26.png";
 import wandIcon from "@/assets/icon/wand-thks-icongeek26.png";
+import { redirectToPayment } from "@/lib/payment";
 
 interface GameInfo {
   name: string;
@@ -27,6 +29,7 @@ interface GameInfo {
 const ToGoPremium = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { isAuthenticated } = useAuth();
   const [paymentCanceled, setPaymentCanceled] = useState(false);
   const [paymentError, setPaymentError] = useState<string | null>(null);
 
@@ -36,7 +39,7 @@ const ToGoPremium = () => {
     if (params.get('canceled') === 'true') {
       setPaymentCanceled(true);
     }
-    
+
     const error = params.get('error');
     if (error) {
       switch (error) {
@@ -54,7 +57,7 @@ const ToGoPremium = () => {
       }
     }
   }, [location]);
-  
+
   // Importer la liste des jeux premium depuis GameExplanation
   const freeGames: GameInfo[] = [
     {
@@ -157,7 +160,7 @@ const ToGoPremium = () => {
             </div>
           </div>
         )}
-        
+
         {paymentError && (
           <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-8 w-full max-w-3xl mx-auto">
             <div className="flex">
@@ -173,7 +176,7 @@ const ToGoPremium = () => {
           </div>
         )}
         <h1 className="text-3xl md:text-4xl font-bold text-party-pink mb-8 text-center leading-tight">Débloque tous les jeux pour 4,99€ !</h1>
-        
+
         {/* Grille des jeux premium */}
         <div className="max-w-5xl w-full mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
@@ -214,23 +217,29 @@ const ToGoPremium = () => {
               </div>
             ))}
           </div>
-          
+
           <div className="max-w-md mx-auto flex flex-col gap-4">
-            <Button 
-              className="w-full py-3 text-lg" 
-              variant="secondary" 
-              onClick={() => navigate('/connexion?redirect_to=payment')}
+            <Button
+              className="w-full py-3 text-lg"
+              variant="secondary"
+              onClick={() => {
+                if (isAuthenticated) {
+                  redirectToPayment();
+                } else {
+                  navigate('/connexion?redirect_to=payment');
+                }
+              }}
             >
               Accède à l'intégralité des jeux pour seulement 4,99€
             </Button>
-            <Button 
-              className="w-full mb-2" 
-              variant="ghost" 
+            <Button
+              className="w-full mb-2"
+              variant="ghost"
               onClick={() => navigate('/')}
             >
               Retour à l'accueil
             </Button>
-            
+
             {/* Formulaire Brevo intégré directement */}
             <div className="mt-4">
               <BrevoForm />

@@ -7,11 +7,13 @@ import catMascot from "@/assets/New mascot.png";
 import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
 import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
 import hatIcon from "@/assets/icon/hat-thks-icongeek26.png";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/use-auth";
+import { usePremium } from "@/hooks/use-premium";
 import { useNavigate } from "react-router-dom";
 
 const Index = () => {
-  const { session } = useAuth();
+  const { user } = useAuth();
+  const { isPremium } = usePremium();
   const navigate = useNavigate();
   const [showPaywall, setShowPaywall] = useState(false);
   const gameExamples = [
@@ -43,20 +45,20 @@ const Index = () => {
       {/* Section Héros */}
       <section className="relative py-20 px-4 text-center bg-gradient-to-br from-party-pink/20 via-party-orange/10 to-party-blue/20">
         <div className="absolute top-4 right-4">
-            {session ? (
-                <Button variant="outline" size="lg" onClick={() => navigate('/game-explanation')}>
-                    Voir les jeux
-                </Button>
-            ) : (
-                <Button asChild variant="outline" size="lg">
-                    <a href="/connexion">Connexion</a>
-                </Button>
-            )}
+          {user ? (
+            <Button variant="outline" size="lg" onClick={() => navigate('/game-explanation')}>
+              Voir les jeux
+            </Button>
+          ) : (
+            <Button asChild variant="outline" size="lg">
+              <a href="/connexion">Connexion</a>
+            </Button>
+          )}
         </div>
         <div className="max-w-4xl mx-auto">
           <div className="flex justify-center mb-6">
-            <img 
-              src={catMascot} 
+            <img
+              src={catMascot}
               alt="Mascotte Aperololo - chat noir mignon avec chapeau de fête"
               className="w-24 h-24 object-contain"
             />
@@ -69,7 +71,7 @@ const Index = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8 py-3 bg-gradient-to-r from-party-orange to-party-pink hover:from-party-pink hover:to-party-orange">
-                <a href="/game-explanation">Jouer gratuitement</a>
+              <a href="/game-explanation">Jouer gratuitement</a>
             </Button>
           </div>
         </div>
@@ -86,56 +88,56 @@ const Index = () => {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-8">
             {gameExamples.map((game) => {
-                const isMurDuSon = game.name === "Le mur du son";
-                const isJusqua10 = game.name === "Jusqu'à 10";
-                const isDosADos = game.name === "Dos à dos";
-                let cardProps;
-                if (isMurDuSon) {
-                  cardProps = {
-                    role: "button",
-                    tabIndex: 0,
-                    onClick: () => window.location.href = "/game-explanation?id=le-mur-du-son",
-                    onKeyPress: (e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        window.location.href = "/game-explanation?id=le-mur-du-son";
-                      }
-                    },
-                    className: "rounded-xl border border-gray-200 bg-gray-50 shadow-sm p-6 flex flex-col items-start text-left hover:shadow-lg transition-shadow cursor-pointer outline-none focus:ring-2 focus:ring-party-pink",
-                  };
-                } else if (isJusqua10) {
-                  cardProps = {
-                    role: "button",
-                    tabIndex: 0,
-                    onClick: () => window.location.href = "/game-explanation?id=jusqua-10",
-                    onKeyPress: (e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        window.location.href = "/game-explanation?id=jusqua-10";
-                      }
-                    },
-                    className: "rounded-xl border border-gray-200 bg-gray-50 shadow-sm p-6 flex flex-col items-start text-left hover:shadow-lg transition-shadow cursor-pointer outline-none focus:ring-2 focus:ring-party-pink",
-                  };
-                } else if (isDosADos) {
-                  cardProps = {
-                    role: "button",
-                    tabIndex: 0,
-                    onClick: () => setShowPaywall(true),
-                    onKeyPress: (e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        setShowPaywall(true);
-                      }
-                    },
-                    className: "rounded-xl border border-gray-200 bg-gray-50 shadow-sm p-6 flex flex-col items-start text-left hover:shadow-lg transition-shadow cursor-pointer outline-none focus:ring-2 focus:ring-party-pink",
-                  };
-                } else {
-                  cardProps = {
-                    className: "rounded-xl border border-gray-200 bg-gray-50 shadow-sm p-6 flex flex-col items-start text-left hover:shadow-lg transition-shadow",
-                  };
-                }
+              const isMurDuSon = game.name === "Le mur du son";
+              const isJusqua10 = game.name === "Jusqu'à 10";
+              const isDosADos = game.name === "Dos à dos";
+              let cardProps;
+              if (isMurDuSon) {
+                cardProps = {
+                  role: "button",
+                  tabIndex: 0,
+                  onClick: () => window.location.href = "/game-explanation?id=le-mur-du-son",
+                  onKeyPress: (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      window.location.href = "/game-explanation?id=le-mur-du-son";
+                    }
+                  },
+                  className: "rounded-xl border border-gray-200 bg-gray-50 shadow-sm p-6 flex flex-col items-start text-left hover:shadow-lg transition-shadow cursor-pointer outline-none focus:ring-2 focus:ring-party-pink",
+                };
+              } else if (isJusqua10) {
+                cardProps = {
+                  role: "button",
+                  tabIndex: 0,
+                  onClick: () => window.location.href = "/game-explanation?id=jusqua-10",
+                  onKeyPress: (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      window.location.href = "/game-explanation?id=jusqua-10";
+                    }
+                  },
+                  className: "rounded-xl border border-gray-200 bg-gray-50 shadow-sm p-6 flex flex-col items-start text-left hover:shadow-lg transition-shadow cursor-pointer outline-none focus:ring-2 focus:ring-party-pink",
+                };
+              } else if (isDosADos) {
+                cardProps = {
+                  role: "button",
+                  tabIndex: 0,
+                  onClick: () => setShowPaywall(true),
+                  onKeyPress: (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      setShowPaywall(true);
+                    }
+                  },
+                  className: "rounded-xl border border-gray-200 bg-gray-50 shadow-sm p-6 flex flex-col items-start text-left hover:shadow-lg transition-shadow cursor-pointer outline-none focus:ring-2 focus:ring-party-pink",
+                };
+              } else {
+                cardProps = {
+                  className: "rounded-xl border border-gray-200 bg-gray-50 shadow-sm p-6 flex flex-col items-start text-left hover:shadow-lg transition-shadow",
+                };
+              }
               return (
                 <div key={game.name} {...cardProps} style={{ minHeight: '180px' }}>
                   <div className="flex items-center w-full mb-2 gap-2">
-                    <img src={game.icon} alt={game.name + ' icon'} className="w-7 h-7 object-contain" style={{marginRight: '6px'}} />
-                    <h2 className="text-lg font-semibold text-party-purple m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{maxWidth: '140px'}}>{game.name}</h2>
+                    <img src={game.icon} alt={game.name + ' icon'} className="w-7 h-7 object-contain" style={{ marginRight: '6px' }} />
+                    <h2 className="text-lg font-semibold text-party-purple m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{ maxWidth: '140px' }}>{game.name}</h2>
                   </div>
                   <div className="flex flex-row gap-2 text-xs mb-2 w-full">
                     <span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
@@ -148,7 +150,7 @@ const Index = () => {
           </div>
           <div className="flex justify-center mt-10">
             <Button asChild variant="outline" size="lg" className="text-lg px-8 py-3 border-party-blue text-party-blue hover:bg-party-blue hover:text-white">
-              <a href="/to-go-premium">Voir tous les jeux</a>
+              <a href={isPremium ? "/game-explanation" : "/premium"}>Voir tous les jeux</a>
             </Button>
           </div>
         </div>
@@ -171,11 +173,11 @@ const Index = () => {
             <div>
               <div className="text-4xl mb-4">🎉</div>
               <h3 className="text-xl font-semibold mb-3 text-foreground">Joue gratuitement</h3>
-                <p className="text-muted-foreground">
-                  3 jeux offerts sont disponibles immédiatement
-                </p>
-                {/* Bouton retiré */}
-              </div>
+              <p className="text-muted-foreground">
+                3 jeux offerts sont disponibles immédiatement
+              </p>
+              {/* Bouton retiré */}
+            </div>
             <div>
               <div className="text-4xl mb-4">⭐</div>
               <h3 className="text-xl font-semibold mb-3 text-foreground">Passe au niveau supérieur</h3>
@@ -193,23 +195,23 @@ const Index = () => {
           <h2 className="text-3xl font-bold mb-6 text-primary">
             Pourquoi choisir nos jeux ?
           </h2>
-            <div className="text-left text-muted-foreground mb-12 max-w-2xl mx-auto flex flex-col gap-4">
-              <div className="flex items-start gap-3">
-                <span className="mt-1"><svg width="20" height="20" fill="none" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#2ecc40"/><path d="M7.5 10.5l2 2 3-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
-                <span><span className="font-bold text-party-green">Clé en main :</span> chaque jeu est expliqué de manière simple et claire, avec tout ce dont tu as besoin pour commencer immédiatement. Pas de matériel compliqué, juste du fun !</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="mt-1"><svg width="20" height="20" fill="none" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#2ecc40"/><path d="M7.5 10.5l2 2 3-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
-                <span><span className="font-bold text-party-green">Pour toutes les occasions :</span> nos jeux sont conçus pour briser la glace, créer des souvenirs ou simplement passer un bon moment, peu importe le contexte.</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="mt-1"><svg width="20" height="20" fill="none" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#2ecc40"/><path d="M7.5 10.5l2 2 3-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
-                <span><span className="font-bold text-party-green">Testés et approuvés :</span> nous avons testé chaque jeu pour nous assurer qu'il fonctionne et qu'il apporte de l'ambiance.</span>
-              </div>
+          <div className="text-left text-muted-foreground mb-12 max-w-2xl mx-auto flex flex-col gap-4">
+            <div className="flex items-start gap-3">
+              <span className="mt-1"><svg width="20" height="20" fill="none" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#2ecc40" /><path d="M7.5 10.5l2 2 3-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
+              <span><span className="font-bold text-party-green">Clé en main :</span> chaque jeu est expliqué de manière simple et claire, avec tout ce dont tu as besoin pour commencer immédiatement. Pas de matériel compliqué, juste du fun !</span>
             </div>
-      <Button asChild size="lg" className="text-lg px-12 py-4 bg-gradient-to-r from-party-pink to-party-orange hover:from-party-orange hover:to-party-pink">
-        <a href="/game-explanation">Jouer gratuitement</a>
-      </Button>
+            <div className="flex items-start gap-3">
+              <span className="mt-1"><svg width="20" height="20" fill="none" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#2ecc40" /><path d="M7.5 10.5l2 2 3-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
+              <span><span className="font-bold text-party-green">Pour toutes les occasions :</span> nos jeux sont conçus pour briser la glace, créer des souvenirs ou simplement passer un bon moment, peu importe le contexte.</span>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="mt-1"><svg width="20" height="20" fill="none" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#2ecc40" /><path d="M7.5 10.5l2 2 3-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
+              <span><span className="font-bold text-party-green">Testés et approuvés :</span> nous avons testé chaque jeu pour nous assurer qu'il fonctionne et qu'il apporte de l'ambiance.</span>
+            </div>
+          </div>
+          <Button asChild size="lg" className="text-lg px-12 py-4 bg-gradient-to-r from-party-pink to-party-orange hover:from-party-orange hover:to-party-pink">
+            <a href="/game-explanation">Jouer gratuitement</a>
+          </Button>
         </div>
       </section>
 
@@ -222,7 +224,7 @@ const Index = () => {
         </div>
       </section>
 
-    {showPaywall && <PaywallDialog onClose={() => setShowPaywall(false)} />}
+      {showPaywall && <PaywallDialog onClose={() => setShowPaywall(false)} />}
       <Footer />
     </div>
   );
