@@ -1,68 +1,20 @@
 import { games } from "@/data/games";
-import motCommunImg from "@/assets/motcommun.png";
-import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer";
 import { useIsMobile } from "@/hooks/use-mobile";
 import Footer from "@/components/Footer";
-import dessineALaChaine from "@/assets/dessine a la chaine.png";
-import faireRireSansRireVisuel from "@/assets/aperololo-faireriresansrire.png";
-import aperololoLesEncheres from "@/assets/aperololo-lesencheres.jpg";
-import aperololoPasDansLeRythme from "@/assets/aperololo-pasdanslerythme.jpg";
-import aperololoMissionSecrete from "@/assets/aperololo-missionsecrete.jpg";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import catMascot from "@/assets/New mascot.png";
-import aperololoMurduson from "@/assets/aperololo-murduson.png";
-import jusqua10V3 from "@/assets/jusqua10 v3.png";
-import suiteDeStarV3 from "@/assets/suite de star v3.png";
-import aperololoDosados from "@/assets/aperololo-dosados.jpg";
-import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
-import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
-import crystalsIcon from "@/assets/icon/crystals-thks-icongeek26.png";
-import hatIcon from "@/assets/icon/hat-thks-icongeek26.png";
-import homeIcon from "@/assets/icon/home-thks-icongeek26.png";
-import mortarIcon from "@/assets/icon/mortar-thks-icongeek26.png";
-import quillIcon from "@/assets/icon/quill-thks-icongeek26.png";
-import scrollIcon from "@/assets/icon/scroll-thks-icongeek26.png";
-import smokeIcon from "@/assets/icon/smoke-thks-icongeek26.png";
-import wandIcon from "@/assets/icon/wand-thks-icongeek26.png";
-import BrevoForm from "@/components/BrevoForm";
-import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import { useAuth } from "@/hooks/use-auth";
 import { usePremium } from "@/hooks/use-premium";
 import { redirectToPayment } from "@/lib/payment";
+import GameSelector from "@/components/game/GameSelector";
+import GameHero from "@/components/game/GameHero";
+import GameContent from "@/components/game/GameContent";
+import { gameImageMapping } from "@/components/game/assets";
 
-const gameImageMapping: { [key: string]: string } = {
-	'/src/assets/aperololo-murduson.png': aperololoMurduson,
-	'/src/assets/jusqua10 v3.png': jusqua10V3,
-	'/src/assets/suite de star v3.png': suiteDeStarV3,
-	'/src/assets/aperololo-dosados.jpg': aperololoDosados,
-	'/src/assets/aperololo-missionsecrete.jpg': aperololoMissionSecrete,
-	'/src/assets/aperololo-faireriresansrire.png': faireRireSansRireVisuel,
-	'/src/assets/aperololo-pasdanslerythme.jpg': aperololoPasDansLeRythme,
-	'/src/assets/aperololo-lesencheres.jpg': aperololoLesEncheres,
-	'/src/assets/dessine a la chaine.png': dessineALaChaine,
-	'/src/assets/motcommun.png': motCommunImg,
-};
-
-const gameIconMapping: { [key: string]: string } = {
-	'/src/assets/icon/smoke-thks-icongeek26.png': smokeIcon,
-	'/src/assets/icon/scroll-thks-icongeek26.png': scrollIcon,
-	'/src/assets/icon/wand-thks-icongeek26.png': wandIcon,
-	'/src/assets/icon/cloak-thks-icongeek26.png': cloakIcon,
-	'/src/assets/icon/cauldron-thks-icongeek26.png': cauldronIcon,
-	'/src/assets/icon/crystals-thks-icongeek26.png': crystalsIcon,
-	'/src/assets/icon/mortar-thks-icongeek26.png': mortarIcon,
-	'/src/assets/icon/hat-thks-icongeek26.png': hatIcon,
-	'/src/assets/icon/quill-thks-icongeek26.png': quillIcon,
-	'/src/assets/icon/home-thks-icongeek26.png': homeIcon,
-};
 
 const GameExplanation = () => {
 	const isMobile = useIsMobile();
-	const [drawerOpen, setDrawerOpen] = useState(false);
 	const navigate = useNavigate();
 	const location = useLocation();
 	// Get id param from URL
@@ -91,354 +43,47 @@ const GameExplanation = () => {
 		navigate("/game-explanation?id=" + games[i].id);
 	};
 
-	const gameIcons = games.map(g => gameIconMapping[g.icon]);
+	const handleRedirectToPayment = () => {
+		redirectToPayment();
+	};
+
+	const handleNavigateToConnexion = () => {
+		navigate('/connexion?redirect_to=payment');
+	};
+
+	const navigateHome = () => {
+		navigate('/');
+	};
 
 	return (
 		<div className="min-h-screen bg-background flex flex-col">
 			<Header />
-			{/* PaywallDialog supprimé */}
 			<div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} flex-1`}>
-				{/* Sélecteur de jeux */}
-				{isMobile ? (
-					<Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
-						<DrawerTrigger asChild>
-							<Button
-								className="mx-4 my-4 flex items-center border-party-purple/40 shadow-lg shadow-party-purple/20 transition-all hover:shadow-party-purple/40"
-								variant="outline"
-								onClick={() => setDrawerOpen(true)}
-							>
-								<Menu className="mr-2 h-4 w-4" />
-								Menu
-							</Button>
-						</DrawerTrigger>
-						<DrawerContent>
-							<div className="px-6 py-6 flex flex-col gap-2">
-								<Button
-									variant="ghost"
-									className="flex items-center w-full text-lg py-3 px-3 rounded-lg mb-2 border-2 shadow-sm transition bg-white border-party-pink/40 hover:border-party-pink hover:shadow-md"
-									onClick={() => {
-										setDrawerOpen(false);
-										navigate('/');
-									}}
-								>
-									<span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
-										<img src={catMascot} alt="Mascotte Aperololo" className="w-7 h-7 object-contain" />
-									</span>
-									<span className="text-left font-semibold block text-party-purple">
-										Accueil
-									</span>
-								</Button>
-								<h2 className="text-xl font-bold mb-1 mt-3">Jeux</h2>
-								<div className="flex flex-col gap-2 mt-2">
-									{games.map((g, i) => (
-										<Button
-											key={g.titre}
-											variant="ghost"
-											className={`flex items-center w-full text-lg py-3 px-3 rounded-lg mb-0 border-2 shadow-sm transition
-											       ${selected === i
-													? "bg-party-purple border-party-purple"
-													: "bg-white border-party-purple/40 hover:border-party-purple hover:shadow-md"}
-										       `}
-											onClick={() => {
-												setDrawerOpen(false);
-												handleGameClick(i);
-											}}
-										>
-											<span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
-												<img src={gameIcons[i]} alt={`Icone jeu ${g.titre}`} className="w-7 h-7 object-contain" />
-											</span>
-											<div className="flex items-center justify-between flex-grow overflow-hidden">
-												<span
-													className={`text-left font-semibold block overflow-hidden text-ellipsis whitespace-nowrap
-                                                                                             ${selected === i ? "text-grey" : "text-party-purple"}
-                                                                                           `}
-													title={g.titre}
-												>
-													{g.titre}
-												</span>
-												{!g.is_premium && (
-													<span className="ml-4 px-1 bg-green-200 text-green-800 rounded-sm text-[10px] font-bold">
-														GRATUIT
-													</span>
-												)}
-											</div>
-										</Button>
-									))}
-								</div>
-							</div>
-						</DrawerContent>
-					</Drawer>
-				) : (
-					<aside className="w-80 bg-white px-8 py-8 flex flex-col gap-2">
-						<h2 className="text-xl font-bold mb-1">Jeux</h2>
-						<div className="flex flex-col gap-2 mt-2">
-							{games.map((g, i) => (
-								<Button
-									key={g.titre}
-									variant="ghost"
-									className={`flex items-center w-full text-lg py-3 px-3 rounded-lg mb-0 border-2 shadow-sm transition
-									       ${selected === i
-											? "bg-party-purple border-party-purple"
-											: "bg-white border-party-purple/40 hover:border-party-purple hover:shadow-md"}
-								       `}
-									onClick={() => {
-										handleGameClick(i);
-									}}
-								>
-									<span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
-										<img src={gameIcons[i]} alt={`Icone jeu ${g.titre}`} className="w-7 h-7 object-contain" />
-									</span>
-									<div className="flex items-center justify-between flex-grow overflow-hidden">
-										<span
-											className={`text-left font-semibold block overflow-hidden text-ellipsis whitespace-nowrap
-                                                                                             ${selected === i ? "text-grey" : "text-party-purple"}
-                                                                                           `}
-											title={g.titre}
-										>
-											{g.titre}
-										</span>
-										{!g.is_premium && (
-											<span className="ml-4 px-1 bg-green-200 text-green-800 rounded-sm text-[10px] font-bold">
-												GRATUIT
-											</span>
-										)}
-									</div>
-								</Button>
-							))}
-						</div>
-					</aside>
-				)}
+				<GameSelector
+					games={games}
+					selectedIndex={selected}
+					onSelect={handleGameClick}
+					isMobile={isMobile}
+					navigateHome={navigateHome}
+				/>
 
-				{/* Droite : Détails du jeu */}
 				<div className="flex flex-col flex-1">
 					<main className={`flex-1 ${isMobile ? 'px-2 py-2' : 'px-12 py-10'}`}>
 						<div>
-							<div className="flex flex-col items-center mb-6 max-w-md mx-auto w-full">
-								{/* Image d'illustration du jeu au-dessus du titre */}
-								<img
-									src={gameImageMapping[game.coverImage]}
-									alt={`Illustration jeu ${game.titre}`}
-									className="mb-4 shadow-lg rounded-xl"
-									style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
-								/>
-								<h1 className="text-3xl font-bold text-primary text-center mb-4">
-									{game.titre}
-								</h1>
-								<div className="w-full flex justify-center mb-4 gap-2">
-									<span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
-									<span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold">{game.joueurs} joueurs</span>
-								</div>
-								{game.is_premium && (
-									<div className="w-full text-base font-sans mb-4">
-										<p className="text-center">{game.shortDescription}</p>
-									</div>
-								)}
-							</div>
+							<GameHero
+								game={game}
+								imageSrc={gameImageMapping[game.coverImage]}
+							/>
 
 							<div className="mb-8 max-w-2xl mx-auto">
-								{/* Si jeu premium et (utilisateur non premium OU non connecté), on affiche uniquement les éléments ci-dessus + story + bouton premium */}
-								{game.is_premium && (!isUserPremium || !user) ? (
-									<>
-										{/* Affichage restreint pour jeux premium */}
-										<div className="mt-8 bg-party-pink/10 rounded-lg p-4 flex items-center gap-4 shadow-md border border-party-pink/40">
-											<img
-												src={catMascot}
-												alt="Mascotte Aperololo"
-												className="w-16 h-16 object-contain self-center"
-											/>
-											<blockquote className="text-base text-party-purple italic flex-1 px-2">
-												<span className="block" dangerouslySetInnerHTML={{ __html: game.story }} />
-											</blockquote>
-										</div>
-										<div className="flex justify-center mt-8">
-											<Button
-												variant="secondary"
-												className="w-full max-w-md px-6 py-4 rounded-xl text-xl font-extrabold"
-												onClick={() => {
-													if (isAuthenticated) {
-														redirectToPayment();
-													} else {
-														navigate('/connexion?redirect_to=payment');
-													}
-												}}
-											>
-												{isUserPremium && !user ? 'Se connecter pour accéder' : 'Devenir premium'}
-											</Button>
-										</div>
-									</>
-								) : (
-									<>
-										{/* Affichage complet pour jeux gratuits et premium débloqués */}
-										<div className="mb-2 text-base font-sans">
-											<strong>Règles :</strong>
-											<ol className="list-decimal ml-6 mt-2">
-												{game.rules.map((rule, idx) => {
-													if (game.titre === "Pas dans le rythme" && idx === 1) {
-														return <li key={idx} dangerouslySetInnerHTML={{ __html: rule }} />;
-													}
-													return <li key={idx}>{rule}</li>;
-												})}
-											</ol>
-											{/* Section Idées de chansons pour 'Pas dans le rythme' */}
-											{game.titre === "Pas dans le rythme" && (
-												<div className="mt-6">
-													<strong>Idées de chansons :</strong>
-													<div className="mt-2">
-														<iframe
-															data-testid="embed-iframe"
-															style={{ borderRadius: '12px' }}
-															src="https://open.spotify.com/embed/playlist/2yHhJNvzDaVi9rhjbHfZLx?utm_source=generator"
-															width="100%"
-															height="80"
-															frameBorder="0"
-															allowFullScreen
-															allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-															loading="lazy"
-														></iframe>
-													</div>
-												</div>
-											)}
-											{/* Section Options de jeu pour 'Dessine à la chaîne' */}
-											{game.titre === "Dessine à la chaîne" && game.materiel && game.optionsDeJeu && (
-												<>
-													<div className="mt-6 text-base font-sans">
-														<strong>Matériel :</strong>
-														<ul className="list-disc ml-6 mt-2">
-															{(game.materiel as string[]).map((m, idx) => <li key={idx}>{m}</li>)}
-														</ul>
-													</div>
-													<div className="mt-6 text-base font-sans">
-														<strong>Options de jeu :</strong>
-														<ul className="list-disc ml-6 mt-2">
-															{(game.optionsDeJeu as string[]).map((o, idx) => <li key={idx}>{o}</li>)}
-														</ul>
-													</div>
-												</>
-											)}
-											{/* Section Idées d'enchères pour 'Les enchères' */}
-											{game.titre === "Les enchères" && game.idees && (
-												<div className="mt-6 text-base font-sans">
-													<strong>Idées d'enchères :</strong>
-													<ul className="list-disc ml-6 mt-2">
-														{(game.idees as string[]).map((idee, idx) => <li key={idx} dangerouslySetInnerHTML={{ __html: idee }}></li>)}
-													</ul>
-												</div>
-											)}
-										</div>
-										{game.titre === "Le mur du son" && game.conseil && game.nuages ? (
-											<>
-												<div className="text-base font-sans">
-													<strong>Conseil :</strong>
-													<ul className="list-disc ml-6 mt-2">
-														{game.conseil.map((c, idx) => (
-															<li key={idx}>{c}</li>
-														))}
-													</ul>
-												</div>
-												<div className="mt-4 text-base font-sans">
-													<strong>Accès aux nuages de mots :</strong>
-													<ul className="list-disc ml-6 mt-2">
-														{game.nuages.map((nuage, idx) => (
-															<li key={idx}>
-																<a href={nuage.url} target="_blank" rel="noopener noreferrer" className="text-party-blue underline hover:text-party-green">
-																	{nuage.theme}
-																</a>
-															</li>
-														))}
-													</ul>
-												</div>
-											</>
-										) : game.titre === "Dos à dos" && game.examples ? (
-											<div className="text-base font-sans">
-												<strong>Idées de questions :</strong>
-												<ul className="list-disc ml-6 mt-2">
-													{game.examples.map((ex, idx) => (
-														<li key={idx}>{ex}</li>
-													))}
-												</ul>
-											</div>
-										) : game.titre === "Suite de stars" && game.examples ? (
-											!game.hideExamples && (
-												<div className="text-base font-sans">
-													<strong>Exemples :</strong>
-													<ul className="list-disc ml-6 mt-2">
-														{game.examples.map((ex, idx) => (
-															<li key={idx}>{ex}</li>
-														))}
-													</ul>
-												</div>
-											)
-										) : game.titre === "Jusqu'à 10" && game.contraintes ? (
-											<>
-												<div className="text-base font-sans">
-													<strong>Idées de contraintes :</strong>
-													<ul className="list-disc ml-6 mt-2">
-														{game.contraintes.map((contrainte, idx) => (
-															<li key={idx}>{contrainte}</li>
-														))}
-													</ul>
-												</div>
-												{game.examples && (
-													<div className="text-base font-sans mt-4">
-														<strong>Exemple :</strong>
-														<p className="ml-6 mt-2">{game.examples}</p>
-													</div>
-												)}
-											</>
-										) : game.titre === "Le mot commun" && game.examples ? (
-											<div className="text-base font-sans">
-												<strong>Exemples :</strong>
-												{game.examples.map((ex, idx) => (
-													<div key={idx} className="mb-1">
-														<ul className="list-disc ml-6 mt-2">
-															<li>{ex}</li>
-														</ul>
-														<div className="ml-6 mt-1 text-sm text-muted-foreground">
-															{/* Ligne d'explication personnalisée pour chaque exemple */}
-															{idx === 0 && "Objets qui fonctionnent : une carte d'un roi, une lumière pour illustrer Versailles, une couronne etc."}
-															{idx === 1 && "Objets qui fonctionnent : une urne, une tête de mort, une pierre, etc."}
-															{idx === 2 && "Objets qui fonctionnent : des lunettes, une loupe, une peluche de taupe, etc."}
-															{idx === 3 && "Objets qui fonctionnent : un oeuf, tout objet rond,  etc."}
-														</div>
-													</div>
-												))}
-											</div>
-										) : game.showTours && game.tours && game.tours.length > 0 ? (
-											<div className="text-base font-sans mt-6">
-												<strong>Tours :</strong>
-												<ul className="list-disc ml-6 mt-2">
-													{game.tours.map((tour, idx) => (
-														<li key={idx}>
-															<div>
-																<span className="font-semibold" style={{ color: tour.color }}>{tour.title} :</span>
-																{tour.description.map((desc, descIdx) => (
-																	<div key={descIdx} dangerouslySetInnerHTML={{ __html: desc }} />
-																))}
-															</div>
-														</li>
-													))}
-												</ul>
-											</div>
-										) : (
-											<div className="text-base font-sans"></div>
-										)}
-										<div className="mt-8 bg-party-pink/10 rounded-lg p-4 flex items-center gap-4 shadow-md border border-party-pink/40">
-											<img
-												src={catMascot}
-												alt="Mascotte Aperololo"
-												className="w-16 h-16 object-contain self-center"
-											/>
-											<blockquote className="text-base text-party-purple italic flex-1 px-2">
-												<span className="block" dangerouslySetInnerHTML={{ __html: game.story }} />
-											</blockquote>
-										</div>
-										{!game.is_premium && (
-											<div className="flex justify-center mt-8">
-												<BrevoForm />
-											</div>
-										)}
-									</>
-								)}
+								<GameContent
+									game={game}
+									user={user}
+									isAuthenticated={isAuthenticated}
+									isUserPremium={isUserPremium}
+									onRedirectToPayment={handleRedirectToPayment}
+									onNavigateToConnexion={handleNavigateToConnexion}
+								/>
 							</div>
 						</div>
 					</main>
