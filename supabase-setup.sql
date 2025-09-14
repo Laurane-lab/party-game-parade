@@ -24,7 +24,9 @@ CREATE POLICY "Users can insert own profile" ON profiles
 
 -- Politique pour permettre aux utilisateurs de mettre à jour leur propre profil
 CREATE POLICY "Users can update own profile" ON profiles
-  FOR UPDATE USING (auth.uid() = id);-- Création d'un trigger pour créer automatiquement un profil lors de l'inscription
+  FOR UPDATE USING (auth.uid() = id);
+  
+  -- Création d'un trigger pour créer automatiquement un profil lors de l'inscription
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
