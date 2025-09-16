@@ -26,21 +26,21 @@ export default async (req, res) => {
   let event;
 
   try {
-    console.log('--- Construction de l\'événement ---');
+    console.warn('--- Construction de l\'événement ---');
     // Vérifier la signature du webhook si un secret est défini
     if (STRIPE_WEBHOOK_SECRET) {
-      console.log('✓ Utilisation du webhook secret pour valider la signature');
+      console.warn('✓ Utilisation du webhook secret pour valider la signature');
       const body = await buffer(req);
       const sig = req.headers['stripe-signature'];
-      console.log('✓ Body récupéré, taille:', body.length, 'bytes');
+      console.warn('✓ Body récupéré, taille:', body.length, 'bytes');
       event = stripe.webhooks.constructEvent(body, sig, STRIPE_WEBHOOK_SECRET);
-      console.log('✓ Signature validée avec succès');
+      console.warn('✓ Signature validée avec succès');
     } else {
       console.warn('⚠️  Pas de webhook secret - utilisation directe du body (mode test)');
       event = req.body;
     }
 
-    console.log('✓ Événement construit:', {
+    console.warn('✓ Événement construit:', {
       id: event.id,
       type: event.type,
       created: new Date(event.created * 1000).toISOString(),
@@ -59,11 +59,11 @@ export default async (req, res) => {
   try {
     switch (event.type) {
       case 'payment_intent.succeeded': {
-        console.log('\n--- TRAITEMENT PAYMENT_INTENT.SUCCEEDED (Payment Link) ---');
+        console.warn('\n--- TRAITEMENT PAYMENT_INTENT.SUCCEEDED (Payment Link) ---');
         const paymentIntent = event.data.object;
 
         // Log détaillé du payment intent
-        console.log('Payment Intent complet:', {
+        console.warn('Payment Intent complet:', {
           id: paymentIntent.id,
           status: paymentIntent.status,
           amount: paymentIntent.amount,
@@ -74,18 +74,18 @@ export default async (req, res) => {
         });
 
         // Vérifier que le paiement est confirmé
-        console.log('Vérification du statut de paiement:', paymentIntent.status);
+        console.warn('Vérification du statut de paiement:', paymentIntent.status);
         if (paymentIntent.status === 'succeeded') {
-          console.log('✓ Paiement confirmé via Payment Link');
+          console.warn('✓ Paiement confirmé via Payment Link');
 
           // Extraire l'email du payment intent
           const customerEmail = paymentIntent.receipt_email;
-          console.log('Email extrait du Payment Intent:', customerEmail);
+          console.warn('Email extrait du Payment Intent:', customerEmail);
 
           if (customerEmail) {
             // Utiliser le même code que pour checkout.session.completed
-            console.log(`✓ Email trouvé: ${customerEmail}`);
-            console.log('Recherche de l\'utilisateur dans Supabase...');
+            console.warn(`✓ Email trouvé: ${customerEmail}`);
+            console.warn('Recherche de l\'utilisateur dans Supabase...');
 
             // Trouver l'utilisateur par email
             const { data: userData, error: userError } = await supabase
@@ -100,7 +100,7 @@ export default async (req, res) => {
                 supabase_error: userError
               });
             } else {
-              console.log(`✓ Utilisateur trouvé:`, userData);
+              console.warn(`✓ Utilisateur trouvé:`, userData);
 
               // Mettre à jour le profil de l'utilisateur
               const updateData = {
@@ -117,7 +117,7 @@ export default async (req, res) => {
               if (updateError) {
                 console.error('❌ Erreur lors de la mise à jour du profil:', updateError);
               } else {
-                console.log('✅ Utilisateur mis à jour avec succès (Payment Link):', {
+                console.warn('✅ Utilisateur mis à jour avec succès (Payment Link):', {
                   email: customerEmail,
                   user_id: userData.id,
                   updated_data: updateResult
@@ -137,11 +137,11 @@ export default async (req, res) => {
       }
 
       case 'checkout.session.completed': {
-        console.log('\n--- TRAITEMENT CHECKOUT.SESSION.COMPLETED ---');
+        console.warn('\n--- TRAITEMENT CHECKOUT.SESSION.COMPLETED ---');
         const session = event.data.object;
 
         // Log détaillé de la session
-        console.log('Session complète:', {
+        console.warn('Session complète:', {
           id: session.id,
           payment_status: session.payment_status,
           amount_total: session.amount_total,
@@ -154,13 +154,13 @@ export default async (req, res) => {
         });
 
         // Vérifier que le paiement est confirmé
-        console.log('Vérification du statut de paiement:', session.payment_status);
+        console.warn('Vérification du statut de paiement:', session.payment_status);
         if (session.payment_status === 'paid') {
-          console.log('✓ Paiement confirmé');
+          console.warn('✓ Paiement confirmé');
 
           // Extraire l'email de différentes sources possibles
           const customerEmail = session.customer_details?.email || session.customer_email;
-          console.log('Email extrait:', {
+          console.warn('Email extrait:', {
             customer_details_email: session.customer_details?.email,
             customer_email: session.customer_email,
             final_email: customerEmail
@@ -168,31 +168,31 @@ export default async (req, res) => {
 
           // Mettre à jour le statut premium de l'utilisateur dans Supabase
           if (customerEmail) {
-            console.log(`✓ Email trouvé: ${customerEmail}`);
-            console.log('Recherche de l\'utilisateur dans Supabase...');
+            console.warn(`✓ Email trouvé: ${customerEmail}`);
+            console.warn('Recherche de l\'utilisateur dans Supabase...');
 
             // Debugging détaillé de l'email
-            console.log('Analyse détaillée de l\'email:');
-            console.log(`- Email brut: "${customerEmail}"`);
-            console.log(`- Email length: ${customerEmail.length}`);
-            console.log(`- Email toLowerCase: "${customerEmail.toLowerCase()}"`);
-            console.log(`- Email trim: "${customerEmail.trim()}"`);
-            console.log('- Character codes:', Array.from(customerEmail).map(c => c.charCodeAt(0)));
+            console.warn('Analyse détaillée de l\'email:');
+            console.warn(`- Email brut: "${customerEmail}"`);
+            console.warn(`- Email length: ${customerEmail.length}`);
+            console.warn(`- Email toLowerCase: "${customerEmail.toLowerCase()}"`);
+            console.warn(`- Email trim: "${customerEmail.trim()}"`);
+            console.warn('- Character codes:', Array.from(customerEmail).map(c => c.charCodeAt(0)));
 
             // Test de connexion Supabase d'abord
-            console.log('Test de connexion Supabase...');
+            console.warn('Test de connexion Supabase...');
             const { data: connectionTest, error: connectionError } = await supabase
               .from('profiles')
               .select('count', { count: 'exact', head: true });
 
-            console.log('Résultat du test de connexion:', {
+            console.warn('Résultat du test de connexion:', {
               connected: !connectionError,
               total_profiles: connectionTest || 'N/A',
               error: connectionError
             });
 
             // Trouver l'utilisateur par email (requête exacte)
-            console.log('Exécution de la requête exacte:', {
+            console.warn('Exécution de la requête exacte:', {
               table: 'profiles',
               select: 'id, email, is_premium, created_at',
               filter: `email = '${customerEmail}'`
@@ -205,14 +205,14 @@ export default async (req, res) => {
               .single();
 
             // Essayer aussi avec des variations de l'email
-            console.log('Test avec email en minuscules...');
+            console.warn('Test avec email en minuscules...');
             const { data: userDataLower, error: userErrorLower } = await supabase
               .from('profiles')
               .select('id, email, is_premium, created_at')
               .eq('email', customerEmail.toLowerCase())
               .single();
 
-            console.log('Test avec email trimé...');
+            console.warn('Test avec email trimé...');
             const { data: userDataTrim, error: userErrorTrim } = await supabase
               .from('profiles')
               .select('id, email, is_premium, created_at')
@@ -220,30 +220,30 @@ export default async (req, res) => {
               .single();
 
             // Recherche fuzzy pour voir ce qui existe réellement
-            console.log('Recherche de tous les emails dans la base...');
+            console.warn('Recherche de tous les emails dans la base...');
             const { data: allEmails, error: allEmailsError } = await supabase
               .from('profiles')
               .select('email')
               .limit(50);
 
-            console.log('Emails dans la base:', {
+            console.warn('Emails dans la base:', {
               emails: allEmails?.map(u => `"${u.email}"`),
               error: allEmailsError
             });
 
-            console.log('Résultats des requêtes utilisateur:');
-            console.log('- Requête exacte - Data:', userData, 'Error:', userError);
-            console.log('- Requête minuscules - Data:', userDataLower, 'Error:', userErrorLower);
-            console.log('- Requête trimée - Data:', userDataTrim, 'Error:', userErrorTrim);
+            console.warn('Résultats des requêtes utilisateur:');
+            console.warn('- Requête exacte - Data:', userData, 'Error:', userError);
+            console.warn('- Requête minuscules - Data:', userDataLower, 'Error:', userErrorLower);
+            console.warn('- Requête trimée - Data:', userDataTrim, 'Error:', userErrorTrim);
 
             // Vérifions aussi si il existe des utilisateurs avec des emails similaires
-            console.log('Vérification des emails similaires...');
+            console.warn('Vérification des emails similaires...');
             const { data: similarUsers, error: similarError } = await supabase
               .from('profiles')
               .select('email')
               .ilike('email', `%${customerEmail.split('@')[0]}%`);
 
-            console.log('Utilisateurs avec des emails similaires:', {
+            console.warn('Utilisateurs avec des emails similaires:', {
               data: similarUsers,
               error: similarError,
               count: similarUsers?.length || 0
@@ -269,10 +269,10 @@ export default async (req, res) => {
 
               // En mode test, proposer des solutions
               if (!event.livemode) {
-                console.log('🧪 MODE TEST DÉTECTÉ - Solutions possibles:');
-                console.log('1. Utilisez votre vraie adresse email dans le checkout Stripe test');
-                console.log('2. Créez un utilisateur test dans votre base avec l\'email:', customerEmail);
-                console.log('3. Implémentez une logique de fallback pour le mode test');
+                console.warn('🧪 MODE TEST DÉTECTÉ - Solutions possibles:');
+                console.warn('1. Utilisez votre vraie adresse email dans le checkout Stripe test');
+                console.warn('2. Créez un utilisateur test dans votre base avec l\'email:', customerEmail);
+                console.warn('3. Implémentez une logique de fallback pour le mode test');
               }
 
               // Essayons aussi de vérifier le nombre total d'utilisateurs
@@ -280,14 +280,14 @@ export default async (req, res) => {
                 .from('profiles')
                 .select('*', { count: 'exact', head: true });
 
-              console.log('Nombre total d\'utilisateurs dans la base:', {
+              console.warn('Nombre total d\'utilisateurs dans la base:', {
                 count: count,
                 error: countError
               });
 
             } else {
               const matchType = userData ? 'exact' : (userDataLower ? 'lowercase' : 'trimmed');
-              console.log(`✓ Utilisateur trouvé (${matchType}):`, {
+              console.warn(`✓ Utilisateur trouvé (${matchType}):`, {
                 id: finalUserData.id,
                 email: finalUserData.email,
                 current_premium_status: finalUserData.is_premium,
@@ -296,12 +296,12 @@ export default async (req, res) => {
               });
 
               // Mettre à jour le profil de l'utilisateur
-              console.log('Mise à jour du statut premium...');
+              console.warn('Mise à jour du statut premium...');
               const updateData = {
                 is_premium: true,
                 payment_date: new Date().toISOString()
               };
-              console.log('Données de mise à jour:', updateData);
+              console.warn('Données de mise à jour:', updateData);
 
               const { data: updateResult, error: updateError } = await supabase
                 .from('profiles')
@@ -316,7 +316,7 @@ export default async (req, res) => {
                   update_data: updateData
                 });
               } else {
-                console.log('✅ Utilisateur mis à jour avec succès:', {
+                console.warn('✅ Utilisateur mis à jour avec succès:', {
                   email: customerEmail,
                   user_id: finalUserData.id,
                   updated_data: updateResult,
@@ -344,8 +344,8 @@ export default async (req, res) => {
     }
 
     // Répondre avec succès
-    console.log('\n✅ Webhook traité avec succès');
-    console.log('=== FIN DU TRAITEMENT WEBHOOK ===\n');
+    console.warn('\n✅ Webhook traité avec succès');
+    console.warn('=== FIN DU TRAITEMENT WEBHOOK ===\n');
     res.status(200).json({ received: true });
   } catch (err) {
     console.error('\n❌ ERREUR LORS DU TRAITEMENT DE L\'ÉVÉNEMENT:');
@@ -353,7 +353,7 @@ export default async (req, res) => {
     console.error('- Stack:', err.stack);
     console.error('- Event type:', event?.type);
     console.error('- Event ID:', event?.id);
-    console.log('=== FIN DU TRAITEMENT WEBHOOK (ERREUR) ===\n');
+    console.warn('=== FIN DU TRAITEMENT WEBHOOK (ERREUR) ===\n');
     res.status(500).json({ error: 'Erreur lors du traitement de l\'événement', details: err.message });
   }
 };
