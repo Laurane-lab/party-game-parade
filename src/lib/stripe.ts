@@ -28,11 +28,12 @@ export const STRIPE_SECRET_KEY = isProduction ? STRIPE_PROD_SECRET_KEY : STRIPE_
 export const PREMIUM_PRICE_ID = isProduction ? 'price_xxx_prod' : 'price_xxx_test'; // À remplacer par vos IDs de prix réels
 export const PREMIUM_PRICE_AMOUNT = 499; // 4.99€
 
-// URLs de paiement direct Stripe (déplacées vers /src/constants.ts pour centralisation)
+// URL de paiement direct Stripe
 export const STRIPE_PAYMENT_LINK_PROD = 'https://buy.stripe.com/4gM14p1P98Gja3a6R4bEA00';
+// TODO: Remplacez par votre lien de paiement de TEST
 export const STRIPE_PAYMENT_LINK_TEST = 'https://buy.stripe.com/test_4gM14p1P98Gja3a6R4bEA00';
 
-// STRIPE_PAYMENT_LINK maintenant défini dans /src/constants.ts
+export const STRIPE_PAYMENT_LINK = isProduction ? STRIPE_PAYMENT_LINK_PROD : STRIPE_PAYMENT_LINK_TEST;
 
 // Initialisation de l'instance Stripe
 const stripe = new Stripe(STRIPE_SECRET_KEY, {
