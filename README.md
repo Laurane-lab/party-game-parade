@@ -60,41 +60,14 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
-## Environment Variables Setup
+## How can I deploy this project?
 
-This project requires environment variables to be configured for proper functionality. Here's how to set them up:
+Simply open [Lovable](https://lovable.dev/projects/debfce95-68fc-4522-9c0c-fbcdc1daa1c5) and click on Share -> Publish.
 
-### Required Environment Variables
+## Can I connect a custom domain to my Lovable project?
 
-- **`VITE_STRIPE_PAYMENT_LINK`**: The Stripe payment link URL for premium subscriptions
-  - For testing: Use your Stripe test payment link (starts with `https://buy.stripe.com/test_`)
-  - For production: Use your Stripe live payment link (starts with `https://buy.stripe.com/`)
+Yes, you can!
 
-### Setting up locally (for development)
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
-1. Create a `.env` file in the root directory of your project
-2. Add the following line:
-   ```
-   VITE_STRIPE_PAYMENT_LINK=https://buy.stripe.com/test_your_test_payment_link_here
-   ```
-3. Replace `your_test_payment_link_here` with your actual Stripe test payment link
-
-### Setting up on Vercel (for production/preview)
-
-1. Go to your Vercel project dashboard
-2. Navigate to **Settings** → **Environment Variables**
-3. Add a new environment variable:
-   - **Name**: `VITE_STRIPE_PAYMENT_LINK`
-   - **Value**: Your Stripe payment link (test for preview environments, live for production)
-   - **Target**: Select the appropriate environments (Preview, Production, or both)
-
-### Getting your Stripe payment links
-
-1. Log into your Stripe Dashboard
-2. Go to **Products** → **Payment Links**
-3. Create or select your payment link
-4. Copy the payment link URL
-5. Use the test link for development/preview and live link for production
-
-**Important**: Never commit your `.env` file to git! It's already included in `.gitignore`.
-
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
