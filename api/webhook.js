@@ -19,25 +19,10 @@ const stripe = new Stripe(STRIPE_SECRET_KEY, {
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 
 export default async (req, res) => {
-  console.log('=== WEBHOOK REÇU ===');
-  console.log('Method:', req.method);
-  console.log('Headers:', {
-    'stripe-signature': req.headers['stripe-signature'] ? 'Present' : 'Missing',
-    'content-type': req.headers['content-type'],
-    'user-agent': req.headers['user-agent']
-  });
-  console.log('Environment variables:');
-  console.log('- STRIPE_SECRET_KEY:', STRIPE_SECRET_KEY ? `Present (${STRIPE_SECRET_KEY.slice(0, 10)}...)` : 'Missing');
-  console.log('- STRIPE_WEBHOOK_SECRET:', STRIPE_WEBHOOK_SECRET ? `Present (${STRIPE_WEBHOOK_SECRET.slice(0, 10)}...)` : 'Missing');
-  console.log('- SUPABASE_URL:', SUPABASE_URL ? `Present (${SUPABASE_URL})` : 'Missing');
-  console.log('- SUPABASE_SERVICE_KEY:', SUPABASE_SERVICE_KEY ? `Present (${SUPABASE_SERVICE_KEY.slice(0, 10)}...)` : 'Missing');
-
   if (req.method !== 'POST') {
-    console.log('❌ Method not allowed:', req.method);
+    console.error('❌ Method not allowed:', req.method);
     return res.status(405).end('Method Not Allowed');
   }
-
-  const sig = req.headers['stripe-signature'];
   let event;
 
   try {
@@ -50,7 +35,7 @@ export default async (req, res) => {
       event = stripe.webhooks.constructEvent(body, sig, STRIPE_WEBHOOK_SECRET);
       console.log('✓ Signature validée avec succès');
     } else {
-      console.log('⚠️  Pas de webhook secret - utilisation directe du body (mode test)');
+      console.warn('⚠️  Pas de webhook secret - utilisation directe du body (mode test)');
       event = req.body;
     }
 
@@ -269,14 +254,14 @@ export default async (req, res) => {
             });
           }
         } else {
-          console.log('⚠️  Paiement non confirmé, statut:', session.payment_status);
+          console.warn('⚠️  Paiement non confirmé, statut:', session.payment_status);
         }
         break;
       }
       // Vous pouvez ajouter d'autres types d'événements ici selon vos besoins
       default:
-        console.log(`⚠️  Type d'événement non géré: ${event.type}`);
-        console.log('Événement complet:', JSON.stringify(event, null, 2));
+        console.warn(`⚠️  Type d'événement non géré: ${event.type}`);
+        console.warn('Événement complet:', JSON.stringify(event, null, 2));
     }
 
     // Répondre avec succès
