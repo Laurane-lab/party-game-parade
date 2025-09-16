@@ -108,8 +108,11 @@ L'application utilise Supabase comme base de données. Voici les principales tab
 1. L'utilisateur accède à la page `/connexion`
 2. Il se connecte via Google OAuth
 3. S'il souhaite accéder aux fonctionnalités premium, il est redirigé vers `/premium`
-4. Pour effectuer le paiement, l'utilisateur est redirigé vers un lien de paiement direct Stripe (https://buy.stripe.com/4gM14p1P98Gja3a6R4bEA00) avec des paramètres URL pour les redirections après paiement
-5. Après un paiement réussi, il est redirigé vers `/payment-success?success=true` et son statut premium est mis à jour dans la base de données
+4. Pour effectuer le paiement, l'utilisateur est redirigé vers le lien de paiement direct Stripe
+5. Après un paiement réussi:
+   - Stripe redirige l'utilisateur vers `/payment-success?success=true`
+   - Stripe webhook appelle `/api/webhook.js` qui met à jour le statut premium en base
+   - La page PaymentSuccess poll la base de données pour vérifier le traitement
 6. En cas d'annulation, il est redirigé vers `/premium?canceled=true`
 
 

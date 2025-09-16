@@ -25,82 +25,17 @@ export default function PaymentSuccess() {
         }
 
         const userId = session.user.id;
-        const userEmail = session.user.email;
 
-        if (!userEmail) {
-          setStatus("error");
-          setMessage("Erreur: Adresse e-mail manquante.");
-          return;
-        }
-
-        // Récupérer les paramètres d'URL de Stripe (si disponibles)
+        // Récupérer les paramètres d'URL
         const params = new URLSearchParams(location.search);
         const success = params.get('success');
-        const gameId = params.get('game_id');
-        const checkoutSessionId = params.get('checkout_session_id');
-
-        // Log the checkout session ID to console
-        console.log('Stripe Checkout Session ID:', checkoutSessionId);
 
         // Pour l'URL de paiement direct Stripe, nous nous fions au paramètre success=true
         if (success === "true") {
-          // Mettre à jour le profil utilisateur avec le statut premium
-          const { data: existingProfile, error: selectError } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', userId)
-            .single();
-
-          if (selectError && selectError.code !== 'PGRST116') {
-            // Erreur autre que "profil non trouvé"
-            console.error("Erreur lors de la récupération du profil:", selectError);
-            setStatus("error");
-            setMessage("Une erreur s'est produite lors de la vérification de votre compte. Veuillez réessayer ou contacter le support.");
-            return;
-          }
-
-          let updateError = null;
-
-          if (!existingProfile) {
-            // Créer un nouveau profil
-            const { error } = await supabase
-              .from('profiles')
-              .insert({
-                id: userId,
-                email: userEmail,
-                is_premium: true,
-                payment_date: new Date().toISOString()
-              });
-            updateError = error;
-          } else {
-            // Mettre à jour le profil existant
-            const { error } = await supabase
-              .from('profiles')
-              .update({
-                is_premium: true,
-                email: userEmail, // Mettre à jour l'email au cas où il aurait changé
-                payment_date: new Date().toISOString(),
-                updated_at: new Date().toISOString()
-              })
-              .eq('id', userId);
-            updateError = error;
-          }
-
-          if (updateError) {
-            console.error("Erreur lors de la mise à jour du profil:", updateError);
-            setStatus("error");
-            setMessage("Nous avons bien reçu votre paiement, mais une erreur s'est produite lors de la mise à jour de votre compte. Veuillez contacter le support.");
-            return;
-          }
-
-          // Tout s'est bien passé
-          setStatus("success");
-          setMessage("Votre paiement a été confirmé avec succès ! Vous avez maintenant accès à tous les jeux premium.");
-
-          // Nettoyer le sessionStorage après récupération de l'ID du jeu
-          sessionStorage.removeItem('game_id_after_payment');
+          // Vérifier le statut premium dans la base de données
+          // (mis à jour par le webhook Stripe)
+          await checkPremiumStatus(userId);
         } else {
-          // Si nous n'avons pas de confirmation de succès
           setStatus("error");
           setMessage("Nous n'avons pas pu confirmer votre paiement. Veuillez réessayer ou contacter le support si le problème persiste.");
         }
@@ -108,6 +43,63 @@ export default function PaymentSuccess() {
         console.error("Erreur lors de la vérification du paiement:", error);
         setStatus("error");
         setMessage("Une erreur s'est produite lors de la vérification de votre paiement. Veuillez réessayer ou contacter le support.");
+      }
+    };
+
+    const checkPremiumStatus = async (userId: string, attempt = 1) => {
+      const maxAttempts = 10; // Vérifier jusqu'à 10 fois (30 secondes max)
+
+      try {
+        const { data: profile, error } = await supabase
+          .from('profiles')
+          .select('is_premium, payment_date')
+          .eq('id', userId)
+          .single();
+
+        if (error) {
+          console.error("Erreur lors de la vérification du profil:", error);
+          if (attempt < maxAttempts) {
+            setTimeout(() => {
+              checkPremiumStatus(userId, attempt + 1);
+            }, 3000);
+            setMessage(`Vérification du statut de paiement... (${attempt}/${maxAttempts})`);
+          } else {
+            setStatus("error");
+            setMessage("Impossible de vérifier votre statut de paiement. Veuillez contacter le support.");
+          }
+          return;
+        }
+
+        // Si le profil existe et que l'utilisateur est premium
+        if (profile && profile.is_premium) {
+          setStatus("success");
+          setMessage("Votre paiement a été confirmé avec succès ! Vous avez maintenant accès à tous les jeux premium.");
+          sessionStorage.removeItem('game_id_after_payment');
+          return;
+        }
+
+        // Si le profil n'est pas encore premium, attendre et réessayer
+        if (attempt < maxAttempts) {
+          setTimeout(() => {
+            checkPremiumStatus(userId, attempt + 1);
+          }, 3000); // Attendre 3 secondes avant de réessayer
+
+          setMessage(`Traitement du paiement en cours... (${attempt}/${maxAttempts})`);
+        } else {
+          // Après tous les essais, le webhook n'a pas encore traité le paiement
+          setStatus("error");
+          setMessage("Le traitement de votre paiement prend plus de temps que prévu. Veuillez attendre quelques minutes ou contacter le support si le problème persiste.");
+        }
+      } catch (error) {
+        console.error("Erreur lors de la vérification du statut premium:", error);
+        if (attempt < maxAttempts) {
+          setTimeout(() => {
+            checkPremiumStatus(userId, attempt + 1);
+          }, 3000);
+        } else {
+          setStatus("error");
+          setMessage("Une erreur s'est produite lors de la vérification de votre paiement. Veuillez contacter le support.");
+        }
       }
     };
 
