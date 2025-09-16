@@ -30,12 +30,22 @@ export default function PaymentSuccess() {
         const params = new URLSearchParams(location.search);
         const success = params.get('success');
 
+        // Debug: logs pour diagnostiquer le problème
+        console.log("=== DEBUG PAYMENT ===");
+        console.log("URL complète:", window.location.href);
+        console.log("Paramètres URL:", location.search);
+        console.log("Paramètre success:", success);
+        console.log("User ID:", userId);
+        console.log("=====================");
+
         // Pour l'URL de paiement direct Stripe, nous nous fions au paramètre success=true
         if (success === "true") {
+          console.log("✅ Paramètre success=true détecté, vérification du statut premium...");
           // Vérifier le statut premium dans la base de données
           // (mis à jour par le webhook Stripe)
           await checkPremiumStatus(userId);
         } else {
+          console.log("❌ Paramètre success manquant ou incorrect:", success);
           setStatus("error");
           setMessage("Nous n'avons pas pu confirmer votre paiement. Veuillez réessayer ou contacter le support si le problème persiste.");
         }
@@ -49,12 +59,16 @@ export default function PaymentSuccess() {
     const checkPremiumStatus = async (userId: string, attempt = 1) => {
       const maxAttempts = 10; // Vérifier jusqu'à 10 fois (30 secondes max)
 
+      console.log(`🔍 Vérification du statut premium (tentative ${attempt}/${maxAttempts}) pour user:`, userId);
+
       try {
         const { data: profile, error } = await supabase
           .from('profiles')
           .select('is_premium, payment_date')
           .eq('id', userId)
           .single();
+
+        console.log("📊 Résultat de la requête profile:", { profile, error });
 
         if (error) {
           console.error("Erreur lors de la vérification du profil:", error);
@@ -72,11 +86,14 @@ export default function PaymentSuccess() {
 
         // Si le profil existe et que l'utilisateur est premium
         if (profile && profile.is_premium) {
+          console.log("✅ Utilisateur premium confirmé:", profile);
           setStatus("success");
           setMessage("Votre paiement a été confirmé avec succès ! Vous avez maintenant accès à tous les jeux premium.");
           sessionStorage.removeItem('game_id_after_payment');
           return;
         }
+
+        console.log(`⏳ Utilisateur pas encore premium, tentative ${attempt}/${maxAttempts}:`, profile);
 
         // Si le profil n'est pas encore premium, attendre et réessayer
         if (attempt < maxAttempts) {
@@ -86,6 +103,7 @@ export default function PaymentSuccess() {
 
           setMessage(`Traitement du paiement en cours... (${attempt}/${maxAttempts})`);
         } else {
+          console.log("❌ Timeout: Le webhook n'a pas encore traité le paiement");
           // Après tous les essais, le webhook n'a pas encore traité le paiement
           setStatus("error");
           setMessage("Le traitement de votre paiement prend plus de temps que prévu. Veuillez attendre quelques minutes ou contacter le support si le problème persiste.");
