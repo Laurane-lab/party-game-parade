@@ -31,6 +31,7 @@ export default async (req, res) => {
     if (STRIPE_WEBHOOK_SECRET) {
       console.log('✓ Utilisation du webhook secret pour valider la signature');
       const body = await buffer(req);
+      const sig = req.headers['stripe-signature'];
       console.log('✓ Body récupéré, taille:', body.length, 'bytes');
       event = stripe.webhooks.constructEvent(body, sig, STRIPE_WEBHOOK_SECRET);
       console.log('✓ Signature validée avec succès');
@@ -57,6 +58,84 @@ export default async (req, res) => {
   // Gérer les différents types d'événements
   try {
     switch (event.type) {
+      case 'payment_intent.succeeded': {
+        console.log('\n--- TRAITEMENT PAYMENT_INTENT.SUCCEEDED (Payment Link) ---');
+        const paymentIntent = event.data.object;
+
+        // Log détaillé du payment intent
+        console.log('Payment Intent complet:', {
+          id: paymentIntent.id,
+          status: paymentIntent.status,
+          amount: paymentIntent.amount,
+          currency: paymentIntent.currency,
+          customer: paymentIntent.customer,
+          receipt_email: paymentIntent.receipt_email,
+          metadata: paymentIntent.metadata
+        });
+
+        // Vérifier que le paiement est confirmé
+        console.log('Vérification du statut de paiement:', paymentIntent.status);
+        if (paymentIntent.status === 'succeeded') {
+          console.log('✓ Paiement confirmé via Payment Link');
+
+          // Extraire l'email du payment intent
+          const customerEmail = paymentIntent.receipt_email;
+          console.log('Email extrait du Payment Intent:', customerEmail);
+
+          if (customerEmail) {
+            // Utiliser le même code que pour checkout.session.completed
+            console.log(`✓ Email trouvé: ${customerEmail}`);
+            console.log('Recherche de l\'utilisateur dans Supabase...');
+
+            // Trouver l'utilisateur par email
+            const { data: userData, error: userError } = await supabase
+              .from('profiles')
+              .select('id, email, is_premium, created_at')
+              .eq('email', customerEmail)
+              .single();
+
+            if (userError || !userData) {
+              console.error('❌ Utilisateur non trouvé:', {
+                searched_email: customerEmail,
+                supabase_error: userError
+              });
+            } else {
+              console.log(`✓ Utilisateur trouvé:`, userData);
+
+              // Mettre à jour le profil de l'utilisateur
+              const updateData = {
+                is_premium: true,
+                payment_date: new Date().toISOString()
+              };
+
+              const { data: updateResult, error: updateError } = await supabase
+                .from('profiles')
+                .update(updateData)
+                .eq('id', userData.id)
+                .select();
+
+              if (updateError) {
+                console.error('❌ Erreur lors de la mise à jour du profil:', updateError);
+              } else {
+                console.log('✅ Utilisateur mis à jour avec succès (Payment Link):', {
+                  email: customerEmail,
+                  user_id: userData.id,
+                  updated_data: updateResult
+                });
+              }
+            }
+          } else {
+            console.error('❌ Pas d\'email trouvé dans le Payment Intent:', {
+              payment_intent_id: paymentIntent.id,
+              receipt_email: paymentIntent.receipt_email
+            });
+          }
+        } else {
+          console.warn('⚠️  Paiement non confirmé, statut:', paymentIntent.status);
+        }
+        break;
+      }
+
       case 'checkout.session.completed': {
         console.log('\n--- TRAITEMENT CHECKOUT.SESSION.COMPLETED ---');
         const session = event.data.object;

@@ -5,7 +5,7 @@ import { STRIPE_PAYMENT_LINK } from "@/constants";
  * @returns The complete success URL with success parameter and optional game ID
  */
 export function buildPaymentSuccessUrl(): string {
-  const baseUrl = `${window.location.origin}/payment-success?success=true`;
+  const baseUrl = `${window.location.origin}/payment?success=true`;
 
   // Récupérer l'ID du jeu sauvegardé pour redirection après paiement
   const gameId = sessionStorage.getItem('game_id_after_payment');
