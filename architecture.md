@@ -62,7 +62,7 @@ Le projet suit une structure standard pour une application React moderne constru
 *   **État côté serveur**: L'application utilise **TanStack Query (`@tanstack/react-query`)** pour gérer l'état du serveur. Cela comprend la récupération, la mise en cache et la mise à jour des données depuis le backend. Le `QueryClientProvider` est configuré dans `App.tsx`, le rendant disponible dans toute l'application.
 *   **Service backend**: L'application se connecte à **Supabase** comme backend. La bibliothèque `@supabase/supabase-js` est utilisée pour interagir avec Supabase pour des services tels que l'authentification et la base de données.
 *   **Routage**: **React Router (`react-router-dom`)** est utilisé pour le routage côté client. Les routes sont définies dans `App.tsx`, mappant les chemins d'URL aux composants de page spécifiques dans le répertoire `src/pages`.
-*   **Paiement**: L'intégration avec **Stripe** est utilisée pour gérer les paiements des fonctionnalités premium. L'application utilise à la fois un lien de paiement direct Stripe et dispose des clés API de test pour des intégrations plus avancées.
+*   **Paiement**: L'intégration avec **Stripe** est utilisée pour gérer les paiements des fonctionnalités premium. L'application utilise un lien de paiement direct Stripe configuré via une variable d'environnement (`VITE_STRIPE_PAYMENT_LINK`), permettant de différencier les environnements de test et de production.
 *   **Marketing par email**: L'intégration avec **Brevo** permet de collecter les adresses email des utilisateurs via le composant `BrevoForm` présent sur la page d'accueil et la page premium.
 
 ## Stack technologique et frameworks
@@ -77,11 +77,21 @@ Le projet suit une structure standard pour une application React moderne constru
 *   **Gestion d'état**: **TanStack Query** est utilisé pour gérer l'état du serveur.
 *   **Backend**: **Supabase** fournit des fonctionnalités de backend-as-a-service, y compris l'authentification et la base de données.
 *   **Authentification**: **Supabase Auth** avec OAuth pour Google est utilisé pour l'authentification des utilisateurs.
-*   **Paiement**: **Stripe** est utilisé pour gérer les paiements des fonctionnalités premium. Une configuration en mode test est disponible avec des clés API dédiées, tandis que le processus de paiement principal repose sur un lien de paiement direct Stripe.
+*   **Paiement**: **Stripe** est utilisé pour gérer les paiements des fonctionnalités premium. Le processus de paiement repose sur un lien de paiement direct Stripe configuré via une variable d'environnement (`VITE_STRIPE_PAYMENT_LINK`).
 *   **Marketing par email**: **Brevo** (anciennement Sendinblue) est intégré pour la collecte d'emails et l'envoi de newsletters.
 *   **Formulaires**: **React Hook Form** et **Zod** sont utilisés pour construire et valider les formulaires.
 *   **Linting**: **ESLint** est utilisé pour garantir la qualité et la cohérence du code.
 *   **Déploiement**: **Vercel** est utilisé pour le déploiement continu de l'application.
+
+## Variables d'environnement
+
+L'application utilise des variables d'environnement pour configurer les services externes. Ces variables doivent être définies dans l'environnement de déploiement (Vercel) :
+
+*   **`VITE_STRIPE_PAYMENT_LINK`**: URL du lien de paiement Stripe. Cette variable permet de configurer différents liens pour les environnements de test et de production.
+    *   Exemple (test) : `https://buy.stripe.com/test_xxxxxxxxxx`
+    *   Exemple (production) : `https://buy.stripe.com/xxxxxxxxxx`
+
+Les variables d'environnement Vite avec le préfixe `VITE_` sont accessibles côté client et peuvent être utilisées dans les composants React via `import.meta.env.VITE_VARIABLE_NAME`.
 
 ## Modèle de données
 
@@ -108,7 +118,7 @@ L'application utilise Supabase comme base de données. Voici les principales tab
 1. L'utilisateur accède à la page `/connexion`
 2. Il se connecte via Google OAuth
 3. S'il souhaite accéder aux fonctionnalités premium, il est redirigé vers `/premium`
-4. Pour effectuer le paiement, l'utilisateur est redirigé vers un lien de paiement direct Stripe (https://buy.stripe.com/4gM14p1P98Gja3a6R4bEA00) avec des paramètres URL pour les redirections après paiement
+4. Pour effectuer le paiement, l'utilisateur est redirigé vers un lien de paiement direct Stripe configuré via la variable d'environnement `VITE_STRIPE_PAYMENT_LINK` avec des paramètres URL pour les redirections après paiement
 5. Après un paiement réussi, il est redirigé vers `/payment-success?success=true` et son statut premium est mis à jour dans la base de données
 6. En cas d'annulation, il est redirigé vers `/premium?canceled=true`
 
