@@ -17,7 +17,7 @@ export default function PaymentSuccess() {
         // Vérifier si l'utilisateur est connecté
         const { data: sessionData } = await supabase.auth.getSession();
         const session = sessionData.session;
-        
+
         if (!session) {
           setStatus("error");
           setMessage("Erreur: Vous devez être connecté pour vérifier votre paiement.");
@@ -37,7 +37,11 @@ export default function PaymentSuccess() {
         const params = new URLSearchParams(location.search);
         const success = params.get('success');
         const gameId = params.get('game_id');
-        
+        const checkoutSessionId = params.get('checkout_session_id');
+
+        // Log the checkout session ID to console
+        console.log('Stripe Checkout Session ID:', checkoutSessionId);
+
         // Pour l'URL de paiement direct Stripe, nous nous fions au paramètre success=true
         if (success === "true") {
           // Mettre à jour le profil utilisateur avec le statut premium
@@ -92,7 +96,7 @@ export default function PaymentSuccess() {
           // Tout s'est bien passé
           setStatus("success");
           setMessage("Votre paiement a été confirmé avec succès ! Vous avez maintenant accès à tous les jeux premium.");
-          
+
           // Nettoyer le sessionStorage après récupération de l'ID du jeu
           sessionStorage.removeItem('game_id_after_payment');
         } else {
@@ -116,26 +120,26 @@ export default function PaymentSuccess() {
         <div className="bg-white p-8 rounded shadow-md w-full max-w-md flex flex-col items-center">
           <img src={catMascot} alt="Mascotte" className="w-20 h-20 mb-4" />
           <h2 className="text-2xl font-bold mb-6 text-center">
-            {status === "loading" ? "Vérification du paiement" : 
+            {status === "loading" ? "Vérification du paiement" :
              status === "success" ? "Paiement réussi" : "Erreur de paiement"}
           </h2>
-          
+
           <div className={`mb-6 text-center ${
-            status === "loading" ? "text-blue-600" : 
-            status === "success" ? "text-green-600" : 
+            status === "loading" ? "text-blue-600" :
+            status === "success" ? "text-green-600" :
             "text-red-600"
           }`}>
             {message}
           </div>
-          
+
           {status !== "loading" && (
-            <Button 
-              className="w-full bg-party-pink hover:bg-party-pink/80 text-white" 
+            <Button
+              className="w-full bg-party-pink hover:bg-party-pink/80 text-white"
               onClick={() => {
                 // Récupérer l'ID du jeu depuis les paramètres URL
                 const params = new URLSearchParams(location.search);
                 const gameId = params.get('game_id');
-                
+
                 if (gameId) {
                   // Rediriger vers le jeu spécifique
                   navigate(`/game-explanation?id=${gameId}`);
