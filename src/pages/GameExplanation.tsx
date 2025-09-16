@@ -43,9 +43,9 @@ const GameExplanation = () => {
 		navigate("/game-explanation?id=" + games[i].id);
 	};
 
-	const handleRedirectToPayment = () => {
+	const handleRedirectToPayment = (email?: string) => {
 		// Rediriger vers le paiement en sauvegardant l'ID du jeu actuel
-		redirectToPayment(game.id);
+		redirectToPayment({ gameId: game.id, email: email || user?.email });
 	};
 
 	const handleNavigateToConnexion = () => {

@@ -26,7 +26,7 @@ export default function Connexion() {
 
         if (redirectTo === 'payment') {
           // Redirect to Stripe payment page
-          redirectToPayment();
+          redirectToPayment({ email: session?.user?.email });
         } else if (redirectAfterLogin) {
           // Redirect back to the original protected page
           navigate(redirectAfterLogin);
@@ -49,7 +49,7 @@ export default function Connexion() {
 
           if (redirectTo === 'payment') {
             // Redirect to Stripe payment page
-            redirectToPayment();
+            redirectToPayment({ email: session?.user?.email });
           } else if (redirectAfterLogin) {
             // Redirect back to the original protected page
             navigate(redirectAfterLogin);
