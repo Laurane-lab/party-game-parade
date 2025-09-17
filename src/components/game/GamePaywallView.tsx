@@ -7,7 +7,7 @@ interface GamePaywallViewProps {
   isAuthenticated: boolean;
   isUserPremium: boolean;
   user: any;
-  onRedirectToPayment: () => void;
+  onRedirectToPayment: (email?: string) => void;
   onNavigateToConnexion: () => void;
 }
 
@@ -21,7 +21,7 @@ const GamePaywallView = ({
 }: GamePaywallViewProps) => {
   const handleButtonClick = () => {
     if (isAuthenticated) {
-      onRedirectToPayment();
+      onRedirectToPayment(user?.email);
     } else {
       onNavigateToConnexion();
     }

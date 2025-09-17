@@ -62,7 +62,7 @@ Le projet suit une structure standard pour une application React moderne constru
 *   **État côté serveur**: L'application utilise **TanStack Query (`@tanstack/react-query`)** pour gérer l'état du serveur. Cela comprend la récupération, la mise en cache et la mise à jour des données depuis le backend. Le `QueryClientProvider` est configuré dans `App.tsx`, le rendant disponible dans toute l'application.
 *   **Service backend**: L'application se connecte à **Supabase** comme backend. La bibliothèque `@supabase/supabase-js` est utilisée pour interagir avec Supabase pour des services tels que l'authentification et la base de données.
 *   **Routage**: **React Router (`react-router-dom`)** est utilisé pour le routage côté client. Les routes sont définies dans `App.tsx`, mappant les chemins d'URL aux composants de page spécifiques dans le répertoire `src/pages`.
-*   **Paiement**: L'intégration avec **Stripe** est utilisée pour gérer les paiements des fonctionnalités premium. L'application utilise un système de liens de paiement direct Stripe avec une gestion intelligente des environnements (test/production). La configuration Stripe dispose également de clés API de test pour des intégrations futures plus avancées.
+*   **Paiement**: L'intégration avec **Stripe** est utilisée pour gérer les paiements des fonctionnalités premium. L'application utilise à la fois un lien de paiement direct Stripe et dispose des clés API de test pour des intégrations plus avancées.
 *   **Marketing par email**: L'intégration avec **Brevo** permet de collecter les adresses email des utilisateurs via le composant `BrevoForm` présent sur la page d'accueil et la page premium.
 
 ## Stack technologique et frameworks
@@ -77,7 +77,7 @@ Le projet suit une structure standard pour une application React moderne constru
 *   **Gestion d'état**: **TanStack Query** est utilisé pour gérer l'état du serveur.
 *   **Backend**: **Supabase** fournit des fonctionnalités de backend-as-a-service, y compris l'authentification et la base de données.
 *   **Authentification**: **Supabase Auth** avec OAuth pour Google est utilisé pour l'authentification des utilisateurs.
-*   **Paiement**: **Stripe** est utilisé pour gérer les paiements des fonctionnalités premium. L'application utilise maintenant un système de liens de paiement direct Stripe avec une gestion intelligente des environnements (test/production) via des variables d'environnement et des fichiers de configuration dédiés (`.env.staging`, `.env.production`). Une configuration API Stripe est également disponible dans `src/lib/stripe.ts` pour des intégrations futures plus avancées.
+*   **Paiement**: **Stripe** est utilisé pour gérer les paiements des fonctionnalités premium. Une configuration en mode test est disponible avec des clés API dédiées, tandis que le processus de paiement principal repose sur un lien de paiement direct Stripe.
 *   **Marketing par email**: **Brevo** (anciennement Sendinblue) est intégré pour la collecte d'emails et l'envoi de newsletters.
 *   **Formulaires**: **React Hook Form** et **Zod** sont utilisés pour construire et valider les formulaires.
 *   **Linting**: **ESLint** est utilisé pour garantir la qualité et la cohérence du code.
@@ -108,33 +108,11 @@ L'application utilise Supabase comme base de données. Voici les principales tab
 1. L'utilisateur accède à la page `/connexion`
 2. Il se connecte via Google OAuth
 3. S'il souhaite accéder aux fonctionnalités premium, il est redirigé vers `/premium`
-4. Pour effectuer le paiement, l'utilisateur est redirigé vers le lien de paiement Stripe approprié (test ou production selon l'environnement) avec des paramètres URL pour les redirections après paiement
-5. Après un paiement réussi, il est redirigé vers `/payment-success?success=true` et son statut premium est mis à jour dans la base de données
+4. Pour effectuer le paiement, l'utilisateur est redirigé vers le lien de paiement direct Stripe
+5. Après un paiement réussi:
+   - Stripe redirige l'utilisateur vers `/payment`
+   - Stripe webhook appelle `/api/webhook.js` qui met à jour le statut premium en base
+   - La page PaymentSuccess poll la base de données pour vérifier le traitement
 6. En cas d'annulation, il est redirigé vers `/premium?canceled=true`
-
-## Configuration des environnements de paiement
-
-L'application dispose maintenant d'un système robuste de gestion des environnements pour les paiements Stripe :
-
-### Fichiers de configuration
-- **`.env.example`** : Template avec toutes les variables nécessaires et le lien de test par défaut
-- **`.env` (local)** : Configuration de développement local avec lien de test
-- **`.env.staging`** : Configuration pour tests en production avec lien de test Stripe
-- **`.env.production`** : Configuration de production avec le vrai lien de paiement
-
-### Logique de sélection automatique (`src/constants.ts`)
-1. **Priorité 1** : Si `VITE_STRIPE_PAYMENT_LINK` est définie → l'utilise directement
-2. **Priorité 2** : Si `VITE_APP_ENV=production` ET pas `staging` → utilise le lien de production
-3. **Priorité 3** : Sinon → utilise le lien de test par défaut
-
-### Variables d'environnement clés
-- `VITE_STRIPE_PAYMENT_LINK` : Lien de paiement Stripe direct à utiliser
-- `VITE_APP_ENV` : Environnement explicite (`development`, `staging`, `production`)
-- `MODE` : Environnement Vite détecté automatiquement
-
-### Workflow recommandé
-1. **Développement local** : Utiliser `.env` avec lien de test
-2. **Test en production** : Déployer avec `.env.staging` pour tester sans charges réelles
-3. **Production réelle** : Déployer avec `.env.production` pour les vrais paiements clients
 
 

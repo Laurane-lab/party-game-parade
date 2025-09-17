@@ -11,7 +11,7 @@ import GameExplanation from "./pages/GameExplanation";
 import ToGoPremium from "./pages/ToGoPremium";
 import MentionsLegales from "./pages/MentionsLegales";
 import CGVCGU from "./pages/CGVCGU";
-import PaymentSuccess from "./pages/PaymentSuccess";
+import Payment from "./pages/Payment";
 
 const queryClient = new QueryClient();
 
@@ -25,9 +25,9 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/connexion" element={<Connexion />} />
           <Route path="/game-explanation" element={<GameExplanation />} />
-          <Route path="/payment-success" element={
+          <Route path="/payment" element={
             <ProtectedRoute>
-              <PaymentSuccess />
+              <Payment />
             </ProtectedRoute>
           } />
           <Route path="/mentions-legales" element={<MentionsLegales />} />
