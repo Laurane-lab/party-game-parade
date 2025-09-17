@@ -32,7 +32,7 @@ const GamePaywallView = ({
   return (
     <>
       <GameStoryQuote story={game.story} />
-      <div className="flex justify-center mt-8">
+      <div className="flex flex-col items-center mt-8 space-y-4">
         <Button
           variant="secondary"
           className="w-full max-w-md px-6 py-4 rounded-xl text-xl font-extrabold"
@@ -40,6 +40,20 @@ const GamePaywallView = ({
         >
           {buttonLabel}
         </Button>
+        
+        {!isAuthenticated && (
+          <div className="text-center">
+            <span className="text-sm text-gray-600">
+              Si tu es déjà premium, {" "}
+              <button
+                onClick={onNavigateToConnexion}
+                className="text-blue-600 underline hover:text-blue-800 font-medium cursor-pointer"
+              >
+                clique ici pour te connecter
+              </button>
+            </span>
+          </div>
+        )}
       </div>
     </>
   );
