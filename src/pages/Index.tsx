@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import PaywallDialog from "@/components/PaywallDialog";
@@ -16,6 +16,18 @@ const Index = () => {
   const { isPremium } = usePremium();
   const navigate = useNavigate();
   const [showPaywall, setShowPaywall] = useState(false);
+  
+  // S'assurer que le scroll fonctionne sur cette page (correction du problème avec le drawer)
+  useEffect(() => {
+    // Nettoyer les styles potentiellement laissés par des composants modaux/drawer
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.bottom = '';
+  }, []);
+
   const gameExamples = [
     {
       name: "Le mur du son",

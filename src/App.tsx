@@ -8,7 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Connexion from "./pages/Connexion";
 import GameExplanation from "./pages/GameExplanation";
-import ToGoPremium from "./pages/ToGoPremium";
+import Premium from "./pages/Premium";
 import MentionsLegales from "./pages/MentionsLegales";
 import CGVCGU from "./pages/CGVCGU";
 import Payment from "./pages/Payment";
@@ -32,7 +32,7 @@ const App = () => (
           } />
           <Route path="/mentions-legales" element={<MentionsLegales />} />
           <Route path="/cgv-cgu" element={<CGVCGU />} />
-          <Route path="/premium" element={<ToGoPremium />} />
+          <Route path="/premium" element={<Premium />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
