@@ -26,7 +26,7 @@ interface GameInfo {
   material?: string; // Optional property for material included with the game
 }
 
-const ToGoPremium = () => {
+const Premium = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isAuthenticated, user } = useAuth();
@@ -253,4 +253,4 @@ const ToGoPremium = () => {
   );
 };
 
-export default ToGoPremium;
+export default Premium;
