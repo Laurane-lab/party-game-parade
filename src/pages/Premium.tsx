@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import BrevoForm from "@/components/BrevoForm";
 import { useAuth } from "@/hooks/use-auth";
+import { useIsMobile } from "@/hooks/use-mobile";
 import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
 import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
 import crystalsIcon from "@/assets/icon/crystals-thks-icongeek26.png";
@@ -30,6 +31,7 @@ const Premium = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isAuthenticated, user } = useAuth();
+  const isMobile = useIsMobile();
   const [paymentCanceled, setPaymentCanceled] = useState(false);
   const [paymentError, setPaymentError] = useState<string | null>(null);
 
@@ -145,7 +147,7 @@ const Premium = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
-      <div className="flex flex-col items-center justify-center flex-1 py-10 px-4">
+      <div className={`flex flex-col items-center justify-center flex-1 px-4 ${isMobile ? 'pt-20 pb-10' : 'py-10'}`}>
         {paymentCanceled && (
           <div className="bg-amber-50 border-l-4 border-amber-500 text-amber-700 p-4 mb-8 w-full max-w-3xl mx-auto">
             <div className="flex">
