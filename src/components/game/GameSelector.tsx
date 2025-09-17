@@ -72,7 +72,16 @@ const GameSelector = ({ games, selectedIndex, onSelect, isMobile, navigateHome }
               className="flex items-center w-full text-lg py-3 px-3 rounded-lg mb-2 border-2 shadow-sm transition bg-white border-party-pink/40 hover:border-party-pink hover:shadow-md"
               onClick={() => {
                 setDrawerOpen(false);
-                navigateHome();
+                // Nettoyer les styles potentiellement laissés par le drawer
+                setTimeout(() => {
+                  document.body.style.overflow = '';
+                  document.body.style.position = '';
+                  document.body.style.top = '';
+                  document.body.style.left = '';
+                  document.body.style.right = '';
+                  document.body.style.bottom = '';
+                  navigateHome();
+                }, 100);
               }}
             >
               <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
