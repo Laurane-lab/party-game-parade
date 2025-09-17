@@ -232,7 +232,7 @@ const Premium = () => {
                 }
               }}
             >
-              Accède à l'intégralité des jeux pour seulement 4,99€
+               Débloque tous les jeux pour 4,99€
             </Button>
             <Button
               className="w-full mb-2"

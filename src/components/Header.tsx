@@ -33,7 +33,7 @@ const Header = () => {
         <header className={`${isMobile ? 'flex fixed' : 'hidden md:flex sticky'} top-0 left-0 right-0 z-50 bg-gradient-to-br from-party-pink/20 via-party-orange/10 to-party-blue/20 shadow-md backdrop-blur-sm border-b border-white/10 transition-transform duration-300 ease-in-out ${
             isMobile && !isHeaderVisible ? '-translate-y-full' : 'translate-y-0'
         }`}>
-            <div className={`flex items-center justify-between w-full ${isMobile ? 'py-3 px-4' : 'py-2 px-8'}`}>
+            <div className={`flex items-center justify-between w-full ${isMobile ? 'py-3 px-6' : 'py-2 px-8'}`}>
                 <div className="flex items-center gap-4 cursor-pointer" onClick={() => navigate('/')}>
                     <img src={catMascot} alt="Mascotte Aperololo" className={`object-contain ${isMobile ? 'w-8 h-8' : 'w-10 h-10'}`} />
                     <span className={`font-bold text-party-purple ${isMobile ? 'text-xl' : 'text-2xl'}`}>Apérololo</span>
