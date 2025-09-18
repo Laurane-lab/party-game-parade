@@ -111,7 +111,7 @@ export default async (req, res) => {
               const { data: updateResult, error: updateError } = await supabase
                 .from('profiles')
                 .update(updateData)
-                .eq('id', userData.id)
+                .eq('user_id', userData.user_id)
                 .select();
 
               if (updateError) {
@@ -119,7 +119,7 @@ export default async (req, res) => {
               } else {
                 console.warn('✅ Utilisateur mis à jour avec succès (Payment Link):', {
                   email: customerEmail,
-                  user_id: userData.id,
+                  user_id: userData.user_id,
                   updated_data: updateResult
                 });
               }
@@ -288,7 +288,7 @@ export default async (req, res) => {
             } else {
               const matchType = userData ? 'exact' : (userDataLower ? 'lowercase' : 'trimmed');
               console.warn(`✓ Utilisateur trouvé (${matchType}):`, {
-                id: finalUserData.id,
+                user_id: finalUserData.user_id,
                 email: finalUserData.email,
                 current_premium_status: finalUserData.is_premium,
                 created_at: finalUserData.created_at,
@@ -306,19 +306,19 @@ export default async (req, res) => {
               const { data: updateResult, error: updateError } = await supabase
                 .from('profiles')
                 .update(updateData)
-                .eq('id', finalUserData.id)
+                .eq('user_id', finalUserData.user_id)
                 .select(); // Pour récupérer les données mises à jour
 
               if (updateError) {
                 console.error('❌ Erreur lors de la mise à jour du profil:', {
                   error: updateError,
-                  user_id: finalUserData.id,
+                  user_id: finalUserData.user_id,
                   update_data: updateData
                 });
               } else {
                 console.warn('✅ Utilisateur mis à jour avec succès:', {
                   email: customerEmail,
-                  user_id: finalUserData.id,
+                  user_id: finalUserData.user_id,
                   updated_data: updateResult,
                   match_type: matchType,
                   message: `Utilisateur ${customerEmail} mis à jour avec succès avec le statut premium`
