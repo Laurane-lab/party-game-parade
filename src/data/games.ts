@@ -155,11 +155,11 @@ export const games: Game[] = [
     shortDescription: "Un jeu parfait pour pimenter ton week-end : accomplis tes missions en douce et tente de découvrir celles des autres. Bluff, stratégie et éclats de rire garantis. Apérololo te fournit un tableau de bord pour attribuer les missions et compter les scores. Nous te proposons également 40 idées de missions.",
     rules: [
         "Chaque joueur reçoit une ou plusieurs missions secrètes à accomplir pendant le week-end.",
-        "Le but est de réaliser ses missions sans se faire repérer et de découvrir les missions des autres.",
+        "Le but est de réaliser tes missions sans te faire repérer et de découvrir les missions des autres.",
         "Une fois la mission accomplie, le joueur va voir le Maître du Jeu pour la faire valider.",
-        "Tu penses qu’un joueur est en train de réaliser sa mission, tu peux tenter de lui faire perdre ses points : demande au maître du jeu un entretien privé avec lui. Le Maître du Jeu déclenche l’alarme (cloche, téléphone... à toi de choisir) pour prévenir les autres joueurs.",
+        "Tu penses qu’un joueur est en train de réaliser sa mission ? Tu peux tenter de lui faire perdre ses points : demande au maître du jeu un entretien privé avec ledit joueur. Le Maître du Jeu déclenche l’alarme (cloche, téléphone... à toi de choisir) pour prévenir les autres joueurs.",
         "L'accusateur explique ce qu'il pense être l’intitulé de la mission et le joueur accusé a 3 minutes pour se défendre.",
-        "Puis, l’accusateur décide s’il confirme son accusation ou pas : si l’accusation est correcte, le joueur accusé perd les points de sa mission et l’accusateur gagne 5 points. Si l’accusation est incorrecte : l’accusateur perd 5 points.",
+        "Puis, l'accusé s'en va et l’accusateur décide s’il confirme son accusation ou pas : si l’accusation est confirmée et correcte, le joueur accusé perd les points de sa mission et l’accusateur gagne 5 points. Si l’accusation est confirmée et incorrecte : l’accusateur perd 5 points.",
         "Le maître du jeu révèle à l'assemblée les accusations et le dénouement.",
         "À la fin du week-end, le joueur avec le plus de points l’emporte !",
     ],
@@ -167,7 +167,7 @@ export const games: Game[] = [
     story: "Tu ne t'imagines pas à quel point tes amis sont prêts à faire n'importe quoi pour t'induire en erreur. J'en ai vu des choses étranges en faisant ce jeu !",
     is_premium: true,
     conseil: [],
-    materiel: "aucun",
+    materiel: "Accède au tableau de bord en ligne pour gérer les missions et les scores en cliquant ici.",
     tours: [],
   },
   {

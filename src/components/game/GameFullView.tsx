@@ -33,6 +33,14 @@ const GameFullView = ({ game }: GameFullViewProps) => {
         <SectionList title="Idées d'enchères" items={game.idees as string[]} asHtml />
       )}
 
+      {/* Section Matériel pour 'Mission secrète' */}
+      {game.titre === "Mission secrète" && game.materiel && (
+        <div className="mt-6 text-base font-sans">
+          <strong>Matériel :</strong>
+          <p className="mt-2">{game.materiel}</p>
+        </div>
+      )}
+
       {/* Section pour 'Le mur du son' */}
       {game.titre === "Le mur du son" && game.conseil && game.nuages ? (
         <>
