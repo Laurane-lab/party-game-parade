@@ -46,11 +46,12 @@ Le projet suit une structure standard pour une application React moderne constru
     *   **`data/`**: Contient les données statiques utilisées par l'application, comme la liste des jeux dans `games.ts`.
     *   **`hooks/`**: Les hooks React personnalisés sont définis ici, par exemple :
         *   `use-mobile.tsx` pour détecter les appareils mobiles
-        *   `useAuth.ts` pour gérer l'authentification et vérifier le statut premium
+        *   `use-auth.ts` pour gérer l'authentification des utilisateurs
+        *   `use-premium.ts` pour vérifier le statut premium de l'utilisateur
         *   `use-toast.ts` pour les notifications
     *   **`lib/`**: Un emplacement pour les fonctions utilitaires et les connexions aux services :
         *   `supabase.ts` pour la connexion à Supabase
-        *   `stripe.ts` pour l'intégration avec Stripe, incluant les clés API de test et les fonctions d'intégration
+        *   `payment.ts` pour gérer la redirection vers la page de paiement Stripe
         *   `utils.ts` pour les fonctions utilitaires diverses
     *   **`pages/`**: Chaque fichier dans ce répertoire représente généralement une page de l'application, correspondant à une route.
     *   **`main.tsx`**: Le point d'entrée principal de l'application React. Il rend le composant `App` dans le DOM.
