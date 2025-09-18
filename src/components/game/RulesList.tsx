@@ -10,7 +10,8 @@ const RulesList = ({ game }: RulesListProps) => {
       <strong>Règles :</strong>
       <ol className="list-decimal ml-6 mt-2">
         {game.rules.map((rule, idx) => {
-          if (game.titre === "Pas dans le rythme" && idx === 1) {
+          const hasHtml = /<[a-z][\s\S]*>/i.test(rule);
+          if (hasHtml) {
             return <li key={idx} dangerouslySetInnerHTML={{ __html: rule }} />;
           }
           return <li key={idx}>{rule}</li>;
