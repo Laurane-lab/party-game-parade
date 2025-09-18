@@ -211,7 +211,7 @@ const Premium = () => {
                 {game.material && (
                   <div className="mt-auto w-full">
                     <div className="p-2 rounded-md">
-                      <h4 className="font-bold text-xs mb-1 text-gray-600">Matériel inclus :</h4>
+                      <h4 className="font-bold text-xs mb-1 text-gray-600">Inclus :</h4>
                       <p className="text-xs text-gray-500">{game.material}</p>
                     </div>
                   </div>

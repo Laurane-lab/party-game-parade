@@ -28,11 +28,6 @@ const GameFullView = ({ game }: GameFullViewProps) => {
         </>
       )}
 
-      {/* Section Idées d'enchères pour 'Les enchères' */}
-      {game.titre === "Les enchères" && game.idees && (
-        <SectionList title="Idées d'enchères" items={game.idees as string[]} asHtml />
-      )}
-
       {/* Section pour 'Le mur du son' */}
       {game.titre === "Le mur du son" && game.conseil && game.nuages ? (
         <>
@@ -51,6 +46,22 @@ const GameFullView = ({ game }: GameFullViewProps) => {
         <ToursSection tours={game.tours} />
       ) : (
         <div className="text-base font-sans"></div>
+      )}
+
+      {/* Section Idées d'enchères pour 'Les enchères' */}
+      {game.titre === "Les enchères" && game.idees && (
+        <>
+        <ExamplesSection game={game} />
+        <SectionList title="Idées d'enchères" items={game.idees as string[]} asHtml />
+        </>
+      )}
+
+      {/* Section Matériel pour 'Mission secrète' */}
+      {game.titre === "Mission secrète" && game.materiel && (
+        <div className="mt-6 text-base font-sans">
+          <strong>Matériel :</strong>
+          <p className="mt-2" dangerouslySetInnerHTML={{ __html: game.materiel as string }}></p>
+        </div>
       )}
 
       <GameStoryQuote story={game.story} />

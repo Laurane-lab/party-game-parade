@@ -162,7 +162,7 @@ const Index = () => {
           </div>
           <div className="flex justify-center mt-10">
             <Button asChild variant="outline" size="lg" className="text-lg px-8 py-3 border-party-blue text-party-blue hover:bg-party-blue hover:text-white">
-              <a href={isPremium ? "/game-explanation" : "/premium"}>Voir tous les jeux</a>
+              <a href="/premium">Voir tous les jeux</a>
             </Button>
           </div>
         </div>

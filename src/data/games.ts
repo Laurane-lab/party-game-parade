@@ -155,11 +155,11 @@ export const games: Game[] = [
     shortDescription: "Un jeu parfait pour pimenter ton week-end : accomplis tes missions en douce et tente de découvrir celles des autres. Bluff, stratégie et éclats de rire garantis. Apérololo te fournit un tableau de bord pour attribuer les missions et compter les scores. Nous te proposons également 40 idées de missions.",
     rules: [
         "Chaque joueur reçoit une ou plusieurs missions secrètes à accomplir pendant le week-end.",
-        "Le but est de réaliser ses missions sans se faire repérer et de découvrir les missions des autres.",
+        "Le but est de réaliser tes missions sans te faire repérer et de découvrir les missions des autres.",
         "Une fois la mission accomplie, le joueur va voir le Maître du Jeu pour la faire valider.",
-        "Tu penses qu’un joueur est en train de réaliser sa mission, tu peux tenter de lui faire perdre ses points : demande au maître du jeu un entretien privé avec lui. Le Maître du Jeu déclenche l’alarme (cloche, téléphone... à toi de choisir) pour prévenir les autres joueurs.",
+        "Tu penses qu’un joueur est en train de réaliser sa mission ? Tu peux tenter de lui faire perdre ses points : demande au maître du jeu un entretien privé avec ledit joueur. Le Maître du Jeu déclenche l’alarme (cloche, téléphone... à toi de choisir) pour prévenir les autres joueurs.",
         "L'accusateur explique ce qu'il pense être l’intitulé de la mission et le joueur accusé a 3 minutes pour se défendre.",
-        "Puis, l’accusateur décide s’il confirme son accusation ou pas : si l’accusation est correcte, le joueur accusé perd les points de sa mission et l’accusateur gagne 5 points. Si l’accusation est incorrecte : l’accusateur perd 5 points.",
+        "Puis, l'accusé s'en va et l’accusateur décide s’il confirme son accusation ou pas : si l’accusation est confirmée et correcte, le joueur accusé perd les points de sa mission et l’accusateur gagne 5 points. Si l’accusation est confirmée et incorrecte : l’accusateur perd 5 points.",
         "Le maître du jeu révèle à l'assemblée les accusations et le dénouement.",
         "À la fin du week-end, le joueur avec le plus de points l’emporte !",
     ],
@@ -167,7 +167,7 @@ export const games: Game[] = [
     story: "Tu ne t'imagines pas à quel point tes amis sont prêts à faire n'importe quoi pour t'induire en erreur. J'en ai vu des choses étranges en faisant ce jeu !",
     is_premium: true,
     conseil: [],
-    materiel: "aucun",
+    materiel: "Accède au tableau de bord pour gérer les missions et les scores en <a href='https://docs.google.com/spreadsheets/d/1N_WMsFVpcNyd0H1gWy5fbPeLK94FwINfwFNuOxQgwhg/edit?usp=sharing' target='_blank' rel='noopener noreferrer' style='font-weight:bold;color:#a259ff;text-decoration:underline;'>cliquant ici</a>.",
     tours: [],
   },
   {
@@ -182,8 +182,8 @@ export const games: Game[] = [
     showTours: true,
     rules: [
         "Le but est d’essayer de faire rire les autres sans rire.", 
-        "Dès que quelqu’un rit, il prend -1 point.",
-        "À la fin des 3 tours (voir plus bas), celui qui a le moins de points a perdu.",
+        "Dès que quelqu’un rit, il prend +1 point.",
+        "À la fin des 3 tours (voir plus bas), celui qui a le plus de points a perdu.",
         "Pour jouer tous les participants doivent être en cercle.",
         "Le joueur avec les plus petits pieds commence le tour 1, puis le joueur à sa gauche le tour 2, etc.",
     ],
@@ -212,7 +212,7 @@ export const games: Game[] = [
         description: [
           "<div>1. En faisant un tour de table, chaque joueur dit un mot qui n’existe pas.</div>",
           "<div>2. À tout moment, l’un des participants peut demander la définition du mot et le joueur doit la donner.</div>",
-          "<div>3. Dire un mot qui existe donne -1.</div>",
+          "<div>3. Dire un mot qui existe donne +1.</div>",
           "<em>Exemple : \"Loubrirute\" est une insulte utilisée par les adolescents Lituaniens.</em>"
         ]
       },
@@ -221,7 +221,7 @@ export const games: Game[] = [
         color: "#ffbe0b",
         description: [
           "<div>1. Chaque joueur doit imiter un animal dans une situation et les autres doivent deviner l’animal et si possible la situation.</div>",
-          "<em>Exemple : Un chat qui discute avec un autre chat. Miaou-Miaouuu-Miaou-Miaou.</em>"
+          "<em>Exemple : Miaou-Miaouuu-Miaou-Miaou = un chat qui discute avec un autre chat. </em>"
         ]
       }
     ],
@@ -238,15 +238,16 @@ export const games: Game[] = [
     hideExamples: true,
     rules: [
         "Le maître du jeu choisit une musique et montre les paroles à un joueur.",
-        "Ce joueur doit <span style=\\\"font-weight:bold;color:#a259ff\\\">lire</span> les paroles à haute voix <span style=\\\"font-weight:bold;color:#a259ff\\\">sans chanter</span>.",
+        "Ce joueur doit <span style='font-weight:bold;color:#a259ff'>lire</span> les paroles à haute voix <span style='font-weight:bold;color:#a259ff'>sans chanter</span>, comme s'il lisait un discours.",
         "Les autres joueurs doivent deviner de quelle chanson il s'agit en moins de 30 secondes.",
         "S'ils trouvent, l'équipe gagne un point.",
+        "À la fin du temps imparti, l'équipe adverse peut faire une proposition pour remporter le point.",
     ],
     examples: [
         "Devine une chanson Disney.",
         "Devine un tube des années 90.",
     ],
-    story: "Apérololo t'a préparé une petite playlist pour ce jeu.",
+    story: "On espère que la playlist qu'on vous a préparé va vous plaire ! N'hésitez pas à nous envoyer vos suggestions de chansons.",
     is_premium: true,
     conseil: [],
     materiel: "aucun",
@@ -262,24 +263,24 @@ export const games: Game[] = [
     duree: '20 minutes',
     shortDescription: "Défie tes amis dans une guerre d'enchères. Tu n'auras qu'une minute pour honorer ton pari et faire marquer des points à ton équipe.",
     rules: [
-        "Le maître du jeu propose un thème et le but est de trouver le plus de réponses possibles au thème en <span style=\\\"font-weight:bold;color:#a259ff\\\">1 minute</span>.",
+        "Le maître du jeu propose un thème ou les joueurs font un tirage au sort.",
+        "Le but est de trouver le plus de réponses possibles au thème sélectionné en <span style='font-weight:bold;color:#a259ff'>une minute</span>.",
         "Les équipes désignent un champion (qui change à chaque manche.)",
         "Les champions font un Shifumi ou un défi : le gagnant décide s'il prend ou donne la main.",
         "Ils ont 2 minutes pour faire monter les enchères.",
         "Quand les 2 minutes sont écoulées ou qu'un champion déclare ne pas sur-enchérir alors le champion qui a gagné l'enchère débute son énumération.",
-        "Attention, le champion ne peut pas être aidé par son équipe.",
+        "Attention, <span style='font-weight:bold;color:#a259ff'>le champion ne peut pas être aidé par son équipe.</span>",
         "Si le champion réussit son enchère l'équipe gagne 10 points, sinon les points vont à l'autre équipe.",
     ],
     idees: [
-        "Ecrivains Français",
+        "Écrivains Français",
         "Dire <em>Tchin-Tchin</em> dans d'autres langues",
         "Marques de bières",
         "Instruments de musique",
         "Objets dans un sac à main"
     ],
     examples: [
-        "Mot interdit : 'oui' ou 'non'.",
-        "Mot interdit : un prénom commun.",
+        "Le thème sélectionné est : <em>Pokémon</em>. Les équipes choisissent leur champion. Ils font le Shifumi. Les enchères commencent. Au bout des 2 minutes le champion qui a le dernier mot a enchéri 22. Il doit citer 22 Pokémon en une minute pour gagner les 10 points sinon ils vont à l'autre équipe.",
     ],
     story: "Choisis bien ton champion !",
     is_premium: true,
@@ -329,19 +330,19 @@ export const games: Game[] = [
     joueurs: '3-10',
     modeDeJeu: 'seul(e) contre tous',
     duree: '20 minutes',
-    shortDescription: "On joue avec des mots pour mettre à l'épreuve ta vivacité d'esprit, ta capacité d'association et ton cardio. Trouve le lien entre trois mots et lance-toi dans une course effrénée pour réclamer ta victoire !",
+    shortDescription: "Des suites de mots pour mettre à l'épreuve ta vivacité d'esprit, ta capacité d'association et ton cardio. Trouve le lien entre trois mots et lance-toi dans une course effrénée pour réclamer ta victoire !",
     rules: [
         "Le maître du jeu énonce trois mots à voix haute.",
-        "Les joueurs doivent trouver le mot en commun entre ces mots.",
+        "Les joueurs doivent trouver le mot commun entre ces mots.",
         "Quand ils pensent avoir trouvé, ils doivent aller chercher un objet qui correspond ou est en lien avec le mot qu'ils ont trouvé.",
-        "Les joueurs n'ont le droit de se lever uniquement lorsque le maître du jeu a fini de dire les trois mots.",
+        "Les joueurs n'ont le droit de se lever que lorsque le maître du jeu a fini de dire les trois mots.",
         "Le premier revenu aura la priorité pour donner sa réponse, si elle est bonne il gagne sinon c'est au second de tenter sa chance etc.",
     ],  
     examples: [
         "Soleil-Coeur-Lion : Roi",
         "Secret-Muet-Outre : Tombe",
-        "Ski-Branches-Soleil : Lunettes",
         "Moral-Boule-Absolu : Zéro",
+        "Ski-Branches-Soleil : Lunettes",
         "Lampe-Argent-Livre : Poche",
         "Billet-Courant-journal : Coupure",
         "Pomme-Rose-Sang : Rouge", 

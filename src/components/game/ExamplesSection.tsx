@@ -49,11 +49,20 @@ const ExamplesSection = ({ game }: ExamplesSectionProps) => {
             <div className="ml-6 mt-1 text-sm text-muted-foreground">
               {idx === 0 && "Objets qui fonctionnent : une carte d'un roi, une lumière pour illustrer Versailles, une couronne etc."}
               {idx === 1 && "Objets qui fonctionnent : une urne, une tête de mort, une pierre, etc."}
-              {idx === 2 && "Objets qui fonctionnent : des lunettes, une loupe, une peluche de taupe, etc."}
-              {idx === 3 && "Objets qui fonctionnent : un oeuf, tout objet rond,  etc."}
+              {idx === 2 && "Objets qui fonctionnent : un oeuf, tout objet rond,  etc."}
             </div>
           </div>
         ))}
+      </div>
+    );
+  }
+
+  // Special case for "Les enchères"
+  if (game.titre === "Les enchères") {
+    return (
+      <div className="text-base font-sans mt-4">
+        <strong>Exemple :</strong>
+        <p className="ml-6 mt-2" dangerouslySetInnerHTML={{ __html: game.examples[0] }}></p>
       </div>
     );
   }
