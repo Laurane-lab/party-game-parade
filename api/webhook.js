@@ -90,7 +90,7 @@ export default async (req, res) => {
             // Trouver l'utilisateur par email
             const { data: userData, error: userError } = await supabase
               .from('profiles')
-              .select('id, email, is_premium, created_at')
+              .select('user_id, email, is_premium, created_at')
               .eq('email', customerEmail)
               .single();
 
@@ -200,7 +200,7 @@ export default async (req, res) => {
 
             const { data: userData, error: userError } = await supabase
               .from('profiles')
-              .select('id, email, is_premium, created_at')
+              .select('user_id, email, is_premium, created_at')
               .eq('email', customerEmail)
               .single();
 
@@ -208,14 +208,14 @@ export default async (req, res) => {
             console.warn('Test avec email en minuscules...');
             const { data: userDataLower, error: userErrorLower } = await supabase
               .from('profiles')
-              .select('id, email, is_premium, created_at')
+              .select('user_id, email, is_premium, created_at')
               .eq('email', customerEmail.toLowerCase())
               .single();
 
             console.warn('Test avec email trimé...');
             const { data: userDataTrim, error: userErrorTrim } = await supabase
               .from('profiles')
-              .select('id, email, is_premium, created_at')
+              .select('user_id, email, is_premium, created_at')
               .eq('email', customerEmail.trim())
               .single();
 
