@@ -167,7 +167,7 @@ export const games: Game[] = [
     story: "Tu ne t'imagines pas à quel point tes amis sont prêts à faire n'importe quoi pour t'induire en erreur. J'en ai vu des choses étranges en faisant ce jeu !",
     is_premium: true,
     conseil: [],
-    materiel: "Accède au tableau de bord en ligne pour gérer les missions et les scores en cliquant ici.",
+    materiel: "Accède au tableau de bord pour gérer les missions et les scores en <a href=\"https://docs.google.com/spreadsheets/d/1N_WMsFVpcNyd0H1gWy5fbPeLK94FwINfwFNuOxQgwhg/edit?usp=sharing\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"font-weight:bold;color:#a259ff;text-decoration:underline;\">cliquant ici</a>.",
     tours: [],
   },
   {

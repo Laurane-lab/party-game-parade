@@ -37,7 +37,7 @@ const GameFullView = ({ game }: GameFullViewProps) => {
       {game.titre === "Mission secrète" && game.materiel && (
         <div className="mt-6 text-base font-sans">
           <strong>Matériel :</strong>
-          <p className="mt-2">{game.materiel}</p>
+          <p className="mt-2" dangerouslySetInnerHTML={{ __html: game.materiel as string }}></p>
         </div>
       )}
 
