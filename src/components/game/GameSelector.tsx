@@ -23,7 +23,7 @@ const GameSelector = ({ games, selectedIndex, onSelect, isMobile, navigateHome }
       variant="ghost"
       className={`flex items-center w-full text-lg py-3 px-3 rounded-lg mb-0 border-2 shadow-sm transition
 				${isSelected
-          ? "bg-party-purple border-party-purple"
+          ? "bg-white border-party-pink shadow-md"
           : "bg-white border-party-purple/40 hover:border-party-purple hover:shadow-md"}
 			`}
       onClick={() => {
@@ -37,7 +37,7 @@ const GameSelector = ({ games, selectedIndex, onSelect, isMobile, navigateHome }
       <div className="flex items-center justify-between flex-grow overflow-hidden">
         <span
           className={`text-left font-semibold block overflow-hidden text-ellipsis whitespace-nowrap
-						${isSelected ? "text-grey" : "text-party-purple"}
+						${isSelected ? "text-party-pink" : "text-party-purple"}
 					`}
           title={game.titre}
         >
