@@ -25,11 +25,14 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/connexion" element={<Connexion />} />
           <Route path="/game-explanation" element={<GameExplanation />} />
-          <Route path="/payment" element={
-            <ProtectedRoute>
-              <Payment />
-            </ProtectedRoute>
-          } />
+          <Route
+            path="/payment"
+            element={
+              <ProtectedRoute>
+                <Payment />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/mentions-legales" element={<MentionsLegales />} />
           <Route path="/cgv-cgu" element={<CGVCGU />} />
           <Route path="/premium" element={<Premium />} />

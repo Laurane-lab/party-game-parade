@@ -5,6 +5,8 @@ import { supabase } from "@/lib/supabase";
 import mascot from "@/assets/New mascot.png";
 import { redirectToPayment } from "@/lib/payment";
 import { getOAuthRedirectUrl, getEnvironmentType } from "@/lib/config";
+import { getProfile } from "@/lib/profile";
+import { Session } from "@supabase/supabase-js";
 
 export default function Connexion() {
   const [error, setError] = useState<string | null>(null);
@@ -12,50 +14,53 @@ export default function Connexion() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Handle callback: check if user is authenticated
   useEffect(() => {
-    const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        const redirectTo = sessionStorage.getItem('redirect_to');
-        const redirectAfterLogin = sessionStorage.getItem('redirect_after_login');
+    const handleRedirect = async (session: Session) => {
+      const redirectTo = sessionStorage.getItem('redirect_to');
+      const redirectAfterLogin = sessionStorage.getItem('redirect_after_login');
 
-        // Clean up after reading
-        sessionStorage.removeItem('redirect_to');
-        sessionStorage.removeItem('redirect_after_login');
+      // Clean up immediately
+      sessionStorage.removeItem('redirect_to');
+      sessionStorage.removeItem('redirect_after_login');
 
-        if (redirectTo === 'payment') {
-          // Redirect to Stripe payment page
-          redirectToPayment({ email: session?.user?.email });
-        } else if (redirectAfterLogin) {
-          // Redirect back to the original protected page
-          navigate(redirectAfterLogin);
-        } else {
-          navigate("/game-explanation");
-        }
+      // Priority 1: Always check premium status first.
+      const profile = await getProfile(session.user.id);
+      if (profile?.is_premium) {
+        // If user is premium, always redirect to games, regardless of origin.
+        navigate("/game-explanation");
+        return;
       }
-    };
-    checkSession();
 
+      // User is NOT premium, proceed with other cases.
+      // Case 2: User was explicitly sent to log in for payment (e.g., from /premium page)
+      if (redirectTo === 'payment') {
+        redirectToPayment({ email: session.user.email });
+        return;
+      }
+
+      // Case 3: User was trying to access a protected page and was redirected to login
+      if (redirectAfterLogin) {
+        navigate(redirectAfterLogin);
+        return;
+      }
+      
+      // Case 4: Standard login for a non-premium user (new or existing)
+      // Redirect to payment to encourage becoming premium.
+      redirectToPayment({ email: session.user.email });
+    };
+
+    // Check session on initial component mount
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        handleRedirect(session);
+      }
+    });
+
+    // Listen for auth state changes (e.g., after OAuth redirect)
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
-        if (session) {
-          const redirectTo = sessionStorage.getItem('redirect_to');
-          const redirectAfterLogin = sessionStorage.getItem('redirect_after_login');
-
-          // Clean up after reading
-          sessionStorage.removeItem('redirect_to');
-          sessionStorage.removeItem('redirect_after_login');
-
-          if (redirectTo === 'payment') {
-            // Redirect to Stripe payment page
-            redirectToPayment({ email: session?.user?.email });
-          } else if (redirectAfterLogin) {
-            // Redirect back to the original protected page
-            navigate(redirectAfterLogin);
-          } else {
-            navigate("/game-explanation");
-          }
+        if (_event === "SIGNED_IN" && session) {
+          handleRedirect(session);
         }
       }
     );
@@ -63,7 +68,7 @@ export default function Connexion() {
     return () => {
       authListener.subscription.unsubscribe();
     };
-  }, [navigate, location.search]);
+  }, [navigate]);
 
   const handleOAuthLogin = async (provider: 'google' | 'apple') => {
     setLoading(true);
