@@ -33,7 +33,7 @@ Le projet suit une structure standard pour une application React moderne constru
 
 ## Rôle de chaque partie
 
-*   **`api/`**: Contient les fonctions serverless utilisées pour le déploiement sur Vercel, comme le webhook pour Stripe.
+*   **`api/`**: Contient les fonctions serverless utilisées pour le déploiement sur Vercel, comme le webhook pour Stripe (`webhook.js`) et des fonctions d'administration comme la suppression d'utilisateur (`admin/delete-user.js`).
 *   **`public/`**: Contient des ressources statiques comme `favicon.ico`, `robots.txt` et des documents juridiques. Ces fichiers ne sont pas traités par l'outil de construction et sont copiés directement dans le répertoire de sortie.
 *   **`src/`**: Le cœur de l'application.
     *   **`assets/`**: Contient les images et icônes importées dans les composants. Ces ressources sont traitées par Vite pendant la construction.
@@ -90,7 +90,7 @@ L'application utilise Supabase comme base de données. Voici les principales tab
 
 *   **`auth.users`**: Table gérée par Supabase Auth contenant les informations d'authentification des utilisateurs.
 *   **`profiles`**: Table personnalisée liée à `auth.users` via une clé étrangère. Elle stocke :
-    *   `id` : L'identifiant unique de l'utilisateur (correspondant à l'ID dans auth.users)
+    *   `user_id` : L'identifiant unique de l'utilisateur (correspondant à l'ID dans auth.users)
     *   `email` : L'adresse e-mail de l'utilisateur
     *   `is_premium` : Un booléen indiquant si l'utilisateur a souscrit aux fonctionnalités premium
     *   `payment_date` : La date du paiement pour les fonctionnalités premium

@@ -3,7 +3,7 @@
 
 -- Création de la table profiles si elle n'existe pas déjà
 CREATE TABLE IF NOT EXISTS profiles (
-  id UUID REFERENCES auth.users(id) PRIMARY KEY,
+  user_id UUID REFERENCES auth.users(id) PRIMARY KEY,
   email TEXT,
   is_premium BOOLEAN DEFAULT false,
   payment_date TIMESTAMP WITH TIME ZONE,
@@ -16,21 +16,21 @@ ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
 
 -- Politique pour permettre aux utilisateurs de lire leur propre profil
 CREATE POLICY "Users can view own profile" ON profiles
-  FOR SELECT USING (auth.uid() = id);
+  FOR SELECT USING (auth.uid() = user_id);
 
 -- Politique pour permettre aux utilisateurs de créer leur propre profil
 CREATE POLICY "Users can insert own profile" ON profiles
-  FOR INSERT WITH CHECK (auth.uid() = id);
+  FOR INSERT WITH CHECK (auth.uid() = user_id);
 
 -- Politique pour permettre aux utilisateurs de mettre à jour leur propre profil
 CREATE POLICY "Users can update own profile" ON profiles
-  FOR UPDATE USING (auth.uid() = id);
+  FOR UPDATE USING (auth.uid() = user_id);
   
   -- Création d'un trigger pour créer automatiquement un profil lors de l'inscription
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO public.profiles (id, email)
+  INSERT INTO public.profiles (user_id, email)
   VALUES (new.id, new.email);
   RETURN new;
 END;
