@@ -158,9 +158,9 @@ export const games: Game[] = [
         "Le but est de réaliser tes missions sans te faire repérer et de découvrir les missions des autres.",
         "Une fois la mission accomplie, le joueur va voir le Maître du Jeu pour la faire valider.",
         "Tu penses qu’un joueur est en train de réaliser sa mission ? Tu peux tenter de lui faire perdre ses points : demande au maître du jeu un entretien privé avec ledit joueur. Le Maître du Jeu déclenche l’alarme (cloche, téléphone... à toi de choisir) pour prévenir les autres joueurs.",
-        "L'accusateur explique ce qu'il pense être l’intitulé de la mission et le joueur accusé a 3 minutes pour se défendre.",
-        "Puis, l'accusé s'en va et l’accusateur décide s’il confirme son accusation ou pas : si l’accusation est confirmée et correcte, le joueur accusé perd les points de sa mission et l’accusateur gagne 5 points. Si l’accusation est confirmée et incorrecte : l’accusateur perd 5 points.",
-        "Le maître du jeu révèle à l'assemblée les accusations et le dénouement.",
+        "Dans un entretien à l'écart des autres mais en présence du maître du jeu, l'accusateur explique ce qu'il pense être l’intitulé de la mission et le joueur accusé a 3 minutes pour se défendre.",
+        "Puis, l'accusé s'en va et l’accusateur décide s’il confirme son accusation ou pas : si l’accusation est confirmée et correcte, le joueur accusé perd les points de sa mission et l’accusateur gagne 5 points. Si l’accusation est confirmée et incorrecte : l’accusateur perd 5 points. T'inquiète on n'a prévu que le tableau de bord fasse tous les calculs pour toi !",
+        "Ensuite le maître du jeu révèle à l'assemblée les accusations et le dénouement.",
         "À la fin du week-end, le joueur avec le plus de points l’emporte !",
     ],
     examples: [],
@@ -185,7 +185,7 @@ export const games: Game[] = [
         "Dès que quelqu’un rit, il prend +1 point.",
         "À la fin des 3 tours (voir plus bas), celui qui a le plus de points a perdu.",
         "Pour jouer tous les participants doivent être en cercle.",
-        "Le joueur avec les plus petits pieds commence le tour 1, puis le joueur à sa gauche le tour 2, etc.",
+        "Un volontaire peut commencer le tour ou tu peux faire un tirage au sort.",
     ],
     examples: [
         "Quel est le plus grand océan du monde ?",
@@ -203,7 +203,7 @@ export const games: Game[] = [
           "<div>1. Chaque joueur va chercher 1 ou 2 objets et les met sur la table.</div>",
           "<div>2. À tour de rôle un joueur choisit l'un des objets et donne :</div>",
           `<ul class="ml-4 list-disc"><li>Le nom de l’objet</li><li>Son origine/époque</li><li>À quoi il sert</li></ul>`,
-          "<em>Exemple : Ceci n’est pas une tasse, c’est un téléphone de la Rome antique, qui servait à appeler Cléopâtre uniquement.</em>"
+          "<em>Exemple : Ceci n’est pas une tasse, c’est un téléphone de la Rome antique, qu'on nommait appelletonamix qui servait à appeler Cléopâtre uniquement.</em>"
         ]
       },
       {
@@ -213,7 +213,7 @@ export const games: Game[] = [
           "<div>1. En faisant un tour de table, chaque joueur dit un mot qui n’existe pas.</div>",
           "<div>2. À tout moment, l’un des participants peut demander la définition du mot et le joueur doit la donner.</div>",
           "<div>3. Dire un mot qui existe donne +1.</div>",
-          "<em>Exemple : \"Loubrirute\" est une insulte utilisée par les adolescents Lituaniens.</em>"
+          "<em>Exemple : \"Loubrirute\" est une insulte utilisée par les baleines pour se moquer des humains.</em>"
         ]
       },
       {
@@ -265,7 +265,7 @@ export const games: Game[] = [
     rules: [
         "Le maître du jeu propose un thème ou les joueurs font un tirage au sort.",
         "Le but est de trouver le plus de réponses possibles au thème sélectionné en <span style='font-weight:bold;color:#a259ff'>une minute</span>.",
-        "Les équipes désignent un champion (qui change à chaque manche.)",
+        "Les équipes désignent un champion (qui change à chaque manche).",
         "Les champions font un Shifumi ou un défi : le gagnant décide s'il prend ou donne la main.",
         "Ils ont 2 minutes pour faire monter les enchères.",
         "Quand les 2 minutes sont écoulées ou qu'un champion déclare ne pas sur-enchérir alors le champion qui a gagné l'enchère débute son énumération.",
