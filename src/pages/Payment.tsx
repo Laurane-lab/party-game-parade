@@ -1,128 +1,100 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/Footer";
 import catMascot from "@/assets/New mascot.png";
+import { useAuth } from "@/hooks/use-auth";
+import { usePremium } from "@/hooks/use-premium";
+import { supabase } from "@/lib/supabase";
 
 export default function PaymentSuccess() {
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
   const [message, setMessage] = useState("Confirmation du paiement en cours...");
   const navigate = useNavigate();
   const location = useLocation();
+  const { user, isAuthenticated, isLoading: isAuthLoading } = useAuth();
+  const { isPremium, refetch: refetchPremiumStatus } = usePremium();
 
   useEffect(() => {
-    const verifyPayment = async () => {
-      try {
-        // Vérifier si l'utilisateur est connecté
-        const { data: sessionData } = await supabase.auth.getSession();
-        const session = sessionData.session;
+    if (isAuthLoading) {
+      return; // Attendre que l'authentification soit chargée
+    }
 
-        if (!session) {
-          setStatus("error");
-          setMessage("Erreur: Vous devez être connecté pour vérifier votre paiement.");
-          return;
-        }
+    if (!isAuthenticated || !user) {
+      setStatus("error");
+      setMessage("Erreur: Vous devez être connecté pour vérifier votre paiement.");
+      return;
+    }
 
-        const userId = session.user.id;
+    const params = new URLSearchParams(location.search);
+    const success = params.get('success');
 
-        // Récupérer les paramètres d'URL
-        const params = new URLSearchParams(location.search);
-        const success = params.get('success');
+    if (success !== "true") {
+      setStatus("error");
+      setMessage("Nous n'avons pas pu confirmer votre paiement. Veuillez réessayer ou contacter le support si le problème persiste.");
+      return;
+    }
 
-        // Debug: logs pour diagnostiquer le problème
-        console.log("=== DEBUG PAYMENT ===");
-        console.log("URL complète:", window.location.href);
-        console.log("Paramètres URL:", location.search);
-        console.log("Paramètre success:", success);
-        console.log("User ID:", userId);
-        console.log("=====================");
+    // Si l'utilisateur est déjà premium (par exemple, s'il rafraîchit la page)
+    if (isPremium) {
+      setStatus("success");
+      setMessage("Votre paiement a été confirmé avec succès ! Vous avez maintenant accès à tous les jeux premium.");
+      sessionStorage.removeItem('game_id_after_payment');
+      return;
+    }
 
-        // Pour l'URL de paiement direct Stripe, nous nous fions au paramètre success=true
-        if (success === "true") {
-          console.log("✅ Paramètre success=true détecté, vérification du statut premium...");
-          // Vérifier le statut premium dans la base de données
-          // (mis à jour par le webhook Stripe)
-          await checkPremiumStatus(userId);
-        } else {
-          console.log("❌ Paramètre success manquant ou incorrect:", success);
-          setStatus("error");
-          setMessage("Nous n'avons pas pu confirmer votre paiement. Veuillez réessayer ou contacter le support si le problème persiste.");
-        }
-      } catch (error) {
-        console.error("Erreur lors de la vérification du paiement:", error);
-        setStatus("error");
-        setMessage("Une erreur s'est produite lors de la vérification de votre paiement. Veuillez réessayer ou contacter le support.");
-      }
-    };
+    // Utiliser Realtime pour écouter les changements de statut premium
+    setMessage("Traitement du paiement en cours...");
 
-    const checkPremiumStatus = async (userId: string, attempt = 1) => {
-      const maxAttempts = 10; // Vérifier jusqu'à 10 fois (30 secondes max)
-
-      console.log(`🔍 Vérification du statut premium (tentative ${attempt}/${maxAttempts}) pour user:`, userId);
-
-      try {
-        const { data: profile, error } = await supabase
-          .from('profiles')
-          .select('is_premium, payment_date')
-          .eq('id', userId)
-          .single();
-
-        console.log("📊 Résultat de la requête profile:", { profile, error });
-
-        if (error) {
-          console.error("Erreur lors de la vérification du profil:", error);
-          if (attempt < maxAttempts) {
-            setTimeout(() => {
-              checkPremiumStatus(userId, attempt + 1);
-            }, 3000);
-            setMessage(`Vérification du statut de paiement... (${attempt}/${maxAttempts})`);
-          } else {
-            setStatus("error");
-            setMessage("Impossible de vérifier votre statut de paiement. Veuillez contacter le support.");
+    const channel = supabase
+      .channel(`profile-changes:${user.id}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'profiles',
+          filter: `id=eq.${user.id}`
+        },
+        (payload) => {
+          console.log('Change received!', payload);
+          const newProfile = payload.new as { is_premium: boolean };
+          if (newProfile.is_premium) {
+            console.log("✅ Utilisateur premium confirmé via Realtime !");
+            setStatus("success");
+            setMessage("Votre paiement a été confirmé avec succès ! Vous avez maintenant accès à tous les jeux premium.");
+            sessionStorage.removeItem('game_id_after_payment');
+            refetchPremiumStatus(); // Pour mettre à jour l'état global
+            channel.unsubscribe();
           }
-          return;
         }
-
-        // Si le profil existe et que l'utilisateur est premium
-        if (profile && profile.is_premium) {
-          console.log("✅ Utilisateur premium confirmé:", profile);
-          setStatus("success");
-          setMessage("Votre paiement a été confirmé avec succès ! Vous avez maintenant accès à tous les jeux premium.");
-          sessionStorage.removeItem('game_id_after_payment');
-          return;
+      )
+      .subscribe((subStatus, err) => {
+        if (subStatus === 'SUBSCRIBED') {
+          console.log(`🔔 Subscribed to profile changes for user: ${user.id}`);
         }
-
-        console.log(`⏳ Utilisateur pas encore premium, tentative ${attempt}/${maxAttempts}:`, profile);
-
-        // Si le profil n'est pas encore premium, attendre et réessayer
-        if (attempt < maxAttempts) {
-          setTimeout(() => {
-            checkPremiumStatus(userId, attempt + 1);
-          }, 3000); // Attendre 3 secondes avant de réessayer
-
-          setMessage(`Traitement du paiement en cours... (${attempt}/${maxAttempts})`);
-        } else {
-          console.log("❌ Timeout: Le webhook n'a pas encore traité le paiement");
-          // Après tous les essais, le webhook n'a pas encore traité le paiement
+        if (err) {
+          console.error("❌ Erreur d'abonnement Realtime:", err);
           setStatus("error");
-          setMessage("Le traitement de votre paiement prend plus de temps que prévu. Veuillez attendre quelques minutes ou contacter le support si le problème persiste.");
+          setMessage("Une erreur est survenue lors de la vérification en temps réel. Veuillez contacter le support.");
         }
-      } catch (error) {
-        console.error("Erreur lors de la vérification du statut premium:", error);
-        if (attempt < maxAttempts) {
-          setTimeout(() => {
-            checkPremiumStatus(userId, attempt + 1);
-          }, 3000);
-        } else {
-          setStatus("error");
-          setMessage("Une erreur s'est produite lors de la vérification de votre paiement. Veuillez contacter le support.");
-        }
+      });
+
+    // Timeout de sécurité au cas où le webhook prendrait trop de temps
+    const timeoutId = setTimeout(() => {
+      channel.unsubscribe();
+      if (status === 'loading') { // Ne pas changer le statut si déjà success/error
+        console.log("⌛ Timeout: Le webhook n'a pas encore traité le paiement");
+        setStatus("error");
+        setMessage("Le traitement de votre paiement prend plus de temps que prévu. Veuillez attendre quelques minutes et rafraîchir la page, ou contacter le support si le problème persiste.");
       }
-    };
+    }, 45000); // 45 secondes
 
-    verifyPayment();
-  }, [location.search]);
+    return () => {
+      clearTimeout(timeoutId);
+      channel.unsubscribe();
+    };
+  }, [isAuthLoading, isAuthenticated, isPremium, location.search, navigate, refetchPremiumStatus, user, status]);
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
