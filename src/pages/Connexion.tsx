@@ -16,10 +16,10 @@ export default function Connexion() {
 
   useEffect(() => {
     const handleRedirect = async (session: Session) => {
-      const redirectTo = sessionStorage.getItem('redirect_to');
+      const redirectTo = new URLSearchParams(location.search).get('redirect_to') || sessionStorage.getItem('redirect_to');
       const redirectAfterLogin = sessionStorage.getItem('redirect_after_login');
 
-      // Clean up immediately
+      // Clean up session storage
       sessionStorage.removeItem('redirect_to');
       sessionStorage.removeItem('redirect_after_login');
 
@@ -34,7 +34,9 @@ export default function Connexion() {
       // User is NOT premium, proceed with other cases.
       // Case 2: User was explicitly sent to log in for payment (e.g., from /premium page)
       if (redirectTo === 'payment') {
-        redirectToPayment({ email: session.user.email });
+        const gameId = sessionStorage.getItem('game_id_for_payment');
+        redirectToPayment({ email: session.user.email, gameId: gameId || undefined });
+        sessionStorage.removeItem('game_id_for_payment'); // Clean up after use
         return;
       }
 
@@ -45,8 +47,8 @@ export default function Connexion() {
       }
       
       // Case 4: Standard login for a non-premium user (new or existing)
-      // Redirect to payment to encourage becoming premium.
-      redirectToPayment({ email: session.user.email });
+      // Redirect to home page as a default.
+      navigate('/');
     };
 
     // Check session on initial component mount

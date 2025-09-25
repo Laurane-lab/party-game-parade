@@ -234,6 +234,14 @@ const Premium = () => {
             >
                Débloque tous les jeux pour 4,99€
             </Button>
+            {!isAuthenticated && (
+              <p className="text-center text-sm text-gray-600 -mt-2">
+                Si tu es déjà premium,{' '}
+                <button onClick={() => navigate('/connexion?redirect_to=payment')} className="underline hover:text-party-pink focus:outline-none">
+                  clique ici pour te connecter
+                </button>
+              </p>
+            )}
             <Button
               className="w-full mb-2"
               variant="ghost"
