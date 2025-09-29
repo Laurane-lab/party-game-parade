@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import "../css/cgu-cgv.css";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const CGVCGU: React.FC = () => {
   const [markdown, setMarkdown] = useState("");
@@ -14,13 +16,17 @@ const CGVCGU: React.FC = () => {
   }, []);
 
   return (
-    <div className="cgu-cgv-container">
-      <h1 style={{textAlign: "center", color: "#e53e3e", marginBottom: "2rem"}}>CGV & CGU</h1>
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdown}</ReactMarkdown>
-      <div style={{textAlign: "center", marginTop: "2rem"}}>
-        <a href="/" className="text-party-blue underline hover:text-party-pink">Retour à l'accueil</a>
+    <>
+      <Header />
+      <div className="cgu-cgv-container">
+        <h1 style={{textAlign: "center", color: "#e53e3e", marginBottom: "2rem"}}>CGV & CGU</h1>
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdown}</ReactMarkdown>
+        <div style={{textAlign: "center", marginTop: "2rem"}}>
+          <a href="/" className="text-party-blue underline hover:text-party-pink">Retour à l'accueil</a>
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

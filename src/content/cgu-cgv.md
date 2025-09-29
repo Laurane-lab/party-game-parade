@@ -36,7 +36,7 @@ Les produits numériques vendus sont des règles de jeux. Le Vendeur ne garantit
 
 ### Article 7 - Données personnelles
 
-Les informations recueillies lors de l'achat sont traitées conformément à notre **Politique de Confidentialité**, disponible sur **[Lien vers votre politique de confidentialité]**, et en conformité avec le Règlement Général sur la Protection des Données (RGPD).
+Les informations recueillies lors de l'achat sont traitées conformément à notre Politique de Confidentialité, disponible sur [notre page dédiée](/politique-de-confidentialite), et en conformité avec le Règlement Général sur la Protection des Données (RGPD).
 
 ### Article 8 - Droit applicable et juridiction compétente
 
@@ -77,7 +77,7 @@ L'utilisateur utilise le Site sous sa seule et entière responsabilité. Le Vend
 
 Le Vendeur s'engage à respecter la vie privée des utilisateurs et à ne collecter que les données strictement nécessaires à la fourniture de ses services. Le traitement des données personnelles est détaillé dans la **Politique de Confidentialité** du Site, qui fait partie intégrante des présentes CGU.
 
-La Politique de Confidentialité est accessible à tout moment sur le lien suivant : **[Lien vers votre politique de confidentialité]**.
+La Politique de Confidentialité est accessible à tout moment sur le lien suivant : **[notre page dédiée](/politique-de-confidentialite)**.
 
 ### Article 7 - Sanctions en cas de manquement
 
