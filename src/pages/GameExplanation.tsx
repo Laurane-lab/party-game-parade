@@ -25,7 +25,7 @@ const GameExplanation = () => {
 	const [selected, setSelected] = useState(initialIndex >= 0 ? initialIndex : 0);
 	const game = games[selected];
 	// Utilisation des hooks useAuth et usePremium pour récupérer l'utilisateur et le statut premium
-	const { user, isAuthenticated } = useAuth();
+	const { user, isAuthenticated, logout } = useAuth();
 	const { isPremium: isUserPremium } = usePremium();
 
 	// Synchronise l'index sélectionné avec l'URL
@@ -61,16 +61,18 @@ const GameExplanation = () => {
 	return (
 		<div className="min-h-screen bg-background flex flex-col">
 			<Header />
-			<div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} flex-1`}>
-				<GameSelector
-					games={games}
-					selectedIndex={selected}
-					onSelect={handleGameClick}
-					isMobile={isMobile}
-					navigateHome={navigateHome}
-				/>
-
-				<div className="flex flex-col flex-1">
+		<div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} flex-1`}>
+			<GameSelector
+				games={games}
+				selectedIndex={selected}
+				onSelect={handleGameClick}
+				isMobile={isMobile}
+				navigateHome={navigateHome}
+				user={user}
+				isAuthenticated={isAuthenticated}
+				logout={logout}
+				onNavigateToConnexion={handleNavigateToConnexion}
+			/>				<div className="flex flex-col flex-1">
 					<main className={`flex-1 ${isMobile ? 'px-2 py-2' : 'px-12 py-10'}`}>
 						<div>
 							<GameHero

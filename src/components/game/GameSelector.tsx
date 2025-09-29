@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Game } from "@/data/games";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer";
-import { Menu } from "lucide-react";
+import { Menu, User as UserIcon, LogOut, LogIn } from "lucide-react";
 import catMascot from "@/assets/New mascot.png";
 import { gameIconMapping } from "./assets";
+import { User } from "@supabase/supabase-js";
 
 interface GameSelectorProps {
   games: Game[];
@@ -12,11 +13,23 @@ interface GameSelectorProps {
   onSelect: (index: number) => void;
   isMobile: boolean;
   navigateHome: () => void;
+  user?: User | null;
+  isAuthenticated?: boolean;
+  logout?: () => Promise<void>;
+  onNavigateToConnexion?: () => void;
 }
 
-const GameSelector = ({ games, selectedIndex, onSelect, isMobile, navigateHome }: GameSelectorProps) => {
+const GameSelector = ({ games, selectedIndex, onSelect, isMobile, navigateHome, user, isAuthenticated, logout, onNavigateToConnexion }: GameSelectorProps) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const gameIcons = games.map(g => gameIconMapping[g.icon]);
+
+  const handleAuthAction = async () => {
+    if (isAuthenticated && logout) {
+      await logout();
+    } else if (onNavigateToConnexion) {
+      onNavigateToConnexion();
+    }
+  };
 
   const GameButton = ({ game, index, isSelected }: { game: Game; index: number; isSelected: boolean }) => (
     <Button
@@ -54,52 +67,74 @@ const GameSelector = ({ games, selectedIndex, onSelect, isMobile, navigateHome }
 
   if (isMobile) {
     return (
-      <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
-        <DrawerTrigger asChild>
+      <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-party-purple/10">
+        <div className="flex items-center gap-2 mx-4 my-4">
+          <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
+            <DrawerTrigger asChild>
+              <Button
+                className="flex-1 flex items-center border-party-purple/40 shadow-lg shadow-party-purple/20 transition-all hover:shadow-party-purple/40"
+                variant="outline"
+                onClick={() => setDrawerOpen(true)}
+              >
+                <Menu className="mr-2 h-4 w-4" />
+                Autres jeux
+              </Button>
+            </DrawerTrigger>
+            <DrawerContent>
+              <div className="px-6 py-6 flex flex-col gap-2">
+                <Button
+                  variant="ghost"
+                  className="flex items-center w-full text-lg py-3 px-3 rounded-lg mb-2 border-2 shadow-sm transition bg-white border-party-pink/40 hover:border-party-pink hover:shadow-md"
+                  onClick={() => {
+                    setDrawerOpen(false);
+                    // Nettoyer les styles potentiellement laissés par le drawer
+                    setTimeout(() => {
+                      document.body.style.overflow = '';
+                      document.body.style.position = '';
+                      document.body.style.top = '';
+                      document.body.style.left = '';
+                      document.body.style.right = '';
+                      document.body.style.bottom = '';
+                      navigateHome();
+                    }, 100);
+                  }}
+                >
+                  <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
+                    <img src={catMascot} alt="Mascotte Aperololo" className="w-7 h-7 object-contain" />
+                  </span>
+                  <span className="text-left font-semibold block text-party-purple">
+                    Accueil
+                  </span>
+                </Button>
+                <h2 className="text-xl font-bold mb-1 mt-3">Jeux</h2>
+                <div className="flex flex-col gap-2 mt-2">
+                  {games.map((game, index) => (
+                    <GameButton key={game.titre} game={game} index={index} isSelected={selectedIndex === index} />
+                  ))}
+                </div>
+              </div>
+            </DrawerContent>
+          </Drawer>
+          
           <Button
-            className="mx-4 my-4 flex items-center border-party-purple/40 shadow-lg shadow-party-purple/20 transition-all hover:shadow-party-purple/40"
             variant="outline"
-            onClick={() => setDrawerOpen(true)}
+            className="border-party-purple/40 shadow-lg shadow-party-purple/20 transition-all hover:shadow-party-purple/40"
+            onClick={handleAuthAction}
           >
-            <Menu className="mr-2 h-4 w-4" />
-            Menu
+            {isAuthenticated ? (
+              <>
+                <LogOut className="mr-2 h-4 w-4" />
+                Déconnexion
+              </>
+            ) : (
+              <>
+                <LogIn className="mr-2 h-4 w-4" />
+                Connexion
+              </>
+            )}
           </Button>
-        </DrawerTrigger>
-        <DrawerContent>
-          <div className="px-6 py-6 flex flex-col gap-2">
-            <Button
-              variant="ghost"
-              className="flex items-center w-full text-lg py-3 px-3 rounded-lg mb-2 border-2 shadow-sm transition bg-white border-party-pink/40 hover:border-party-pink hover:shadow-md"
-              onClick={() => {
-                setDrawerOpen(false);
-                // Nettoyer les styles potentiellement laissés par le drawer
-                setTimeout(() => {
-                  document.body.style.overflow = '';
-                  document.body.style.position = '';
-                  document.body.style.top = '';
-                  document.body.style.left = '';
-                  document.body.style.right = '';
-                  document.body.style.bottom = '';
-                  navigateHome();
-                }, 100);
-              }}
-            >
-              <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
-                <img src={catMascot} alt="Mascotte Aperololo" className="w-7 h-7 object-contain" />
-              </span>
-              <span className="text-left font-semibold block text-party-purple">
-                Accueil
-              </span>
-            </Button>
-            <h2 className="text-xl font-bold mb-1 mt-3">Jeux</h2>
-            <div className="flex flex-col gap-2 mt-2">
-              {games.map((game, index) => (
-                <GameButton key={game.titre} game={game} index={index} isSelected={selectedIndex === index} />
-              ))}
-            </div>
-          </div>
-        </DrawerContent>
-      </Drawer>
+        </div>
+      </div>
     );
   }
 
