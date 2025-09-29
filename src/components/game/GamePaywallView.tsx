@@ -9,6 +9,7 @@ interface GamePaywallViewProps {
   user: any;
   onRedirectToPayment: (email?: string) => void;
   onNavigateToConnexion: () => void;
+  onNavigateToConnexionForPayment: () => void;
 }
 
 const GamePaywallView = ({
@@ -17,13 +18,15 @@ const GamePaywallView = ({
   isUserPremium,
   user,
   onRedirectToPayment,
-  onNavigateToConnexion
+  onNavigateToConnexion,
+  onNavigateToConnexionForPayment
 }: GamePaywallViewProps) => {
   const handleButtonClick = () => {
     if (isAuthenticated) {
       onRedirectToPayment(user?.email);
     } else {
-      onNavigateToConnexion();
+      // Le bouton principal "Devenir premium" doit rediriger vers le paiement après connexion
+      onNavigateToConnexionForPayment();
     }
   };
 

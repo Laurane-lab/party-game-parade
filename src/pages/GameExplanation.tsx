@@ -25,7 +25,7 @@ const GameExplanation = () => {
 	const [selected, setSelected] = useState(initialIndex >= 0 ? initialIndex : 0);
 	const game = games[selected];
 	// Utilisation des hooks useAuth et usePremium pour récupérer l'utilisateur et le statut premium
-	const { user, isAuthenticated } = useAuth();
+	const { user, isAuthenticated, logout } = useAuth();
 	const { isPremium: isUserPremium } = usePremium();
 
 	// Synchronise l'index sélectionné avec l'URL
@@ -49,7 +49,15 @@ const GameExplanation = () => {
 	};
 
 	const handleNavigateToConnexion = () => {
+		// Sauvegarder l'URL actuelle pour redirection après connexion
+		sessionStorage.setItem('redirect_after_login', location.pathname + location.search);
+		// Navigation vers la connexion sans intention d'achat - utilisé pour les boutons de connexion généraux
+		navigate('/connexion');
+	};
+
+	const handleNavigateToConnexionForPayment = () => {
 		// Sauvegarder l'ID du jeu actuel pour redirection après connexion et paiement
+		// Utilisé uniquement pour les boutons avec intention d'achat explicite
 		saveGameIdForPayment(game.id);
 		navigate('/connexion?redirect_to=payment');
 	};
@@ -68,6 +76,10 @@ const GameExplanation = () => {
 					onSelect={handleGameClick}
 					isMobile={isMobile}
 					navigateHome={navigateHome}
+					user={user}
+					isAuthenticated={isAuthenticated}
+					logout={logout}
+					onNavigateToConnexion={handleNavigateToConnexion}
 				/>
 
 				<div className="flex flex-col flex-1">
@@ -86,6 +98,7 @@ const GameExplanation = () => {
 									isUserPremium={isUserPremium}
 									onRedirectToPayment={handleRedirectToPayment}
 									onNavigateToConnexion={handleNavigateToConnexion}
+									onNavigateToConnexionForPayment={handleNavigateToConnexionForPayment}
 								/>
 							</div>
 						</div>
