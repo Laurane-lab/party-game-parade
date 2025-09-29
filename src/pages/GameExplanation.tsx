@@ -49,7 +49,15 @@ const GameExplanation = () => {
 	};
 
 	const handleNavigateToConnexion = () => {
+		// Sauvegarder l'URL actuelle pour redirection après connexion
+		sessionStorage.setItem('redirect_after_login', location.pathname + location.search);
+		// Navigation vers la connexion sans intention d'achat - utilisé pour les boutons de connexion généraux
+		navigate('/connexion');
+	};
+
+	const handleNavigateToConnexionForPayment = () => {
 		// Sauvegarder l'ID du jeu actuel pour redirection après connexion et paiement
+		// Utilisé uniquement pour les boutons avec intention d'achat explicite
 		saveGameIdForPayment(game.id);
 		navigate('/connexion?redirect_to=payment');
 	};
@@ -61,18 +69,20 @@ const GameExplanation = () => {
 	return (
 		<div className="min-h-screen bg-background flex flex-col">
 			<Header />
-		<div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} flex-1`}>
-			<GameSelector
-				games={games}
-				selectedIndex={selected}
-				onSelect={handleGameClick}
-				isMobile={isMobile}
-				navigateHome={navigateHome}
-				user={user}
-				isAuthenticated={isAuthenticated}
-				logout={logout}
-				onNavigateToConnexion={handleNavigateToConnexion}
-			/>				<div className="flex flex-col flex-1">
+			<div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} flex-1`}>
+				<GameSelector
+					games={games}
+					selectedIndex={selected}
+					onSelect={handleGameClick}
+					isMobile={isMobile}
+					navigateHome={navigateHome}
+					user={user}
+					isAuthenticated={isAuthenticated}
+					logout={logout}
+					onNavigateToConnexion={handleNavigateToConnexion}
+				/>
+
+				<div className="flex flex-col flex-1">
 					<main className={`flex-1 ${isMobile ? 'px-2 py-2' : 'px-12 py-10'}`}>
 						<div>
 							<GameHero
@@ -88,6 +98,7 @@ const GameExplanation = () => {
 									isUserPremium={isUserPremium}
 									onRedirectToPayment={handleRedirectToPayment}
 									onNavigateToConnexion={handleNavigateToConnexion}
+									onNavigateToConnexionForPayment={handleNavigateToConnexionForPayment}
 								/>
 							</div>
 						</div>

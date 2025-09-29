@@ -9,6 +9,7 @@ interface GameContentProps {
   isUserPremium: boolean;
   onRedirectToPayment: () => void;
   onNavigateToConnexion: () => void;
+  onNavigateToConnexionForPayment: () => void;
 }
 
 const GameContent = ({
@@ -17,7 +18,8 @@ const GameContent = ({
   isAuthenticated,
   isUserPremium,
   onRedirectToPayment,
-  onNavigateToConnexion
+  onNavigateToConnexion,
+  onNavigateToConnexionForPayment
 }: GameContentProps) => {
   const hasFullAccess = !game.is_premium || (game.is_premium && user && isUserPremium);
 
@@ -33,6 +35,7 @@ const GameContent = ({
       user={user}
       onRedirectToPayment={onRedirectToPayment}
       onNavigateToConnexion={onNavigateToConnexion}
+      onNavigateToConnexionForPayment={onNavigateToConnexionForPayment}
     />
   );
 };
