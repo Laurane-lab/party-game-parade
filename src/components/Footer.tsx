@@ -44,6 +44,7 @@ const Footer: React.FC = () => {
           <div className="flex-1">
             <h4 className="font-bold mb-1 text-base text-primary">Légal</h4>
             <a href="/cgv-cgu" className="block text-black hover:text-party-pink mb-0.5 text-xs">CGV & CGU</a>
+            <a href="/politique-de-confidentialite" className="block text-black hover:text-party-pink mb-0.5 text-xs">Politique de confidentialité</a>
             <a href="/mentions-legales" className="block text-black hover:text-party-pink text-xs">Mentions légales</a>
           </div>
         </div>
