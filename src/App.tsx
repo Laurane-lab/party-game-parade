@@ -11,6 +11,7 @@ import GameExplanation from "./pages/GameExplanation";
 import Premium from "./pages/Premium";
 import MentionsLegales from "./pages/MentionsLegales";
 import CGVCGU from "./pages/CGVCGU";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Payment from "./pages/Payment";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => (
           />
           <Route path="/mentions-legales" element={<MentionsLegales />} />
           <Route path="/cgv-cgu" element={<CGVCGU />} />
+          <Route path="/politique-de-confidentialite" element={<PrivacyPolicy />} />
           <Route path="/premium" element={<Premium />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
