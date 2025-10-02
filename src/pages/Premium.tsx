@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import BrevoForm from "@/components/BrevoForm";
 import { useAuth } from "@/hooks/use-auth";
 import { useIsMobile } from "@/hooks/use-mobile";
+import GameCard from "@/components/game/GameCard";
+import { games } from "@/data/games";
 
 import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
 import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
@@ -44,6 +46,18 @@ const getGameIdFromName = (gameName: string): string | null => {
     "Dessine à la chaîne": "dessine-a-la-chaine"
   };
   return gameMapping[gameName] || null;
+};
+
+// Fonction pour récupérer l'image de couverture d'un jeu
+const getGameCoverImage = (gameName: string): string => {
+  const gameId = getGameIdFromName(gameName);
+  if (gameId) {
+    const game = games.find(g => g.id === gameId);
+    if (game) {
+      return game.coverImage;
+    }
+  }
+  return ''; // Image par défaut ou vide si non trouvée
 };
 
 const Premium = () => {
@@ -221,64 +235,34 @@ const Premium = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
             {/* Jeux gratuits en premier */}
             {freeGames.map((game) => (
-              <div 
-                key={game.name} 
-                className="rounded-xl border border-green-300 bg-green-50 shadow-md hover:shadow-lg transition-shadow p-6 flex flex-col items-start text-left cursor-pointer hover:bg-green-100 relative" 
-                style={{ minHeight: '180px' }}
+              <GameCard
+                key={game.name}
+                name={game.name}
+                modeDeJeu={game.modeDeJeu}
+                players={game.players}
+                duration={game.duration}
+                shortDescription={game.shortDescription}
+                icon={game.icon}
+                coverImage={getGameCoverImage(game.name)}
+                isFree={true}
                 onClick={() => handleGameCardClick(game.name)}
-              >
-                <div className="flex items-center w-full mb-2 gap-2">
-                  <img src={game.icon} alt={game.name + ' icon'} className="w-7 h-7 object-contain" style={{ marginRight: '6px' }} />
-                  <h2 className="text-lg font-semibold text-party-green m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{ maxWidth: '140px' }}>{game.name}</h2>
-                </div>
-                <div className="flex flex-row gap-2 text-xs mb-2 w-full">
-                  <span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
-                  <span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold">
-                    {game.players} joueurs
-                  </span>
-                  <span className="px-2 py-1 rounded bg-party-purple/20 text-party-purple font-semibold">
-                    {game.duration}
-                  </span>
-                </div>
-                <div className="text-sm text-muted-foreground mb-0 w-full flex-grow">{game.shortDescription}</div>
-                <div className="w-full flex justify-center mt-4">
-                  <span className="px-2 py-0.5 bg-green-500 text-white rounded text-xs font-bold">
-                    GRATUIT
-                  </span>
-                </div>
-              </div>
+              />
             ))}
             {/* Jeux premium ensuite */}
             {premiumGames.map((game) => (
-              <div 
-                key={game.name} 
-                className="rounded-xl border border-gray-200 bg-gray-50 shadow-md hover:shadow-lg transition-shadow p-6 flex flex-col items-start text-left cursor-pointer hover:bg-gray-100" 
-                style={{ minHeight: '220px' }}
+              <GameCard
+                key={game.name}
+                name={game.name}
+                modeDeJeu={game.modeDeJeu}
+                players={game.players}
+                duration={game.duration}
+                shortDescription={game.shortDescription}
+                icon={game.icon}
+                coverImage={getGameCoverImage(game.name)}
+                material={game.material}
+                isFree={false}
                 onClick={() => handleGameCardClick(game.name)}
-              >
-                <div className="flex items-center w-full mb-2 gap-2">
-                  <img src={game.icon} alt={game.name + ' icon'} className="w-7 h-7 object-contain" style={{ marginRight: '6px' }} />
-                  <h2 className="text-lg font-semibold text-gray-900 m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{ maxWidth: '140px' }}>{game.name}</h2>
-                </div>
-                <div className="flex flex-row gap-2 text-xs mb-2 w-full">
-                  <span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
-                  <span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold">
-                    {game.players} joueurs
-                  </span>
-                  <span className="px-2 py-1 rounded bg-party-purple/20 text-party-purple font-semibold">
-                    {game.duration}
-                  </span>
-                </div>
-                <div className="text-sm text-muted-foreground mb-2 w-full">{game.shortDescription}</div>
-                {game.material && (
-                  <div className="mt-auto w-full">
-                    <div className="p-2 rounded-md">
-                      <h4 className="font-bold text-xs mb-1 text-gray-600">Inclus :</h4>
-                      <p className="text-xs text-gray-500">{game.material}</p>
-                    </div>
-                  </div>
-                )}
-              </div>
+              />
             ))}
           </div>
 
