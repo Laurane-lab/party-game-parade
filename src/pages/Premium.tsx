@@ -223,18 +223,13 @@ const Premium = () => {
             {freeGames.map((game) => (
               <div 
                 key={game.name} 
-                className="rounded-xl border border-green-300 bg-green-50 shadow-md hover:shadow-lg transition-shadow p-6 flex flex-col items-start text-left cursor-pointer hover:bg-green-100" 
+                className="rounded-xl border border-green-300 bg-green-50 shadow-md hover:shadow-lg transition-shadow p-6 flex flex-col items-start text-left cursor-pointer hover:bg-green-100 relative" 
                 style={{ minHeight: '180px' }}
                 onClick={() => handleGameCardClick(game.name)}
               >
                 <div className="flex items-center w-full mb-2 gap-2">
                   <img src={game.icon} alt={game.name + ' icon'} className="w-7 h-7 object-contain" style={{ marginRight: '6px' }} />
-                  <div className="flex items-center justify-between flex-grow overflow-hidden">
-                    <h2 className="text-lg font-semibold text-party-green m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{ maxWidth: '100px' }}>{game.name}</h2>
-                    <span className="ml-2 px-1 bg-green-200 text-green-800 rounded-sm text-[10px] font-bold">
-                      GRATUIT
-                    </span>
-                  </div>
+                  <h2 className="text-lg font-semibold text-party-green m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{ maxWidth: '140px' }}>{game.name}</h2>
                 </div>
                 <div className="flex flex-row gap-2 text-xs mb-2 w-full">
                   <span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
@@ -247,7 +242,12 @@ const Premium = () => {
                     {game.duration}
                   </span>
                 </div>
-                <div className="text-sm text-muted-foreground mb-0 w-full">{game.shortDescription}</div>
+                <div className="text-sm text-muted-foreground mb-0 w-full flex-grow">{game.shortDescription}</div>
+                <div className="w-full flex justify-center mt-4">
+                  <span className="px-3 py-1 bg-green-500 text-white rounded-md text-sm font-bold">
+                    GRATUIT
+                  </span>
+                </div>
               </div>
             ))}
             {/* Jeux premium ensuite */}
