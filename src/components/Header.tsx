@@ -39,15 +39,9 @@ const Header = () => {
                     <span className={`font-bold text-party-purple ${isMobile ? 'text-xl' : 'text-2xl'}`}>Apérololo</span>
                 </div>
                 {user ? (
-                    location.pathname === '/game-explanation' ? (
-                        <Button variant="outline" size={isMobile ? "sm" : "lg"} onClick={handleLogout}>
-                            Déconnexion
-                        </Button>
-                    ) : (
-                        <Button variant="outline" size={isMobile ? "sm" : "lg"} onClick={() => navigate('/game-explanation')}>
-                            Voir les jeux
-                        </Button>
-                    )
+                    <Button variant="outline" size={isMobile ? "sm" : "lg"} onClick={handleLogout}>
+                        Déconnexion
+                    </Button>
                 ) : (
                     <Button variant="outline" size={isMobile ? "sm" : "lg"} onClick={() => navigate('/connexion')}>
                         Connexion

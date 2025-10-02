@@ -12,10 +12,15 @@ import { usePremium } from "@/hooks/use-premium";
 import { useNavigate } from "react-router-dom";
 
 const Index = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const { isPremium } = usePremium();
   const navigate = useNavigate();
   const [showPaywall, setShowPaywall] = useState(false);
+  
+  const handleLogout = async () => {
+    await logout();
+    navigate('/');
+  };
   
   // S'assurer que le scroll fonctionne sur cette page (correction du problème avec le drawer)
   useEffect(() => {
@@ -58,8 +63,8 @@ const Index = () => {
       <section className="relative py-20 px-4 text-center bg-gradient-to-br from-party-pink/20 via-party-orange/10 to-party-blue/20">
         <div className="absolute top-4 right-4">
           {user ? (
-            <Button variant="outline" size="lg" onClick={() => navigate('/game-explanation')}>
-              Voir les jeux
+            <Button variant="outline" size="lg" onClick={handleLogout}>
+              Déconnexion
             </Button>
           ) : (
             <Button asChild variant="outline" size="lg">
@@ -172,7 +177,7 @@ const Index = () => {
       <section className="py-16 px-4 bg-gradient-to-r from-party-blue/10 via-party-green/10 to-party-orange/10">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-8 text-primary">
-            Comment fonctionne Apérololo
+            Comment fonctionne Apérololo ?
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div>
