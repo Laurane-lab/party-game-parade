@@ -1,6 +1,7 @@
 import { Game } from "@/data/games";
 import { Button } from "@/components/ui/button";
 import GameStoryQuote from "./GameStoryQuote";
+import BrevoForm from "@/components/BrevoForm";
 
 interface GamePaywallViewProps {
   game: Game;
@@ -57,6 +58,11 @@ const GamePaywallView = ({
             </span>
           </div>
         )}
+      </div>
+      
+      {/* Formulaire de newsletter */}
+      <div className="flex justify-center mt-8">
+        <BrevoForm />
       </div>
     </>
   );
