@@ -35,8 +35,8 @@ const GameCard: React.FC<GameCardProps> = ({
       withBorder
       style={{
         cursor: 'pointer',
-        background: isFree ? '#f0fdf4' : '#f9fafb',
-        borderColor: isFree ? '#86efac' : '#e5e7eb',
+        background: '#f9fafb',
+        borderColor: '#e5e7eb',
         transition: 'all 0.2s ease',
         overflow: 'hidden'
       }}
@@ -62,6 +62,24 @@ const GameCard: React.FC<GameCardProps> = ({
               borderTopRightRadius: '12px'
             }} 
           />
+          {/* Badge premium en haut à gauche */}
+          {!isFree && (
+            <div style={{
+              position: 'absolute',
+              top: '8px',
+              left: '8px',
+              backgroundColor: 'rgba(162, 89, 255, 0.9)',
+              color: 'white',
+              padding: '4px 8px',
+              borderRadius: '4px',
+              fontSize: '10px',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              zIndex: 1
+            }}>
+              PREMIUM
+            </div>
+          )}
         </div>
 
         {/* Contenu de la carte */}
@@ -76,7 +94,7 @@ const GameCard: React.FC<GameCardProps> = ({
             <Text 
               fw={600} 
               size="lg" 
-              c={isFree ? '#166534' : '#111827'}
+              c={'#111827'}
               lineClamp={1}
               style={{ flex: 1 }}
             >
@@ -88,12 +106,12 @@ const GameCard: React.FC<GameCardProps> = ({
         <Group>
           <Badge
             variant="light"
-            color={isFree ? 'green' : 'gray'}
+            color={'gray'}
             size="sm"
             radius="sm"
             style={{
-              backgroundColor: isFree ? 'rgba(34, 197, 94, 0.2)' : 'rgba(156, 163, 175, 0.2)',
-              color: isFree ? '#166534' : '#374151',
+              backgroundColor: 'rgba(156, 163, 175, 0.2)',
+              color: '#374151',
               fontWeight: 600
             }}
           >
@@ -134,20 +152,6 @@ const GameCard: React.FC<GameCardProps> = ({
           </Card.Section>
         )}
 
-        {/* Badge gratuit */}
-        {isFree && (
-          <Group justify="center">
-            <Badge
-              color="green"
-              variant="filled"
-              size="sm"
-              radius="sm"
-              fw={700}
-            >
-              GRATUIT
-            </Badge>
-          </Group>
-        )}
         </Stack>
       </Stack>
     </Card>

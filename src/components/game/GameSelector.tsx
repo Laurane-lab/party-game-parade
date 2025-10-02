@@ -56,11 +56,6 @@ const GameSelector = ({ games, selectedIndex, onSelect, isMobile, navigateHome, 
         >
           {game.titre}
         </span>
-        {!game.is_premium && (
-          <span className="ml-4 px-1 bg-green-200 text-green-800 rounded-sm text-[10px] font-bold">
-            GRATUIT
-          </span>
-        )}
       </div>
     </Button>
   );
