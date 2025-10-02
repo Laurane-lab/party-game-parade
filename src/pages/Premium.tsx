@@ -101,7 +101,7 @@ const Premium = () => {
       name: "Jusqu'à 10",
       modeDeJeu: "Toi contre tous",
       players: "3-5",
-      duration: "20 min",
+      duration: "15 min",
       shortDescription: "Et si compter jusqu'à 10 n'était pas si simple finalement ?",
       icon: hatIcon
     },
@@ -109,7 +109,7 @@ const Premium = () => {
       name: "Suite de stars",
       modeDeJeu: "Toi contre tous",
       players: "3-12",
-      duration: "15-30 min",
+      duration: "15 min",
       shortDescription: "Enchaîne les noms de célébrités selon des règles originales.",
       icon: wandIcon
     }
@@ -120,7 +120,7 @@ const Premium = () => {
       name: "Dos à dos",
       modeDeJeu: "En binôme",
       players: "4-10",
-      duration: "20 min",
+      duration: "20-40 min",
       shortDescription: "Connais-tu vraiment ton binôme ou les invités seront-ils plus forts que vous ?",
       icon: cloakIcon,
       material: "10 idées de questions"
@@ -129,7 +129,7 @@ const Premium = () => {
       name: "Mission secrète",
       modeDeJeu: "En équipe",
       players: "6-20",
-      duration: "15 min",
+      duration: "1-2 jours",
       shortDescription: "Accomplis des missions secrètes sans te faire repérer, et démasque les autres !",
       icon: cloakIcon,
       material: "Tableau des scores et 40 idées de missions"
@@ -156,7 +156,7 @@ const Premium = () => {
       name: "Les enchères",
       modeDeJeu: "En équipe",
       players: "3-10",
-      duration: "20 min",
+      duration: "20-30 min",
       shortDescription: "Le but est de donner un maximum de réponses sur un thème donné.",
       icon: mortarIcon,
       material: "5 idées d'enchères"
