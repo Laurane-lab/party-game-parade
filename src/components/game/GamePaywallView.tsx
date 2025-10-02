@@ -25,12 +25,12 @@ const GamePaywallView = ({
     if (isAuthenticated) {
       onRedirectToPayment(user?.email);
     } else {
-      // Le bouton principal "Devenir premium" doit rediriger vers le paiement après connexion
+      // Le bouton principal "Débloquer les 7 jeux pour 4,99€" doit rediriger vers le paiement après connexion
       onNavigateToConnexionForPayment();
     }
   };
 
-  const buttonLabel = isUserPremium && !user ? 'Se connecter pour accéder' : 'Devenir premium';
+  const buttonLabel = isUserPremium && !user ? 'Se connecter pour accéder' : 'Débloquer les 7 jeux pour 4,99€';
 
   return (
     <>

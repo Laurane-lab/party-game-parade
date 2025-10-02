@@ -199,7 +199,7 @@ const Index = () => {
               <div className="text-4xl mb-4">⭐</div>
               <h3 className="text-xl font-semibold mb-3 text-foreground">Passe au niveau supérieur</h3>
               <p className="text-muted-foreground">
-                7 jeux supplémentaires disponibles en passant premium
+                7 jeux supplémentaires à 4,99€ en passant premium
               </p>
             </div>
           </div>
