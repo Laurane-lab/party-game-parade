@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import BrevoForm from "@/components/BrevoForm";
 import { useAuth } from "@/hooks/use-auth";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { UserGroupIcon, ClockIcon } from "@heroicons/react/24/outline";
+
 import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
 import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
 import crystalsIcon from "@/assets/icon/crystals-thks-icongeek26.png";
@@ -214,7 +214,7 @@ const Premium = () => {
             </div>
           </div>
         )}
-        <h1 className="text-3xl md:text-4xl font-bold text-party-pink mb-8 text-center leading-tight">Débloque tous les jeux pour 4,99€ !</h1>
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center leading-tight">Débloque tous les jeux pour 4,99€ !</h1>
 
         {/* Grille des jeux premium */}
         <div className="max-w-5xl w-full mx-auto">
@@ -233,18 +233,16 @@ const Premium = () => {
                 </div>
                 <div className="flex flex-row gap-2 text-xs mb-2 w-full">
                   <span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
-                  <span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold flex items-center gap-1">
-                    <UserGroupIcon className="w-3 h-3" />
-                    {game.players}
+                  <span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold">
+                    {game.players} joueurs
                   </span>
-                  <span className="px-2 py-1 rounded bg-party-purple/20 text-party-purple font-semibold flex items-center gap-1">
-                    <ClockIcon className="w-3 h-3" />
+                  <span className="px-2 py-1 rounded bg-party-purple/20 text-party-purple font-semibold">
                     {game.duration}
                   </span>
                 </div>
                 <div className="text-sm text-muted-foreground mb-0 w-full flex-grow">{game.shortDescription}</div>
                 <div className="w-full flex justify-center mt-4">
-                  <span className="px-3 py-1 bg-green-500 text-white rounded-md text-sm font-bold">
+                  <span className="px-2 py-0.5 bg-green-500 text-white rounded text-xs font-bold">
                     GRATUIT
                   </span>
                 </div>
@@ -260,16 +258,14 @@ const Premium = () => {
               >
                 <div className="flex items-center w-full mb-2 gap-2">
                   <img src={game.icon} alt={game.name + ' icon'} className="w-7 h-7 object-contain" style={{ marginRight: '6px' }} />
-                  <h2 className="text-lg font-semibold text-party-purple m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{ maxWidth: '140px' }}>{game.name}</h2>
+                  <h2 className="text-lg font-semibold text-gray-900 m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{ maxWidth: '140px' }}>{game.name}</h2>
                 </div>
                 <div className="flex flex-row gap-2 text-xs mb-2 w-full">
                   <span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
-                  <span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold flex items-center gap-1">
-                    <UserGroupIcon className="w-3 h-3" />
-                    {game.players}
+                  <span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold">
+                    {game.players} joueurs
                   </span>
-                  <span className="px-2 py-1 rounded bg-party-purple/20 text-party-purple font-semibold flex items-center gap-1">
-                    <ClockIcon className="w-3 h-3" />
+                  <span className="px-2 py-1 rounded bg-party-purple/20 text-party-purple font-semibold">
                     {game.duration}
                   </span>
                 </div>

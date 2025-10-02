@@ -66,7 +66,8 @@ export default {
 				'party-pink': 'hsl(var(--party-pink))', 
 				'party-green': 'hsl(var(--party-green))',
 				'party-blue': 'hsl(var(--party-blue))',
-				'party-yellow': 'hsl(var(--party-yellow))'
+				'party-yellow': 'hsl(var(--party-yellow))',
+				'party-purple': 'hsl(var(--party-purple))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

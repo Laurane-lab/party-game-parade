@@ -167,7 +167,7 @@ const Index = () => {
                 <div key={game.name} {...cardProps} style={{ minHeight: '180px' }}>
                   <div className="flex items-center w-full mb-2 gap-2">
                     <img src={game.icon} alt={game.name + ' icon'} className="w-7 h-7 object-contain" style={{ marginRight: '6px' }} />
-                    <h2 className="text-lg font-semibold text-party-purple m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{ maxWidth: '140px' }}>{game.name}</h2>
+                    <h2 className="text-lg font-semibold text-gray-900 m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{ maxWidth: '140px' }}>{game.name}</h2>
                   </div>
                   <div className="flex flex-row gap-2 text-xs mb-2 w-full">
                     <span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
