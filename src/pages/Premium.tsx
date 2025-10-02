@@ -27,6 +27,23 @@ interface GameInfo {
   material?: string; // Optional property for material included with the game
 }
 
+// Mapping entre les noms des jeux affichés et leurs IDs dans games.ts
+const getGameIdFromName = (gameName: string): string | null => {
+  const gameMapping: { [key: string]: string } = {
+    "Le mur du son": "le-mur-du-son",
+    "Jusqu'à 10": "jusqua-10",
+    "Suite de stars": "suite-de-stars",
+    "Dos à dos": "dos-a-dos",
+    "Mission secrète": "mission-secrete",
+    "Sans rire": "sans-rire",
+    "Pas dans le rythme": "pas-dans-le-rythme",
+    "Les enchères": "les-encheres",
+    "Le mot commun": "mot-commun",
+    "Dessine à la chaîne": "dessine-a-la-chaine"
+  };
+  return gameMapping[gameName] || null;
+};
+
 const Premium = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,6 +51,14 @@ const Premium = () => {
   const isMobile = useIsMobile();
   const [paymentCanceled, setPaymentCanceled] = useState(false);
   const [paymentError, setPaymentError] = useState<string | null>(null);
+
+  // Fonction pour gérer le clic sur une carte de jeu
+  const handleGameCardClick = (gameName: string) => {
+    const gameId = getGameIdFromName(gameName);
+    if (gameId) {
+      navigate(`/game-explanation?id=${gameId}`);
+    }
+  };
 
   // Vérifier si le paiement a été annulé ou s'il y a eu une erreur
   useEffect(() => {
@@ -184,10 +209,20 @@ const Premium = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
             {/* Jeux gratuits en premier */}
             {freeGames.map((game) => (
-              <div key={game.name} className="rounded-xl border border-green-300 bg-green-50 shadow-md hover:shadow-lg transition-shadow p-6 flex flex-col items-start text-left" style={{ minHeight: '180px' }}>
+              <div 
+                key={game.name} 
+                className="rounded-xl border border-green-300 bg-green-50 shadow-md hover:shadow-lg transition-shadow p-6 flex flex-col items-start text-left cursor-pointer hover:bg-green-100" 
+                style={{ minHeight: '180px' }}
+                onClick={() => handleGameCardClick(game.name)}
+              >
                 <div className="flex items-center w-full mb-2 gap-2">
                   <img src={game.icon} alt={game.name + ' icon'} className="w-7 h-7 object-contain" style={{ marginRight: '6px' }} />
-                  <h2 className="text-lg font-semibold text-party-green m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{ maxWidth: '140px' }}>{game.name}</h2>
+                  <div className="flex items-center justify-between flex-grow overflow-hidden">
+                    <h2 className="text-lg font-semibold text-party-green m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{ maxWidth: '100px' }}>{game.name}</h2>
+                    <span className="ml-2 px-1 bg-green-200 text-green-800 rounded-sm text-[10px] font-bold">
+                      GRATUIT
+                    </span>
+                  </div>
                 </div>
                 <div className="flex flex-row gap-2 text-xs mb-2 w-full">
                   <span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
@@ -198,7 +233,12 @@ const Premium = () => {
             ))}
             {/* Jeux premium ensuite */}
             {premiumGames.map((game) => (
-              <div key={game.name} className="rounded-xl border border-gray-200 bg-gray-50 shadow-md hover:shadow-lg transition-shadow p-6 flex flex-col items-start text-left" style={{ minHeight: '220px' }}>
+              <div 
+                key={game.name} 
+                className="rounded-xl border border-gray-200 bg-gray-50 shadow-md hover:shadow-lg transition-shadow p-6 flex flex-col items-start text-left cursor-pointer hover:bg-gray-100" 
+                style={{ minHeight: '220px' }}
+                onClick={() => handleGameCardClick(game.name)}
+              >
                 <div className="flex items-center w-full mb-2 gap-2">
                   <img src={game.icon} alt={game.name + ' icon'} className="w-7 h-7 object-contain" style={{ marginRight: '6px' }} />
                   <h2 className="text-lg font-semibold text-party-purple m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{ maxWidth: '140px' }}>{game.name}</h2>
