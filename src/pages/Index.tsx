@@ -10,12 +10,17 @@ import hatIcon from "@/assets/icon/hat-thks-icongeek26.png";
 import { useAuth } from "@/hooks/use-auth";
 import { usePremium } from "@/hooks/use-premium";
 import { useNavigate } from "react-router-dom";
+import { games } from "@/data/games";
 
 const Index = () => {
   const { user, logout } = useAuth();
   const { isPremium } = usePremium();
   const navigate = useNavigate();
   const [showPaywall, setShowPaywall] = useState(false);
+  
+  // Calculer automatiquement le nombre de jeux gratuits et payants
+  const freeGamesCount = games.filter(game => !game.is_premium).length;
+  const premiumGamesCount = games.filter(game => game.is_premium).length;
   
   const handleLogout = async () => {
     await logout();
@@ -83,9 +88,17 @@ const Index = () => {
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-primary">
             Apérololo
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
-            Des jeux pour animer tes soirées et week-end entre amis ou en famille<br />
+          <p className="text-xl md:text-2xl text-primary font-bold mb-2 leading-relaxed tracking-normal">
+            Des jeux pour animer tes soirées et week-end entre amis ou en famille.
           </p>
+          <p className="text-lg md:text-xl text-muted-foreground mb-4 leading-relaxed tracking-normal">
+            Que tu cherches un jeu rapide pour un apéro ou un concept original pour animer ton week-end, Apérololo a ce qu'il te faut pour passer un moment mémorable, sans prise de tête.
+          </p>
+          <div className="mb-8">
+            <p className="text-lg md:text-xl text-muted-foreground">
+              <span className="text-party-green font-semibold">{freeGamesCount} jeux gratuits</span> • <span className="text-party-blue font-semibold">{premiumGamesCount} jeux premium</span>
+            </p>
+          </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8 py-3 bg-gradient-to-r from-party-orange to-party-pink hover:from-party-pink hover:to-party-orange">
               <a href="/game-explanation">Jouer gratuitement</a>
