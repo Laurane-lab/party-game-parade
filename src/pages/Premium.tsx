@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import BrevoForm from "@/components/BrevoForm";
 import { useAuth } from "@/hooks/use-auth";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { UserGroupIcon, ClockIcon } from "@heroicons/react/24/outline";
 import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
 import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
 import crystalsIcon from "@/assets/icon/crystals-thks-icongeek26.png";
@@ -22,6 +23,7 @@ interface GameInfo {
   name: string;
   modeDeJeu: string;
   players: string;
+  duration: string;
   shortDescription: string;
   icon: string;
   material?: string; // Optional property for material included with the game
@@ -91,6 +93,7 @@ const Premium = () => {
       name: "Le mur du son",
       modeDeJeu: "Toi contre tous",
       players: "3-10",
+      duration: "15-30 min",
       shortDescription: "Ce n'est pas celui de Willy Denzey mais il va tous vous faire chanter !",
       icon: cauldronIcon
     },
@@ -98,6 +101,7 @@ const Premium = () => {
       name: "Jusqu'à 10",
       modeDeJeu: "Toi contre tous",
       players: "3-5",
+      duration: "20 min",
       shortDescription: "Et si compter jusqu'à 10 n'était pas si simple finalement ?",
       icon: hatIcon
     },
@@ -105,6 +109,7 @@ const Premium = () => {
       name: "Suite de stars",
       modeDeJeu: "Toi contre tous",
       players: "3-12",
+      duration: "15-30 min",
       shortDescription: "Enchaîne les noms de célébrités selon des règles originales.",
       icon: wandIcon
     }
@@ -115,6 +120,7 @@ const Premium = () => {
       name: "Dos à dos",
       modeDeJeu: "En binôme",
       players: "4-10",
+      duration: "20 min",
       shortDescription: "Connais-tu vraiment ton binôme ou les invités seront-ils plus forts que vous ?",
       icon: cloakIcon,
       material: "10 idées de questions"
@@ -123,6 +129,7 @@ const Premium = () => {
       name: "Mission secrète",
       modeDeJeu: "En équipe",
       players: "6-20",
+      duration: "15 min",
       shortDescription: "Accomplis des missions secrètes sans te faire repérer, et démasque les autres !",
       icon: cloakIcon,
       material: "Tableau des scores et 40 idées de missions"
@@ -131,6 +138,7 @@ const Premium = () => {
       name: "Sans rire",
       modeDeJeu: "Toi contre tous",
       players: "4-8",
+      duration: "30 min",
       shortDescription: "Fais rire les autres sans craquer toi-même. Celui qui rit perd des points !",
       icon: crystalsIcon,
       material: "3 minis jeux"
@@ -139,6 +147,7 @@ const Premium = () => {
       name: "Pas dans le rythme",
       modeDeJeu: "En équipe",
       players: "4-15",
+      duration: "25 min",
       shortDescription: "Un blind test... sans musique. Idéal pour ne pas casser les oreilles de tes voisins !",
       icon: hatIcon,
       material: "Une playlist réalisée par nos soins"
@@ -147,6 +156,7 @@ const Premium = () => {
       name: "Les enchères",
       modeDeJeu: "En équipe",
       players: "3-10",
+      duration: "20 min",
       shortDescription: "Le but est de donner un maximum de réponses sur un thème donné.",
       icon: mortarIcon,
       material: "5 idées d'enchères"
@@ -155,6 +165,7 @@ const Premium = () => {
       name: "Le mot commun",
       modeDeJeu: "Toi contre tous",
       players: "3-10",
+      duration: "30 min",
       shortDescription: "Trouve le lien entre trois mots et lance-toi dans une course pour réclamer ta victoire !",
       icon: scrollIcon,
       material: "7 propositions d'énigmes"
@@ -163,6 +174,7 @@ const Premium = () => {
       name: "Dessine à la chaîne",
       modeDeJeu: "En équipe",
       players: "4-10",
+      duration: "30 min",
       shortDescription: "Découvre la fusion d'un Pictionary et d'un téléphone arabe !",
       icon: quillIcon,
       material: "Aucun"
@@ -226,7 +238,14 @@ const Premium = () => {
                 </div>
                 <div className="flex flex-row gap-2 text-xs mb-2 w-full">
                   <span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
-                  <span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold">{game.players} joueurs</span>
+                  <span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold flex items-center gap-1">
+                    <UserGroupIcon className="w-3 h-3" />
+                    {game.players}
+                  </span>
+                  <span className="px-2 py-1 rounded bg-party-purple/20 text-party-purple font-semibold flex items-center gap-1">
+                    <ClockIcon className="w-3 h-3" />
+                    {game.duration}
+                  </span>
                 </div>
                 <div className="text-sm text-muted-foreground mb-0 w-full">{game.shortDescription}</div>
               </div>
@@ -245,7 +264,14 @@ const Premium = () => {
                 </div>
                 <div className="flex flex-row gap-2 text-xs mb-2 w-full">
                   <span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
-                  <span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold">{game.players} joueurs</span>
+                  <span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold flex items-center gap-1">
+                    <UserGroupIcon className="w-3 h-3" />
+                    {game.players}
+                  </span>
+                  <span className="px-2 py-1 rounded bg-party-purple/20 text-party-purple font-semibold flex items-center gap-1">
+                    <ClockIcon className="w-3 h-3" />
+                    {game.duration}
+                  </span>
                 </div>
                 <div className="text-sm text-muted-foreground mb-2 w-full">{game.shortDescription}</div>
                 {game.material && (
