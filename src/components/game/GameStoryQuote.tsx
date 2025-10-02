@@ -12,7 +12,7 @@ const GameStoryQuote = ({ story }: GameStoryQuoteProps) => {
         alt="Mascotte Aperololo"
         className="w-16 h-16 object-contain self-center"
       />
-      <blockquote className="text-base text-party-purple italic flex-1 px-2">
+      <blockquote className="text-base text-gray-900 italic flex-1 px-2">
         <span className="block" dangerouslySetInnerHTML={{ __html: story }} />
       </blockquote>
     </div>

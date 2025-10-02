@@ -50,7 +50,7 @@ const GameSelector = ({ games, selectedIndex, onSelect, isMobile, navigateHome, 
       <div className="flex items-center justify-between flex-grow overflow-hidden">
         <span
           className={`text-left font-semibold block overflow-hidden text-ellipsis whitespace-nowrap
-						${isSelected ? "text-party-pink" : "text-party-purple"}
+						${isSelected ? "text-party-pink" : "text-gray-900"}
 					`}
           title={game.titre}
         >
@@ -97,7 +97,7 @@ const GameSelector = ({ games, selectedIndex, onSelect, isMobile, navigateHome, 
                   <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
                     <img src={catMascot} alt="Mascotte Aperololo" className="w-7 h-7 object-contain" />
                   </span>
-                  <span className="text-left font-semibold block text-party-purple">
+                  <span className="text-left font-semibold block text-gray-900">
                     Accueil
                   </span>
                 </Button>

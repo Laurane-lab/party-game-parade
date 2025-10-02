@@ -101,35 +101,17 @@ const Premium = () => {
     }
   }, [location]);
 
-  // Importer la liste des jeux premium depuis GameExplanation
-  const freeGames: GameInfo[] = [
+  // Liste des jeux dans l'ordre optimisé pour la conversion
+  const allGames: (GameInfo & { isFree: boolean })[] = [
     {
       name: "Le mur du son",
       modeDeJeu: "Toi contre tous",
       players: "3-10",
       duration: "15-30 min",
       shortDescription: "Ce n'est pas celui de Willy Denzey mais il va tous vous faire chanter !",
-      icon: cauldronIcon
+      icon: cauldronIcon,
+      isFree: true
     },
-    {
-      name: "Jusqu'à 10",
-      modeDeJeu: "Toi contre tous",
-      players: "3-5",
-      duration: "15 min",
-      shortDescription: "Et si compter jusqu'à 10 n'était pas si simple finalement ?",
-      icon: hatIcon
-    },
-    {
-      name: "Suite de stars",
-      modeDeJeu: "Toi contre tous",
-      players: "3-12",
-      duration: "15 min",
-      shortDescription: "Enchaîne les noms de célébrités selon des règles originales.",
-      icon: wandIcon
-    }
-  ];
-
-  const premiumGames: GameInfo[] = [
     {
       name: "Dos à dos",
       modeDeJeu: "En binôme",
@@ -137,7 +119,8 @@ const Premium = () => {
       duration: "20-40 min",
       shortDescription: "Connais-tu vraiment ton binôme ou les invités seront-ils plus forts que vous ?",
       icon: cloakIcon,
-      material: "10 idées de questions"
+      material: "10 idées de questions",
+      isFree: false
     },
     {
       name: "Mission secrète",
@@ -146,34 +129,17 @@ const Premium = () => {
       duration: "1-2 jours",
       shortDescription: "Accomplis des missions secrètes sans te faire repérer, et démasque les autres !",
       icon: cloakIcon,
-      material: "Tableau des scores et 40 idées de missions"
+      material: "Tableau des scores et 40 idées de missions",
+      isFree: false
     },
     {
-      name: "Sans rire",
+      name: "Suite de stars",
       modeDeJeu: "Toi contre tous",
-      players: "4-8",
-      duration: "30 min",
-      shortDescription: "Fais rire les autres sans craquer toi-même. Celui qui rit perd des points !",
-      icon: crystalsIcon,
-      material: "3 minis jeux"
-    },
-    {
-      name: "Pas dans le rythme",
-      modeDeJeu: "En équipe",
-      players: "4-15",
-      duration: "25 min",
-      shortDescription: "Un blind test... sans musique. Idéal pour ne pas casser les oreilles de tes voisins !",
-      icon: hatIcon,
-      material: "Une playlist réalisée par nos soins"
-    },
-    {
-      name: "Les enchères",
-      modeDeJeu: "En équipe",
-      players: "3-10",
-      duration: "20-30 min",
-      shortDescription: "Le but est de donner un maximum de réponses sur un thème donné.",
-      icon: mortarIcon,
-      material: "5 idées d'enchères"
+      players: "3-12",
+      duration: "15 min",
+      shortDescription: "Enchaîne les noms de célébrités selon des règles originales.",
+      icon: wandIcon,
+      isFree: true
     },
     {
       name: "Le mot commun",
@@ -182,7 +148,47 @@ const Premium = () => {
       duration: "30 min",
       shortDescription: "Trouve le lien entre trois mots et lance-toi dans une course pour réclamer ta victoire !",
       icon: scrollIcon,
-      material: "7 propositions d'énigmes"
+      material: "7 propositions d'énigmes",
+      isFree: false
+    },
+    {
+      name: "Sans rire",
+      modeDeJeu: "Toi contre tous",
+      players: "4-8",
+      duration: "30 min",
+      shortDescription: "Fais rire les autres sans craquer toi-même. Celui qui rit perd des points !",
+      icon: crystalsIcon,
+      material: "3 minis jeux",
+      isFree: false
+    },
+    {
+      name: "Jusqu'à 10",
+      modeDeJeu: "Toi contre tous",
+      players: "3-5",
+      duration: "15 min",
+      shortDescription: "Et si compter jusqu'à 10 n'était pas si simple finalement ?",
+      icon: hatIcon,
+      isFree: true
+    },
+    {
+      name: "Pas dans le rythme",
+      modeDeJeu: "En équipe",
+      players: "4-15",
+      duration: "25 min",
+      shortDescription: "Un blind test... sans musique. Idéal pour ne pas casser les oreilles de tes voisins !",
+      icon: hatIcon,
+      material: "Une playlist réalisée par nos soins",
+      isFree: false
+    },
+    {
+      name: "Les enchères",
+      modeDeJeu: "En équipe",
+      players: "3-10",
+      duration: "20-30 min",
+      shortDescription: "Le but est de donner un maximum de réponses sur un thème donné.",
+      icon: mortarIcon,
+      material: "5 idées d'enchères",
+      isFree: false
     },
     {
       name: "Dessine à la chaîne",
@@ -191,7 +197,8 @@ const Premium = () => {
       duration: "30 min",
       shortDescription: "Découvre la fusion d'un Pictionary et d'un téléphone arabe !",
       icon: quillIcon,
-      material: "Aucun"
+      material: "Aucun",
+      isFree: false
     },
   ];
 
@@ -233,23 +240,8 @@ const Premium = () => {
         {/* Grille des jeux premium */}
         <div className="max-w-5xl w-full mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
-            {/* Jeux gratuits en premier */}
-            {freeGames.map((game) => (
-              <GameCard
-                key={game.name}
-                name={game.name}
-                modeDeJeu={game.modeDeJeu}
-                players={game.players}
-                duration={game.duration}
-                shortDescription={game.shortDescription}
-                icon={game.icon}
-                coverImage={getGameCoverImage(game.name)}
-                isFree={true}
-                onClick={() => handleGameCardClick(game.name)}
-              />
-            ))}
-            {/* Jeux premium ensuite */}
-            {premiumGames.map((game) => (
+            {/* Tous les jeux dans l'ordre optimisé pour la conversion */}
+            {allGames.map((game) => (
               <GameCard
                 key={game.name}
                 name={game.name}
@@ -260,7 +252,7 @@ const Premium = () => {
                 icon={game.icon}
                 coverImage={getGameCoverImage(game.name)}
                 material={game.material}
-                isFree={false}
+                isFree={game.isFree}
                 onClick={() => handleGameCardClick(game.name)}
               />
             ))}

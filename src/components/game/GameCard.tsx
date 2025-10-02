@@ -31,7 +31,7 @@ const GameCard: React.FC<GameCardProps> = ({
     <Card
       shadow="md"
       padding={0}
-      radius="xl"
+      radius="md"
       withBorder
       style={{
         cursor: 'pointer',
@@ -58,8 +58,8 @@ const GameCard: React.FC<GameCardProps> = ({
               width: '100%', 
               height: '100%', 
               objectFit: 'cover',
-              borderTopLeftRadius: '12px',
-              borderTopRightRadius: '12px'
+              borderTopLeftRadius: '6px',
+              borderTopRightRadius: '6px'
             }} 
           />
           {/* Badge premium en haut à gauche */}
@@ -70,7 +70,7 @@ const GameCard: React.FC<GameCardProps> = ({
               left: '8px',
               backgroundColor: 'rgba(162, 89, 255, 0.9)',
               color: 'white',
-              padding: '4px 8px',
+              padding: '2px 6px',
               borderRadius: '4px',
               fontSize: '10px',
               fontWeight: 700,
@@ -106,12 +106,11 @@ const GameCard: React.FC<GameCardProps> = ({
         <Group>
           <Badge
             variant="light"
-            color={'gray'}
+            color={'pink'}
             size="sm"
             radius="sm"
+            className="bg-party-pink/20 text-party-pink"
             style={{
-              backgroundColor: 'rgba(156, 163, 175, 0.2)',
-              color: '#374151',
               fontWeight: 600
             }}
           >
