@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import BrevoForm from "@/components/BrevoForm";
 import { useAuth } from "@/hooks/use-auth";
 import { useIsMobile } from "@/hooks/use-mobile";
+import GameCard from "@/components/game/GameCard";
+import { games } from "@/data/games";
+
 import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
 import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
 import crystalsIcon from "@/assets/icon/crystals-thks-icongeek26.png";
@@ -22,10 +25,40 @@ interface GameInfo {
   name: string;
   modeDeJeu: string;
   players: string;
+  duration: string;
   shortDescription: string;
   icon: string;
   material?: string; // Optional property for material included with the game
 }
+
+// Mapping entre les noms des jeux affichés et leurs IDs dans games.ts
+const getGameIdFromName = (gameName: string): string | null => {
+  const gameMapping: { [key: string]: string } = {
+    "Le mur du son": "le-mur-du-son",
+    "Jusqu'à 10": "jusqua-10",
+    "Suite de stars": "suite-de-stars",
+    "Dos à dos": "dos-a-dos",
+    "Mission secrète": "mission-secrete",
+    "Sans rire": "sans-rire",
+    "Pas dans le rythme": "pas-dans-le-rythme",
+    "Les enchères": "les-encheres",
+    "Le mot commun": "mot-commun",
+    "Dessine à la chaîne": "dessine-a-la-chaine"
+  };
+  return gameMapping[gameName] || null;
+};
+
+// Fonction pour récupérer l'image de couverture d'un jeu
+const getGameCoverImage = (gameName: string): string => {
+  const gameId = getGameIdFromName(gameName);
+  if (gameId) {
+    const game = games.find(g => g.id === gameId);
+    if (game) {
+      return game.coverImage;
+    }
+  }
+  return ''; // Image par défaut ou vide si non trouvée
+};
 
 const Premium = () => {
   const navigate = useNavigate();
@@ -34,6 +67,14 @@ const Premium = () => {
   const isMobile = useIsMobile();
   const [paymentCanceled, setPaymentCanceled] = useState(false);
   const [paymentError, setPaymentError] = useState<string | null>(null);
+
+  // Fonction pour gérer le clic sur une carte de jeu
+  const handleGameCardClick = (gameName: string) => {
+    const gameId = getGameIdFromName(gameName);
+    if (gameId) {
+      navigate(`/game-explanation?id=${gameId}`);
+    }
+  };
 
   // Vérifier si le paiement a été annulé ou s'il y a eu une erreur
   useEffect(() => {
@@ -60,87 +101,104 @@ const Premium = () => {
     }
   }, [location]);
 
-  // Importer la liste des jeux premium depuis GameExplanation
-  const freeGames: GameInfo[] = [
+  // Liste des jeux dans l'ordre optimisé pour la conversion
+  const allGames: (GameInfo & { isFree: boolean })[] = [
     {
       name: "Le mur du son",
       modeDeJeu: "Toi contre tous",
       players: "3-10",
+      duration: "15-30 min",
       shortDescription: "Ce n'est pas celui de Willy Denzey mais il va tous vous faire chanter !",
-      icon: cauldronIcon
+      icon: cauldronIcon,
+      isFree: true
     },
-    {
-      name: "Jusqu'à 10",
-      modeDeJeu: "Toi contre tous",
-      players: "3-5",
-      shortDescription: "Et si compter jusqu'à 10 n'était pas si simple finalement ?",
-      icon: hatIcon
-    },
-    {
-      name: "Suite de stars",
-      modeDeJeu: "Toi contre tous",
-      players: "3-12",
-      shortDescription: "Enchaîne les noms de célébrités selon des règles originales.",
-      icon: wandIcon
-    }
-  ];
-
-  const premiumGames: GameInfo[] = [
     {
       name: "Dos à dos",
       modeDeJeu: "En binôme",
       players: "4-10",
+      duration: "20-40 min",
       shortDescription: "Connais-tu vraiment ton binôme ou les invités seront-ils plus forts que vous ?",
       icon: cloakIcon,
-      material: "10 idées de questions"
+      material: "10 idées de questions",
+      isFree: false
     },
     {
       name: "Mission secrète",
       modeDeJeu: "En équipe",
       players: "6-20",
+      duration: "1-2 jours",
       shortDescription: "Accomplis des missions secrètes sans te faire repérer, et démasque les autres !",
       icon: cloakIcon,
-      material: "Tableau des scores et 40 idées de missions"
+      material: "Tableau des scores et 40 idées de missions",
+      isFree: false
     },
     {
-      name: "Sans rire",
+      name: "Suite de stars",
       modeDeJeu: "Toi contre tous",
-      players: "4-8",
-      shortDescription: "Fais rire les autres sans craquer toi-même. Celui qui rit perd des points !",
-      icon: crystalsIcon,
-      material: "3 minis jeux"
-    },
-    {
-      name: "Pas dans le rythme",
-      modeDeJeu: "En équipe",
-      players: "4-15",
-      shortDescription: "Un blind test... sans musique. Idéal pour ne pas casser les oreilles de tes voisins !",
-      icon: hatIcon,
-      material: "Une playlist réalisée par nos soins"
-    },
-    {
-      name: "Les enchères",
-      modeDeJeu: "En équipe",
-      players: "3-10",
-      shortDescription: "Le but est de donner un maximum de réponses sur un thème donné.",
-      icon: mortarIcon,
-      material: "5 idées d'enchères"
+      players: "3-12",
+      duration: "15 min",
+      shortDescription: "Enchaîne les noms de célébrités selon des règles originales.",
+      icon: wandIcon,
+      isFree: true
     },
     {
       name: "Le mot commun",
       modeDeJeu: "Toi contre tous",
       players: "3-10",
+      duration: "30 min",
       shortDescription: "Trouve le lien entre trois mots et lance-toi dans une course pour réclamer ta victoire !",
       icon: scrollIcon,
-      material: "7 propositions d'énigmes"
+      material: "7 propositions d'énigmes",
+      isFree: false
+    },
+    {
+      name: "Sans rire",
+      modeDeJeu: "Toi contre tous",
+      players: "4-8",
+      duration: "30 min",
+      shortDescription: "Fais rire les autres sans craquer toi-même. Celui qui rit perd des points !",
+      icon: crystalsIcon,
+      material: "3 minis jeux",
+      isFree: false
+    },
+    {
+      name: "Jusqu'à 10",
+      modeDeJeu: "Toi contre tous",
+      players: "3-5",
+      duration: "15 min",
+      shortDescription: "Et si compter jusqu'à 10 n'était pas si simple finalement ?",
+      icon: hatIcon,
+      isFree: true
+    },
+    {
+      name: "Pas dans le rythme",
+      modeDeJeu: "En équipe",
+      players: "4-15",
+      duration: "25 min",
+      shortDescription: "Un blind test... sans musique. Idéal pour ne pas casser les oreilles de tes voisins !",
+      icon: hatIcon,
+      material: "Une playlist réalisée par nos soins",
+      isFree: false
+    },
+    {
+      name: "Les enchères",
+      modeDeJeu: "En équipe",
+      players: "3-10",
+      duration: "20-30 min",
+      shortDescription: "Le but est de donner un maximum de réponses sur un thème donné.",
+      icon: mortarIcon,
+      material: "5 idées d'enchères",
+      isFree: false
     },
     {
       name: "Dessine à la chaîne",
       modeDeJeu: "En équipe",
       players: "4-10",
+      duration: "30 min",
       shortDescription: "Découvre la fusion d'un Pictionary et d'un téléphone arabe !",
       icon: quillIcon,
-      material: "Aucun"
+      material: "Aucun",
+      isFree: false
     },
   ];
 
@@ -177,46 +235,26 @@ const Premium = () => {
             </div>
           </div>
         )}
-        <h1 className="text-3xl md:text-4xl font-bold text-party-pink mb-8 text-center leading-tight">Débloque tous les jeux pour 4,99€ !</h1>
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center leading-tight">Débloque tous les jeux pour 4,99€ !</h1>
 
         {/* Grille des jeux premium */}
         <div className="max-w-5xl w-full mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
-            {/* Jeux gratuits en premier */}
-            {freeGames.map((game) => (
-              <div key={game.name} className="rounded-xl border border-green-300 bg-green-50 shadow-md hover:shadow-lg transition-shadow p-6 flex flex-col items-start text-left" style={{ minHeight: '180px' }}>
-                <div className="flex items-center w-full mb-2 gap-2">
-                  <img src={game.icon} alt={game.name + ' icon'} className="w-7 h-7 object-contain" style={{ marginRight: '6px' }} />
-                  <h2 className="text-lg font-semibold text-party-green m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{ maxWidth: '140px' }}>{game.name}</h2>
-                </div>
-                <div className="flex flex-row gap-2 text-xs mb-2 w-full">
-                  <span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
-                  <span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold">{game.players} joueurs</span>
-                </div>
-                <div className="text-sm text-muted-foreground mb-0 w-full">{game.shortDescription}</div>
-              </div>
-            ))}
-            {/* Jeux premium ensuite */}
-            {premiumGames.map((game) => (
-              <div key={game.name} className="rounded-xl border border-gray-200 bg-gray-50 shadow-md hover:shadow-lg transition-shadow p-6 flex flex-col items-start text-left" style={{ minHeight: '220px' }}>
-                <div className="flex items-center w-full mb-2 gap-2">
-                  <img src={game.icon} alt={game.name + ' icon'} className="w-7 h-7 object-contain" style={{ marginRight: '6px' }} />
-                  <h2 className="text-lg font-semibold text-party-purple m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{ maxWidth: '140px' }}>{game.name}</h2>
-                </div>
-                <div className="flex flex-row gap-2 text-xs mb-2 w-full">
-                  <span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
-                  <span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold">{game.players} joueurs</span>
-                </div>
-                <div className="text-sm text-muted-foreground mb-2 w-full">{game.shortDescription}</div>
-                {game.material && (
-                  <div className="mt-auto w-full">
-                    <div className="p-2 rounded-md">
-                      <h4 className="font-bold text-xs mb-1 text-gray-600">Inclus :</h4>
-                      <p className="text-xs text-gray-500">{game.material}</p>
-                    </div>
-                  </div>
-                )}
-              </div>
+            {/* Tous les jeux dans l'ordre optimisé pour la conversion */}
+            {allGames.map((game) => (
+              <GameCard
+                key={game.name}
+                name={game.name}
+                modeDeJeu={game.modeDeJeu}
+                players={game.players}
+                duration={game.duration}
+                shortDescription={game.shortDescription}
+                icon={game.icon}
+                coverImage={getGameCoverImage(game.name)}
+                material={game.material}
+                isFree={game.isFree}
+                onClick={() => handleGameCardClick(game.name)}
+              />
             ))}
           </div>
 

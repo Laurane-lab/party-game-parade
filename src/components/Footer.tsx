@@ -51,7 +51,7 @@ const Footer: React.FC = () => {
       </div>
       <div className="w-full text-black text-[10px] py-1 text-center">
         © 2025 Apérololo. Tous droits réservés.<br />
-        <a href="https://www.flaticon.com/free-icons/magic" title="magic icons" target="_blank" rel="noopener noreferrer" className="underline hover:text-party-purple">
+        <a href="https://www.flaticon.com/free-icons/magic" title="magic icons" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-900">
           Magic icons created by Icongeek26 - Flaticon
         </a>
       </div>

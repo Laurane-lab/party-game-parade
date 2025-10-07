@@ -28,7 +28,7 @@ const PaywallDialog = ({ onClose, shortDescription }: { onClose?: () => void, sh
 				{shortDescription && (
 					<p className="mb-2 text-party-yellow font-semibold">{shortDescription}</p>
 				)}
-				<p className="mb-4 text-party-purple">Ce jeu est exclusif. Débloque tous les jeux pour profiter de l'expérience complète !</p>
+				<p className="mb-4 text-gray-900">Ce jeu est exclusif. Débloque tous les jeux pour profiter de l'expérience complète !</p>
 				<Button className="w-full mb-2" variant="secondary" onClick={() => window.location.href = '/premium'}>Découvrir tous les jeux premium</Button>
 				<Button className="w-full" variant="default" onClick={goToFreeGame}>Retour aux jeux gratuits</Button>
 			</div>

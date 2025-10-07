@@ -1,6 +1,7 @@
 import { Game } from "@/data/games";
 import { Button } from "@/components/ui/button";
 import GameStoryQuote from "./GameStoryQuote";
+import BrevoForm from "@/components/BrevoForm";
 
 interface GamePaywallViewProps {
   game: Game;
@@ -25,12 +26,12 @@ const GamePaywallView = ({
     if (isAuthenticated) {
       onRedirectToPayment(user?.email);
     } else {
-      // Le bouton principal "Devenir premium" doit rediriger vers le paiement après connexion
+      // Le bouton principal "Débloquer les 7 jeux pour 4,99€" doit rediriger vers le paiement après connexion
       onNavigateToConnexionForPayment();
     }
   };
 
-  const buttonLabel = isUserPremium && !user ? 'Se connecter pour accéder' : 'Devenir premium';
+  const buttonLabel = isUserPremium && !user ? 'Se connecter pour accéder' : 'Débloquer les 7 jeux pour 4,99€';
 
   return (
     <>
@@ -57,6 +58,11 @@ const GamePaywallView = ({
             </span>
           </div>
         )}
+      </div>
+      
+      {/* Formulaire de newsletter */}
+      <div className="flex justify-center mt-8">
+        <BrevoForm />
       </div>
     </>
   );

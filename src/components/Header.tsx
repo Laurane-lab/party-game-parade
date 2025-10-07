@@ -36,18 +36,12 @@ const Header = () => {
             <div className={`flex items-center justify-between w-full ${isMobile ? 'py-3 px-6' : 'py-2 px-8'}`}>
                 <div className="flex items-center gap-4 cursor-pointer" onClick={() => navigate('/')}>
                     <img src={catMascot} alt="Mascotte Aperololo" className={`object-contain ${isMobile ? 'w-8 h-8' : 'w-10 h-10'}`} />
-                    <span className={`font-bold text-party-purple ${isMobile ? 'text-xl' : 'text-2xl'}`}>Apérololo</span>
+                    <span className={`font-bold text-gray-900 ${isMobile ? 'text-xl' : 'text-2xl'}`}>Apérololo</span>
                 </div>
                 {user ? (
-                    location.pathname === '/game-explanation' ? (
-                        <Button variant="outline" size={isMobile ? "sm" : "lg"} onClick={handleLogout}>
-                            Déconnexion
-                        </Button>
-                    ) : (
-                        <Button variant="outline" size={isMobile ? "sm" : "lg"} onClick={() => navigate('/game-explanation')}>
-                            Voir les jeux
-                        </Button>
-                    )
+                    <Button variant="outline" size={isMobile ? "sm" : "lg"} onClick={handleLogout}>
+                        Déconnexion
+                    </Button>
                 ) : (
                     <Button variant="outline" size={isMobile ? "sm" : "lg"} onClick={() => navigate('/connexion')}>
                         Connexion
