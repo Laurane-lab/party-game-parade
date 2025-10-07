@@ -65,7 +65,7 @@ const BrevoForm = () => {
   return (
     <div className="sib-form" style={{ textAlign: 'center', backgroundColor: 'transparent' }}>
       <div id="sib-form-container" className="sib-form-container">
-        <div id="sib-container" className="sib-container--medium sib-container--vertical" style={{ textAlign: 'center', backgroundColor: 'rgba(255,255,255,1)', maxWidth: '100%', borderRadius: '3px', borderWidth: '1px', borderColor: 'hsl(var(--border))', borderStyle: 'solid', direction: 'ltr' }}>
+        <div id="sib-container" className="sib-container--medium sib-container--vertical" style={{ textAlign: 'center', backgroundColor: 'transparent', maxWidth: '100%', borderRadius: '3px', borderWidth: '1px', borderColor: 'hsl(var(--border))', borderStyle: 'solid', direction: 'ltr' }}>
           <form id="sib-form" method="POST" action="https://361787f9.sibforms.com/serve/MUIFACiBIMpb5KO4CZuuu7KprviwFPd45y_ASI3j-WgQaNLeFeLOxWLvAkHfDovNkhLeXND-K3qLsTKygtqZ_PHYoTokGRNGvYaGY4mcLJVX3jSozdFp3Im8bgLzxQRnMgGChfAvSgj4R_USXXTA74p0MHZXaLEEBL82BmQHe0uvC5V6zcwdwsWS2Bf63t_o23a2WrYH0ROh6MR6" data-type="subscription" onSubmit={handleSubmit}>
             <div style={{ padding: '8px 0' }}>
               <div className="sib-form-block" style={{ fontSize: '32px', textAlign: 'left', fontWeight: 700, fontFamily: 'Helvetica, sans-serif', color: 'hsl(var(--primary))', backgroundColor: 'transparent' }}>

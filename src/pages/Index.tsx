@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import PaywallDialog from "@/components/PaywallDialog";
 import BrevoForm from "@/components/BrevoForm";
+import PremiumHighlight from "@/components/PremiumHighlight";
 import catMascot from "@/assets/New mascot.png";
 import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
 import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
@@ -91,7 +92,8 @@ const Index = () => {
           <p className="text-xl md:text-2xl text-primary font-bold mb-2 leading-relaxed tracking-normal">
             Des jeux pour animer tes soirées et week-end entre amis ou en famille.
           </p>
-          <p className="text-lg md:text-xl text-muted-foreground mb-4 leading-relaxed tracking-normal">
+          <p className="text-lg md:text-xl text-muted-foreground mb-4 leading-relaxed tracking-
+          normal">
             Que tu cherches un jeu rapide pour un apéro ou un concept original pour animer ton week-end, Apérololo a ce qu'il te faut pour passer un moment mémorable, sans prise de tête.
           </p>
           <div className="mb-8">
@@ -99,16 +101,11 @@ const Index = () => {
               <span className="text-party-green font-semibold">{freeGamesCount} jeux gratuits</span> • <span className="text-party-blue font-semibold">{premiumGamesCount} jeux premium</span>
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8 py-3 bg-gradient-to-r from-party-orange to-party-pink hover:from-party-pink hover:to-party-orange">
-              <a href="/game-explanation">Jouer gratuitement</a>
-            </Button>
-          </div>
         </div>
       </section>
 
-      {/* Exemples de jeux */}
-      <section className="py-16 px-4">
+      {/* Section Exemples de jeux */}
+      <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4 text-primary">
             Parfait pour toutes les occasions
@@ -245,8 +242,10 @@ const Index = () => {
         </div>
       </section>
 
+      <PremiumHighlight />
+
       {/* Section formulaire Brevo */}
-      <section className="py-16 px-4 bg-gradient-to-br from-party-pink/10 via-party-blue/10 to-party-orange/10">
+      <section className="py-16 px-4">
         <div className="max-w-3xl mx-auto">
           <div className="mx-auto max-w-md">
             <BrevoForm />
