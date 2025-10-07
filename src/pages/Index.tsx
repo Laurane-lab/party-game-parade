@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import PaywallDialog from "@/components/PaywallDialog";
 import BrevoForm from "@/components/BrevoForm";
 import PremiumHighlight from "@/components/PremiumHighlight";
 import catMascot from "@/assets/New mascot.png";
@@ -17,7 +16,6 @@ const Index = () => {
   const { user, logout } = useAuth();
   const { isPremium } = usePremium();
   const navigate = useNavigate();
-  const [showPaywall, setShowPaywall] = useState(false);
   
   // Calculer automatiquement le nombre de jeux gratuits et payants
   const freeGamesCount = games.filter(game => !game.is_premium).length;
@@ -185,10 +183,10 @@ const Index = () => {
                 cardProps = {
                   role: "button",
                   tabIndex: 0,
-                  onClick: () => setShowPaywall(true),
+                  onClick: () => window.location.href = "/game-explanation?id=dos-a-dos",
                   onKeyPress: (e) => {
                     if (e.key === "Enter" || e.key === " ") {
-                      setShowPaywall(true);
+                      window.location.href = "/game-explanation?id=dos-a-dos";
                     }
                   },
                   className: "rounded-xl border border-gray-200 bg-gray-50 shadow-sm p-6 flex flex-col items-start text-left hover:shadow-lg transition-shadow cursor-pointer outline-none focus:ring-2 focus:ring-party-pink",
@@ -255,7 +253,6 @@ const Index = () => {
         </div>
       </section>
 
-      {showPaywall && <PaywallDialog onClose={() => setShowPaywall(false)} />}
       <Footer />
     </div>
   );
