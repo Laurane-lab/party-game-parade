@@ -109,8 +109,41 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Section Exemples de jeux */}
+      {/* Comment ça marche */}
       <section className="py-20 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-8 text-primary">
+            Comment fonctionne Apérololo ?
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div>
+              <div className="text-4xl mb-4">🎪</div>
+              <h3 className="text-xl font-semibold mb-3 text-foreground">Découvre les jeux</h3>
+              <p className="text-muted-foreground">
+                Entre amis, en famille, en soirée ou en week-end, il y en a pour tous les goûts
+              </p>
+            </div>
+            <div>
+              <div className="text-4xl mb-4">🎉</div>
+              <h3 className="text-xl font-semibold mb-3 text-foreground">Joue gratuitement</h3>
+              <p className="text-muted-foreground">
+                3 jeux offerts sont disponibles immédiatement
+              </p>
+              {/* Bouton retiré */}
+            </div>
+            <div>
+              <div className="text-4xl mb-4">⭐</div>
+              <h3 className="text-xl font-semibold mb-3 text-foreground">Passe au niveau supérieur</h3>
+              <p className="text-muted-foreground">
+                7 jeux supplémentaires à 4,99€ en passant premium
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section Exemples de jeux */}
+      <section className="py-16 px-4 bg-gradient-to-r from-party-blue/10 via-party-green/10 to-party-orange/10">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4 text-primary">
             Parfait pour toutes les occasions
@@ -179,39 +212,6 @@ const Index = () => {
                 </div>
               );
             })}
-          </div>
-        </div>
-      </section>
-
-      {/* Comment ça marche */}
-      <section className="py-16 px-4 bg-gradient-to-r from-party-blue/10 via-party-green/10 to-party-orange/10">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8 text-primary">
-            Comment fonctionne Apérololo ?
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div>
-              <div className="text-4xl mb-4">🎪</div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">Découvre les jeux</h3>
-              <p className="text-muted-foreground">
-                Entre amis, en famille, en soirée ou en week-end, il y en a pour tous les goûts
-              </p>
-            </div>
-            <div>
-              <div className="text-4xl mb-4">🎉</div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">Joue gratuitement</h3>
-              <p className="text-muted-foreground">
-                3 jeux offerts sont disponibles immédiatement
-              </p>
-              {/* Bouton retiré */}
-            </div>
-            <div>
-              <div className="text-4xl mb-4">⭐</div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">Passe au niveau supérieur</h3>
-              <p className="text-muted-foreground">
-                7 jeux supplémentaires à 4,99€ en passant premium
-              </p>
-            </div>
           </div>
         </div>
       </section>
