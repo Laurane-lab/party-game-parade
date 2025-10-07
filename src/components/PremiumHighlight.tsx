@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Crown } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/use-auth";
+import { usePremium } from "@/hooks/use-premium";
 
 const PremiumHighlight = () => {
-  const navigate = useNavigate();
+  const { user } = useAuth();
+  const { isPremium } = usePremium();
 
   return (
     <section className="py-16 px-4 text-center bg-gradient-to-r from-primary/10 via-party-pink/10 to-party-orange/10">
@@ -17,12 +19,8 @@ const PremiumHighlight = () => {
         <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
           Paiement unique pour un accès à vie à 7 jeux premium exclusifs ainsi qu'aux versions améliorées des jeux gratuits. De nouveaux packs de jeux arrivent bientôt !
         </p>
-        <Button
-          size="lg"
-          className="text-lg px-8 py-3 bg-gradient-to-r from-party-pink to-party-orange hover:from-party-orange hover:to-party-pink text-white"
-          onClick={() => navigate("/premium")}
-        >
-          Voir les jeux Premium →
+        <Button asChild size="lg" className="text-lg px-8 py-3 bg-gradient-to-r from-party-pink to-party-orange hover:from-party-orange hover:to-party-pink text-white">
+          <a href={user && isPremium ? "/game-explanation" : "/premium"}>Voir tous les jeux</a>
         </Button>
       </div>
     </section>
