@@ -87,20 +87,20 @@ const Index = () => {
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-primary">
             Apérololo
           </h1>
-          <p className="text-xl md:text-2xl text-primary font-bold mb-2 leading-relaxed tracking-normal">
+          <p className="text-lg sm:text-xl md:text-2xl text-primary font-bold mb-2 leading-relaxed tracking-normal">
             Des jeux pour animer tes soirées et week-end entre amis ou en famille.
           </p>
-          <p className="text-lg md:text-xl text-muted-foreground mb-4 leading-relaxed tracking-
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-4 leading-relaxed tracking-
           normal">
             Que tu cherches un jeu rapide pour un apéro ou un concept original pour animer ton week-end, Apérololo a ce qu'il te faut pour passer un moment mémorable, sans prise de tête.
           </p>
           <div className="mb-8">
-            <p className="text-lg md:text-xl text-muted-foreground">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground">
               <span className="text-party-green font-semibold">{freeGamesCount} jeux gratuits</span> • <span className="text-party-blue font-semibold">{premiumGamesCount} jeux premium</span>
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8 py-3 bg-gradient-to-r from-party-orange to-party-pink hover:from-party-pink hover:to-party-orange">
+                        <Button asChild size="lg" className="text-base sm:text-lg px-8 py-3 bg-gradient-to-r from-party-orange to-party-pink hover:from-party-pink hover:to-party-orange">
               <a href="/game-explanation">Jouer gratuitement</a>
             </Button>
           </div>
@@ -110,20 +110,20 @@ const Index = () => {
       {/* Comment ça marche */}
       <section className="py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8 text-primary">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-primary">
             Comment fonctionne Apérololo ?
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div>
               <div className="text-4xl mb-4">🎪</div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">Découvre les jeux</h3>
+              <h3 className="text-lg sm:text-xl font-semibold mb-3 text-foreground">Découvre les jeux</h3>
               <p className="text-muted-foreground">
                 Entre amis, en famille, en soirée ou en week-end, il y en a pour tous les goûts
               </p>
             </div>
             <div>
               <div className="text-4xl mb-4">🎉</div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">Joue gratuitement</h3>
+              <h3 className="text-lg sm:text-xl font-semibold mb-3 text-foreground">Joue gratuitement</h3>
               <p className="text-muted-foreground">
                 3 jeux offerts sont disponibles immédiatement
               </p>
@@ -131,7 +131,7 @@ const Index = () => {
             </div>
             <div>
               <div className="text-4xl mb-4">⭐</div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">Passe au niveau supérieur</h3>
+              <h3 className="text-lg sm:text-xl font-semibold mb-3 text-foreground">Passe au niveau supérieur</h3>
               <p className="text-muted-foreground">
                 7 jeux supplémentaires à 4,99€ en passant premium
               </p>
@@ -143,7 +143,7 @@ const Index = () => {
       {/* Section Exemples de jeux */}
       <section className="py-16 px-4 bg-gradient-to-r from-party-blue/10 via-party-green/10 to-party-orange/10">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-4 text-primary">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4 text-primary">
             Parfait pour toutes les occasions
           </h2>
           <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
@@ -212,7 +212,7 @@ const Index = () => {
             })}
           </div>
           <div className="text-center mt-8">
-            <Button asChild size="lg" className="text-lg px-12 py-4 bg-gradient-to-r from-party-pink to-party-orange hover:from-party-orange hover:to-party-pink">
+                        <Button asChild size="lg" className="text-base sm:text-lg px-12 py-4 bg-gradient-to-r from-party-pink to-party-orange hover:from-party-orange hover:to-party-pink">
               <a href="/game-explanation">Jouer gratuitement</a>
             </Button>
           </div>
@@ -222,8 +222,8 @@ const Index = () => {
       {/* Section CTA */}
       <section className="py-16 px-4 text-center">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold mb-6 text-primary">
-            Pourquoi choisir nos jeux ?
+          <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-primary leading-tight">
+            Pourquoi choisir nos jeux&nbsp;?
           </h2>
           <div className="text-left text-muted-foreground mb-12 max-w-2xl mx-auto flex flex-col gap-4">
             <div className="flex items-start gap-3">
