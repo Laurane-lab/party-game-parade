@@ -213,6 +213,11 @@ const Index = () => {
               );
             })}
           </div>
+          <div className="text-center mt-8">
+            <Button asChild size="lg" className="text-lg px-12 py-4 bg-gradient-to-r from-party-pink to-party-orange hover:from-party-orange hover:to-party-pink">
+              <a href="/game-explanation">Jouer gratuitement</a>
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -236,9 +241,6 @@ const Index = () => {
               <span><span className="font-bold text-party-green">Testés et approuvés :</span> nous avons testé chaque jeu pour nous assurer qu'il fonctionne et qu'il apporte de l'ambiance.</span>
             </div>
           </div>
-          <Button asChild size="lg" className="text-lg px-12 py-4 bg-gradient-to-r from-party-pink to-party-orange hover:from-party-orange hover:to-party-pink">
-            <a href="/game-explanation">Jouer gratuitement</a>
-          </Button>
         </div>
       </section>
 
