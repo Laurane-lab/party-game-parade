@@ -101,6 +101,11 @@ const Index = () => {
               <span className="text-party-green font-semibold">{freeGamesCount} jeux gratuits</span> • <span className="text-party-blue font-semibold">{premiumGamesCount} jeux premium</span>
             </p>
           </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg" className="text-lg px-8 py-3 bg-gradient-to-r from-party-orange to-party-pink hover:from-party-pink hover:to-party-orange">
+              <a href="/game-explanation">Jouer gratuitement</a>
+            </Button>
+          </div>
         </div>
       </section>
 
