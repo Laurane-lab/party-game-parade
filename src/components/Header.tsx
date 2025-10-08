@@ -1,9 +1,9 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import catMascot from "@/assets/New mascot.png";
-import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
+import ProfileButton from "@/components/ProfileButton";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -40,15 +40,10 @@ const Header = () => {
                         Apérololo
                     </span>
                 </div>
-                {user ? (
-                    <Button variant="outline" size={isMobile ? "sm" : "lg"} onClick={handleLogout}>
-                        Déconnexion
-                    </Button>
-                ) : (
-                    <Button variant="outline" size={isMobile ? "sm" : "lg"} onClick={() => navigate('/connexion')}>
-                        Connexion
-                    </Button>
-                )}
+                <ProfileButton 
+                    size={isMobile ? "sm" : "lg"} 
+                    onLogout={handleLogout}
+                />
             </div>
         </header>
     );
