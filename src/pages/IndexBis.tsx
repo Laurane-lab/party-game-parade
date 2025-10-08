@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import BrevoForm from "@/components/BrevoForm";
 import PremiumHighlight from "@/components/PremiumHighlight";
+import Confetti from 'react-confetti';
 import catMascot from "@/assets/New mascot.png";
 import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
 import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
@@ -17,6 +18,9 @@ const IndexBis = () => {
   const { user, logout } = useAuth();
   const { isPremium } = usePremium();
   const navigate = useNavigate();
+  const [windowDimension, setWindowDimension] = useState({ width: 0, height: 0 });
+  const [showConfetti, setShowConfetti] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   
   // Calculer automatiquement le nombre de jeux gratuits et payants
   const freeGamesCount = games.filter(game => !game.is_premium).length;
@@ -36,7 +40,48 @@ const IndexBis = () => {
     document.body.style.left = '';
     document.body.style.right = '';
     document.body.style.bottom = '';
-  }, []);
+
+    // Gérer les dimensions pour les confettis
+    const detectSize = () => {
+      setWindowDimension({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+    
+    detectSize();
+    window.addEventListener('resize', detectSize);
+    
+    // Gestionnaire de scroll pour réactiver les confettis
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Si on scroll vers le haut (et qu'on était descendu d'au moins 100px)
+      if (currentScrollY < lastScrollY && currentScrollY < lastScrollY - 50) {
+        setShowConfetti(true);
+        
+        // Arrêter les confettis après 10 secondes
+        setTimeout(() => {
+          setShowConfetti(false);
+        }, 10000);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    
+    // Arrêter les confettis après 10 secondes au chargement initial
+    const timer = setTimeout(() => {
+      setShowConfetti(false);
+    }, 10000);
+
+    return () => {
+      window.removeEventListener('resize', detectSize);
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timer);
+    };
+  }, [lastScrollY]);
 
   const gameExamples = [
     {
@@ -64,6 +109,19 @@ const IndexBis = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      {/* Confettis */}
+      {showConfetti && (
+        <Confetti
+          width={windowDimension.width}
+          height={windowDimension.height}
+          numberOfPieces={100}
+          recycle={false}
+          colors={['#FF6B9D', '#FF8A3D', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7']}
+          gravity={0.1}
+          initialVelocityY={20}
+        />
+      )}
+      
       <Header />
       
       {/* Section Héros avec animations */}
@@ -94,11 +152,6 @@ const IndexBis = () => {
           <div className="absolute bottom-5 right-5 md:bottom-10 md:right-10 w-20 h-20 md:w-32 md:h-32 animate-bounce" style={{ animationDelay: '1.5s', animationDuration: '2s' }}>
             <img src={catMascot} alt="Mascotte" className="w-full h-full object-contain" />
           </div>
-          
-          {/* Formes géométriques animées */}
-          <div className="absolute top-1/4 left-[5%] w-8 h-8 md:w-12 md:h-12 bg-party-pink/30 rounded-full animate-ping" style={{ animationDelay: '3s' }}></div>
-          <div className="absolute top-1/3 right-[8%] w-6 h-6 md:w-10 md:h-10 bg-party-blue/30 rounded-full animate-ping" style={{ animationDelay: '4s' }}></div>
-          <div className="absolute bottom-1/3 left-[8%] w-4 h-4 md:w-8 md:h-8 bg-party-orange/30 rounded-full animate-ping" style={{ animationDelay: '2.5s' }}></div>
         </div>
         
         <div className="max-w-4xl mx-auto pt-8 relative z-10">
