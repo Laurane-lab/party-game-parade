@@ -13,7 +13,7 @@ import { usePremium } from "@/hooks/use-premium";
 import { useNavigate } from "react-router-dom";
 import { games } from "@/data/games";
 
-const Index = () => {
+const IndexBis = () => {
   const { user, logout } = useAuth();
   const { isPremium } = usePremium();
   const navigate = useNavigate();
@@ -65,16 +65,42 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
-      {/* Section Héros */}
-      <section 
-        className="relative py-16 px-4 text-center bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('/src/assets/pexels-thks-helenalopes.jpg')`
-        }}
-      >
-        {/* Overlay pour améliorer la lisibilité du texte */}
-        <div className="absolute inset-0 bg-white/80"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-party-pink/20 via-party-orange/20 to-party-blue/25"></div>
+      
+      {/* Section Héros avec animations */}
+      <section className="relative py-16 px-4 text-center overflow-hidden">
+        {/* Fond animé avec gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-party-pink/20 via-party-orange/15 to-party-blue/25 animate-pulse"></div>
+        
+        {/* Éléments flottants animés */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Images de jeux flottantes */}
+          <div className="absolute top-10 left-[10%] w-16 h-16 md:w-20 md:h-20 bg-white rounded-full shadow-lg flex items-center justify-center animate-bounce" style={{ animationDelay: '0s', animationDuration: '3s' }}>
+            <img src={cauldronIcon} alt="Jeu" className="w-8 h-8 md:w-10 md:h-10" />
+          </div>
+          
+          <div className="absolute top-32 right-[15%] w-14 h-14 md:w-18 md:h-18 bg-white rounded-lg shadow-lg flex items-center justify-center animate-bounce" style={{ animationDelay: '1s', animationDuration: '2.5s' }}>
+            <img src={hatIcon} alt="Jeu" className="w-7 h-7 md:w-9 md:h-9" />
+          </div>
+          
+          <div className="absolute bottom-20 left-[20%] w-12 h-12 md:w-16 md:h-16 bg-white rounded-full shadow-lg flex items-center justify-center animate-bounce" style={{ animationDelay: '2s', animationDuration: '2.8s' }}>
+            <img src={cloakIcon} alt="Jeu" className="w-6 h-6 md:w-8 md:h-8" />
+          </div>
+          
+          <div className="absolute bottom-32 right-[10%] w-18 h-18 md:w-22 md:h-22 bg-white rounded-lg shadow-lg flex items-center justify-center animate-bounce" style={{ animationDelay: '0.5s', animationDuration: '3.2s' }}>
+            <span className="text-lg md:text-xl">🎉</span>
+          </div>
+          
+          {/* Mascotte */}
+          <div className="absolute bottom-5 right-5 md:bottom-10 md:right-10 w-20 h-20 md:w-32 md:h-32 animate-bounce" style={{ animationDelay: '1.5s', animationDuration: '2s' }}>
+            <img src={catMascot} alt="Mascotte" className="w-full h-full object-contain" />
+          </div>
+          
+          {/* Formes géométriques animées */}
+          <div className="absolute top-1/4 left-[5%] w-8 h-8 md:w-12 md:h-12 bg-party-pink/30 rounded-full animate-ping" style={{ animationDelay: '3s' }}></div>
+          <div className="absolute top-1/3 right-[8%] w-6 h-6 md:w-10 md:h-10 bg-party-blue/30 rounded-full animate-ping" style={{ animationDelay: '4s' }}></div>
+          <div className="absolute bottom-1/3 left-[8%] w-4 h-4 md:w-8 md:h-8 bg-party-orange/30 rounded-full animate-ping" style={{ animationDelay: '2.5s' }}></div>
+        </div>
+        
         <div className="max-w-4xl mx-auto pt-8 relative z-10">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800" style={{ lineHeight: '1.2', textShadow: '1px 1px 2px rgba(255,255,255,0.8), 0px 0px 4px rgba(255,255,255,0.5)' }}>
             Des jeux pour animer tes soirées et week-end entre amis ou en famille
@@ -88,16 +114,10 @@ const Index = () => {
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Button asChild size="lg" className="text-base sm:text-lg px-8 py-3 bg-gradient-to-r from-party-orange to-party-pink hover:from-party-pink hover:to-party-orange">
+            <Button asChild size="lg" className="text-base sm:text-lg px-8 py-3 bg-gradient-to-r from-party-orange to-party-pink hover:from-party-pink hover:to-party-orange">
               <a href="/game-explanation">Jouer gratuitement</a>
             </Button>
           </div>
-        </div>
-        {/* Crédits photographe */}
-        <div className="absolute bottom-2 right-4 z-10">
-          <p className="text-xs text-white/70 hover:text-white/90 transition-colors">
-            Photo par Helena Lopes
-          </p>
         </div>
       </section>
 
@@ -121,7 +141,6 @@ const Index = () => {
               <p className="text-muted-foreground">
                 3 jeux sont offerts et disponibles immédiatement sans inscription nécessaire
               </p>
-              {/* Bouton retiré */}
             </div>
             <div>
               <div className="text-4xl mb-4">⭐</div>
@@ -141,7 +160,7 @@ const Index = () => {
             Le bon jeu pour chaque moment
           </h2>
           <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Nos jeux sont faits pour animer facilement n’importe quelle occasion — apéro, EVG, EVJF, week-end ou dîner. Ils sont faciles à lancer, demandent peu (voir pas) de préparation et ont été pensés pour créer du lien. Fini les silences gênants et les recherches interminables d’idées !
+            Nos jeux sont faits pour animer facilement n'importe quelle occasion — apéro, EVG, EVJF, week-end ou dîner. Ils sont faciles à lancer, demandent peu (voir pas) de préparation et ont été pensés pour créer du lien. Fini les silences gênants et les recherches interminables d'idées !
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-8">
             {gameExamples.map((game) => {
@@ -155,7 +174,7 @@ const Index = () => {
                   tabIndex: 0,
                   onClick: () => window.location.href = "/game-explanation?id=le-mur-du-son",
                   onKeyPress: (e) => {
-                    if (e.key === "Enter" || e.key === " ") {
+                    if (e.key === 'Enter' || e.key === ' ') {
                       window.location.href = "/game-explanation?id=le-mur-du-son";
                     }
                   },
@@ -167,7 +186,7 @@ const Index = () => {
                   tabIndex: 0,
                   onClick: () => window.location.href = "/game-explanation?id=jusqua-10",
                   onKeyPress: (e) => {
-                    if (e.key === "Enter" || e.key === " ") {
+                    if (e.key === 'Enter' || e.key === ' ') {
                       window.location.href = "/game-explanation?id=jusqua-10";
                     }
                   },
@@ -179,7 +198,7 @@ const Index = () => {
                   tabIndex: 0,
                   onClick: () => window.location.href = "/game-explanation?id=dos-a-dos",
                   onKeyPress: (e) => {
-                    if (e.key === "Enter" || e.key === " ") {
+                    if (e.key === 'Enter' || e.key === ' ') {
                       window.location.href = "/game-explanation?id=dos-a-dos";
                     }
                   },
@@ -192,21 +211,20 @@ const Index = () => {
               }
               return (
                 <div key={game.name} {...cardProps} style={{ minHeight: '180px' }}>
-                  <div className="flex items-center w-full mb-2 gap-2">
-                    <img src={game.icon} alt={game.name + ' icon'} className="w-7 h-7 object-contain" style={{ marginRight: '6px' }} />
-                    <h2 className="text-lg font-semibold text-gray-900 m-0 whitespace-nowrap overflow-hidden text-ellipsis" style={{ maxWidth: '140px' }}>{game.name}</h2>
+                  <div className="flex items-center gap-3 mb-3">
+                    <img src={game.icon} alt={`${game.name} icon`} className="w-8 h-8" />
+                    <h3 className="text-lg font-bold text-foreground">{game.name}</h3>
                   </div>
-                  <div className="flex flex-row gap-2 text-xs mb-2 w-full">
-                    <span className="px-2 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">{game.modeDeJeu}</span>
-                    <span className="px-2 py-1 rounded bg-party-blue/20 text-party-blue font-semibold">{game.players} joueurs</span>
+                  <div className="text-sm text-muted-foreground mb-2">
+                    <span className="font-medium">{game.modeDeJeu}</span> • <span>{game.players} joueurs</span>
                   </div>
-                  <div className="text-sm text-muted-foreground mb-0 w-full">{game.shortDescription}</div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{game.shortDescription}</p>
                 </div>
               );
             })}
           </div>
           <div className="text-center mt-8">
-                        <Button asChild size="lg" className="text-base sm:text-lg px-12 py-4 bg-gradient-to-r from-party-pink to-party-orange hover:from-party-orange hover:to-party-pink">
+            <Button asChild size="lg" className="text-base sm:text-lg px-12 py-4 bg-gradient-to-r from-party-pink to-party-orange hover:from-party-orange hover:to-party-pink">
               <a href="/game-explanation">Jouer gratuitement</a>
             </Button>
           </div>
@@ -226,11 +244,11 @@ const Index = () => {
             </div>
             <div className="flex items-start gap-3">
               <span className="mt-1"><svg width="20" height="20" fill="none" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#2ecc40" /><path d="M7.5 10.5l2 2 3-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
-              <span><span className="font-bold text-party-green">Pour toutes les occasions :</span> nos jeux sont conçus pour briser la glace, créer des souvenirs ou simplement passer un bon moment, peu importe le contexte.</span>
+              <span><span className="font-bold text-party-green">Universel :</span> nos jeux sont conçus pour briser la glace, créer des souvenirs ou simplement passer un bon moment, peu importe le contexte.</span>
             </div>
             <div className="flex items-start gap-3">
               <span className="mt-1"><svg width="20" height="20" fill="none" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#2ecc40" /><path d="M7.5 10.5l2 2 3-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
-              <span><span className="font-bold text-party-green">Testés et approuvés :</span> nous avons testé chaque jeu pour nous assurer qu'il fonctionne et qu'il apporte de l'ambiance.</span>
+              <span><span className="font-bold text-party-green">Testé et approuvé :</span> nous avons testé chaque jeu pour nous assurer qu'il fonctionne et qu'il apporte de l'ambiance.</span>
             </div>
           </div>
         </div>
@@ -252,4 +270,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default IndexBis;
