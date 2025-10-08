@@ -136,19 +136,19 @@ const IndexBis = () => {
         {/* Éléments flottants animés */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Images de jeux flottantes */}
-          <div className="absolute top-10 left-[10%] w-16 h-16 md:w-20 md:h-20 animate-spin" style={{ animationDelay: '0s', animationDuration: '3s' }}>
+          <div className="absolute top-10 left-[10%] w-16 h-16 md:w-20 md:h-20 animate-pulse" style={{ animationDelay: '0s', animationDuration: '5s' }}>
             <img src={balloonsIcon} alt="Jeu" className="w-full h-full object-contain" />
           </div>
           
-          <div className="absolute top-32 right-[15%] w-14 h-14 md:w-18 md:h-18 animate-ping" style={{ animationDelay: '1s', animationDuration: '2.5s' }}>
+          <div className="absolute top-20 right-[5%] w-14 h-14 md:w-18 md:h-18 animate-pulse" style={{ animationDelay: '1s', animationDuration: '5s' }}>
             <img src={cardIcon} alt="Jeu" className="w-full h-full object-contain" />
           </div>
           
-          <div className="absolute bottom-20 left-[20%] w-12 h-12 md:w-16 md:h-16 animate-pulse" style={{ animationDelay: '2s', animationDuration: '2.8s' }}>
+          <div className="absolute bottom-20 left-[20%] w-12 h-12 md:w-16 md:h-16 animate-pulse" style={{ animationDelay: '2s', animationDuration: '5s' }}>
             <img src={cheersIcon} alt="Jeu" className="w-full h-full object-contain" />
           </div>
           
-          <div className="absolute bottom-10 right-[10%] w-12 h-12 md:w-16 md:h-16 animate-bounce" style={{ animationDelay: '2s', animationDuration: '2.8s' }}>
+          <div className="absolute bottom-6 right-[25%] w-12 h-12 md:w-16 md:h-16 animate-pulse" style={{ animationDelay: '3s', animationDuration: '5s' }}>
             <img src={microphoneIcon} alt="Jeu" className="w-full h-full object-contain" />
           </div>
         </div>
