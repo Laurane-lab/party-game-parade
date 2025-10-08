@@ -30,7 +30,7 @@ export type Game = {
 export const games: Game[] = [
   {
     id: 'le-mur-du-son',
-    coverImage: '/src/assets/aperololo-murduson.png',
+    coverImage: '/src/assets/covers/aperololo-murduson.png',
     icon: '/src/assets/icon/smoke-thks-icongeek26.png',
     titre: 'Le mur du son',
     joueurs: '3-10',
@@ -60,7 +60,7 @@ export const games: Game[] = [
   },
   {
     id: 'jusqua-10',
-    coverImage: '/src/assets/jusqua10 v3.png',
+    coverImage: '/src/assets/covers/jusqua10 v3.png',
     icon: '/src/assets/icon/scroll-thks-icongeek26.png',
     titre: "Jusqu'à 10",
     joueurs: '3-5',
@@ -89,7 +89,7 @@ export const games: Game[] = [
   },
   {
     id: 'suite-de-stars',
-    coverImage: '/src/assets/suite de star v3.png',
+    coverImage: '/src/assets/covers/suite de star v3.png',
     icon: '/src/assets/icon/wand-thks-icongeek26.png',
     titre: 'Suite de stars',
     joueurs: '3-12',
@@ -113,7 +113,7 @@ export const games: Game[] = [
   },
   {
     id: 'dos-a-dos',
-    coverImage: '/src/assets/aperololo-dosados.jpg',
+    coverImage: '/src/assets/covers/aperololo-dosados.jpg',
     icon: '/src/assets/icon/cloak-thks-icongeek26.png',
     titre: 'Dos à dos',
     joueurs: '4-10',
@@ -146,7 +146,7 @@ export const games: Game[] = [
   },
   {
     id: 'mission-secrete',
-    coverImage: '/src/assets/aperololo-missionsecrete.jpg',
+    coverImage: '/src/assets/covers/aperololo-missionsecrete.jpg',
     icon: '/src/assets/icon/cauldron-thks-icongeek26.png',
     titre: 'Mission secrète',
     joueurs: '6-20',
@@ -172,7 +172,7 @@ export const games: Game[] = [
   },
   {
     id: 'sans-rire',
-    coverImage: '/src/assets/aperololo-faireriresansrire.png',
+    coverImage: '/src/assets/covers/aperololo-faireriresansrire.png',
     icon: '/src/assets/icon/crystals-thks-icongeek26.png',
     titre: 'Sans rire',
     joueurs: '4-8',
@@ -228,7 +228,7 @@ export const games: Game[] = [
   },
   {
     id: 'pas-dans-le-rythme',
-    coverImage: '/src/assets/aperololo-pasdanslerythme.jpg',
+    coverImage: '/src/assets/covers/aperololo-pasdanslerythme.jpg',
     icon: '/src/assets/icon/mortar-thks-icongeek26.png',
     titre: 'Pas dans le rythme',
     joueurs: '4-15',
@@ -255,7 +255,7 @@ export const games: Game[] = [
   },
   {
     id: 'les-encheres',
-    coverImage: '/src/assets/aperololo-lesencheres.jpg',
+    coverImage: '/src/assets/covers/aperololo-lesencheres.jpg',
     icon: '/src/assets/icon/hat-thks-icongeek26.png',
     titre: 'Les enchères',
     joueurs: '3-10',
@@ -290,7 +290,7 @@ export const games: Game[] = [
   },
   {
     id: 'dessine-a-la-chaine',
-    coverImage: '/src/assets/dessine a la chaine.png',
+    coverImage: '/src/assets/covers/dessine a la chaine.png',
     icon: '/src/assets/icon/quill-thks-icongeek26.png',
     titre: "Dessine à la chaîne",
     joueurs: '4-10',
@@ -324,7 +324,7 @@ export const games: Game[] = [
   },
   {
     id: 'mot-commun',
-    coverImage: '/src/assets/motcommun.png',
+    coverImage: '/src/assets/covers/motcommun.png',
     icon: '/src/assets/icon/home-thks-icongeek26.png',
     titre: 'Le mot commun',
     joueurs: '3-10',

@@ -6,6 +6,10 @@ import BrevoForm from "@/components/BrevoForm";
 import PremiumHighlight from "@/components/PremiumHighlight";
 import Confetti from 'react-confetti';
 import catMascot from "@/assets/New mascot.png";
+import balloonsIcon from "@/assets/icon/balloons.png";
+import cardIcon from "@/assets/icon/card.png";
+import cheersIcon from "@/assets/icon/cheers.png";
+import microphoneIcon from "@/assets/icon/microphone.png";
 import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
 import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
 import hatIcon from "@/assets/icon/hat-thks-icongeek26.png";
@@ -132,25 +136,20 @@ const IndexBis = () => {
         {/* Éléments flottants animés */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Images de jeux flottantes */}
-          <div className="absolute top-10 left-[10%] w-16 h-16 md:w-20 md:h-20 bg-white rounded-full shadow-lg flex items-center justify-center animate-bounce" style={{ animationDelay: '0s', animationDuration: '3s' }}>
-            <img src={cauldronIcon} alt="Jeu" className="w-8 h-8 md:w-10 md:h-10" />
+          <div className="absolute top-10 left-[10%] w-16 h-16 md:w-20 md:h-20 animate-spin" style={{ animationDelay: '0s', animationDuration: '3s' }}>
+            <img src={balloonsIcon} alt="Jeu" className="w-full h-full object-contain" />
           </div>
           
-          <div className="absolute top-32 right-[15%] w-14 h-14 md:w-18 md:h-18 bg-white rounded-lg shadow-lg flex items-center justify-center animate-bounce" style={{ animationDelay: '1s', animationDuration: '2.5s' }}>
-            <img src={hatIcon} alt="Jeu" className="w-7 h-7 md:w-9 md:h-9" />
+          <div className="absolute top-32 right-[15%] w-14 h-14 md:w-18 md:h-18 animate-ping" style={{ animationDelay: '1s', animationDuration: '2.5s' }}>
+            <img src={cardIcon} alt="Jeu" className="w-full h-full object-contain" />
           </div>
           
-          <div className="absolute bottom-20 left-[20%] w-12 h-12 md:w-16 md:h-16 bg-white rounded-full shadow-lg flex items-center justify-center animate-bounce" style={{ animationDelay: '2s', animationDuration: '2.8s' }}>
-            <img src={cloakIcon} alt="Jeu" className="w-6 h-6 md:w-8 md:h-8" />
+          <div className="absolute bottom-20 left-[20%] w-12 h-12 md:w-16 md:h-16 animate-pulse" style={{ animationDelay: '2s', animationDuration: '2.8s' }}>
+            <img src={cheersIcon} alt="Jeu" className="w-full h-full object-contain" />
           </div>
           
-          <div className="absolute bottom-32 right-[10%] w-18 h-18 md:w-22 md:h-22 bg-white rounded-lg shadow-lg flex items-center justify-center animate-bounce" style={{ animationDelay: '0.5s', animationDuration: '3.2s' }}>
-            <span className="text-lg md:text-xl">🎉</span>
-          </div>
-          
-          {/* Mascotte */}
-          <div className="absolute bottom-5 right-5 md:bottom-10 md:right-10 w-20 h-20 md:w-32 md:h-32 animate-bounce" style={{ animationDelay: '1.5s', animationDuration: '2s' }}>
-            <img src={catMascot} alt="Mascotte" className="w-full h-full object-contain" />
+          <div className="absolute bottom-10 right-[10%] w-12 h-12 md:w-16 md:h-16 animate-bounce" style={{ animationDelay: '2s', animationDuration: '2.8s' }}>
+            <img src={microphoneIcon} alt="Jeu" className="w-full h-full object-contain" />
           </div>
         </div>
         
