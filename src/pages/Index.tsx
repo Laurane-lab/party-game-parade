@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import BrevoForm from "@/components/BrevoForm";
 import PremiumHighlight from "@/components/PremiumHighlight";
@@ -63,40 +64,20 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <Header />
       {/* Section Héros */}
-      <section className="relative py-20 px-4 text-center bg-gradient-to-br from-party-pink/20 via-party-orange/10 to-party-blue/20">
-        <div className="absolute top-4 right-4">
-          {user ? (
-            <Button variant="outline" size="lg" onClick={handleLogout}>
-              Déconnexion
-            </Button>
-          ) : (
-            <Button asChild variant="outline" size="lg">
-              <a href="/connexion">Connexion</a>
-            </Button>
-          )}
-        </div>
-        <div className="max-w-4xl mx-auto">
-          <div className="flex justify-center mb-6">
-            <img
-              src={catMascot}
-              alt="Mascotte Aperololo - chat noir mignon avec chapeau de fête"
-              className="w-24 h-24 object-contain"
-            />
-          </div>
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-primary">
-            Apérololo
-          </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-primary font-bold mb-2 leading-relaxed tracking-normal">
+      <section className="relative py-16 px-4 text-center bg-gradient-to-br from-party-pink/20 via-party-orange/10 to-party-blue/20">
+        <div className="max-w-4xl mx-auto pt-8">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-party-orange to-party-pink bg-clip-text text-transparent leading-tight">
             Des jeux pour animer tes soirées et week-end entre amis ou en famille.
-          </p>
+          </h1>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-4 leading-relaxed tracking-
           normal">
-            Que tu cherches un jeu rapide pour un apéro ou un concept original pour animer ton week-end, Apérololo a ce qu'il te faut pour passer un moment mémorable, sans prise de tête.
+            Tu cherches un jeu rapide pour ton apéro ou un concept original pour animer ton week-end ? Découvres nos jeux clés en main : simples, rapides à mettre en place et pensés pour faire vivre des moments fun sans préparation.
           </p>
           <div className="mb-8">
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground">
-              <span className="text-party-green font-semibold">{freeGamesCount} jeux gratuits</span> • <span className="text-party-blue font-semibold">{premiumGamesCount} jeux premium</span>
+              <span className="text-party-green font-semibold">{freeGamesCount} jeux gratuits</span> • <span className="text-party-blue font-semibold">{premiumGamesCount} jeux premium <span className="text-sm">(4,99€)</span></span>
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -118,14 +99,14 @@ const Index = () => {
               <div className="text-4xl mb-4">🎪</div>
               <h3 className="text-lg sm:text-xl font-semibold mb-3 text-foreground">Découvre les jeux</h3>
               <p className="text-muted-foreground">
-                Entre amis, en famille, en soirée ou en week-end, il y en a pour tous les goûts
+                Jeux musicaux, défis, énigmes ou culture G — trouve celui qui colle à ton groupe et au moment
               </p>
             </div>
             <div>
               <div className="text-4xl mb-4">🎉</div>
               <h3 className="text-lg sm:text-xl font-semibold mb-3 text-foreground">Joue gratuitement</h3>
               <p className="text-muted-foreground">
-                3 jeux offerts sont disponibles immédiatement
+                3 jeux sont offerts et disponibles immédiatement sans inscription nécessaire
               </p>
               {/* Bouton retiré */}
             </div>
@@ -133,7 +114,7 @@ const Index = () => {
               <div className="text-4xl mb-4">⭐</div>
               <h3 className="text-lg sm:text-xl font-semibold mb-3 text-foreground">Passe au niveau supérieur</h3>
               <p className="text-muted-foreground">
-                7 jeux supplémentaires à 4,99€ en passant premium
+                7 jeux supplémentaires + du contenu bonus pour les jeux gratuits à 4,99€ en devenant premium
               </p>
             </div>
           </div>
@@ -144,10 +125,10 @@ const Index = () => {
       <section className="py-16 px-4 bg-gradient-to-r from-party-blue/10 via-party-green/10 to-party-orange/10">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4 text-primary">
-            Parfait pour toutes les occasions
+            Le bon jeu pour chaque moment
           </h2>
           <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Fini les silences ou les moments ennuyeux. Accède instantanément à des jeux clés en main pour apéro, anniversaires, dîners, EVJF/EVG etc.
+            Nos jeux sont faits pour animer facilement n’importe quelle occasion — apéro, EVG, EVJF, week-end ou dîner. Ils sont faciles à lancer, demandent peu (voir pas) de préparation et ont été pensés pour créer du lien. Fini les silences gênants et les recherches interminables d’idées !
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-8">
             {gameExamples.map((game) => {

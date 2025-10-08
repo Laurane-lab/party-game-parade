@@ -14,13 +14,13 @@ const PremiumHighlight = () => {
           <Crown className="w-12 h-12 text-secondary" />
         </div>
         <h2 className="text-4xl md:text-5xl font-bold mb-4 text-primary">
-          Débloquez les jeux Premium
+          Débloques les jeux Premium
         </h2>
         <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-          Paiement unique pour un accès à vie à 7 jeux premium exclusifs ainsi qu'aux versions améliorées des jeux gratuits. De nouveaux packs de jeux arrivent bientôt !
+          <span className="font-semibold text-party-green">Paiement unique de 4,99€</span> pour un accès à vie au starter pack de <span className="font-semibold text-party-green">7 jeux premium</span> exclusifs ainsi qu'au <span className="font-semibold text-party-green">contenu bonus des jeux gratuits</span>. De nouveaux packs de jeux viendront enrichir le catalogue au fil du temps !
         </p>
         <Button asChild size="lg" className="text-lg px-8 py-3 bg-gradient-to-r from-party-pink to-party-orange hover:from-party-orange hover:to-party-pink text-white">
-          <a href={user && isPremium ? "/game-explanation" : "/premium"}>Voir tous les jeux</a>
+          <a href={user && isPremium ? "/game-explanation" : "/premium"}>Voir les jeux premium</a>
         </Button>
       </div>
     </section>
