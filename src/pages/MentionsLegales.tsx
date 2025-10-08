@@ -1,5 +1,5 @@
 
-import mascot from "@/assets/New mascot.png";
+const mascot = "/assets/New mascot.png";
 
 const MentionsLegales: React.FC = () => (
   <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10 px-2">

@@ -1,9 +1,10 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import catMascot from "@/assets/New mascot.png";
 import { useAuth } from "@/hooks/use-auth";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import ProfileButton from "@/components/ProfileButton";
+
+const catMascot = "/assets/New mascot.png";
 
 const Header = () => {
     const navigate = useNavigate();

@@ -5,18 +5,20 @@ import { Button } from "@/components/ui/button";
 import BrevoForm from "@/components/BrevoForm";
 import PremiumHighlight from "@/components/PremiumHighlight";
 import Confetti from 'react-confetti';
-import catMascot from "@/assets/New mascot.png";
-import balloonsIcon from "@/assets/icon/balloons.png";
-import cardIcon from "@/assets/icon/card.png";
-import cheersIcon from "@/assets/icon/cheers.png";
-import microphoneIcon from "@/assets/icon/microphone.png";
-import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
-import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
-import hatIcon from "@/assets/icon/hat-thks-icongeek26.png";
 import { useAuth } from "@/hooks/use-auth";
 import { usePremium } from "@/hooks/use-premium";
 import { useNavigate } from "react-router-dom";
 import { games } from "@/data/games";
+
+// Assets constants
+const catMascot = "/assets/New mascot.png";
+const balloonsIcon = "/assets/icon/balloons.png";
+const cardIcon = "/assets/icon/card.png";
+const cheersIcon = "/assets/icon/cheers.png";
+const microphoneIcon = "/assets/icon/microphone.png";
+const cauldronIcon = "/assets/icon/cauldron-thks-icongeek26.png";
+const cloakIcon = "/assets/icon/cloak-thks-icongeek26.png";
+const hatIcon = "/assets/icon/hat-thks-icongeek26.png";
 
 const IndexBis = () => {
   const { user, logout } = useAuth();
@@ -118,11 +120,11 @@ const IndexBis = () => {
         <Confetti
           width={windowDimension.width}
           height={windowDimension.height}
-          numberOfPieces={100}
+          numberOfPieces={200}
           recycle={false}
           colors={['#FF6B9D', '#FF8A3D', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7']}
           gravity={0.1}
-          initialVelocityY={20}
+          initialVelocityY={10}
         />
       )}
       

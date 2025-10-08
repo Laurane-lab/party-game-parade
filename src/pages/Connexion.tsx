@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Footer from "@/components/Footer";
 import { useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
-import mascot from "@/assets/New mascot.png";
+const mascot = "/assets/New mascot.png";
 import { redirectToPayment } from "@/lib/payment";
 import { getOAuthRedirectUrl, getEnvironmentType } from "@/lib/config";
 import { getProfile } from "@/lib/profile";

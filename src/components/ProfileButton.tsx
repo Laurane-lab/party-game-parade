@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { usePremium } from "@/hooks/use-premium";
-import defaultAvatar from "@/assets/aperololo-pp.png";
+
+const defaultAvatar = "/assets/aperololo-pp.png";
 
 interface ProfileButtonProps {
   size?: "sm" | "lg";

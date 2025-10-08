@@ -8,18 +8,19 @@ import { useAuth } from "@/hooks/use-auth";
 import { useIsMobile } from "@/hooks/use-mobile";
 import GameCard from "@/components/game/GameCard";
 import { games } from "@/data/games";
-
-import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
-import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
-import crystalsIcon from "@/assets/icon/crystals-thks-icongeek26.png";
-import hatIcon from "@/assets/icon/hat-thks-icongeek26.png";
-import homeIcon from "@/assets/icon/home-thks-icongeek26.png";
-import mortarIcon from "@/assets/icon/mortar-thks-icongeek26.png";
-import quillIcon from "@/assets/icon/quill-thks-icongeek26.png";
-import scrollIcon from "@/assets/icon/scroll-thks-icongeek26.png";
-import smokeIcon from "@/assets/icon/smoke-thks-icongeek26.png";
-import wandIcon from "@/assets/icon/wand-thks-icongeek26.png";
 import { redirectToPayment } from "@/lib/payment";
+
+// Assets constants
+const cauldronIcon = "/assets/icon/cauldron-thks-icongeek26.png";
+const cloakIcon = "/assets/icon/cloak-thks-icongeek26.png";
+const crystalsIcon = "/assets/icon/crystals-thks-icongeek26.png";
+const hatIcon = "/assets/icon/hat-thks-icongeek26.png";
+const homeIcon = "/assets/icon/home-thks-icongeek26.png";
+const mortarIcon = "/assets/icon/mortar-thks-icongeek26.png";
+const quillIcon = "/assets/icon/quill-thks-icongeek26.png";
+const scrollIcon = "/assets/icon/scroll-thks-icongeek26.png";
+const smokeIcon = "/assets/icon/smoke-thks-icongeek26.png";
+const wandIcon = "/assets/icon/wand-thks-icongeek26.png";
 
 interface GameInfo {
   name: string;

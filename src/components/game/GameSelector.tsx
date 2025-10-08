@@ -3,9 +3,10 @@ import { Game } from "@/data/games";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer";
 import { Menu, User as UserIcon, LogOut, LogIn } from "lucide-react";
-import catMascot from "@/assets/New mascot.png";
 import { gameIconMapping } from "./assets";
 import { User } from "@supabase/supabase-js";
+
+const catMascot = "/assets/New mascot.png";
 
 interface GameSelectorProps {
   games: Game[];

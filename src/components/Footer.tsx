@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import mascot from "@/assets/New mascot.png";
+
+const mascot = "/assets/New mascot.png";
 
 const Footer: React.FC = () => {
   const scrollToTop = () => {

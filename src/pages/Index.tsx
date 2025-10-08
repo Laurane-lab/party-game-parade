@@ -4,10 +4,10 @@ import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import BrevoForm from "@/components/BrevoForm";
 import PremiumHighlight from "@/components/PremiumHighlight";
-import catMascot from "@/assets/New mascot.png";
-import cauldronIcon from "@/assets/icon/cauldron-thks-icongeek26.png";
-import cloakIcon from "@/assets/icon/cloak-thks-icongeek26.png";
-import hatIcon from "@/assets/icon/hat-thks-icongeek26.png";
+const catMascot = "/assets/New mascot.png";
+const cauldronIcon = "/assets/icon/cauldron-thks-icongeek26.png";
+const cloakIcon = "/assets/icon/cloak-thks-icongeek26.png";
+const hatIcon = "/assets/icon/hat-thks-icongeek26.png";
 import { useAuth } from "@/hooks/use-auth";
 import { usePremium } from "@/hooks/use-premium";
 import { useNavigate } from "react-router-dom";
@@ -69,7 +69,7 @@ const Index = () => {
       <section 
         className="relative py-16 px-4 text-center bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('/src/assets/pexels-thks-helenalopes.jpg')`
+          backgroundImage: `url('/assets/covers/pexels-thks-helenalopes.jpg')`
         }}
       >
         {/* Overlay pour améliorer la lisibilité du texte */}
