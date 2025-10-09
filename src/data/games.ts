@@ -12,6 +12,7 @@ export type Game = {
   duree: string;
   shortDescription: string;
   promoDescription?: string;
+  avantagePremium: string;
   rules: string[];
   conseil?: string[];
   examples?: string[];
@@ -37,6 +38,7 @@ export const games: Game[] = [
     modeDeJeu: 'seul(e) contre tous',
     duree: '15-30 minutes',
     shortDescription: "Trouve une chanson avec le mot affiché. Rapidité et créativité sont de mise !",
+    avantagePremium: "Pdf des règles et des nuages de mots à imprimer.",
     rules: [
         "Le but du jeu est de trouver une chanson qui contient l’un des mots affichés sur l’écran.",
         "Le maître du jeu a le dernier mot sur quelle personne peut répondre en premier.",
@@ -67,6 +69,7 @@ export const games: Game[] = [
     modeDeJeu: 'seul(e) contre tous',
     duree: '20 minutes',
     shortDescription: "Remplace les chiffres par des contraintes amusantes à chaque tour.",
+    avantagePremium: "Pdf des règles et 10 idées de contraintes à imprimer.",
     rules: [
         "Le premier joueur dit 1, le suivant 2, etc jusqu’à 10.",
         "Celui qui dit 10, choisit ensuite une contrainte pour remplacer l’un des chiffres.",
@@ -96,6 +99,7 @@ export const games: Game[] = [
     modeDeJeu: 'seul(e) contre tous',
     duree: '15-30 minutes',
     shortDescription: "Enchaînes les noms de célébrités selon des règles originales.",
+    avantagePremium: "xxxxx et toi alors",
     rules: [
       "Option 1 : Chacun doit citer une célébrité dont le prénom commence par la dernière lettre du nom de la célébrité précédente.",
       "Option 2 : Chacun doit citer une célébrité ayant un mot commun ou un adjectif dans son prénom/nom",
@@ -120,6 +124,7 @@ export const games: Game[] = [
     modeDeJeu: 'en binôme',
     duree: '20 minutes',
     shortDescription: "Un jeu rapide et hilarant qui met votre complicité à l’épreuve. Connais-tu vraiment ton binôme ou les invités seront-ils plus forts que vous ? Oserez-vous vous mettre dos à dos pendant que le reste de l'assemblée attend de vous piéger ? Apérololo te donne 10 idées de questions pour réaliser ce jeu.",
+    avantagePremium: "50 idées de questions à imprimer.",
     rules: [
         "Deux personnes se mettent dos à dos.",
         "Les autres joueurs posent une question et comptent jusqu'à trois.",
@@ -153,6 +158,7 @@ export const games: Game[] = [
     modeDeJeu: 'en équipe',
     duree: '15 minutes',
     shortDescription: "Un jeu parfait pour pimenter ton week-end : accomplis tes missions en douce et tente de découvrir celles des autres. Bluff, stratégie et éclats de rire garantis. Apérololo te fournit un tableau de bord pour attribuer les missions et compter les scores. Nous te proposons également 40 idées de missions.",
+    avantagePremium: "Tableau de bord automatique et 40 idées de missions à imprimer.",
     rules: [
         "Chaque joueur reçoit une ou plusieurs missions secrètes à accomplir pendant le week-end.",
         "Le but est de réaliser tes missions sans te faire repérer et de découvrir les missions des autres.",
@@ -179,6 +185,7 @@ export const games: Game[] = [
     modeDeJeu: 'seul(e) contre tous',
     duree: '30 minutes',
     shortDescription: "Ton but est de déclencher les fous rires des autres joueurs sans jamais rire toi-même. Celui qui garde son sérieux gagne. Apérololo te propose trois tours, trois règles différentes… et trois fois plus de chances de rire !",
+    avantagePremium: "voila voila",
     showTours: true,
     rules: [
         "Le but est d’essayer de faire rire les autres sans rire.", 
@@ -235,6 +242,7 @@ export const games: Game[] = [
     modeDeJeu: 'en équipe',
     duree: '25 minutes',
     shortDescription: "Un blind test… sans musique. Oui, tu as bien lu ! Idéal pour ne pas casser les oreilles de tes voisins. Dans ce jeu, les hits se découvrent autrement et les paroles prennent tout leur sens.",
+    avantagePremium: "et toi alors",
     hideExamples: true,
     rules: [
         "Le maître du jeu choisit une musique et montre les paroles à un joueur.",
@@ -262,6 +270,7 @@ export const games: Game[] = [
     modeDeJeu: 'en équipe',
     duree: '20 minutes',
     shortDescription: "Défie tes amis dans une guerre d'enchères. Tu n'auras qu'une minute pour honorer ton pari et faire marquer des points à ton équipe.",
+    avantagePremium: "oui oui",
     rules: [
         "Le maître du jeu propose un thème ou les joueurs font un tirage au sort.",
         "Le but est de trouver le plus de réponses possibles au thème sélectionné en <span style='font-weight:bold;color:#a259ff'>une minute</span>.",
@@ -297,6 +306,7 @@ export const games: Game[] = [
     modeDeJeu: 'en équipe',
     duree: '30 minutes',
     shortDescription: "Découvre la fusion d'un Pictionary et d'un téléphone arabe !",
+    avantagePremium: "c'est non",
     rules: [
         "L'équipe se met en file indienne, tous les joueurs regardent dans la même direction.",
         "Le maître du jeu montre secrètement l'objet à dessiner au dernier joueur de chaque file.",
@@ -331,6 +341,7 @@ export const games: Game[] = [
     modeDeJeu: 'seul(e) contre tous',
     duree: '20 minutes',
     shortDescription: "Des suites de mots pour mettre à l'épreuve ta vivacité d'esprit, ta capacité d'association et ton cardio. Trouve le lien entre trois mots et lance-toi dans une course effrénée pour réclamer ta victoire !",
+    avantagePremium: "olalal",
     rules: [
         "Le maître du jeu énonce trois mots à voix haute.",
         "Les joueurs doivent trouver le mot commun entre ces mots.",

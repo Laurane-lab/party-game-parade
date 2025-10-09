@@ -88,9 +88,10 @@ const GameExplanation = () => {
 							<GameHero
 								game={game}
 								imageSrc={gameImageMapping[game.coverImage]}
+								isUserPremium={isUserPremium}
 							/>
 
-							<div className="mb-8 max-w-2xl mx-auto">
+							<div className="max-w-none">
 								<GameContent
 									game={game}
 									user={user}

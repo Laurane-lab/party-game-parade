@@ -1,6 +1,7 @@
 import { Game } from "@/data/games";
 import GameFullView from "./GameFullView";
 import GamePaywallView from "./GamePaywallView";
+import PremiumSidebar from "./PremiumSidebar";
 
 interface GameContentProps {
   game: Game;
@@ -23,20 +24,35 @@ const GameContent = ({
 }: GameContentProps) => {
   const hasFullAccess = !game.is_premium || (game.is_premium && user && isUserPremium);
 
-  if (hasFullAccess) {
-    return <GameFullView game={game} />;
-  }
-
   return (
-    <GamePaywallView
-      game={game}
-      isAuthenticated={isAuthenticated}
-      isUserPremium={isUserPremium}
-      user={user}
-      onRedirectToPayment={onRedirectToPayment}
-      onNavigateToConnexion={onNavigateToConnexion}
-      onNavigateToConnexionForPayment={onNavigateToConnexionForPayment}
-    />
+    <div className="flex flex-col lg:flex-row gap-8">
+      {/* Colonne principale - Contenu du jeu */}
+      <div className="flex-1 min-w-0">
+        {hasFullAccess ? (
+          <GameFullView game={game} />
+        ) : (
+          <GamePaywallView
+            game={game}
+            isAuthenticated={isAuthenticated}
+            isUserPremium={isUserPremium}
+            user={user}
+            onRedirectToPayment={onRedirectToPayment}
+            onNavigateToConnexion={onNavigateToConnexion}
+            onNavigateToConnexionForPayment={onNavigateToConnexionForPayment}
+          />
+        )}
+      </div>
+
+      {/* Colonne droite - Bouton Premium + Formulaire Brevo */}
+      <PremiumSidebar
+        isAuthenticated={isAuthenticated}
+        isUserPremium={isUserPremium}
+        user={user}
+        onRedirectToPayment={onRedirectToPayment}
+        onNavigateToConnexion={onNavigateToConnexion}
+        onNavigateToConnexionForPayment={onNavigateToConnexionForPayment}
+      />
+    </div>
   );
 };
 

@@ -6,7 +6,6 @@ import ToursSection from "./ToursSection";
 import ExamplesSection from "./ExamplesSection";
 import SpotifySuggestions from "./SpotifySuggestions";
 import GameStoryQuote from "./GameStoryQuote";
-import GameFreeCTA from "./GameFreeCTA";
 
 interface GameFullViewProps {
   game: Game;
@@ -15,6 +14,13 @@ interface GameFullViewProps {
 const GameFullView = ({ game }: GameFullViewProps) => {
   return (
     <>
+      {/* Description courte pour les jeux premium avant les règles complètes */}
+      {game.is_premium && (
+        <div className="text-base font-sans mb-6">
+          <p className="text-gray-700">{game.shortDescription}</p>
+        </div>
+      )}
+      
       <RulesList game={game} />
 
       {/* Section Idées de chansons pour 'Pas dans le rythme' */}
@@ -65,8 +71,6 @@ const GameFullView = ({ game }: GameFullViewProps) => {
       )}
 
       <GameStoryQuote story={game.story} />
-
-      {!game.is_premium && <GameFreeCTA />}
     </>
   );
 };
