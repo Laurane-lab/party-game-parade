@@ -1,4 +1,4 @@
-import catMascot from "@/assets/New mascot.png";
+const catMascot = "/assets/New mascot.png";
 
 interface GameStoryQuoteProps {
   story: string;
