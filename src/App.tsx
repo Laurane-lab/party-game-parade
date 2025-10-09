@@ -14,6 +14,7 @@ import MentionsLegales from "./pages/MentionsLegales";
 import CGVCGU from "./pages/CGVCGU";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Payment from "./pages/Payment";
+import Profil from "./pages/Profil";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,11 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/indexbis" element={<IndexBis />} />
           <Route path="/connexion" element={<Connexion />} />
+          <Route path="/profil" element={
+            <ProtectedRoute>
+              <Profil />
+            </ProtectedRoute>
+          } />
           <Route path="/game-explanation" element={<GameExplanation />} />
           <Route
             path="/payment"

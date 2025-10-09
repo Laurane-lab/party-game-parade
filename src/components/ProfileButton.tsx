@@ -15,12 +15,6 @@ const ProfileButton = ({ size = "lg", onLogout }: ProfileButtonProps) => {
   const { user } = useAuth();
   const { isPremium } = usePremium();
 
-  const handleLogout = async () => {
-    if (onLogout) {
-      await onLogout();
-    }
-  };
-
   // Si l'utilisateur n'est pas connecté
   if (!user) {
     return (
@@ -38,7 +32,7 @@ const ProfileButton = ({ size = "lg", onLogout }: ProfileButtonProps) => {
     <Button 
       variant="outline" 
       size={size} 
-      onClick={handleLogout}
+      onClick={() => navigate('/profil')}
       className="flex items-center gap-1 relative px-2"
     >
       <div className="relative">
