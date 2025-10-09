@@ -110,9 +110,9 @@ export default function Profil() {
           </div>
           
           {/* Informations de suppression de compte */}
-          <div className="mb-8 p-4 bg-red-50 rounded-lg border border-red-200">
-            <p className="text-sm text-red-700">
-              Pour supprimer mon compte, écris un mail à{" "}
+          <div className="mb-6 p-4 bg-red-40 rounded-lg border border-red-200">
+            <p className="text-sm text-red-900">
+              Pour supprimer ton compte, écris un mail à{" "}
               <a 
                 href="mailto:lauraneboullay@gmail.com" 
                 className="underline hover:text-red-800"
@@ -125,16 +125,15 @@ export default function Profil() {
           {/* Boutons d'action */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
-              onClick={() => navigate('/')}
-              variant="outline"
-              className="flex-1 sm:flex-none"
+              onClick={() => navigate('/game-explanation')}
+              className="flex-1 sm:flex-none bg-[hsl(var(--party-green))] text-white hover:bg-[hsl(var(--party-green))]/90 border-[hsl(var(--party-green))]"
             >
-              Retour à l'accueil
+              Retour aux jeux
             </Button>
             <Button 
               onClick={handleLogout}
-              variant="destructive"
-              className="flex-1 sm:flex-none"
+              variant="outline"
+              className="flex-1 sm:flex-none border-red-300 text-red-500 hover:bg-red-50 hover:text-red-600"
             >
               Se déconnecter
             </Button>
