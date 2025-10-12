@@ -6,6 +6,7 @@ import ToursSection from "./ToursSection";
 import ExamplesSection from "./ExamplesSection";
 import SpotifySuggestions from "./SpotifySuggestions";
 import GameStoryQuote from "./GameStoryQuote";
+import GameBrevoForm from "./GameBrevoForm";
 
 interface GameFullViewProps {
   game: Game;
@@ -71,6 +72,9 @@ const GameFullView = ({ game }: GameFullViewProps) => {
       )}
 
       <GameStoryQuote story={game.story} />
+      
+      {/* Formulaire Brevo pour inscription newsletter */}
+      <GameBrevoForm />
     </>
   );
 };

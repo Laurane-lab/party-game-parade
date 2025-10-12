@@ -1,5 +1,6 @@
 import { Game } from "@/data/games";
 import GameStoryQuote from "./GameStoryQuote";
+import GameBrevoForm from "./GameBrevoForm";
 
 interface GamePaywallViewProps {
   game: Game;
@@ -24,6 +25,9 @@ const GamePaywallView = ({
       )}
       
       <GameStoryQuote story={game.story} />
+      
+      {/* Formulaire Brevo pour inscription newsletter */}
+      <GameBrevoForm />
     </>
   );
 };

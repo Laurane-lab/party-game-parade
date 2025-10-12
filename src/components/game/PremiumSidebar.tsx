@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import BrevoForm from "@/components/BrevoForm";
 
 interface PremiumSidebarProps {
   isAuthenticated: boolean;
@@ -57,11 +56,6 @@ const PremiumSidebar = ({
           )}
         </div>
       )}
-      
-      {/* Formulaire Brevo - apparaît pour tous les utilisateurs */}
-      <div className="mt-10">
-        <BrevoForm />
-      </div>
     </div>
   );
 };
