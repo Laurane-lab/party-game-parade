@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
-import IndexBis from "./pages/IndexBis";
 import NotFound from "./pages/NotFound";
 import Connexion from "./pages/Connexion";
 import GameExplanation from "./pages/GameExplanation";
@@ -26,7 +25,6 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/indexbis" element={<IndexBis />} />
           <Route path="/connexion" element={<Connexion />} />
           <Route path="/profil" element={
             <ProtectedRoute>
