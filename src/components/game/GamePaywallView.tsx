@@ -32,7 +32,7 @@ const GamePaywallView = ({
       )}
       
       {/* Avantage Premium - entre description courte et story pour les jeux premium */}
-      {game.is_premium && game.avantagePremium && game.avantagePremium.trim() && (
+      {game.is_premium && !isUserPremium && game.avantagePremium && game.avantagePremium.trim() && (
         <PremiumAdvantageCard
           game={game}
           isAuthenticated={isAuthenticated}
