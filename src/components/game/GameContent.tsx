@@ -28,6 +28,15 @@ const GameContent = ({
     <div className="flex flex-col lg:flex-row gap-8">
       {/* Colonne principale - Contenu du jeu */}
       <div className="flex-1 min-w-0">
+        {/* Avantage Premium - affiché pour tous sauf les utilisateurs premium */}
+        {!isUserPremium && game.avantagePremium && game.avantagePremium.trim() && (
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-lg p-4 mb-6">
+            <p className="text-purple-800 font-medium">
+              ✨ {game.avantagePremium}
+            </p>
+          </div>
+        )}
+        
         {hasFullAccess ? (
           <GameFullView game={game} />
         ) : (

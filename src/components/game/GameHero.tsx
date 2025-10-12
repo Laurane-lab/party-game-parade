@@ -4,14 +4,13 @@ import { Star } from "lucide-react";
 interface GameHeroProps {
   game: Game;
   imageSrc: string;
-  isUserPremium?: boolean;
 }
 
-const GameHero = ({ game, imageSrc, isUserPremium = false }: GameHeroProps) => {
+const GameHero = ({ game, imageSrc }: GameHeroProps) => {
   return (
-    <div className="flex flex-col lg:flex-row gap-6 mb-8 w-full">
-      {/* Image à gauche */}
-      <div className="flex-shrink-0 lg:w-80">
+    <div className="flex flex-col items-center gap-4 mb-8 w-full">
+      {/* Image de couverture */}
+      <div className="w-full max-w-md">
         <img
           src={imageSrc}
           alt={`Illustration jeu ${game.titre}`}
@@ -20,8 +19,8 @@ const GameHero = ({ game, imageSrc, isUserPremium = false }: GameHeroProps) => {
         />
       </div>
       
-      {/* Informations à droite */}
-      <div className="flex-1 space-y-4">
+      {/* Informations sous l'image */}
+      <div className="flex flex-col items-center gap-2 text-center">
         {/* Titre avec étoile */}
         <div className="flex items-center gap-2">
           <h1 className="text-3xl font-bold text-primary">
@@ -31,7 +30,7 @@ const GameHero = ({ game, imageSrc, isUserPremium = false }: GameHeroProps) => {
         </div>
         
         {/* Badges existants + durée */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap justify-center gap-2">
           <span className="px-3 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">
             {game.modeDeJeu}
           </span>
@@ -42,15 +41,6 @@ const GameHero = ({ game, imageSrc, isUserPremium = false }: GameHeroProps) => {
             {game.duree}
           </span>
         </div>
-        
-        {/* Avantage Premium - affiché pour tous sauf les utilisateurs premium */}
-        {!isUserPremium && game.avantagePremium && game.avantagePremium.trim() && (
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-lg p-4">
-            <p className="text-purple-800 font-medium">
-              ✨ {game.avantagePremium}
-            </p>
-          </div>
-        )}
       </div>
     </div>
   );
