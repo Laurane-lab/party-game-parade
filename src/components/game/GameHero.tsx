@@ -27,7 +27,6 @@ const GameHero = ({ game, imageSrc }: GameHeroProps) => {
           <h1 className="text-3xl font-bold text-primary">
             {game.titre}
           </h1>
-          <Star className="w-6 h-6 text-yellow-400 fill-current" />
         </div>
         
         {/* Informations de jeu avec icônes */}

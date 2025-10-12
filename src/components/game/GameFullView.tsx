@@ -7,12 +7,25 @@ import ExamplesSection from "./ExamplesSection";
 import SpotifySuggestions from "./SpotifySuggestions";
 import GameStoryQuote from "./GameStoryQuote";
 import GameBrevoForm from "./GameBrevoForm";
+import PremiumAdvantageCard from "./PremiumAdvantageCard";
 
 interface GameFullViewProps {
   game: Game;
+  isAuthenticated?: boolean;
+  isUserPremium?: boolean;
+  user?: any;
+  onRedirectToPayment?: (email?: string) => void;
+  onNavigateToConnexionForPayment?: () => void;
 }
 
-const GameFullView = ({ game }: GameFullViewProps) => {
+const GameFullView = ({ 
+  game, 
+  isAuthenticated = false, 
+  isUserPremium = false, 
+  user, 
+  onRedirectToPayment = () => {}, 
+  onNavigateToConnexionForPayment = () => {} 
+}: GameFullViewProps) => {
   return (
     <>
       {/* Description courte pour les jeux premium avant les règles complètes */}
@@ -20,6 +33,17 @@ const GameFullView = ({ game }: GameFullViewProps) => {
         <div className="text-base font-sans mb-6">
           <p className="text-gray-700">{game.shortDescription}</p>
         </div>
+      )}
+      
+      {/* Avantage Premium - entre description courte et rules pour les jeux premium quand l'utilisateur n'est pas premium */}
+      {game.is_premium && !isUserPremium && game.avantagePremium && game.avantagePremium.trim() && (
+        <PremiumAdvantageCard
+          game={game}
+          isAuthenticated={isAuthenticated}
+          user={user}
+          onRedirectToPayment={onRedirectToPayment}
+          onNavigateToConnexionForPayment={onNavigateToConnexionForPayment}
+        />
       )}
       
       <RulesList game={game} />

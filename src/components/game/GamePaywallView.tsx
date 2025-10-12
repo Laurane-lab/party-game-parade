@@ -1,6 +1,7 @@
 import { Game } from "@/data/games";
 import GameStoryQuote from "./GameStoryQuote";
 import GameBrevoForm from "./GameBrevoForm";
+import PremiumAdvantageCard from "./PremiumAdvantageCard";
 
 interface GamePaywallViewProps {
   game: Game;
@@ -13,7 +14,13 @@ interface GamePaywallViewProps {
 }
 
 const GamePaywallView = ({
-  game
+  game,
+  isAuthenticated,
+  isUserPremium,
+  user,
+  onRedirectToPayment,
+  onNavigateToConnexion,
+  onNavigateToConnexionForPayment
 }: GamePaywallViewProps) => {
   return (
     <>
@@ -22,6 +29,17 @@ const GamePaywallView = ({
         <div className="text-base font-sans mb-6">
           <p className="text-gray-700">{game.shortDescription}</p>
         </div>
+      )}
+      
+      {/* Avantage Premium - entre description courte et story pour les jeux premium */}
+      {game.is_premium && game.avantagePremium && game.avantagePremium.trim() && (
+        <PremiumAdvantageCard
+          game={game}
+          isAuthenticated={isAuthenticated}
+          user={user}
+          onRedirectToPayment={onRedirectToPayment}
+          onNavigateToConnexionForPayment={onNavigateToConnexionForPayment}
+        />
       )}
       
       <GameStoryQuote story={game.story} />
