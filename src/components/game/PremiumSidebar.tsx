@@ -26,7 +26,7 @@ const PremiumSidebar = ({
     }
   };
 
-  const buttonLabel = isUserPremium && !user ? 'Se connecter pour accéder' : 'Premium : 10 jeux pour 4,99€';
+  const buttonLabel = isUserPremium && !user ? 'Se connecter pour accéder' : 'Ce jeu et 9 autres pour 4,99€';
 
   return (
     <div className="lg:w-60 flex-shrink-0 space-y-6">

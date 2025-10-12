@@ -1,5 +1,6 @@
 import { Game } from "@/data/games";
 import { Star } from "lucide-react";
+import { UserGroupIcon, ClockIcon, PlayIcon } from '@heroicons/react/24/outline';
 
 interface GameHeroProps {
   game: Game;
@@ -29,17 +30,26 @@ const GameHero = ({ game, imageSrc }: GameHeroProps) => {
           <Star className="w-6 h-6 text-yellow-400 fill-current" />
         </div>
         
-        {/* Badges existants + durée */}
-        <div className="flex flex-wrap justify-center gap-2">
-          <span className="px-3 py-1 rounded bg-party-pink/20 text-party-pink font-semibold">
-            {game.modeDeJeu}
-          </span>
-          <span className="px-3 py-1 rounded bg-party-blue/20 text-party-blue font-semibold">
-            {game.joueurs} joueurs
-          </span>
-          <span className="px-3 py-1 rounded bg-green-100 text-green-700 font-semibold">
-            {game.duree}
-          </span>
+        {/* Informations de jeu avec icônes */}
+        <div className="flex flex-wrap justify-center gap-6">
+          <div className="flex items-center gap-2">
+            <PlayIcon className="w-4 h-4 text-gray-500" />
+            <span className="text-sm text-gray-600 font-medium">
+              {game.modeDeJeu}
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <UserGroupIcon className="w-4 h-4 text-gray-500" />
+            <span className="text-sm text-gray-600 font-medium">
+              {game.joueurs} joueurs
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <ClockIcon className="w-4 h-4 text-gray-500" />
+            <span className="text-sm text-gray-600 font-medium">
+              {game.duree}
+            </span>
+          </div>
         </div>
       </div>
     </div>
