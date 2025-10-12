@@ -29,13 +29,13 @@ const PremiumSidebar = ({
   const buttonLabel = isUserPremium && !user ? 'Se connecter pour accéder' : 'Premium : 10 jeux pour 4,99€';
 
   return (
-    <div className="lg:w-80 flex-shrink-0 space-y-6">
+    <div className="lg:w-60 flex-shrink-0 space-y-6">
       {/* Bouton Premium - disparaît si l'utilisateur est premium */}
       {!isUserPremium && (
-        <div className="space-y-4">
+        <div className="space-y-2">
           <Button
             variant="secondary"
-            className="w-full px-6 py-4 rounded-xl text-lg font-extrabold"
+            className="w-full px-3 py-2.5 rounded-xl text-sm font-extrabold"
             onClick={handleButtonClick}
           >
             {buttonLabel}
@@ -43,13 +43,13 @@ const PremiumSidebar = ({
           
           {!isAuthenticated && (
             <div className="text-center">
-              <span className="text-sm text-gray-600">
-                Si tu es déjà premium, {" "}
+              <span className="text-xs text-gray-600">
+                Déjà premium ? {" "}
                 <button
                   onClick={onNavigateToConnexion}
                   className="text-blue-600 underline hover:text-blue-800 font-medium cursor-pointer"
                 >
-                  clique ici pour te connecter
+                  Clique ici pour te connecter
                 </button>
               </span>
             </div>
