@@ -27,9 +27,17 @@ const ExamplesSection = ({ game }: ExamplesSectionProps) => {
           <SectionList title="Idées de contraintes" items={game.contraintes} />
         )}
         {game.examples && (
-          <div className="text-base font-sans mt-4">
-            <strong>Exemple :</strong>
-            <p className="ml-6 mt-2">{game.examples}</p>
+          <div className="text-base font-sans mt-8">
+            <div className="flex items-center gap-3 mb-4 pb-2 border-b border-gray-200">
+              <div className="flex items-center justify-center w-8 h-8 bg-purple-100 rounded-lg">
+                <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800">Exemple</h3>
+            </div>
+            <p className="ml-6 text-gray-700 leading-relaxed">{game.examples}</p>
           </div>
         )}
       </>
@@ -39,14 +47,22 @@ const ExamplesSection = ({ game }: ExamplesSectionProps) => {
   // Special case for "Le mot commun" with custom explanations
   if (game.titre === "Le mot commun") {
     return (
-      <div className="text-base font-sans">
-        <strong>Exemples :</strong>
+      <div className="text-base font-sans mt-8">
+        <div className="flex items-center gap-3 mb-4 pb-2 border-b border-gray-200">
+          <div className="flex items-center justify-center w-8 h-8 bg-purple-100 rounded-lg">
+            <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </div>
+          <h3 className="text-xl font-semibold text-gray-800">Exemples</h3>
+        </div>
         {game.examples.map((ex, idx) => (
-          <div key={idx} className="mb-1">
-            <ul className="list-disc ml-6 mt-2">
-              <li>{ex}</li>
+          <div key={idx} className="mb-4">
+            <ul className="list-disc ml-6">
+              <li className="text-gray-700 leading-relaxed">{ex}</li>
             </ul>
-            <div className="ml-6 mt-1 text-sm text-muted-foreground">
+            <div className="ml-6 mt-2 text-sm text-muted-foreground">
               {idx === 0 && "Objets qui fonctionnent : une carte d'un roi, une lumière pour illustrer Versailles, une couronne etc."}
               {idx === 1 && "Objets qui fonctionnent : une urne, une tête de mort, une pierre, etc."}
               {idx === 2 && "Objets qui fonctionnent : un oeuf, tout objet rond,  etc."}
@@ -60,9 +76,17 @@ const ExamplesSection = ({ game }: ExamplesSectionProps) => {
   // Special case for "Les enchères"
   if (game.titre === "Les enchères") {
     return (
-      <div className="text-base font-sans mt-4">
-        <strong>Exemple :</strong>
-        <p className="ml-6 mt-2" dangerouslySetInnerHTML={{ __html: game.examples[0] }}></p>
+      <div className="text-base font-sans mt-8">
+        <div className="flex items-center gap-3 mb-4 pb-2 border-b border-gray-200">
+          <div className="flex items-center justify-center w-8 h-8 bg-purple-100 rounded-lg">
+            <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </div>
+          <h3 className="text-xl font-semibold text-gray-800">Exemple</h3>
+        </div>
+        <p className="ml-6 text-gray-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: game.examples[0] }}></p>
       </div>
     );
   }
