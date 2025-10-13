@@ -123,7 +123,7 @@ export const games: Game[] = [
     joueurs: '4-10',
     modeDeJeu: 'en binôme',
     duree: '20 minutes',
-    shortDescription: "Un jeu rapide et hilarant qui met votre complicité à l’épreuve. Connais-tu vraiment ton binôme ou les invités seront-ils plus forts que vous ? Oserez-vous vous mettre dos à dos pendant que le reste de l'assemblée attend de vous piéger ? Apérololo te donne 10 idées de questions pour réaliser ce jeu.",
+    shortDescription: "Un jeu rapide et hilarant qui met votre complicité à l’épreuve. Connais-tu vraiment ton binôme ou les invités seront-ils plus forts que vous ? Oserez-vous vous mettre dos à dos pendant que le reste de l'assemblée attend de vous piéger ?",
     avantagePremium: "50 idées de questions à imprimer.",
     rules: [
         "Deux personnes se mettent dos à dos.",
@@ -157,7 +157,7 @@ export const games: Game[] = [
     joueurs: '6-20',
     modeDeJeu: 'en équipe',
     duree: '15 minutes',
-    shortDescription: "Un jeu parfait pour pimenter ton week-end : accomplis tes missions en douce et tente de découvrir celles des autres. Bluff, stratégie et éclats de rire garantis. Apérololo te fournit un tableau de bord pour attribuer les missions et compter les scores. Nous te proposons également 40 idées de missions.",
+    shortDescription: "Un jeu parfait pour pimenter ton week-end : accomplis tes missions en douce et tente de découvrir celles des autres, comme dans Secret Story mais avec des missions. Bluff, stratégie et éclats de rire garantis.",
     avantagePremium: "Tableau de bord automatique et 40 idées de missions à imprimer.",
     rules: [
         "Chaque joueur reçoit une ou plusieurs missions secrètes à accomplir pendant le week-end.",

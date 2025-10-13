@@ -94,6 +94,7 @@ const IndexBis = () => {
       name: "Le mur du son",
       modeDeJeu: "Solo ou en équipe",
       players: "3 à 10",
+      duree: "15-30 min",
       shortDescription: "Ce n'est pas celui de Willy Denzey mais il va tous vous faire chanter !",
       icon: cauldronIcon
     },
@@ -101,13 +102,15 @@ const IndexBis = () => {
       name: "Jusqu'à 10",
       modeDeJeu: "Solo",
       players: "3 à 5",
-      shortDescription: "Et si compter jusqu'à 10 n'était pas si simple finalement ?",
+      duree: "15 min",
+      shortDescription: "Et si compter jusqu'à 10 n'était pas si simple mais finalement très drôle ?",
       icon: hatIcon
     },
     {
       name: "Dos à dos",
       modeDeJeu: "En binôme",
       players: "4 à 10",
+      duree: "20 min",
       shortDescription: "Connaissais-tu vraiment ton binôme ou les invités seront-ils plus forts que vous ?",
       icon: cloakIcon
     }
@@ -161,7 +164,7 @@ const IndexBis = () => {
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-4 leading-relaxed tracking-normal" style={{ textShadow: '0px 0px 1px rgba(20, 19, 19, 0.7)' }}>
             Découvres nos jeux clés en main : simples, rapides à mettre en place, sans préparation. <br />
-            Pensés pour jouer 15 minutes ou sur plusieurs jours.
+            Pensés pour jouer 15 minutes ou plusieurs jours.
           </p>
           <div className="mb-8">
             <p className="text-base sm:text-lg md:text-xl text-gray-800" style={{ textShadow: '1px 1px 2px rgba(255,255,255,0.7)' }}>
@@ -187,7 +190,7 @@ const IndexBis = () => {
               <div className="text-4xl mb-4">🎪</div>
               <h3 className="text-lg sm:text-xl font-semibold mb-3 text-foreground">Découvre les jeux</h3>
               <p className="text-muted-foreground">
-                Jeux musicaux, défis, énigmes ou culture G — trouve celui qui colle à ton groupe et au moment
+                Jeux musicaux, défis, énigmes ou culture G — trouve le jeu qui colle à ton groupe et au moment
               </p>
             </div>
             <div>
@@ -271,7 +274,7 @@ const IndexBis = () => {
                     <h3 className="text-lg font-bold text-foreground">{game.name}</h3>
                   </div>
                   <div className="text-sm text-muted-foreground mb-2">
-                    <span className="font-medium">{game.modeDeJeu}</span> • <span>{game.players} joueurs</span>
+                    <span>{game.modeDeJeu}</span> • <span>{game.players} joueurs</span> • <span>{game.duree}</span>
                   </div>
                   <p className="text-sm text-muted-foreground leading-relaxed">{game.shortDescription}</p>
                 </div>
