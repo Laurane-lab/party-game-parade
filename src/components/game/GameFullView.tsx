@@ -60,10 +60,10 @@ const GameFullView = ({
       )}
 
       {/* Section pour 'Le mur du son' */}
-      {game.titre === "Le mur du son" && game.conseil && game.nuages ? (
+      {game.titre === "Le mur du son" ? (
         <>
-          <SectionList title="Conseil" items={game.conseil} />
-          <NuagesLinks nuages={game.nuages} />
+          {game.examples && <ExamplesSection game={game} />}
+          {game.nuages && <NuagesLinks nuages={game.nuages} />}
         </>
       ) : game.titre === "Dos à dos" && game.examples ? (
         <ExamplesSection game={game} />
@@ -83,7 +83,7 @@ const GameFullView = ({
       {game.titre === "Les enchères" && game.idees && (
         <>
         <ExamplesSection game={game} />
-        <SectionList title="Idées d'enchères" items={game.idees as string[]} asHtml />
+        <SectionList title="Idées d'enchères" items={game.idees as string[]} />
         </>
       )}
 

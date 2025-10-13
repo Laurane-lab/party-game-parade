@@ -40,13 +40,13 @@ export const games: Game[] = [
     shortDescription: "Trouve une chanson avec le mot affiché. Rapidité et créativité sont de mise !",
     avantagePremium: "Pdf des règles et des nuages de mots à imprimer.",
     rules: [
-        "Le but du jeu est de trouver une chanson qui contient l’un des mots affichés sur l’écran.",
-        "Le maître du jeu a le dernier mot sur quelle personne peut répondre en premier.",
+        "Le but du jeu est de  <span style='font-weight:bold;color:#a259ff'>trouver une chanson</span>  dans laquelle il y a l’un des mots affichés sur l’écran.",
+        "Il faut ouvrir un nuage de mots (voir matériel donné plus bas) et le jeu peut commencer !",
+        "Le maître du jeu choisit quelle personne peut répondre en premier (celle assise, debout, qui tape dans ses mains en premier, etc).",
         "Les mots ne peuvent pas être répétés.",
-        "Le jeu s'arrête quand tous les mots ont été utilisés ou que les joueurs ne trouvent plus."
-    ],
-    conseil: [
-        "Détermine une règle pour savoir à qui donner la priorité de réponse, par exemple se lever, s'asseoir, attraper une balle lancée par le maître du jeu, etc.",
+        "Un point est attribué pour le titre et un autre pour l'artiste.",
+        "Si un joueur n'a que le titre/l'artiste, un autre joueur peut compléter pour gagner un point.",
+        "Le jeu s'arrête quand tous les mots ont été utilisés ou que les joueurs ne trouvent plus.",
     ],
     nuages: [
         { theme: "Français", url: "https://www.canva.com/design/DAGun3oVMXc/J0Fu8KnYwCcKvaboj25QhA/edit?utm_content=DAGun3oVMXc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" },
@@ -54,7 +54,10 @@ export const games: Game[] = [
         { theme: "Spécial Disney", url: "https://www.canva.com/design/DAGuoKfV-NE/TqP--GPRsJlDObIqnJXK4g/edit?utm_content=DAGuoKfV-NE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" },
         { theme: "Spécial Rap", url: "https://www.canva.com/design/DAGuoAyKL6s/Mp3dq5gokfs24vS-L4h0Ow/edit?utm_content=DAGuoAyKL6s&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" }
     ],
-    examples: [],
+    examples: [
+      "Si le mot <em>temps</em> est affiché, le joueur peut dire : <em>Donne-moi le temps de Jenifer</em> (2 points)",
+      "S'il y a le mot <em>nuit</em>, un joueur peut chanter : <em>Ils m'entraînent au bout de la nuit Les démons de minuit</em> (Les démons de minuit - Images 2 points)",
+    ],
     story: "N'hésite pas à faire chanter ton pote pour vérifier qu’il n’a pas inventé une chanson !\nSi la chanson n'existe pas mais que tu kiffes les paroles, tu peux donner un point, après tout c'est toi le maître du jeu !",
     is_premium: false,
     materiel: "aucun",

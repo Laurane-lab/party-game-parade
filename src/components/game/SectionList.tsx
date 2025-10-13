@@ -1,10 +1,9 @@
 interface SectionListProps {
   title: string;
   items: string[];
-  asHtml?: boolean;
 }
 
-const SectionList = ({ title, items, asHtml = false }: SectionListProps) => {
+const SectionList = ({ title, items }: SectionListProps) => {
   // Fonction pour obtenir l'icône selon le titre
   const getIcon = (title: string) => {
     switch (title.toLowerCase()) {
@@ -72,15 +71,13 @@ const SectionList = ({ title, items, asHtml = false }: SectionListProps) => {
         <h3 className="text-xl font-semibold text-gray-800">{title}</h3>
       </div>
       <ul className="list-disc ml-6 space-y-2">
-        {items.map((item, idx) => (
-          <li key={idx} className="text-gray-700 leading-relaxed">
-            {asHtml ? (
-              <span dangerouslySetInnerHTML={{ __html: item }} />
-            ) : (
-              item
-            )}
-          </li>
-        ))}
+        {items.map((item, idx) => {
+          const hasHtml = /<[a-z][\s\S]*>/i.test(item);
+          if (hasHtml) {
+            return <li key={idx} className="text-gray-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: item }} />;
+          }
+          return <li key={idx} className="text-gray-700 leading-relaxed">{item}</li>;
+        })}
       </ul>
     </div>
   );
