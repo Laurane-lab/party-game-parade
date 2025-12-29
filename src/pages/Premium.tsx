@@ -109,8 +109,9 @@ const Premium = () => {
       modeDeJeu: "Toi contre tous",
       players: "3-10",
       duration: "15-30 min",
-      shortDescription: "Ce n'est pas celui de Willy Denzey mais il va tous vous faire chanter !",
+      shortDescription: "Trouve une chanson avec l'un des mots affichés sur l'écran. Rapidité et créativité sont de mise !",
       icon: cauldronIcon,
+      material: "4 nuages de mots thématiques",
       isFree: true
     },
     {
@@ -118,9 +119,9 @@ const Premium = () => {
       modeDeJeu: "En binôme",
       players: "4-10",
       duration: "20-40 min",
-      shortDescription: "Connais-tu vraiment ton binôme ou les invités seront-ils plus forts que vous ?",
+      shortDescription: "Des questions pour mettre votre complicité à l’épreuve. Oserez-vous vous mettre dos à dos pendant que le reste de l'assemblée attend de vous piéger ?",
       icon: cloakIcon,
-      material: "10 idées de questions",
+      material: "50 idées de questions",
       isFree: false
     },
     {
@@ -128,7 +129,7 @@ const Premium = () => {
       modeDeJeu: "En équipe",
       players: "6-20",
       duration: "1-2 jours",
-      shortDescription: "Accomplis des missions secrètes sans te faire repérer, et démasque les autres !",
+      shortDescription: "Accomplis des missions secrètes sans te faire repérer, et démasque les missions des autres ! Ce jeu est un mix entre une murder party et Secret Story.",
       icon: cloakIcon,
       material: "Tableau des scores et 40 idées de missions",
       isFree: false
@@ -138,8 +139,9 @@ const Premium = () => {
       modeDeJeu: "Toi contre tous",
       players: "3-12",
       duration: "15 min",
-      shortDescription: "Enchaîne les noms de célébrités selon des règles originales.",
+      shortDescription: "Chacun son tour il faut dire un nom de célébrités selon des règles originales. C'est un peu comme le jeu des catégories. ",
       icon: wandIcon,
+      material: "",
       isFree: true
     },
     {
@@ -147,9 +149,9 @@ const Premium = () => {
       modeDeJeu: "Toi contre tous",
       players: "3-10",
       duration: "30 min",
-      shortDescription: "Trouve le lien entre trois mots et lance-toi dans une course pour réclamer ta victoire !",
+      shortDescription: "Trouve le lien entre trois mots et lance-toi dans une course pour pouvoir donner ta réponse !",
       icon: scrollIcon,
-      material: "7 propositions d'énigmes",
+      material: "14 propositions d'énigmes",
       isFree: false
     },
     {
@@ -169,6 +171,7 @@ const Premium = () => {
       duration: "15 min",
       shortDescription: "Et si compter jusqu'à 10 n'était pas si simple finalement ?",
       icon: hatIcon,
+      material: "",
       isFree: true
     },
     {

@@ -1,7 +1,7 @@
 import { Game } from "@/data/games";
-import { Button } from "@/components/ui/button";
 import GameStoryQuote from "./GameStoryQuote";
-import BrevoForm from "@/components/BrevoForm";
+import GameBrevoForm from "./GameBrevoForm";
+import PremiumAdvantageCard from "./PremiumAdvantageCard";
 
 interface GamePaywallViewProps {
   game: Game;
@@ -22,48 +22,30 @@ const GamePaywallView = ({
   onNavigateToConnexion,
   onNavigateToConnexionForPayment
 }: GamePaywallViewProps) => {
-  const handleButtonClick = () => {
-    if (isAuthenticated) {
-      onRedirectToPayment(user?.email);
-    } else {
-      // Le bouton principal "Débloquer les 7 jeux pour 4,99€" doit rediriger vers le paiement après connexion
-      onNavigateToConnexionForPayment();
-    }
-  };
-
-  const buttonLabel = isUserPremium && !user ? 'Se connecter pour accéder' : 'Débloquer les 7 jeux pour 4,99€';
-
   return (
     <>
-      <GameStoryQuote story={game.story} />
-      <div className="flex flex-col items-center mt-8 space-y-4">
-        <Button
-          variant="secondary"
-          className="w-full max-w-md px-6 py-4 rounded-xl text-xl font-extrabold"
-          onClick={handleButtonClick}
-        >
-          {buttonLabel}
-        </Button>
-        
-        {!isAuthenticated && (
-          <div className="text-center">
-            <span className="text-sm text-gray-600">
-              Si tu es déjà premium, {" "}
-              <button
-                onClick={onNavigateToConnexion}
-                className="text-blue-600 underline hover:text-blue-800 font-medium cursor-pointer"
-              >
-                clique ici pour te connecter
-              </button>
-            </span>
-          </div>
-        )}
-      </div>
+      {/* Description courte pour les jeux premium */}
+      {game.is_premium && (
+        <div className="text-base font-sans mb-6">
+          <p className="text-gray-700">{game.shortDescription}</p>
+        </div>
+      )}
       
-      {/* Formulaire de newsletter */}
-      <div className="flex justify-center mt-8">
-        <BrevoForm />
-      </div>
+      {/* Avantage Premium - entre description courte et story pour les jeux premium */}
+      {game.is_premium && !isUserPremium && game.avantagePremium && game.avantagePremium.trim() && (
+        <PremiumAdvantageCard
+          game={game}
+          isAuthenticated={isAuthenticated}
+          user={user}
+          onRedirectToPayment={onRedirectToPayment}
+          onNavigateToConnexionForPayment={onNavigateToConnexionForPayment}
+        />
+      )}
+      
+      <GameStoryQuote story={game.story} />
+      
+      {/* Formulaire Brevo pour inscription newsletter */}
+      <GameBrevoForm />
     </>
   );
 };

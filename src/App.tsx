@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
-import IndexBis from "./pages/IndexBis";
 import NotFound from "./pages/NotFound";
 import Connexion from "./pages/Connexion";
 import GameExplanation from "./pages/GameExplanation";
@@ -14,6 +13,7 @@ import MentionsLegales from "./pages/MentionsLegales";
 import CGVCGU from "./pages/CGVCGU";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Payment from "./pages/Payment";
+import Profil from "./pages/Profil";
 
 const queryClient = new QueryClient();
 
@@ -25,8 +25,12 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/indexbis" element={<IndexBis />} />
           <Route path="/connexion" element={<Connexion />} />
+          <Route path="/profil" element={
+            <ProtectedRoute>
+              <Profil />
+            </ProtectedRoute>
+          } />
           <Route path="/game-explanation" element={<GameExplanation />} />
           <Route
             path="/payment"

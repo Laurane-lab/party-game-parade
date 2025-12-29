@@ -35,23 +35,23 @@ const GameSelector = ({ games, selectedIndex, onSelect, isMobile, navigateHome, 
   const GameButton = ({ game, index, isSelected }: { game: Game; index: number; isSelected: boolean }) => (
     <Button
       variant="ghost"
-      className={`flex items-center w-full text-lg py-3 px-3 rounded-lg mb-0 border-2 shadow-sm transition
+      className={`flex items-center w-full text-sm py-1.5 px-3 rounded-md border-none bg-transparent transition-colors duration-200
 				${isSelected
-          ? "bg-white border-party-pink shadow-md"
-          : "bg-white border-party-purple/40 hover:border-party-purple hover:shadow-md"}
+          ? "bg-gray-100 hover:bg-gray-100"
+          : "hover:bg-gray-100/50"}
 			`}
       onClick={() => {
         if (isMobile) setDrawerOpen(false);
         onSelect(index);
       }}
     >
-      <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center mr-2">
-        <img src={gameIcons[index]} alt={`Icone jeu ${game.titre}`} className="w-7 h-7 object-contain" />
+      <span className="flex-shrink-0 w-4 h-4 flex items-center justify-center mr-3">
+        <img src={gameIcons[index]} alt={`Icone jeu ${game.titre}`} className="w-4 h-4 object-contain" />
       </span>
       <div className="flex items-center justify-between flex-grow overflow-hidden">
         <span
-          className={`text-left font-semibold block overflow-hidden text-ellipsis whitespace-nowrap
-						${isSelected ? "text-party-pink" : "text-gray-900"}
+          className={`text-left block overflow-hidden text-ellipsis whitespace-nowrap
+						${isSelected ? "text-gray-800 font-semibold" : "text-gray-600 hover:text-gray-800"}
 					`}
           title={game.titre}
         >
@@ -135,9 +135,8 @@ const GameSelector = ({ games, selectedIndex, onSelect, isMobile, navigateHome, 
   }
 
   return (
-    <aside className="w-80 bg-white px-8 py-8 flex flex-col gap-2">
-      <h2 className="text-xl font-bold mb-1">Jeux</h2>
-      <div className="flex flex-col gap-2 mt-2">
+    <aside className="w-56 bg-white px-4 py-6 flex flex-col border-r">
+      <div className="flex flex-col gap-1">
         {games.map((game, index) => (
           <GameButton key={game.titre} game={game} index={index} isSelected={selectedIndex === index} />
         ))}

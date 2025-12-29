@@ -62,7 +62,7 @@ const GameCard: React.FC<GameCardProps> = ({
               borderTopRightRadius: '6px'
             }} 
           />
-          {/* Badge premium en haut à gauche */}
+          {/* Badge premium ou gratuit en haut à gauche */}
           {!isFree && (
             <div style={{
               position: 'absolute',
@@ -78,6 +78,23 @@ const GameCard: React.FC<GameCardProps> = ({
               zIndex: 1
             }}>
               PREMIUM
+            </div>
+          )}
+          {isFree && (
+            <div style={{
+              position: 'absolute',
+              top: '8px',
+              left: '8px',
+              backgroundColor: 'rgba(34, 197, 94, 0.9)',
+              color: 'white',
+              padding: '2px 6px',
+              borderRadius: '4px',
+              fontSize: '10px',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              zIndex: 1
+            }}>
+              GRATUIT
             </div>
           )}
         </div>
@@ -102,20 +119,35 @@ const GameCard: React.FC<GameCardProps> = ({
             </Text>
           </Group>
 
-        {/* Badge du mode de jeu */}
-        <Group>
+        {/* Mode de jeu, joueurs et durée sur la même ligne */}
+        <Group gap="sm" wrap="nowrap" justify="space-between">
           <Badge
             variant="light"
             color={'pink'}
-            size="sm"
+            size="xs"
             radius="sm"
             className="bg-party-pink/20 text-party-pink"
             style={{
-              fontWeight: 600
+              fontWeight: 600,
+              fontSize: '10px'
             }}
           >
             {modeDeJeu}
           </Badge>
+          <Group gap="sm" wrap="nowrap">
+            <Group gap="xs" wrap="nowrap">
+              <UserGroupIcon style={{ width: 14, height: 14, color: '#6b7280' }} />
+              <Text size="xs" c="dimmed" fw={500}>
+                {players}
+              </Text>
+            </Group>
+            <Group gap="xs" wrap="nowrap">
+              <ClockIcon style={{ width: 14, height: 14, color: '#6b7280' }} />
+              <Text size="xs" c="dimmed" fw={500}>
+                {duration}
+              </Text>
+            </Group>
+          </Group>
         </Group>
 
         {/* Description */}
@@ -123,24 +155,8 @@ const GameCard: React.FC<GameCardProps> = ({
           {shortDescription}
         </Text>
 
-        {/* Informations joueurs et durée */}
-        <Group gap="lg" mt="auto">
-          <Group gap="xs">
-            <UserGroupIcon style={{ width: 16, height: 16, color: '#6b7280' }} />
-            <Text size="sm" c="dimmed" fw={500}>
-              {players} joueurs
-            </Text>
-          </Group>
-          <Group gap="xs">
-            <ClockIcon style={{ width: 16, height: 16, color: '#6b7280' }} />
-            <Text size="sm" c="dimmed" fw={500}>
-              {duration}
-            </Text>
-          </Group>
-        </Group>
-
         {/* Matériel inclus (pour les jeux premium) */}
-        {material && (
+        {material && material.trim() !== "" && material.toLowerCase() !== "aucun" && (
           <Card.Section p="sm" style={{ backgroundColor: 'rgba(243, 244, 246, 0.8)' }}>
             <Text fw={600} size="xs" c="dimmed" mb={4}>
               Inclus :
