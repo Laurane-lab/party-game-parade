@@ -35,8 +35,7 @@ const PremiumAdvantageCard = ({
 
   // Liste des avantages premium génériques
   const genericAdvantages = [
-    "Accès à tous les 7 jeux premium",
-    "Versions enrichies des jeux gratuits",
+    "Accès supplémentaire aux 7 jeux premium",
     "Règles complètes et listes de matériel",
     "Exemples créatifs et variantes",
     "Accès à vie - payez une fois, jouez toujours",
@@ -44,10 +43,11 @@ const PremiumAdvantageCard = ({
   ];
 
   // Combine les avantages génériques avec l'avantage spécifique du jeu
+  // Filtre les valeurs vides pour n'afficher que les avantages définis
   const premiumAdvantages = [
-    game.avantagePremium, // Avantage spécifique du jeu en premier
+    game.avantagePremium && game.avantagePremium.trim() !== "" ? game.avantagePremium : null, // Avantage spécifique du jeu en premier
     ...genericAdvantages
-  ];
+  ].filter(Boolean);
 
   return (
     <div className="bg-white rounded-lg p-3 mb-6 shadow-lg border-2 border-party-pink max-w-md mx-auto">
