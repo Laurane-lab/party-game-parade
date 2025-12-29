@@ -102,7 +102,7 @@ export const games: Game[] = [
     modeDeJeu: 'seul(e) contre tous',
     duree: '15-30 minutes',
     shortDescription: "Enchaînes les noms de célébrités selon des règles originales.",
-    avantagePremium: "xxxxx et toi alors",
+    avantagePremium: "",
     rules: [
       "Option 1 : Chacun doit citer une célébrité dont le prénom commence par la dernière lettre du nom de la célébrité précédente.",
       "Option 2 : Chacun doit citer une célébrité ayant un mot commun ou un adjectif dans son prénom/nom",
@@ -127,7 +127,7 @@ export const games: Game[] = [
     modeDeJeu: 'en binôme',
     duree: '20 minutes',
     shortDescription: "Un jeu rapide et hilarant qui met votre complicité à l’épreuve. Connais-tu vraiment ton binôme ou les invités seront-ils plus forts que vous ? Oserez-vous vous mettre dos à dos pendant que le reste de l'assemblée attend de vous piéger ?",
-    avantagePremium: "50 idées de questions à imprimer.",
+    avantagePremium: "50 idées de questions à imprimer",
     rules: [
         "Deux personnes se mettent dos à dos.",
         "Les autres joueurs posent une question et comptent jusqu'à trois.",
@@ -161,7 +161,7 @@ export const games: Game[] = [
     modeDeJeu: 'en équipe',
     duree: '15 minutes',
     shortDescription: "Un jeu parfait pour pimenter ton week-end : accomplis tes missions en douce et tente de découvrir celles des autres, comme dans Secret Story mais avec des missions. Bluff, stratégie et éclats de rire garantis.",
-    avantagePremium: "Tableau de bord automatique et 40 idées de missions à imprimer.",
+    avantagePremium: "Tableau de bord automatique et 40 idées de missions",
     rules: [
         "Chaque joueur reçoit une ou plusieurs missions secrètes à accomplir pendant le week-end.",
         "Le but est de réaliser tes missions sans te faire repérer et de découvrir les missions des autres.",
@@ -188,7 +188,7 @@ export const games: Game[] = [
     modeDeJeu: 'seul(e) contre tous',
     duree: '30 minutes',
     shortDescription: "Ton but est de déclencher les fous rires des autres joueurs sans jamais rire toi-même. Celui qui garde son sérieux gagne. Apérololo te propose trois tours, trois règles différentes… et trois fois plus de chances de rire !",
-    avantagePremium: "voila voila",
+    avantagePremium: "3 minis jeux pour faire 3 manches",
     showTours: true,
     rules: [
         "Le but est d’essayer de faire rire les autres sans rire.", 
@@ -245,7 +245,7 @@ export const games: Game[] = [
     modeDeJeu: 'en équipe',
     duree: '25 minutes',
     shortDescription: "Un blind test… sans musique. Oui, tu as bien lu ! Idéal pour ne pas casser les oreilles de tes voisins. Dans ce jeu, les hits se découvrent autrement et les paroles prennent tout leur sens.",
-    avantagePremium: "et toi alors",
+    avantagePremium: "Une playlist réalisée par nos soins",
     hideExamples: true,
     rules: [
         "Le maître du jeu choisit une musique et montre les paroles à un joueur.",
@@ -273,7 +273,7 @@ export const games: Game[] = [
     modeDeJeu: 'en équipe',
     duree: '20 minutes',
     shortDescription: "Défie tes amis dans une guerre d'enchères. Tu n'auras qu'une minute pour honorer ton pari et faire marquer des points à ton équipe.",
-    avantagePremium: "oui oui",
+    avantagePremium: "5 idées d'enchères",
     rules: [
         "Le maître du jeu propose un thème ou les joueurs font un tirage au sort.",
         "Le but est de trouver le plus de réponses possibles au thème sélectionné en <span style='font-weight:bold;color:#a259ff'>une minute</span>.",
@@ -309,7 +309,7 @@ export const games: Game[] = [
     modeDeJeu: 'en équipe',
     duree: '30 minutes',
     shortDescription: "Découvre la fusion d'un Pictionary et d'un téléphone arabe !",
-    avantagePremium: "c'est non",
+    avantagePremium: "",
     rules: [
         "L'équipe se met en file indienne, tous les joueurs regardent dans la même direction.",
         "Le maître du jeu montre secrètement l'objet à dessiner au dernier joueur de chaque file.",
@@ -327,8 +327,8 @@ export const games: Game[] = [
         "Course contre la montre : les équipes dessinent en même temps. Le gagnant reste celui qui devine correctement et non le plus rapide !"
     ],
     examples: [
-        "Thème : Tes vacances de rêve.",
-        "Question : Si tu pouvais dîner avec une célébrité, qui choisirais-tu ?",
+        "Un chat sous un arbre",
+        "Un tancarville (pour ceux qui sont artistes car nous on ne sait pas déssiner ça)",
     ],
     story: "Après ça, je crois que vous ne pourrez plus vous moquez des dessins de votre petit cousin !",
     is_premium: true,
@@ -344,7 +344,7 @@ export const games: Game[] = [
     modeDeJeu: 'seul(e) contre tous',
     duree: '20 minutes',
     shortDescription: "Des suites de mots pour mettre à l'épreuve ta vivacité d'esprit, ta capacité d'association et ton cardio. Trouve le lien entre trois mots et lance-toi dans une course effrénée pour réclamer ta victoire !",
-    avantagePremium: "olalal",
+    avantagePremium: "15 idées de suites de mots",
     rules: [
         "Le maître du jeu énonce trois mots à voix haute.",
         "Les joueurs doivent trouver le mot commun entre ces mots.",
@@ -360,6 +360,14 @@ export const games: Game[] = [
         "Lampe-Argent-Livre : Poche",
         "Billet-Courant-journal : Coupure",
         "Pomme-Rose-Sang : Rouge", 
+        "Crime-Ménage-Théâtre : Scène",
+        "Page-Poche-Sterling : Livre",
+        "Grise-Monde-Menu : Carte",
+        "Cheveux-Lit-Chercheuse : Tête",
+        "Manche-Pression-Fleur : Bouton",
+        "Vague-Enfant-Soeur : Âme",
+        "Bouchon-Mer-Gaz : Bouteille",
+        "Voiture-Mèche-Cire : Bougie",
     ],
     story: "Si le maître du jeu ne voit pas le lien entre l'objet et la réponse du joueur, il peut demander des explications. Vos amis n'auront jamais été aussi créatifs que lorsqu'il faut gagner !",
     is_premium: true,

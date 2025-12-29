@@ -36,7 +36,7 @@ const GameFullView = ({
       )}
       
       {/* Avantage Premium - entre description courte et rules pour les jeux premium quand l'utilisateur n'est pas premium */}
-      {game.is_premium && !isUserPremium && game.avantagePremium && game.avantagePremium.trim() && (
+      {game.is_premium && !isUserPremium && (
         <PremiumAdvantageCard
           game={game}
           isAuthenticated={isAuthenticated}
