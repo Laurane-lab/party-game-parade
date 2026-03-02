@@ -30,7 +30,7 @@ const GameFullView = ({
     <>
       {/* Description courte pour les jeux premium avant les règles complètes */}
       {game.is_premium && (
-        <div className="text-base font-sans mb-6">
+        <div className="text-base font-sans mb-6 max-w-xl lg:max-w-md mx-auto">
           <p className="text-gray-700">{game.shortDescription}</p>
         </div>
       )}
