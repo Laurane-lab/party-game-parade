@@ -37,8 +37,6 @@ const PremiumAdvantageCard = ({
   const genericAdvantages = [
     "Accès supplémentaire aux 7 jeux premium",
     "Règles complètes et listes de matériel",
-    "Exemples créatifs et variantes",
-    "Accès à vie - payez une fois, jouez toujours",
     "Accès anticipé aux nouveaux packs de jeux"
   ];
 

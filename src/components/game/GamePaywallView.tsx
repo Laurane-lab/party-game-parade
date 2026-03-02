@@ -22,12 +22,41 @@ const GamePaywallView = ({
   onNavigateToConnexion,
   onNavigateToConnexionForPayment
 }: GamePaywallViewProps) => {
+  const previewExamples = game.examples?.slice(0, 2) ?? [];
+
   return (
     <>
       {/* Description courte pour les jeux premium */}
       {game.is_premium && (
-        <div className="text-base font-sans mb-6">
+        <div className="text-base font-sans mb-6 max-w-xl lg:max-w-md mx-auto">
           <p className="text-gray-700">{game.shortDescription}</p>
+        </div>
+      )}
+
+      {previewExamples.length > 0 && (
+        <div className="font-sans mb-8 max-w-xl lg:max-w-md mx-auto text-left">
+          <h3 className="text-sm font-semibold text-gray-700 mb-2">Exemples</h3>
+          <div className="space-y-2">
+            {previewExamples.map((example, index) => {
+              const hasHtml = /<[a-z][\s\S]*>/i.test(example);
+
+              if (hasHtml) {
+                return (
+                  <p
+                    key={index}
+                    className="text-sm text-gray-600 leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: example }}
+                  />
+                );
+              }
+
+              return (
+                <p key={index} className="text-sm text-gray-600 leading-relaxed">
+                  {example}
+                </p>
+              );
+            })}
+          </div>
         </div>
       )}
       
@@ -42,10 +71,8 @@ const GamePaywallView = ({
         />
       )}
       
-      <GameStoryQuote story={game.story} />
-      
-      {/* Formulaire Brevo pour inscription newsletter */}
-      <GameBrevoForm />
+      <GameStoryQuote story={game.story} isCompact />
+<GameBrevoForm isCompact />
     </>
   );
 };
