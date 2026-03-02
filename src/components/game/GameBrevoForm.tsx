@@ -1,8 +1,12 @@
 import BrevoForm from "@/components/BrevoForm";
 
-const GameBrevoForm = () => {
+interface GameBrevoFormProps {
+  isCompact?: boolean;
+}
+
+const GameBrevoForm = ({ isCompact = false }: GameBrevoFormProps) => {
   return (
-    <div className="mt-8 max-w-2xl">
+    <div className={isCompact ? "mt-8 max-w-xl lg:max-w-md mx-auto" : "mt-8 max-w-2xl"}>
       <BrevoForm />
     </div>
   );

@@ -2,11 +2,16 @@ const catMascot = "/assets/New mascot.png";
 
 interface GameStoryQuoteProps {
   story: string;
+  isCompact?: boolean;
 }
 
-const GameStoryQuote = ({ story }: GameStoryQuoteProps) => {
+const GameStoryQuote = ({ story, isCompact = false }: GameStoryQuoteProps) => {
   return (
-    <div className="mt-8 bg-party-pink/10 rounded-lg p-4 flex items-center gap-4 shadow-md border border-party-pink/40">
+    <div
+      className={`mt-8 bg-party-pink/10 rounded-lg p-4 flex items-center gap-4 shadow-md border border-party-pink/40 ${
+        isCompact ? "max-w-xl lg:max-w-md mx-auto" : ""
+      }`}
+    >
       <img
         src={catMascot}
         alt="Mascotte Aperololo"

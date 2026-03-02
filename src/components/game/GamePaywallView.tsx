@@ -71,10 +71,8 @@ const GamePaywallView = ({
         />
       )}
       
-      <GameStoryQuote story={game.story} />
-      
-      {/* Formulaire Brevo pour inscription newsletter */}
-      <GameBrevoForm />
+      <GameStoryQuote story={game.story} isCompact />
+<GameBrevoForm isCompact />
     </>
   );
 };
