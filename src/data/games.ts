@@ -198,8 +198,8 @@ export const games: Game[] = [
         "Un volontaire peut commencer le tour ou tu peux faire un tirage au sort.",
     ],
     examples: [
-        "Quel est le plus grand océan du monde ?",
-        "Qui a chanté 'Shape of You' ?",
+        "Tour 1 : regarde ton partenaire de gauche et fait lui une grimace.",
+        "Tour 2 : imite un animal et pointe du doigt le prochain joueur à devoir en imiter un autre.",
     ],
     story: "Vous pouvez ajouter autant de tours que vous voulez. Un concours de blagues de darons par exemple.",
     is_premium: true,
